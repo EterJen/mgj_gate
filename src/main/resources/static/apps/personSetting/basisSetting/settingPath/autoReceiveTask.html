@@ -1,0 +1,18 @@
+<div class="bmxx_tit" style="margin-bottom: 2px" >
+    <div class="left"><img src="images/bmxx_tit-02.png">自动接收设置</div>
+</div>
+<div class="panel-body fixedHeight" style="margin-top:25px;padding-right: 0px;padding-left: 0px;">
+    <div class="table_shadow" style="overflow-x: hidden;overflow-y:auto; margin-bottom: 0; max-height: 75%" > <!-- style="overflow:auto; height: 60%" -->
+        <form class="form-horizontal" id="userEditForm" name="userEditForm" role="form">
+            <div class="form-group">
+                <label for="usermode" class="col-sm-3 control-label">代办任务自动接收*</label>
+                <div class="col-sm-9">
+                    <select id="usermode" class="input-sm form-control" ng-model="selectedUser.autoReceiveTask" ng-options='x.id as x.name for x  in userModeOptions' required> </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div  align="center" style="margin-top: 10px">
+        <button type="submit" class="btn btn-primary btn-enter" ng-click="autoReceiveTaskModify()" >保存</button>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.LinkedMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			LINKED t
+  		<where>
+			isdelete=0
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(name)">
+				<bind name="nameB" value="'%' + name + '%'"/>
+				and t.name like #{nameB}
+			</if>
+			order by t.sortid asc
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.Linked" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+
+	<select id="selectMaxSortId" resultType="decimal" >
+		select
+		nvl(max(SortId),0) + 1
+		from
+		LINKED t
+		<where>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(isdelete)">
+
+				and t.isdelete = #{isdelete}
+			</if>
+		</where>
+	</select>
+
+  
+</mapper>

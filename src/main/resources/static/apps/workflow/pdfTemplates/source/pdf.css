@@ -1,0 +1,119 @@
+/*设定纸张大小*/
+/* A4纸 */
+/* @page{size:210mm*297mm} */
+@page {
+	size: a4
+}
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid silver
+    }
+
+    .hideslb {
+        overflow-y: hidden;
+    }
+
+    .showslb {
+        overflow-y: auto;
+    }
+
+    legend {
+        padding: .5em;
+        border: 0;
+        width: auto
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+	.GwTitleRedLargeBigSF {
+    font-size: 33px;
+    font-weight: 700;
+    color: rgb(245, 0, 0);
+    font-family: FZYaoti;
+    padding: 10px;
+	}
+	.tblGw01 {
+    font-size: 12px;
+    border-collapse: collapse;
+	}
+	.tblGw01 .td02 {
+    font-size: 14px;
+    color: F50000;
+    border: 1px solid;
+    padding: 3px;
+	text-align:center
+	}
+	input{
+	text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+	}
+	.Inputhidden01 {
+    color: black;
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    font-family: FangSong_GB2312;
+    font-weight: bold !important;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    font-weight: bold;
+}
+.Inputhidden011 {
+    height: inherit;
+    color: black;
+    overflow-y: hidden;
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    font-weight: bold !important;
+    font-family: FangSong_GB2312 !important;
+}
+.tab-fontfamily {
+    font-family: FangSong_GB2312 !important;
+   
+}
+.tblGw01 .td04 {
+    color: #F50000;
+    font-family: FangSong_GB2312;
+    font-weight: bold !important;
+    padding: 3px;
+    font-family: FangSong_GB2312;
+}
+.tblGw01 .td05 {
+    font-size: 14px; 
+    font-weight: bold;
+    color: 333;
+    border-bottom: 1px solid #F88F8F;
+    padding: 3px;
+    font-family: FangSong_GB2312;
+}
+.fontSizeFamily {
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    font-weight: bold !important;
+    font-family: FangSong_GB2312 !important;
+}
+tr td {
+    font-size: 14px !important;
+    font-family: FangSong_GB2312;
+}

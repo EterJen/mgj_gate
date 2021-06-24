@@ -1,0 +1,94 @@
+<table class="table table-bordered">
+	<tr>
+		<td colspan="8" align="center">项目基本信息</td>
+	</tr>
+	<tr>
+		<td colspan="1" align="center" width="15%">项目名称</td>
+		<td colspan="7" align="left">{{projectInfo.projectname}}</td>
+	</tr>
+	<tr>
+		<td colspan="1" align="center">申报单位</td>
+		<td colspan="3" align="left">{{projectInfo.buildoffice}}</td>
+		<td colspan="1" align="center">立项单位</td>
+		<td colspan="3" align="left">{{projectInfo.otherbuildoffice}}</td>
+	</tr>
+	<tr>
+		<td colspan="1" align="center">项目编码</td>
+		<td colspan="3" align="left">{{projectInfo.projectCode}}</td>
+		<td colspan="1" align="center">总投资</td>
+		<td colspan="3" align="left">{{projectInfo.allcountcost}}</td>
+	</tr>
+	<tr>
+		<td colspan="8" align="center">
+			<a class="btn btn-primary" ng-click="openAddAndEditMoneyDialog('add')">新增</a>
+		</td>
+	</tr>
+	<table class="table table-bordered">
+		<tr>
+			<td align="center" colspan="6"><b>已拨付资金列表</b></td>
+		</tr>
+		<tr>
+			<td align="center"><b>拨付日期</b></td>
+			<td align="center"><b>费用名称</b></td>
+			<td align="center"><b>拨付金额</b></td>
+			<td align="center"><b>资金来源</b></td>
+			<td align="center"><b>状态</b></td>
+			<td align="center"><b>操作</b></td>
+		</tr>
+		<tr ng-repeat="moneyManage in projectInfo.moneyManageList">
+			<td>{{::moneyManage.replyDate}}</td>
+			<td>{{::moneyManage.moneyName}}</td>
+			<td>{{::moneyManage.moneyAmount}}</td>
+			<td>{{::moneyManage.moneySourceChinense}}</td>
+			<td>{{::moneyManage.currentStateChinese}}</td>
+			<td align="center">
+			 	<a ng-repeat="actionDef in moneyManage.actionList" class="btn btn-primary" style="margin-right:2px" ng-click="handleBeanActions(actionDef,moneyManage)">{{::actionDef.actionChinese}}</a>
+			</td>
+		</tr>
+	</table>
+</table>
+   
+<div class="modal fade" id="addAndEditMoneyDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				资金拨付详情
+			</div>
+			<div class="modal-body">
+				<table class="table table-bordered">
+					<tr>
+						<td width="30%">拨付日期：</td>
+						<td><input class="input-sm" type="text"  ng-model="moneyManageEdit.replyDate" readonly data-date-format="yyyy-mm-dd" data-provide="datepicker"/></td>
+					</tr>
+					<tr>
+						<td>费用名称：</td>
+						<td><input type="text" ng-model="moneyManageEdit.moneyName" class="input-sm" /></td>
+					</tr>
+					<tr>
+						<td>拨付金额(万元)：</td>
+						<td><input type="text" ng-model="moneyManageEdit.moneyAmount" class="input-sm" /></td>
+					</tr>
+					<tr>
+						<td>资金来源：</td>
+						<td>
+							<select class="input-sm" ng-model="moneyManageEdit.moneySource"> 
+			                    <option value="">请选择</option>
+			                    <option value="1">区级补贴</option> 
+			                    <option value="2">镇财政</option> 
+			                    <option value="3">村（居）及公司自筹</option> 
+			                    <option value="4">其他资金</option> 
+			                </select>
+						</td>
+					</tr>
+					<tr style="text-align:center">
+						<td colspan="2">
+							<a class="btn btn-info" ng-click="saveMoneyManage()">保存</a>
+							<a class="btn btn-info" ng-click="closeAddAndEditMoneyDialog()">取消</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>   
+   

@@ -1,0 +1,186 @@
+<style>
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid silver
+    }
+
+    .hideslb {
+        overflow-y: hidden;
+    }
+    #middelForm{
+        margin-top: 98px !important;
+    }
+
+    .showslb {
+        overflow-y: auto;
+    }
+
+    legend {
+        padding: .5em;
+        border: 0;
+        width: auto
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    .editable {
+        border: 1px solid green;
+    }
+</style>
+<!--<div style="height: 863px">-->
+<div style="height: 888px">
+
+    <table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+
+        <tr>
+            <td align="center" class="td03" style=" width: 880px;">
+	            <p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-7px;">
+		            <font face="方正姚体" color="black">上海市长城电子会议通知</font>
+	            </p>
+            </td>
+            <td align="right" class="td03">
+                <table width="110" border="0" cellpadding="0" cellspacing="0" class="tblGw01">
+                    <tr align="center">
+                        <td width="60%" class="td02b">密&nbsp;&nbsp;&nbsp;&nbsp;级</td>
+                        <td width="60%" class="td02b">
+                            <input name="密级" ng-click="$event.currentTarget.readOnly || choseDicType('SecurityLevel')"
+                                    ng-model="task.theCommonFormInfo.secretLevel" type="text" class="Inputhidden01" style="width: 100%;height: 100%;" onMouseOver="this.className='Inputhidden01Hover'"
+                                    onMouseOut="this.className='Inputhidden01'"></td>
+                    </tr>
+                    <tr align="center">
+                        <td class="td02b">紧急程度</td>
+                        <td class="td02b">
+                            <input name="紧急程度" ng-click="$event.currentTarget.readOnly || choseDicType('emergenceLevel')"
+                                    ng-model="task.theCommonFormInfo.emergenceLevel" type="text" class="Inputhidden01" style="width: 100%;height: 100%;" onMouseOver="this.className='Inputhidden01Hover'"
+                                    onMouseOut="this.className='Inputhidden01'"></td>
+                    </tr>
+                    <tr align="center">
+                        <td class="td02b">委内公开</td>
+                        <td class="td02b">
+                            <input name="委内公开" ng-model="publicityLevelDetail.wngk"
+                                    ng-click="$event.currentTarget.readOnly || publicityLevelClick('wngk')" type="text" class="Inputhidden01"  style="width: 100%;height: 100%;" onMouseOver="this.className='Inputhidden01Hover'"
+                                    onMouseOut="this.className='Inputhidden01'"></td>
+                    </tr>
+                    <tr align="center">
+                        <td class="td02b">信息公开</td>
+                        <td class="td02b">
+                            <input name="信息公开" ng-model="publicityLevelDetail.zdgk"
+                                    ng-click="$event.currentTarget.readOnly || publicityLevelClick('zdgk')" type="text" class="Inputhidden01"  style="width: 100%;height: 100%;" onMouseOver="this.className='Inputhidden01Hover'"
+                                    onMouseOut="this.className='Inputhidden01'"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+        <tr>
+            <TD colspan="4">&nbsp;</TD>
+        </TR>
+	    <tr>
+		    <td class="td04b" width="12%">会议编号:</td>
+		    <td width="88%" class="td05b">
+			    <input name="会议编号" ng-model="task.theCommonFormInfo.formMeeting.meetingNumber"
+			           type="text" style="width: 100%;height: 100%;"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+		    </td>
+	    </tr>
+	    <tr>
+		    <td class="td04b" width="12%">收到时间:</td>
+		    <td width="88%" class="td05b">
+			    <input name="收到时间" ng-model="task.theCommonFormInfo.formMeeting.receiveDate"
+			           type="text" style="width: 100%;height: 100%;"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+		    </td>
+	    </tr>
+	    <tr>
+		    <td class="td04b" width="12%">发出单位:</td>
+		    <td width="88%" class="td05b">
+			    <input name="发出单位" ng-model="task.theCommonFormInfo.formMeeting.issueUnit"
+			           type="text" style="width: 100%;height: 100%;"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+		    </td>
+	    </tr>
+	    <tr>
+		    <td class="td04b" width="12%">会议时间:</td>
+		    <td width="88%" class="td05b">
+			    <input name="会议时间" ng-model="task.theCommonFormInfo.formMeeting.meetingTime"
+			           type="text" style="width: 40%;height: 100%;margin-right: 20px;"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+			    <input name="会议星期" ng-model="task.theCommonFormInfo.formMeeting.meetingWeekday"
+			           type="text" style="width: 40%;height: 100%;"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+		    </td>
+	    </tr>
+	    <tr>
+		    <td class="td04b" width="12%">会议地点:</td>
+		    <td width="88%" class="td05b">
+			    <input name="会议地点" ng-model="task.theCommonFormInfo.formMeeting.meetingAddress"
+			           type="text" style="width: 100%;height: 100%;"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+		    </td>
+	    </tr>
+	    <tr>
+		    <td class="td04b" width="12%">出席对象:</td>
+		    <td width="88%" class="td05b">
+			    <input name="出席对象" ng-model="task.theCommonFormInfo.formMeeting.meetingAttend"
+			           type="text" style="width: 100%;height: 100%;"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+		    </td>
+	    </tr>
+	    <tr>
+		    <td width="100%" colspan="2" class="td04b"><p class="mptd1">会议内容:</p></td>
+	    </tr>
+	    <tr>
+		    <td height="250" width="100%" colspan="2" valign="top">
+			    <textarea name="会议内容"
+			              ng-model="task.theCommonFormInfo.formMeeting.meetingContent"
+			              type="text"
+			              style="width: 100%;height: 100%;" class="Inputhidden01"
+			              onMouseOver="this.className='Inputhidden01Hover'"
+			              onMouseOut="this.className='Inputhidden01'" size="18">
+				</textarea>
+		    </td>
+	    </tr>
+	    <tr>
+		    <td width="100%" colspan="2" class="td04b"><p class="mptd1">流转批示:</p></td>
+	    </tr>
+	    <tr>
+		    <td height="250" width="100%" colspan="2"  valign="top">
+			    <div style="height:inherit;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+			         onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+				    <div class="user-option" ng-repeat="o in task.userOpinions.banniqingkuang">{{o.opinion}}<span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0">    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+			    </div>
+		    </td>
+	    </tr>
+	    <tr>
+		    <td class="td04b" width="12%">登录人:</td>
+		    <td width="88%" class="td05b">
+			    <input name="登录人" ng-model="task.theCommonFormInfo.formMeeting.meetingRegisterPerson"
+			           type="text" style="width: 40%;height: 100%;margin-right: 20px;"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+			    <input name="登录时间" ng-model="task.theCommonFormInfo.formMeeting.meetingRegisterDate"
+			           type="text" style="width: 40%;height: 100%;"
+			           data-date-format="yyyy-mm-dd"
+			           data-provide="datapicker"
+			           class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'"
+			           onMouseOut="this.className='Inputhidden01'" size="9">
+		    </td>
+	    </tr>
+    </table>
+</div>

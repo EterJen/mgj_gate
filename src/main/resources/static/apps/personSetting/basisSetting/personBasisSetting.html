@@ -1,0 +1,53 @@
+<script type="text/ng-template" id="nodes_renderer.html">
+	<div ui-tree-handle class="tree-node tree-node-content" style="cursor:hand;" ng-click="changeSettingIterm(node,$event)" ng-dblclick="toggle(this)">
+        <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+            <!-- <span class="fa"
+                  ng-class="{'fa-plus': collapsed, 'fa-minus': !collapsed}">
+            </span> -->
+            <img src="images/zd-anv-01.png" style="margin-left:4px;">
+        </a>
+        <a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0">
+            <!-- <span   class="fa fa-folder" style="font-size: 1.2rem;color: #337AB7;"></span>--></a>
+
+        <span class="angular-ui-tree-span" ng-if="node.name.length>9">{{node.name | limitTo : 9}}</span>
+        <span class="angular-ui-tree-span" ng-if="node.name.length<=9">{{node.name}}</span>
+
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'" ng-show="visible(node)"></li>
+    </ol>
+
+</script>
+
+<script type="text/ng-template" id="nodes_renderer_btn.html">
+	<div ui-tree-handle  class="tree-node tree-node-content " style="cursor:hand; text-align: center" ng-click="cleanCache()" >
+		<span class="angular-ui-tree-span" >清除缓存</span>
+	</div>
+</script>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+				  <div class="gdt_cont fixedHeight " style="padding-right: 0; padding-left: 0;">
+					  <div class="treeTitle"><b>个人配置</b></div>
+					  <!--<div class="xz_cont" ng-click="cleanCache()">清除缓存</div>-->
+					  <div ui-tree="treeOptions" class="tree-root" data-drag-enabled="false" id="tree-root" data-drag-delay="300">
+						  <ol ui-tree-nodes="" ng-model="data">
+							  <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'" ng-show="visible(node)"></li>
+						  </ol>
+						  <!--<ol  >
+							  <li  ui-tree-node ng-include="'nodes_renderer_btn.html'" ></li>
+						  </ol>-->
+					  </div>
+				  </div>
+				  <div class="details" >
+                      <div ui-view="settingPath">
+					  </div>
+				  </div>
+			   </div>
+			</div>
+		</div>
+	</section>
+</div>

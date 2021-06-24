@@ -1,0 +1,605 @@
+@media screen and (min-width: 1000px)and (max-width: 1920px) {
+    .login-bg {
+        min-width: 1260px
+    }
+}
+
+@media screen and (max-width: 1400px)  and (min-width: 1026px) {
+    .main-bg {
+        width: 100%
+    }
+
+    .sidebar ul {
+        width: 100%
+    }
+
+    .logo {
+        width: 100%
+    }
+
+    .breadcrumb {
+        width: 100%
+    }
+
+    .main-bg {
+        width: 100%
+    }
+
+    .login-wrap {
+        width: 100%
+    }
+
+    .login-bg {
+        width: 100%
+    }
+}
+
+@media screen and (max-width: 1400px)  and (min-width: 1026px) {
+    .main-bg {
+        width: 100%
+    }
+
+    .sidebar ul {
+        width: 100%
+    }
+
+    .logo {
+        width: 100%
+    }
+
+    .breadcrumb {
+        width: 100%
+    }
+
+    .main-bg {
+        width: 100%
+    }
+
+    .login-wrap {
+        width: 100%
+    }
+
+    .login-bg {
+        width: 100%
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    #big-sidebar {
+        display: block;
+    }
+
+    #small-sidebar {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+    #big-sidebar {
+        display: none
+    }
+
+    #small-sidebar {
+        display: none
+    }
+
+    .register-tit .red {
+        display: block
+    }
+
+    .register-wrap .login-tit {
+        display: block
+    }
+
+    .head {
+        height: 250px;
+        background: url(../images/head-bg-mid.png) bottom no-repeat;
+        background-size: 100% auto;
+        box-sizing: border-box
+    }
+
+    .logo {
+        width: 100%;
+        height: 150px;
+        background: url(../images/logo-mid.png) no-repeat top left 1.6rem;
+        background-size: 27rem auto;
+        padding: 0 2rem;
+        box-sizing: border-box
+    }
+
+    .logo div {
+        padding: 7rem 0 0 0;
+        background: none;
+        width: 100%
+    }
+
+    .head-date {
+        display: none
+    }
+
+    .logo input {
+        border-radius: 0;
+        height: 45px;
+        border: 1px solid #75a3d3;
+        width: 100%
+    }
+
+    .main-bg {
+        width: 100%;
+        padding: 0 1rem;
+        box-sizing: border-box
+    }
+
+    .owl-wrap, .tpxw, .index-list, .rukou, .rukou-button, .index-zxsp {
+        width: 100%
+    }
+
+    .p-l-20 {
+        padding: 0
+    }
+
+    .rukou-button {
+        padding: 0;
+        margin-top: 1rem
+    }
+
+    .foot {
+        height: 130px;
+        box-sizing: border-box;
+        padding-top: 18px
+    }
+
+    .foot p {
+        font-size: 16px
+    }
+
+    .foot-icon {
+        background: url(../images/foot-1.png) no-repeat left 12px top 2px;
+    }
+
+    .main-bg > div {
+        margin-top: 1rem
+    }
+
+    .heikuang span {
+        width: 60%
+    }
+
+    #owl-demo .item {
+        width: 100%
+    }
+
+    .owl-item {
+        width: 100%
+    }
+
+    .main {
+        padding-bottom: 1rem
+    }
+
+    .main-bg > div > div, .rukou-button button {
+        /*box-shadow: 0 2px 4px #bfcad4;*/
+    }
+
+    .ldps li {
+        padding-left: 0
+    }
+
+    .sidebar-mid {
+        position: fixed;
+    }
+
+    .sidebar {
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1001;
+        width: 60%;
+        bottom: 0;
+        margin: 0;
+        border-radius: 0;
+        width: 60%;
+    }
+
+    .sidebar li {
+        float: none;
+        border: none;
+        width: 100%;
+        line-height: 42px;
+        margin: 10px 0
+    }
+
+    .sidebar li:before {
+        display: none
+    }
+
+    .sidebar-sel {
+        background: none
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin: 0;
+        position: relative;
+        left: 0;
+        background: #00468e;
+        height: 100%;
+        float: right
+    }
+
+    .breadcrumb {
+        display: none
+    }
+
+    .sh-bg {
+        padding-top: 0
+    }
+
+    .m-t-20 {
+        margin-top: 0
+    }
+
+    .m-t-20 > div {
+        margin-top: 0;
+        width: 100%;
+        position: inherit;
+        float: none
+    }
+
+    .list-left ul {
+        padding: 0;
+        display: flex;
+        overflow-x: auto
+    }
+
+    .list-left li {
+        float: left;
+        box-sizing: border-box;
+        padding: 0;
+        text-align: center;
+        padding: 0 1rem;
+        white-space: nowrap;
+    }
+
+    .list-left .list-left-sel {
+        padding: 0;
+        border: 0;
+        padding: 0 1rem;
+    }
+
+    .list-left .list-left-sel:after {
+        content: none
+    }
+
+    .list-right {
+        margin-left: 0
+    }
+
+    .p-0 {
+        padding: 0
+    }
+
+    .list-left li a {
+        width: 50%
+    }
+
+    .list-secondary li span {
+        font-size: .875rem;
+        top: 2px
+    }
+
+    .list-secondary li a {
+        /*width: 64%*/
+        padding-right: 130px;
+    }
+
+    .list-bott li {
+        /*display: none*/
+    }
+
+    .list-bott .mid-bott {
+        display: block
+    }
+
+    .list-bott {
+        box-shadow: none !important
+    }
+
+    .list-right {
+        padding-bottom: 10px
+    }
+
+    .fanhui {
+        /*display: none*/
+    }
+
+    .fujian {
+        box-shadow: none !important
+    }
+
+    .final img {
+        max-width: 90%;
+        width: 100%;
+        height: auto
+    }
+
+    .mid-head {
+        position: fixed;
+        top: 0;
+        z-index: 1
+    }
+
+    .sidebar-mid {
+        display: block;
+        top: .8rem
+    }
+
+    .owl-wrap {
+        height: 266px !important
+    }
+
+    .cyjd {
+        width: 100%;
+        padding: 0 20px;
+        padding-bottom: 20px
+    }
+
+    .symm {
+        width: 100%
+    }
+
+    .symm button {
+        bottom: -76px
+    }
+
+    .cyjd-img-1 {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 30px;
+        height: 240px;
+        background-size: cover
+    }
+
+    .cyjd-3,
+    .cyjd-4,
+    .cyjd-5 {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 30px
+    }
+
+    .cyjd-3 img,
+    .cyjd-4 img,
+    .cyjd-5 img {
+        width: 100%;
+        height: auto
+    }
+
+    .login-wrap {
+        width: 100%;
+        height: calc(100% - 130px)
+    }
+
+    .login-content {
+        top: 0;
+        transform: translateY(0);
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        box-shadow: none
+    }
+
+    .register-content {
+        width: 100%;
+        top: 0;
+        transform: translateY(0);
+        position: inherit;
+        padding: 30px 16px;
+        border-radius: 0;
+        margin-bottom: 0;
+        box-shadow: none
+    }
+
+    .register-wrap {
+        height: auto;
+        padding-top: 0
+    }
+
+    .input-register {
+        width: 100%;
+        position: absolute
+    }
+
+    .register-main .remind {
+        width: 100%;
+        position: inherit;
+        margin: 10px 0;
+        top: 10px;
+        transform: translateY(0);
+        padding-left: 94px
+    }
+
+    .register-main > div {
+        height: auto;
+        margin: 30px 0
+    }
+
+    .register-name {
+        height: auto;
+        display: block;
+        float: none;
+        text-align: left;
+        width: auto;
+        height: 32px;
+        line-height: 32px
+    }
+
+    .register-input-content {
+        height: auto;
+        margin: 10px 0
+    }
+
+    .register-input-content {
+        margin-left: 0
+    }
+
+    .input-register {
+        top: -47px;
+        transform: translateY(0);
+        width: 79%;
+        right: 0
+    }
+
+    .width-986 {
+        width: 100%;
+        top: 0;
+        border-radius: 0
+    }
+
+    .yzm-content {
+        width: 37%;
+        top: -47px;
+        transform: translateY(0);
+        left: inherit;
+        right: 0
+    }
+
+    .yzm input {
+        width: 37%
+    }
+
+    .register-btn-content button {
+        width: 48%
+    }
+
+    .yzm .input-register {
+        left: 80px
+    }
+
+    .yzm {
+        padding-top: 30px
+    }
+
+    .rukou-button {
+        width: 25% !important;
+        padding: 0 10px
+    }
+
+    .rukou-button span {
+        font-size: 19px;
+        color: #fff;
+        font-weight: 600;
+        width: 65%;
+        /*display: inline-block;*/
+        text-align: left;
+        position: absolute;
+        left: 36px;
+    }
+
+    .rukou > div {
+        box-shadow: none !important
+    }
+
+    .bg-white {
+        padding: 0
+    }
+
+    .bold-tit {
+        margin-top: 0;
+        padding: 10px 0px 0 0px;
+        box-sizing: border-box
+    }
+
+    .li-tab li {
+        /*width: 50%;*/
+        /*width: 33%;*/
+        display: table-cell;
+        box-sizing: border-box;
+        margin: 0 4px;
+    }
+
+    .li-tab {
+        padding: 0 20px;
+        box-sizing: border-box;
+        width: 100%
+    }
+
+    .li-tab ul {
+        /*width: 66%;*/
+        display: table;
+    }
+
+    .bg-white img {
+        width: 100%
+    }
+
+    .bg-white > div {
+        padding: 0 20px 20px 20px
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .tplj-img {
+        float: none;
+        width: 100%
+    }
+
+    .tplj-content {
+        margin-left: 0
+    }
+}
+
+    @media screen and (max-width: 375px) {
+        .owl-wrap {
+            height: 203px !important
+        }
+
+        .video {
+            height: 137px
+        }
+    }
+
+    @media screen and (max-width: 325px) {
+        .owl-wrap {
+            height: 185px !important
+        }
+    }
+
+    @media screen and (max-width: 540px) {
+        .owl-wrap {
+            height: 304px !important
+        }
+    }
+
+    @media screen and (max-width: 414px) {
+        .owl-wrap {
+            height: 224px !important
+        }
+
+        .video {
+            height: 152px
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        .owl-wrap {
+            height: 171px !important
+        }
+
+        .logo {
+            background-size: 20rem auto;
+        }
+
+        .video {
+            height: 116px
+        }
+    }
+
+    @media screen and (min-width: 1441px) and (max-width: 1680px) {
+    }
+
+    @media screen and (min-width: 1681px) and (max-width: 1919px) {
+    }
+
+

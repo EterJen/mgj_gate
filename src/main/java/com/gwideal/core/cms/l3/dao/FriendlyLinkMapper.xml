@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.FriendlyLinkMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			FRIENDLY_LINK t
+  		<where>
+		    ${dynamicConditions}
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(titleLike)">
+				<bind name="titleB" value="'%' + titleLike + '%'"/>
+				and t.NAME like #{titleB}
+			</if>
+			order by t.CATEGORY_SORT_NUMBER asc, t.SORT_NUMBER  asc
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.FriendlyLink" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+
+    <update id="batchDelete">
+		update
+		FRIENDLY_LINK t
+		<set>
+			t.IF_DELETE = '1'
+		</set>
+		<where>
+			<foreach collection="ids" item="id" separator="," open="t.id in (" close=")">#{id}</foreach>
+		</where>
+	</update>
+</mapper>

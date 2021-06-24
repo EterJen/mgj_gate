@@ -1,0 +1,352 @@
+<style>
+    .as-sortable-item, .as-sortable-placeholder {
+         margin: 0;
+        display: table-row;
+        vertical-align: inherit;
+         border-radius: 0px;
+    }
+</style>
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content" ng-click="dicCategoryFocus(node,$event)" ng-dblclick="toggle(this)">
+        <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)">
+            <img ng-show="collapsed" src="images/zd-anv-02.png" style="margin-left:4px;">
+            <img ng-show="!collapsed" src="images/zd-anv-01.png" style="margin-left:4px;">
+        </a>
+        <span class="angular-ui-tree-span">{{node.name}}</span>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ng-show="node.visible == undefined ?  true :node.visible" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+    </ol>
+    <ol ui-tree-nodes="" ng-model="node.dicModes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="post in node.dicModes" ui-tree-node ng-show="post.visible == undefined ?  true :post.visible">
+            <div ui-tree-handle class="tree-node tree-node-content" ng-click="dicModeFocus(post,$event)">
+				<a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0">
+            	</a>                
+				<span class="angular-ui-tree-span">{{post.cname}}</span>
+            </div>
+        </li>
+    </ol>
+</script>
+
+<div class="modal fade bs-example-modal-lg" id="postDetailDialog" tabindex="-1" role="dialog" aria-labelledby="postModalLbel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" ng-click="dcnewCancel()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" >&times;</span>
+                </button>
+                <h4 class="modal-title" id="postModalLbel">请填写字典分类基本信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="postEditForm" name="postEditForm" role="form">
+                    <!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">分类名称*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="name" id="name" ng-model="activeDicCategory.name" placeholder="请输入字典分类名称" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="deptname" class="col-sm-2 control-label">分类描述</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入字典分类描述" id="deptname" name="deptname" ng-model="activeDicCategory.description">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <!--<button type="reset" class="btn btn-danger btn-sm cancel">重置</button>-->
+                <button type="button" class="btn btn-default btn-close btn-sm cancel" data-dismiss="modal" ng-click="dcnewCancel()">关闭</button>
+                <button type="submit" class="btn btn-primary btn-enter btn-sm save" ng-click="newDicCategory()" ng-disabled="postEditForm.$invalid">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="dmModal" tabindex="-1" role="dialog" aria-labelledby="dmModalLbel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="dmModalLbel">请填写字典基本信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="dmEditForm" name="dmEditForm" role="form">
+                    <!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="dmname" class="col-sm-2 control-label">字典名*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="dmname" id="dmname" ng-model="activeDicMode.dictype" placeholder="请输入字典名" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="splitMode" class="col-sm-2 control-label">模式</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入字典模式" id="splitMode" name="splitMode" ng-model="activeDicMode.splitMode">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cname" class="col-sm-2 control-label">中文名</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入中文名" id="cname" name="cname" ng-model="activeDicMode.cname">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <!--<button type="reset" class="btn btn-danger btn-sm cancel">重置</button>-->
+                <button type="button" class="btn btn-default btn-close btn-sm cancel"  data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary btn-enter btn-sm save" ng-click="newDm()" ng-disabled="dmEditForm.$invalid">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="dtModal" tabindex="-1" role="dialog" aria-labelledby="dmModalLbel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="dtModalLbel">请填写字典项基本信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="dtEditForm" name="dtEditForm" role="form">
+                    <!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="dmname" class="col-sm-2 control-label">中文名*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="dtname" id="dtname" ng-model="postBean.name" placeholder="请输入字典项中文名" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="splitMode" class="col-sm-2 control-label">描述</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入字典项描述" id="dtdescription" name="dtdescription" ng-model="postBean.description">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cname" class="col-sm-2 control-label">英文名</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入字典项英文名" id="dtename" name="dtename" ng-model="postBean.ename">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cname" class="col-sm-2 control-label">扩展</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入扩展信息" id="dtext" name="dtext" ng-model="postBean.ext">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <!--<button type="reset" class="btn btn-danger btn-sm cancel">重置</button>-->
+                <button type="button" class="btn btn-default btn-close btn-sm cancel"  data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary btn-enter btn-sm save" ng-click="newDt()" ng-disabled="dtEditForm.$invalid">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="panel panel-default">
+            <div class="row">
+                <div class="gdt_cont fixedHeight " style="padding-right: 0; padding-left: 14px;">
+                    <!--ng-blur="$broadcast('angular-ui-tree:expand-all')"-->
+                    <div class="treeTitle">
+                        <b>系统字典</b>
+                        <div class="postSearch">
+                            <input ng-model="queryText" class="" placeholder="查询" ng-focus="$broadcast('angular-ui-tree:collapse-all')" ng-keyup="enterKeyup($event)" type="text"/> <i ng-click="calTreeVisible()"><img src="images/search-3.png"></i>
+                        </div>
+
+                    </div>
+                    <!-- <div class="form-group">
+                    	<input ng-model="queryText" class="form-control" placeholder="查询岗位" ng-focus="$broadcast('angular-ui-tree:collapse-all')" ng-keyup="enterKeyup($event,'queryDeptsTree')" type="text"/>
+                    </div> -->
+                    <div ui-tree id="tree-root" data-drag-enabled="false" class="tree-root">
+                        <ol ui-tree-nodes="" ng-model="dicCategoryList">
+                            <li ng-repeat="node in dicCategoryList" ui-tree-node data-collapsed="true" ng-show="node.visible == undefined ?  true :node.visible" ng-include="'nodes_renderer.html'"></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="details" style="padding-left: 2px">
+                    <div class="pdivdc" ng-if="activeDicCategory.ngActived">
+                        <div class="bmxx_tit" id="depart_tit">
+                            <div class="left"><img src="images/bmxx_tit-01.png"> 字典分类信息
+                            </div>
+                            <div class="right">
+                                <a href="" ng-click="showDialog('postDetailDialog','new')" class="tj"><img src="images/add.svg">新增分类</a>
+                                <a href="" class="bj" style="margin-left: 7px;" ng-click="showDialog('postDetailDialog','update')">
+                                    <img src="images/edit.svg">修改分类
+                                </a>
+                                <a href="" class="sc" ng-click="delDicCategory()"><img src="images/remove.svg">删除分类</a>
+                            </div>
+                        </div>
+                        <div class="table_1">
+                            <table class="table table-condensed table_zdy">
+                                <tr>
+                                    <td width="15%" class="mc_name">分类名称：</td>
+                                    <td width="35%">
+                                        <span>{{activeDicCategory.name}}</span>
+                                    </td>
+                                    <td width="15%" class="mc_name">分类描述:</td>
+                                    <td width="35%">
+                                        <span>{{activeDicCategory.description}}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="bmxx_tit">
+                            <div class="left"><img src="images/bmxx_tit-02.png">已配置字典</div>
+                            <div class="right">
+                                <a href="" ng-click="showDialog('dmModal','new')"  class="tj"><img src="images/add.svg">新增字典</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="table_dm" class="table_1" ng-if="activeDicCategory.ngActived">
+                        <table class="table table-striped  table_zdy_2" style="margin-bottom: 0;">
+                            <thead>
+                            <tr>
+                                <th style="vertical-align: middle;">
+                                    <input ng-change="nodeTrClick(null,allUsersRoot,null,activeDicCategory.dicModes,$event)" type="checkbox" ng-model="allUsersRoot.checked"/>
+                                </th>
+                                <th>字典名</th>
+                                <th>模式</th>
+                                <th>中文名</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tr ng-repeat="u in activeDicCategory.dicModes">
+                                <td>
+                                    <input type="checkbox" ng-change="nodeTrClick(allUsersRoot,u,activeDicCategory.dicModes,null,$event)" name="checkItem" ng-model="u.checked"/>
+                                </td>
+                                <td>{{u.dictype}}</td>
+                                <td>{{u.splitMode}}</td>
+                                <td> {{u.cname}}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-xs" ng-click="showDialog('dmModal','update',u)">修改</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="pdivdc" ng-if="activeDicMode.ngActived">
+                        <div class="bmxx_tit">
+                            <div class="left"><img src="images/bmxx_tit-01.png"> 字典信息
+                            </div>
+                            <div class="right">
+                                <a href="" ng-click="showDialog('dmModal','new')" class="tj"><img src="images/add.svg">新增字典</a>
+                                <a href="" class="bj" style="margin-left: 7px;" ng-click="showDialog('dmModal','update',u)">
+                                    <img src="images/edit.svg">修改字典
+                                </a>
+                                <a href="" class="sc" ng-click="delDicMode()"><img src="images/remove.svg">删除字典</a>
+                            </div>
+                        </div>
+                        <div class="">
+                            <table class="table table-condensed table_zdy">
+                                <tr>
+                                    <td width="15%" class="mc_name">字典名:</td>
+                                    <td width="35%">
+                                        <span>{{activeDicMode.dictype}}</span>
+                                    </td>
+                                    <td width="15%" class="mc_name">模式:</td>
+                                    <td width="35%">
+                                        <span>{{activeDicMode.splitMode}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="15%" class="mc_name">中文名:</td>
+                                    <td width="35%" colspan="3">
+                                        <span>{{activeDicMode.cname}}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="bmxx_tit" ng-if="sortableIsdisabled">
+                            <div class="left"><img src="images/bmxx_tit-02.png">已配置字典项</div>
+                            <div class="right">
+                                <a href="" ng-click="showDialog('dtModal','new')"  class="tj"><img src="images/add.svg">新增字典项</a>
+                                <a href="" ng-click="delUsersFromPost()"  class="sc"><img src="images/remove.svg">删除字典项</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="table_dt" class="table_1" ng-if="activeDicMode.ngActived">
+                        <div class="table_1" id="table_1">
+                            <table class="table table-striped  table_zdy_2" style="" ng-if="sortableIsdisabled">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">
+                                            <input ng-change="nodeTrClick(null,allUsersRoot,null,dicTypeList,$event)" type="checkbox" ng-model="allUsersRoot.checked"/>
+                                        </th>
+                                        <th width="20%">中文名</th>
+                                        <th width="50%">描述</th>
+                                        <th width="10%">英文名</th>
+                                        <th width="8%" align="center" style="vertical-align: middle;">操作</th>
+                                        <th  width="7%"  align="center" style="vertical-align: middle;">
+                                            <a href="" class="btn btn-primary btn-sm" style="margin: 0" ng-click="isOrderUser()">{{userOrderTitle}}</a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tr ng-repeat="u in dicTypeList">
+                                    <td>
+                                        <input type="checkbox" ng-change="nodeTrClick(allUsersRoot,u,dicTypeList,null,$event)" name="checkItem" ng-model="u.checked"/>
+                                    </td>
+                                    <td>{{u.name}}</td>
+                                    <td>{{u.description}}</td>
+                                    <td> {{u.ename}}</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-xs" style="margin: 0" ng-click="showDialog('dtModal','update',u)">修改</a>
+                                    </td>
+                                    <td>{{$index+1}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="bmxx_tit" ng-if="!sortableIsdisabled">
+                            <div class="left"><img src="images/bmxx_tit-02.png">请用鼠标左键点击表格拖拽排序</div>
+                            <div class="right">
+                                <a href="" class="bj" style="margin-left: 7px;" ng-click="saveDicTypeOrder()">
+                                    <img src="images/edit.svg">保存修改
+                                </a>
+                                <a href="" ng-click="isOrderUser()" class="sc"><img src="images/remove.svg">取消排序
+                                </a>
+                            </div>
+                        </div>
+                        <div class="sorttable" id="sorttable">
+                            <table class="table table-striped  table_zdy_2" style="margin-bottom: 0;" id="table-container" ng-if="!sortableIsdisabled">
+                                <tbody data-ng-model="dicTypeList" as-sortable="dragControlListeners" >
+                                    <tr  as-sortable-item ng-repeat="u in dicTypeList"  class="sorTable">
+                                        <td width="20%" as-sortable-item-handle>{{u.name}}</td>
+                                        <td width="50%" as-sortable-item-handle>{{u.description}}</td>
+                                        <td width="20%" as-sortable-item-handle> {{u.ename}}</td>
+                                        <td width="20%" as-sortable-item-handle>{{$index+1}}</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

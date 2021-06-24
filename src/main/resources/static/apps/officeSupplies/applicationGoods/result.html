@@ -1,0 +1,75 @@
+<style>
+    .searchgoods{
+        width: 80%;
+        height: 35px;
+        font-size: 16px;
+    }
+    .bta{
+        background: #3986c8;
+        border-bottom: 2px solid #5880c9;
+        width: 96px;
+        height: 27px;
+        line-height: 27px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #fff !important;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        text-decoration: none !important;
+        margin-left: 3px;
+    }
+
+</style>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="65px">申请时间:</td>
+        <td width="15%">
+            <input type="text" class="form-control"  placeholder="请输入起始日期" readonly="readonly" ng-model="queryBean.createTimeStart" data-date-format="yyyy-mm-dd 00:00:00" data-provide="datepicker">
+            <!--<input type="text" style="width: 100%"  ng-model="queryBean.createTimeStart"  placeholder="请输入分类名称">-->
+        </td>
+        <td width="35px">至</td>
+        <td width="15%">
+            <input type="text" class="form-control"  placeholder="请输入结束日期" readonly="readonly" ng-model="queryBean.createTimeEnd" data-date-format="yyyy-mm-dd 23:59:59" data-provide="datepicker">
+           <!-- <input type="text" style="width: 100%"  ng-model="queryBean.createTimeEnd"  placeholder="请输入分类名称">-->
+        </td>
+        <td width="65px">申请状态:</td>
+        <td width="15%">
+            <select  class="form-control"   ng-model="queryBean.status">
+                <option value="" ng-selected="true">所有</option>
+                <option value="{{key}}"  ng-repeat="(key,val) in dataObject.applicationStutasList">{{val}}</option>
+            </select>
+        </td>
+        <td>
+            <a href="" class="bta" ng-click="searchGoods()">查询</a>
+        </td>
+    </tr>
+</table>
+
+<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+    <thead>
+    <tr>
+        <th class="" width="35px"></th>
+        <th width="20%">申请部门</th>
+        <th width="75%">申请时间</th>
+        <th width="75%">申请人</th>
+        <th width="75%">申请月份</th>
+        <th width="75%">状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="goods in dataObject.goodsList"  ng-click="applicationChecked(goods)"  ng-dblclick="dbApplication()">
+        <td>
+            <input  type="checkbox" ng-model="goods.checked">
+        </td>
+        <td>{{goods.applicationSector}}</td>
+        <td>{{goods.createTime | date: 'yyyy-MM-dd'}}</td>
+        <td>{{goods.creatorName}}</td>
+        <td>{{goods.createTime | date:'MM'}}</td>
+        <td>{{goods.statusName}}</td>
+    </tr>
+    </tbody>
+</table>

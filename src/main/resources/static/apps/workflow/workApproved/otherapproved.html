@@ -1,0 +1,29 @@
+<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+	<thead>
+		<tr>
+			<th width="6%">报批日期</th>
+			<th class="conllection-first-th" style="width:12% !important">报批号</th>
+			<th width="40%">团组名称</th>
+			<th width="10%">出访国家和地区</th>
+			<th width="6%">出访日期</th>
+			<th width="8%">呈报处室</th>
+			<th width="6%">经办人</th>
+			<th width="4%">操作</th>
+		</tr>
+	</thead>
+	<tr ng-repeat="proInst in proInstList" taskId="{{proInst.taskId}}" name="{{proInst.formDefId}}"
+		  ng-click="gotoDetail(proInst)"  >
+		<td>{{::proInst.createTime | limitTo : 10}}<br>{{::proInst.createTime | limitTo : -8}}</td>
+		<td id="pop{{proInst.id}}"  >{{::proInst.docFullName}}</td>
+		<td  style="text-align: left;">{{::proInst.title}}</td>
+		<td></td>
+		<td>{{::proInst.createTime | limitTo : 10}}</td>
+		<td></td>
+		<td>{{::proInst.creatorName}}</td>
+		<td>
+			<button type="button" ng-if="proInst.handleState=='登录'" ng-click="deleteProInstDialog(proInst);$event.stopPropagation();" ng-show="!ngDisableDelete" class="btn btn-xs btn-danger">删除</button>
+		</td>
+	</tr>
+</table>
+
+

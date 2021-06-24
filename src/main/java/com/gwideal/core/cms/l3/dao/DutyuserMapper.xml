@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.DutyuserMapper">
+	<update id="adjustSortId">
+		update DUTYUSER o set o.SORTID = (select tro + #{sortid}  from (select id tid,rownum tro from DUTYUSER
+		where ISDELETE = 0 and DEPARTMENT = #{department} and SORTID <![CDATA[>=]]> #{sortid} order by SORTID asc)t where t.tid = o.id)
+		where o.ISDELETE = 0 and o.DEPARTMENT = #{department} and o.SORTID <![CDATA[>=]]> #{sortid};
+	</update>
+
+
+	<select id="list" resultMap="listResultMap" >
+  		select
+  			t.*
+  		from
+  			DUTYUSER t
+  		<where>
+			t.isdelete=0
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(name)">
+				<bind name="nameB" value="'%' + name + '%'"/>
+				and t.name like #{nameB}
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(department)">
+				and t.department = #{department}
+			</if>
+			order by t.sortid asc
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.Dutyuser" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+
+	<select id="selectMaxSortId" resultType="decimal" >
+		select
+		nvl(max(SORTID),0) + 1
+		from
+		DUTYUSER t
+		<where>
+			and t.ISDELETE = 0
+			and t.DEPARTMENT = #{department}
+		</where>
+	</select>
+
+
+	 <select id="getDutyusers" resultMap="listResultMap" >
+	 	select * from DUTYUSER where <![CDATA[ department=#{department} ]]>  and isdelete=0 order by sortid
+  	</select>
+
+
+
+</mapper>

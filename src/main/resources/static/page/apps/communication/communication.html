@@ -1,0 +1,75 @@
+<style>
+    .black{
+        color: black;
+    }
+    a:hover{
+        text-decoration:none;
+    }
+</style>
+
+
+<div class="listmain clearfix">
+    <div class="mbx">
+        <a href="">局内通讯</a>
+
+    </div>
+    <input ng-model="queryBean.name" ng-keyup="enterKeyup($event)" placeholder="请输入您要搜索的姓名,回车确认搜索。">
+    <div class="listcontent clearfix textcontent">
+        <table class="index-table bule">
+            <tr>
+                <th width="20%">姓名</th>
+                <th width="25%">职务</th>
+                <th width="10%">红机</th>
+                <th  width="20%">联系电话</th>
+                <th  width="25%">手机号码</th>
+
+
+            </tr>
+            <tr ng-repeat="cms in fc.beanList">
+                <td class="tc">{{cms.name}}</td>
+                <td>{{cms.duty}}</td>
+                <td>{{cms.redphone}}</td>
+                <td>{{cms.tel}}</td>
+                <td>{{cms.phone}}</td>
+            </tr>
+
+
+
+        </table>
+        <!--<ul>
+            <li ng-repeat="cms in fc.beanList" >
+                <a>{{cms.name}}</a>
+                <a  class="glyphicon glyphicon-download-alt" ng-click="fc.download(cms)" style="color: red"></a>
+
+                <p>{{cms.createtime}}</p>
+            </li>
+
+        </ul>-->
+
+
+    </div><!--list-end-->
+
+
+    <div class="ceter_p" id="ceter_p">
+        <div class="ceter_s">
+            <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+        </div>
+    </div>
+
+    <!--<div class="list-bott">
+        <ul>
+            <li><a href="#"><</a></li>
+            <li class="bott-tabon"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">></a></li>
+
+
+        </ul>
+    </div>-->
+
+</div><!--main-end-->

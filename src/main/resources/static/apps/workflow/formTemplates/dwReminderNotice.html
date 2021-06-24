@@ -1,0 +1,243 @@
+<style>
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid silver
+    }
+
+    .hideslb {
+        overflow-y: hidden;
+    }
+
+    .showslb {
+        overflow-y: auto;
+    }
+
+    legend {
+        padding: .5em;
+        border: 0;
+        width: auto
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+</style>
+
+<table style="width: 104%;margin-left: -20px;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td align="center" class="td03" height="86px">
+            <p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-10px;">
+                <font face="方正姚体">上海市长城电子督查事项催办通知单</font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" class="td04">
+            <span>{{task.theCommonFormInfo.belongProInst.relatedReceiveDocId}}</span>
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td colspan="3" class="td04">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td05" width="30%">
+            <input name="承办部门" ng-model="task.theCommonFormInfo.belongProInst.chenBanDepart" ng-dblclick="$event.currentTarget.readOnly || fc.chooseDeparName('chenBanDepart')" type="text" class="Inputhidden01 formCtrlField" style="width: 100%;height: 100%;" size="20">
+        </td>
+        <td class="td04" width="50%">:</td>
+        <td width="20%"></td>
+    </tr>
+    <tr>
+        <td class="td04">&nbsp;&nbsp;&nbsp;&nbsp;此件（&nbsp;来&nbsp;文&nbsp;字&nbsp;号</td>
+        <td class="td05">
+            <input name="来文字号" ng-model="task.theCommonFormInfo.belongProInst.incomingDocNum" type="text" class="Inputhidden01 formCtrlField" style="width: 100%;height: 100%;" size="20">
+        </td>
+        <td class="td04">&nbsp;文&nbsp;件&nbsp;标&nbsp;题:</td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td  class="td05" width="97%">
+            <input name="标题" ng-model="title1" class="InputHidden01 "  style="resize:none; width: 100%;height: 100%;"></input>
+        </td>
+        <td  class="td04">
+
+        </td>
+    </tr>
+    <tr>
+        <td  class="td05" >
+            <input name="标题2" ng-model="title2" class="InputHidden01 " id="title2"  style="resize:none; width: 100%;height: 100%;"></input>
+        </td>
+        <td  class="td04">
+            ）
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td04" width="140px">
+            的办理工作也被列为
+        </td>
+        <td class="td05" width="50%">
+            <input  name="来文单位" ng-model="task.theCommonFormInfo.belongProInst.incomingDocDepart" ng-dblclick="$event.currentTarget.readOnly || fc.chooseDeparName('incomingDocDepart')"  type="text" class="Inputhidden01" style="" value="" size="10" >
+        </td>
+        <td class="td04">
+            督查项目。
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <td colspan="3" class="td04" height="10px">&nbsp;
+    </td>
+    <tr>
+        <td class="td04" width="100px">&nbsp;&nbsp;&nbsp;&nbsp;请你处于</td>
+        <td class="td05" width="90px">
+            <input id="xianBanTime" data-link-field="xianBanTimeb" ng-model="task.theCommonFormInfo.belongProInst.xianBanTime" ng-time
+                   style="width: 0;" name="限办日期" data-link-format="yyyy-mm-dd" data-date-format="yyyy-mm-dd hh:ii:ss" type="text"
+                   class="Inputhidden01 form_date">
+            <input  focus-hiden="xianBanTime" id="xianBanTimeb" value="{{task.theCommonFormInfo.belongProInst.xianBanTime|limitTo:10}}"
+                   readonly="readonly" type="text" size="12" onMouseOver="this.className='Inputhidden01Hover'"
+                   onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+        </td>
+        <td class="td04">
+            以前完成下列办理事项：
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td colspan="4" class="td04">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td04" width="5%">
+            1.
+        </td>
+        <td class="td04" width="10%">
+            请会同
+        </td>
+        <td class="td05" width="80%"><!--ng-click="$event.currentTarget.readOnly || fc.mattersClk('agree')"-->
+            <input  name="请会同" for="agree" ng-model="task.theCommonFormInfo.belongProInst.authorshipService"   ng-dblclick="$event.currentTarget.readOnly || fc.chooseDeparName('authorshipService')"  type="text" class="Inputhidden01" style="" value="" size="10" >
+        </td>
+        <td class="td04" width="5%">
+            <input id="agree"  type="checkbox" ng-model="fc.reminderNoticeList.agree" ng-click="$event.currentTarget.readOnly || fc.matterscheckBox('agree')">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="td04">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td04">
+            2.
+        </td>
+        <td class="td04" colspan="2" style="cursor: pointer" ng-click="$event.currentTarget.readOnly || fc.mattersClk('opinions')">
+            <span  for="opinions">提出处理意见。</span>
+        </td>
+        <td class="td04">
+            <input id="opinions"  type="checkbox" ng-model="fc.reminderNoticeList.opinions" ng-click="$event.currentTarget.readOnly || fc.matterscheckBox('opinions')">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="td04">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td04">
+            3.
+        </td>
+        <td class="td04" colspan="2" style="cursor: pointer" ng-click="$event.currentTarget.readOnly || fc.mattersClk('progress')">
+            <span for="progress">告知办理进展情况。</span>
+        </td>
+        <td class="td04">
+            <input id="progress"  type="checkbox" ng-model="fc.reminderNoticeList.progress" ng-click="$event.currentTarget.readOnly || fc.matterscheckBox('progress')">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="td04">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td04">
+            4.
+        </td>
+        <td class="td04" colspan="2" style="cursor: pointer" ng-click="$event.currentTarget.readOnly || fc.mattersClk('result')">
+            <span for="result">反馈处理结果。</span>
+        </td>
+        <td class="td04">
+            <input id="result"  type="checkbox" ng-model="fc.reminderNoticeList.result" ng-click="$event.currentTarget.readOnly || fc.matterscheckBox('result')">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="td04">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td04">
+            5.
+        </td>
+        <td class="td05" colspan="2"><!--ng-click="$event.currentTarget.readOnly || fc.mattersClk('otherResult')"-->
+            <input  name="其他" for="otherResult"  ng-model="task.theCommonFormInfo.belongProInst.cityApproval"  type="text" class="Inputhidden01" style="" value="" size="10" >
+        </td>
+        <td class="td04">
+            <input id="otherResult" type="checkbox" ng-model="fc.reminderNoticeList.otherResult" ng-click="$event.currentTarget.readOnly || fc.matterscheckBox('otherResult')">
+        </td>
+    </tr>
+</table>
+
+
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <td colspan="2" class="td04">&nbsp;
+    </td>
+    <tr>
+        <td width="70%" class="td04">
+            联系人：叶志向
+            电话：19202
+        </td>
+        <td width="30%"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="td04">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td  class="td04">
+
+        </td>
+        <td  class="td04" align="center">
+            上海市长城电子党委办公室
+        </td>
+    </tr>
+
+    <tr>
+        <td  class="td04">
+
+        </td>
+        <td  class="td04" align="center">
+            <input id="denluTime" data-link-field="denluTimeb" ng-model="task.theCommonFormInfo.belongProInst.denluTime" ng-time style="width: 0;"
+                   data-link-format="yyyy-mm-dd" name="登录日期" data-date-format="yyyy-mm-dd hh:ii:ss" type="text" class="Inputhidden01 form_date_tr">
+            <input  focus-hiden="denluTime" id="denluTimeb" value="{{task.theCommonFormInfo.belongProInst.denluTime|limitTo:10}}"
+                   readonly="readonly" type="text" size="12" onMouseOver="this.className='Inputhidden01Hover'"
+                   style="color: #F50000;text-align:center;font-family: 仿宋_GB2312;font-weight: bold !important;padding: 3px;"
+                   onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+        </td>
+    </tr>
+</table>
+
+
+

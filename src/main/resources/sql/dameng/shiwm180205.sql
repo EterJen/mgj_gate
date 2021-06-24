@@ -1,0 +1,1 @@
+alter table ORGRU alter PRIORITY rename to ORDERNUM;

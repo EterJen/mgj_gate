@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.LogMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			LOG t
+  		<where>
+		    ${dynamicConditions}
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(nameLike)">
+				<bind name="nameB" value="'%' + nameLike + '%'"/>
+				and t.ACCOUNT like #{nameB}
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(starttime)">
+				and (
+				<![CDATA[
+				(  #{starttime} <=  t.CREATETIME )
+                ]]>
+				)
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(endtime)">
+				and (
+				<![CDATA[
+				(  t.CREATETIME  <=    #{endtime})
+                ]]>
+				)
+			</if>
+		</where>
+		order by CREATETIME desc
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.Log" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+  
+</mapper>

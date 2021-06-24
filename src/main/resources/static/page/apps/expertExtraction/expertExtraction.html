@@ -1,0 +1,54 @@
+<style>
+    button[disabled]{
+        color: #fff !important;
+        background: #dd9898 !important;
+        border-color: #dd9898 !important;
+        pointer-events: none;
+        cursor: not-allowed;
+        filter: alpha(opacity=65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: .65;
+    }
+    button[disabled]:hover{
+        background-color: #dd9898;
+        border-color: #dd9898;
+        color: black;
+    }
+
+    .btn{
+        background: #cb4039;
+        border-bottom: 2px solid #cb4039;
+        color: #fff !important;
+    }
+</style>
+
+
+<div class="textmain clearfix">
+    <form class="form-horizontal" id="articleSortForm" name="articleSortForm">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">项目名称*</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" ng-model="newBean.displayname" maxlength="100" placeholder="请输入项目名称" required>
+            </div>
+        </div>
+
+        <p style="color: red;">设定专家人数</p>
+        <div class="form-group" ng-repeat="e in fc.expertstypeList">
+            <label for="titleSort" class="col-sm-2 control-label">{{e.typename}}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" numberic id="titleSort" ng-model="e.pageNo" maxlength="100" placeholder="请输入人数" >
+            </div>
+            <!--<label class="col-sm-1 control-label">人</label>-->
+        </div>
+
+        <div style="text-align: center">
+            <button type="button" ng-disabled="articleSortForm.$invalid" class="btn btn-sm save" ng-click="articleSortForm.$invalid || fc.saveBean()">确认</button>
+        </div>
+
+
+
+    </form>
+
+
+</div>

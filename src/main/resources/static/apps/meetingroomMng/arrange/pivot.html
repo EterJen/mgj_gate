@@ -1,0 +1,49 @@
+<style>
+	table tbody td{cursor: default;}
+	#title{margin-left:270px;padding-bottom: -20px; padding-left: 22px;padding-right: 42px; background:#f1f2f3;}
+</style>
+<div class="gdt_cont" style="padding-right: 0; padding-left: 0;overflow:auto;overflow-x:hidden;max-height: 85%">
+	<div ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+		<ol ui-tree-nodes="" ng-model="data">
+			<li ng-repeat="node in meetingrooms" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+		</ol>
+	</div>
+</div>
+<div id="title">
+	<div class="bmxx_tit" id="depart_tit">
+		<div class="left"><img src="images/bmxx_tit-01.png">{{meetingDateQueryStr}}安排</div>
+	</div>
+	<table class="table table-striped table_zdy_2">
+		<thead>
+		<tr>
+			<th width="15%">时间</th>
+			<th width="20%" ng-repeat="date in dates" ng-bind-html="date"></th>
+		</tr>
+		</thead>
+	</table>
+</div>
+<div class="details" style="padding-left: 2px;max-height: 80%;padding-top: 2px;">
+	<!--<div class="bmxx_tit" id="depart_tit">
+		<div class="left"><img src="images/bmxx_tit-01.png">{{meetingDateQueryStr}}安排</div>
+	</div>-->
+	<table class="table table-striped table_zdy_2" style="margin-bottom: 10px;">
+		<!--<thead>
+		<tr>
+			<th width="15%">时间</th>
+			<th width="20%" ng-repeat="date in dates" ng-bind-html="date"></th>
+		</tr>
+		</thead>-->
+		<tbody>
+		<tr ng-repeat="app in data">
+			<td width="15%">{{::app.time}}</td>
+			<td width="20%">{{::app.mon}}</td>
+			<td width="20%">{{::app.tue}}</td>
+			<td width="20%">{{::app.wed}}</td>
+			<td width="20%">{{::app.thu}}</td>
+			<td width="20%">{{::app.fri}}</td>
+			<td width="20%">{{::app.sat}}</td>
+			<td width="20%">{{::app.sun}}</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

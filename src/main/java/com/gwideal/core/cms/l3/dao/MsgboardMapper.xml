@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.MsgboardMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			MSGBOARD t
+  		<where>
+			isdelete=0
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(orguser)">
+				<bind name="orguserB" value="'%' + orguser + '%'"/>
+				and t.orguser like #{orguserB}
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(examine)">
+				and t.examine = 1
+			</if>
+			order by t.createtime desc
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.Msgboard" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+  
+</mapper>

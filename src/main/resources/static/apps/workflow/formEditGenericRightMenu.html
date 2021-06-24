@@ -1,0 +1,44 @@
+<div class="sidebar_right" style="width: 100%;border: 0;padding-top: 5px">
+    <div class="sidebar_right_nav" >
+        <!--<div class="sidebar_head sidebar_head_right" ></div>-->
+        <ul class="sidebar_right_nav_ul" style="height: 100%;padding-top:20px;overflow-y: auto;overflow-x: hidden">
+            <li ng-if="fc.evalFormActionPreCon(task.formActionMap[actionId].preCondition)" ng-repeat="actionId in task.selFormActIdListOfBelNode" >
+                <a href="" style="width: 80%" ng-click="fc.handleFormAction(task.formActionMap[actionId])">
+                   <img style="height: 20px;    width: 20px;" ng-src="{{task.formActionMap[actionId].imageUrl}}">
+                    <span style="font-weight: bold;line-height: 45px; white-space: pre;letter-spacing: 2px">{{task.formActionMap[actionId].name}}</span>
+                </a>
+            </li>
+            <!--<i nf-if="fc.rightFormActIdListOfBelNode!=null&&fc.rightFormActIdListOfBelNode.length>0" class="hr" style="width: 80%;background: url(../../images/hr.png);"></i>-->
+            <!--<li ng-if="fc.evalFormActionPreCon(task.formActionMap[actionId].preCondition)" ng-repeat="actionId in fc.rightFormActIdListOfBelNode" >
+                <a href="" ng-click="fc.handleFormAction(task.formActionMap[actionId])">
+                    <img ng-src="task.formActionMap[actionId].imageUrl">{{task.formActionMap[actionId].name}}
+                </a>
+            </li>-->
+
+            <!--<li >
+                <a href="" ng-click="fc.printForm()">
+                    <img src="images/sidebar_right-bc.svg">测试下载
+                </a>
+            </li>-->
+        </ul>
+        
+        <!--<div class="sidebar_head sidebar_head_right" ng-if="fc.remainTusksNum > 0" ></div>-->
+
+        <!--<div class="xgdb_cont" ng-if="fc.remainTusksNum > 0" style="margin: 0">
+            <h2 ng-if="fc.remainTusksNum > 0">
+                <i ng-click="returnTasklist()">
+                    <small>{{fc.remainTusksNum + 1}}</small>
+                </i>
+                <span >下个待办 </span>
+            </h2>
+            <h2 ng-if="!(fc.remainTusksNum > 0)">
+                <i ng-click="returnTasklist()">
+                    <small>1</small>
+                </i>
+                <span >无下个待办 </span>
+            </h2>
+            <p  style="cursor:pointer" ng-mouseenter="$parent.showtimes = true" ng-mouseleave="$parent.showtimes = false" ng-click="fc.goToNextTask()"> {{fc.nextTusk.belongingProInst.title | cut:true:9:'...' }}</p>
+            <p ng-show="showtimes && fc.nextTusk.belongingProInst.title.length  > 9" >{{fc.nextTusk.belongingProInst.title}}</p>
+        </div>-->
+    </div> 
+</div>

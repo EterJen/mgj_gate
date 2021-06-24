@@ -1,0 +1,175 @@
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=5,IE=9" ><![endif]-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>流程定制</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="styles/grapheditor.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/AdminLTE.min.css">
+	<link rel="stylesheet" href="../css/skin-blue.css">
+	<link rel="stylesheet" href="../css/datepicker3.css">
+	<link rel="stylesheet" href="../css/daterangepicker.css">
+	<link rel="stylesheet" href="../css/app.css">
+	<link rel="stylesheet" href="../css/ng-sortable.min.css">
+	<link rel="stylesheet" href="../css/ng-sortable.style.min.css">
+	<link rel="stylesheet" href="../js/angularjs-ui-tree/angular-ui-tree.min.css"> 
+	<link rel="stylesheet" href="../js/sweetalert-master/sweetalert.css"> 
+	<link rel="stylesheet" href="../css/layout.css">
+	<link rel="stylesheet" href="../css/Reset.css">
+	<!--<link rel="stylesheet" href="../css/processForm.css">-->
+	<link rel="stylesheet" href="../css/font-Awesome-master/css/font-awesome.min.css">
+	<style>
+		.form-group {
+			margin-bottom:0px;
+		}
+	</style>
+</head>
+<body ng-app="myApp" ng-controller="formCtrl">
+	<div class="wrapper">
+		<header class="main-header">
+			<a href="" class="logo">
+		      <span style="color:#FFF6D5"><b><img src="../images/logo.png"></b><!--BAS--></span>
+		    </a>
+		    <nav class="navbar navbar-static-top">
+		     <div class="admin_cont">
+		        <div class="admin_cont_w">
+		           <div class="gly"><i><img src="../images/gly-02.png"></i><b>{{currUserInfo.name}}</b><a href="" ng-click="loginout()">[退出]</a></div>
+		        </div>
+		     </div>
+		    </nav> 
+	    </header>
+	   <!--  <ul class="nav nav-tabs">
+			<li ng-repeat="menu in mainmenuList track by $index" ng-class="{'active':menu.isActive,'':!menu.isActive}"><a href="" ng-click="handleMainMenu(menu)">{{::menu.name}}</a></li>
+		</ul> -->
+    </div>
+	<div id="editorContainer" ng-show="editMode=='workflow'">
+		<!-- <div id="menubarContainer" class="geMenubarContainer"></div>
+		<div id="toolbarContainer" class="geToolbarContainer"></div> -->
+		
+		<div id="sidebarContainer" class="geSidebarContainer" style="background-color:white">
+			<a id="sideBarFolder" href="javascript:void(0);" class="geTitle" style="background-position: 0% 50%;background-color:#E0E7F1;color:#4B7BC7"><b>流程元素</b></a>
+			<div id="outerDivForSideBar">
+				<div id="sideBarThumbContainer" class="geSidebar" style="background-color:white"></div>
+			</div>
+		</div>
+		<div id="formatContainer" class="geSidebarContainer"  style="background-color:white" >
+			<!-- <ul class="nav nav-tabs">
+				<li ng-repeat="menu in menuList track by $index" ng-class="{'active':menu.isActive,'':!menu.isActive}"><a href="" ng-click="handleMenu(menu)">{{::menu.name}}</a></li>
+			</ul> -->
+			<div style="height: 100%" ng-include="formPath"></div>
+		</div>
+		<div id="diagramContainer" class="geDiagramContainer"></div>
+		<div id="footerContainer" class="geFooterContainer" hidden></div>
+		<div id="hsplit" class="geHsplit"></div>
+	</div>
+	<div ng-include="'propertyForms/modalDialogs.html'"></div>
+
+	<div class="flyover">
+		<div class="spinner">
+			<div class="rect1"></div>
+			<div class="rect2"></div>
+			<div class="rect3"></div>
+			<div class="rect4"></div>
+			<div class="rect5"></div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		// Parses URL parameters. Supported parameters are:
+		// - lang=xy: Specifies the language of the user interface.
+		// - touch=1: Enables a touch-style user interface.
+		// - storage=local: Enables HTML5 local storage.
+		// - chrome=0: Chromeless mode.
+		var urlParams = (function(url)
+		{
+			var result = new Object();
+			var idx = url.lastIndexOf('?');
+	
+			if (idx > 0)
+			{
+				var params = url.substring(idx + 1).split('&');
+				
+				for (var i = 0; i < params.length; i++)
+				{
+					idx = params[i].indexOf('=');
+					
+					if (idx > 0)
+					{
+						result[params[i].substring(0, idx)] = params[i].substring(idx + 1);
+					}
+				}
+			}
+			return result;
+		})(window.location.href);
+	
+		// Default resources are included in grapheditor resources
+		mxLoadResources = false;
+	</script>
+	<script type="text/javascript" src="js/Init.js"></script>
+	<script type="text/javascript" src="jscolor/jscolor.js"></script>
+	<script type="text/javascript" src="sanitizer/sanitizer.min.js"></script>
+	<script type="text/javascript" src="mxsrc/js/mxClient.js"></script>
+	<script type="text/javascript" src="jsForTB/EditorUi.js"></script>
+	<script type="text/javascript" src="jsForTB/Editor.js"></script>
+	<script type="text/javascript" src="jsForTB/Sidebar.js"></script>
+	<script type="text/javascript" src="jsForTB/Graph.js"></script>
+	<script type="text/javascript" src="jsForTB/Shapes.js"></script>
+	<script type="text/javascript" src="jsForTB/Actions.js"></script>
+	<!-- <script type="text/javascript" src="jsForTB/Menus.js"></script> -->
+	<script type="text/javascript" src="jsForTB/Format.js"></script>
+	<!-- <script type="text/javascript" src="jsForTB/Toolbar.js"></script> -->
+	<script type="text/javascript" src="jsForTB/Dialogs.js"></script>
+	<script src="../js/sweetalert-master/sweetalert.min.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/jquery-ui.min.js"></script>
+	<script src="../js/moment.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/bootstrap-datepicker.js"></script>
+	<script src="../js/daterangepicker.js"></script>
+	<script src="../js/bootstrap-datepicker.zh-CN.js"></script>
+	<script src="../js/calulation.js"></script>
+	<script src="../js/angular.min.js"></script>
+	<script src="../js/pagination.js"></script>
+	<script src="../js/angular-ui-router.min.js"></script>
+	<script src="../js/angular-sanitize.min.js"></script>
+	<script src="../js/ocLazyLoad.min.js"></script>
+	<script src="../js/angular-animate.min.js"></script>
+	<script src="../js/ajaxfileupload.js"></script>
+	<script src="../js/angularjs-ui-tree/angular-ui-tree.min.js"></script>
+	<script src="../js/angular-cookie.min.js"></script>
+	<script src="../js/ng-sortable.min.js"></script>
+	<script src="../js/jcs-auto-validate.min.js"></script>
+	<script src="../js/angularjs-dropdown-multiselect.js"></script>
+	<script type="text/javascript">
+		var timestamp = 202009231941;
+	</script>
+	<script>document.write("<script src='../config.js?rnd="+timestamp+"'></s"+"cript>");</script>    	
+	<script type="text/javascript">
+		var theUiEditor=null;
+		(function(){
+			mxResources.loadDefaultBundle = false;
+			var bundle = mxResources.getDefaultBundle(RESOURCE_BASE, mxLanguage) || mxResources.getSpecialBundle(RESOURCE_BASE, mxLanguage);
+			mxUtils.getAll([bundle, STYLE_PATH + '/default.xml'], function(xhr){
+				// Adds bundle text to resources
+				mxResources.parse(xhr[0].getText());
+				// Configures the default graph theme
+				var themes = new Object();
+				themes[Graph.prototype.defaultThemeName] = xhr[1].getDocumentElement(); 
+				var editorContainer = document.getElementById("editorContainer");
+				// Main
+				theUiEditor = new EditorUi(new Editor(urlParams['chrome'] == '0', themes),editorContainer);
+			}, function(){
+				document.body.innerHTML = '<center style="margin-top:10%;">Error loading resource files. Please check browser console.</center>';
+			});
+		})();
+	</script>
+	<script>
+		var myApp = angular.module('myApp', ['paginationA','angularjs-dropdown-multiselect']);
+	</script>
+	<script src="propertyForms/service.js"></script>
+	<script src="propertyForms/formCtrl.js"></script>
+</body>
+</html>

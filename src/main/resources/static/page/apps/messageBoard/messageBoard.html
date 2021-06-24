@@ -1,0 +1,159 @@
+<style>
+    button[disabled]{
+        color: #fff !important;
+        background: #dd9898 !important;
+        border-color: #dd9898 !important;
+        pointer-events: none;
+        cursor: not-allowed;
+        filter: alpha(opacity=65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: .65;
+    }
+    button[disabled]:hover{
+        background-color: #dd9898;
+        border-color: #dd9898;
+        color: black;
+    }
+
+    .btn{
+        background: #cb4039;
+        border-bottom: 2px solid #cb4039;
+        color: #fff !important;
+    }
+    .bmxx_tit .right {
+        float: right;
+        font-size: 16px;
+        clolr: #474747;
+        font-weight: bold;
+        padding-top: 3px;
+    }
+    .bmxx_tit .right a.bj {
+        background: #cb4039;
+        /* border-bottom: 2px solid #5880c9; */
+    }
+    .bmxx_tit .right a {
+        width: 96px;
+        height: 27px;
+        line-height: 27px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #fff;
+    }
+</style>
+
+
+<div class="listmain clearfix">
+    <div class="mbx">
+        <a href="">留言板管理</a>
+
+    </div>
+    <!--<input ng-model="queryBean.orguser" ng-keyup="enterKeyup($event)" placeholder="请输入姓名,回车确认搜索。">-->
+    <!--<a href="" class="zbb-btn btn btn-danger btn-sm" style="float: right" ng-click="fc.addBean('documentModal')" >新增</a>-->
+    <div class="bmxx_tit" style="margin-bottom: 40px;margin-top: 10px;">
+        <div  class="right user-titleheading" style="width: 10%">
+            <a href="" class="bj" ng-click="fc.addBean('documentModal')" >新增</a>
+        </div>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="form-horizontal" ng-repeat="bean in dataObject.beanList">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{bean.orguser}}  问 ：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control"  style="width: 85%;background-color: #fff;" disabled>{{bean.content}}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">答 ： </label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" style="width: 85%;background-color: #fff;" disabled>{{bean.examinecontent}}</textarea>
+                </div>
+            </div>
+            <div style="float: right;">
+                创建时间： {{bean.createtime}}
+            </div>
+            <hr style="width:90%;margin-left: auto;"/>
+        </div>
+    </div>
+
+<!--
+    <table border=1  align="center" cellpadding=3 cellspacing=2 bgcolor=#E6CAFF style="width: 80%;">
+        <tr>
+            <td style="text-align: center;width: 10%;">姓名：</td>
+            <td><textarea type="text" name="name" size="25"></textarea></td>
+        </tr>
+        <br>
+        <tr>
+            <td style="text-align: center;width: 10%;">答:</td>
+            <td><textarea rows="4" cols="25" name="content"></textarea></td>
+        </tr>
+    </table>-->
+
+
+    <div class="ceter_p" id="ceter_p">
+        <div class="ceter_s">
+            <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+        </div>
+    </div>
+
+    <!--<div class="list-bott">
+        <ul>
+            <li><a href="#"><</a></li>
+            <li class="bott-tabon"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">></a></li>
+
+
+        </ul>
+    </div>-->
+
+</div><!--main-end-->
+
+
+<div class="modal fade bs-example-modal-lg" id="documentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalDocument">留言板管理新增/编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="articleSortForm" name="articleSortForm">
+                    <div class="form-group">
+                        <label for="orguser" class="col-sm-2 control-label">姓名*</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="orguser" ng-model="newBean.orguser" maxlength="100" placeholder="请输入姓名" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department" class="col-sm-2 control-label">部门*</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="department" ng-model="newBean.department" maxlength="100" placeholder="请输入部门" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="content" class="col-sm-2 control-label">留言*</label>
+                        <div class="col-sm-10">
+                            <textarea id="content" class="form-control" rows="6" style="width: 100%" ng-model="newBean.content" placeholder="请输入留言信息" required></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" ng-disabled="articleSortForm.$invalid" class="btn btn-sm btn-primary save" ng-click="articleSortForm.$invalid || fc.saveBean('documentModal')">保存</button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

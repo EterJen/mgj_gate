@@ -1,0 +1,77 @@
+@charset "utf-8";
+
+.mng-pagelist {
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+}
+.mng-pagelist div {
+    display: inline-block;
+}
+.page-total {
+    float: left !important;
+    padding-left: 20px;
+    margin-top: 6px;
+}
+.page-list .page-total input, .page-list .page-total select {
+    cursor: pointer;
+    font-weight: bold;
+    height: 34.08px !important;
+    border: 1px solid #ddd;
+    width: 45px;
+    margin: 0 !important;
+    padding: 6px 5px;
+    background: transparent url(../images/select.png) no-repeat center right 3px;
+}
+
+.pagination {
+    font-size: 16px;
+    float: left !important;
+    margin: 0 !important;
+}
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+.pagination > li {
+    display: inline;
+}
+
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+}
+.pagination > .active > span {
+    background-color: #226eba !important;
+    border-color: #226eba !important;
+}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+.pagination > li > a, .pagination > li > span {
+    cursor: pointer;
+    position: relative;
+    float: left;
+    font-weight: bold;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+
+}

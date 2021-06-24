@@ -1,0 +1,1 @@
+INSERT INTO WF_FORM_ACTION (ID, ACTION_ID, NAME, DESCRIPTION, PRE_CONDITION, ACTION_TO_PERFORM, IMAGE_URL, ORDER_NUM, FLAG, ACTION_TYPE) VALUES (759482, 'returnTasksInHis', '撤回任务', '未接收本人发送任务撤回', '$scope.task.canReturnTasks.length > 0','$scope.wf.hisView.fun.returnTasks()', 'images/sidebar_right-bc.svg', 3, '1', 'hisView');

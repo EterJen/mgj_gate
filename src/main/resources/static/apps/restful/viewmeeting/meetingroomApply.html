@@ -1,0 +1,56 @@
+<style>
+	.bmxx_tit .right a {
+		width: 72px;
+	}
+
+	.bmxx_tit .right a.tj {
+		background: #85a834;
+	}
+
+	.form-group {
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+
+	.table th, .table td {
+		text-align: center;
+		vertical-align: middle !important;
+	}
+
+	.addScroll {
+		margin-right: 15px;
+	}
+</style>
+
+<div>
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div id="panel-heading" class="panel-heading"
+			     style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span>
+                      		   会议申请
+                          </span>
+					</div>
+				</div>
+			</div>
+			<div class="bmxx_tit" id="bmxx_tit" style="margin-bottom: 0;padding-right: 15px;padding-left: 15px">
+				<ul class="nav nav-tabs " style="margin:0 auto;">
+					<li ng-repeat="li in tabList track by $index" ng-class="{active: currGroupId==li.id}"
+					    ng-click="choseCandate(li.id)" style="margin-right: -1px;"><a href="">{{li.val}}</a></li>
+				</ul>
+			</div>
+			<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+				<div id="myTabContent" class="table_shadow" ng-include="formPath"
+				     style="overflow:auto; max-height: 85%">
+				</div>
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

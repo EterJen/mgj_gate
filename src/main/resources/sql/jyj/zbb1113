@@ -1,0 +1,283 @@
+--初始化菜单
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE,icon)
+	                (select 0,
+	                		'导航菜单',
+	                		null,
+	                		null,
+	                		'一级菜单发布管理',
+	                		'1',
+	                		null,
+	                		'coreHome.',
+	                		'导航菜单',0, 'i_1');
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE,icon)
+	                (select 1,
+	                		'发布管理',
+	                		null,
+	                		null,
+	                		'一级菜单发布管理',
+	                		'1',
+	                		null,
+	                		'coreHome.',
+	                		'发布管理',1, 'i_1');
+COMMIT ;
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 01001,
+	                		'文章管理',
+	                		'/coreHome/articleManagement',
+	                		'articleManagement',
+	                		'文章管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.articleManagement',
+	                		'文章管理',01001 from MPSMODULE m where m.title='发布管理');
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 01002,
+	                		'文件管理',
+	                		'/coreHome/documentManagement',
+	                		'documentManagement',
+	                		'文章管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.documentManagement',
+	                		'文件管理',01002 from MPSMODULE m where m.title='发布管理');
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 01003,
+	                		'常用表单管理',
+	                		'/coreHome/formManagement',
+	                		'formManagement',
+	                		'常用表单管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.formManagement',
+	                		'常用表单管理',01003 from MPSMODULE m where m.title='发布管理');
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 01004,
+	                		'专题管理',
+	                		'/coreHome/thematicManagement',
+	                		'thematicManagement',
+	                		'专题管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.thematicManagement',
+	                		'专题管理',01004 from MPSMODULE m where m.title='发布管理');
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 01005,
+	                		'栏目管理',
+	                		'/coreHome/columnManagement',
+	                		'columnManagement',
+	                		'栏目管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.columnManagement',
+	                		'栏目管理',01005 from MPSMODULE m where m.title='发布管理');
+
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE,icon)
+	                (select 2,
+	                		'资源管理',
+	                		null,
+	                		null,
+	                		'一级菜单资源管理',
+	                		'1',
+	                		null,
+	                		'coreHome.',
+	                		'资源管理',2, 'i_1');
+COMMIT ;
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 02001,
+	                		'资源管理',
+	                		'/coreHome/resourceManagement',
+	                		'resourceManagement',
+	                		'资源管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.resourceManagement',
+	                		'资源管理',02001 from MPSMODULE m where m.id=2);
+
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 02002,
+	                		'链接管理',
+	                		'/coreHome/linkManagement',
+	                		'linkManagement',
+	                		'链接管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.linkManagement',
+	                		'链接管理',02002 from MPSMODULE m where m.id=2);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 02003,
+	                		'模板管理',
+	                		'/coreHome/templateManagement',
+	                		'templateManagement',
+	                		'模板管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.templateManagement',
+	                		'模板管理',02003 from MPSMODULE m where m.id=2);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 02004,
+	                		'白名单管理',
+	                		'/coreHome/whitelistManagement',
+	                		'whitelistManagement',
+	                		'白名单管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.whitelistManagement',
+	                		'白名单管理',02004 from MPSMODULE m where m.id=2);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE,icon)
+	                (select 3,
+	                		'用户管理',
+	                		null,
+	                		null,
+	                		'一级菜单用户管理',
+	                		'1',
+	                		null,
+	                		'coreHome.',
+	                		'用户管理',3, 'i_1');
+COMMIT ;
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 03001,
+	                		'用户管理',
+	                		'/coreHome/userManagement',
+	                		'userManagement',
+	                		'用户管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.userManagement',
+	                		'用户管理',03001 from MPSMODULE m where m.id=3);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 03002,
+	                		'留言板管理',
+	                		'/coreHome/messageBoardManagement',
+	                		'messageBoardManagement',
+	                		'留言板管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.messageBoardManagement',
+	                		'留言板管理',03002 from MPSMODULE m where m.id=3);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE,icon)
+	                (select 4,
+	                		'通讯录管理',
+	                		null,
+	                		null,
+	                		'一级菜单通讯录管理',
+	                		'1',
+	                		null,
+	                		'coreHome.',
+	                		'通讯录管理',4, 'i_1');
+COMMIT ;
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 04001,
+	                		'局内通讯录',
+	                		'/coreHome/intranetAddressBook',
+	                		'intranetAddressBook',
+	                		'局内通讯录',
+	                		'1',
+	                		m.id,
+	                		'coreHome.intranetAddressBook',
+	                		'局内通讯录',04001 from MPSMODULE m where m.id=4);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 04002,
+	                		'密码单位通讯录',
+	                		'/coreHome/unitAddressBook',
+	                		'unitAddressBook',
+	                		'密码单位通讯录',
+	                		'1',
+	                		m.id,
+	                		'coreHome.unitAddressBook',
+	                		'密码单位通讯录',04002 from MPSMODULE m where m.id=4);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE,icon)
+	                (select 5,
+	                		'排班管理',
+	                		null,
+	                		null,
+	                		'一级菜单排班管理',
+	                		'1',
+	                		null,
+	                		'coreHome.',
+	                		'排班管理',5, 'i_1');
+COMMIT ;
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 05001,
+	                		'技术保障处值班表',
+	                		'/coreHome/technologyDutyTable',
+	                		'technologyDutyTable',
+	                		'技术保障处值班表',
+	                		'1',
+	                		m.id,
+	                		'coreHome.technologyDutyTable',
+	                		'技术保障处值班表',05001 from MPSMODULE m where m.id=5);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 05002,
+	                		'通讯报务处值班表',
+	                		'/coreHome/communicationDutyTable',
+	                		'communicationDutyTable',
+	                		'通讯报务处值班表',
+	                		'1',
+	                		m.id,
+	                		'coreHome.communicationDutyTable',
+	                		'通讯报务处值班表',05002 from MPSMODULE m where m.id=5);
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 05003,
+	                		'值班人员管理',
+	                		'/coreHome/dutyStaffManagement',
+	                		'dutyStaffManagement',
+	                		'值班人员管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.dutyStaffManagement',
+	                		'值班人员管理',05003 from MPSMODULE m where m.id=5);
+
+
+insert into MPSMODULE (id,TITLE,ACTIONURL,TARGETFRAME,DESCRIPTION,FLAG,PARENTID,NG_STATE,TITLE_MENU_SHOW,PKCODE)
+	                (select 05004,
+	                		'节假日管理',
+	                		'/coreHome/holidayManagement',
+	                		'holidayManagement',
+	                		'节假日管理',
+	                		'1',
+	                		m.id,
+	                		'coreHome.holidayManagement',
+	                		'节假日管理',05004 from MPSMODULE m where m.id=5);
+
+
+
+
+insert into MPSAVAILMODULE (ELEMENTID,ELEMENTTYPE,FLAG,MPSMODULE_ID,MODULECODE)(select 2397,'U','1',id,01080810 from MPSMODULE where title='批量导入');
+COMMIT ;
+
+
+alter table ARTICLE add (root_node number);
+COMMENT ON COLUMN ARTICLE.root_node IS '一级目录根节点';
+commit;
+
+alter table TWOLEVELCOLUMN add (picture_article VARCHAR2(50));
+COMMENT ON COLUMN TWOLEVELCOLUMN.picture_article IS '是否是图片文章';
+commit;
+
+
+alter table INDEX_ICON add (show_image_name VARCHAR2(100));
+COMMENT ON COLUMN INDEX_ICON.show_image_name IS '前端图片展示名称';
+commit;
+
+
+

@@ -1,0 +1,206 @@
+<style>
+
+.bmxx_tit .right a.bj{background:#3986c8;/*border-bottom:2px solid #5880c9;*/width: 72px;}
+thead th {
+	text-align:center !important;
+}
+.nav-tabs li a {
+	padding: 6px 10px;
+}
+.highlightedTextStyle {
+	font-weight: bold;
+	color: #e97066;
+}
+.no-col{
+	background: #3986c8 !important;
+	color: white !important;
+}
+.current{
+	background-color: #e0eafc !important;
+}
+</style>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			 <div class="panel-heading" id="panel-heading" style="border-bottom: 1px solid transparent;background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+            	<div class="bmxx_tit" id="depart_tit">
+					  <div class="left"><img src="images/bmxx_tit-01.png">
+                          <span >公文查询</span>
+						  <a href="" hidden class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;" id="directQuery"  ng_click="queryProInstList()"><img src="images/search.svg">搜索</a>
+                      </div>
+				</div>
+
+            </div>
+			<div class="bmxx_tit" id="bmxx_tit" style="margin-bottom: 0;padding-right: 15px;padding-left: 15px">
+					<ul class="nav nav-tabs " style="margin:0 auto;">
+						<li ng-if="li.id != 'dwAll' && li.id !='xzAll'" ng-repeat="li in docTypelist" id="{{'zhcx'+li.id}}" ng-class="{active: (orgNavType==li.id||(orgNavType=='rdbp'&&li.id=='rdzx')||(orgNavType=='all'&&li.id=='difcommitteeShouWen'))}" ng-click="choseCandate(li.id)" style="margin-right: -1px;"><a href="">{{li.val}}</a></li>
+					</ul>
+                <div class="right user-titleheading" style="height: inherit;width: 60%">
+					<div class="form-group"  style="margin-bottom: 0px;">
+						<!--<div class="col-xs-3" ng-if="currGroupId=='rdzx'||currGroupId=='rdbp'">-->
+							<!--<select  class="input-sm form-control" ng-change="isRdzxChg()" ng-model="$parent.rdzxTypy" ng-options='xx.key as xx.val for xx in formDefIdsObj.zxType' >-->
+							<!--</select>-->
+						<!--</div>-->
+						<div class="col-xs-5" ng-if="currGroupId=='rdzx'||currGroupId =='rdbp'" style="z-index: 1;margin-right: -120px;margin-left: 80px">
+							<a href="" ng-show="isShowButton('printing')" class="bj" ng-click="showRdzxCountModal()">统计</a>
+							<a href="" ng-show="showBtn('wngkSearch')" class="bj" ng-click="wngkSearch()">{{ngWngkSearchBtn.show}}</a>
+						</div>
+                        <div class="col-xs-7" ng-if="currGroupId!='rdzx'&& currGroupId!='rdbp'">
+							<a href="" ng-show="showBtn('delete')" style="width: 72px;  margin-right: 30px; font-weight: bold;padding: 0"
+									class="btn   sc"
+									ng-disabled="!deleteProInstAble()"
+									ng-click="!deleteProInstAble() || deleteProInst()">删除</a>
+							<a href="" ng-show="isShowButton('renewInstance')" class="bj" ng-click="renewInstance()">修改</a>
+							<a href="" ng-show="isShowButton('export')" class="bj" ng-click="exportDoctypeInformation('ConditionListExport')">导出</a>
+							<a href="" ng-show="isShowButton('statistics')" class="bj" ng-click="pagePrintAuto()">打印</a>
+                            <a href="" ng-show="isShowButton('printing')" class="bj" ng-click="showDetailCount()">统计</a>
+							<a href="" ng-show="showBtn('wngkSearch')" class="bj" ng-click="wngkSearch()">{{ngWngkSearchBtn.show}}</a>
+                        </div>
+						<div class="input-group col-xs-5" ng-if="currGroupId!='rdzx'&& currGroupId!='rdbp'">
+							<span class="input-group-btn">
+							<input type="text" style="font-weight: normal; width: 258px; height: 27px;right: -1px; text-align: left" class="form-control" ng-model="docNameOrTitle.b" ng-keyup="enterKeyupAllTab($event)" placeholder="请输入公文标题或文号,回车确认搜索。"/>
+                                      <a href="" class="bj" style="border-top-left-radius:0;margin-right: 5px; border-bottom-left-radius:0;"
+											  ng_click="activeTypeDocs(orgNavType)"><img src="images/search.svg">搜索</a>
+                                <a href="" class="bj"
+								   ng_click="showDetail(orgNavType)">高级搜索</a>
+							</span>
+
+						</div>
+						<div class="input-group col-xs-7" ng-if="currGroupId=='rdzx'||currGroupId =='rdbp'">
+							<span  class="input-group-btn" style="right: -2px;" >
+								<select name="type" class="form-control no-col" ng-change="isRdzxChg()" ng-model="$parent.rdzxTypy"  style="text-align-last: center;width: 90px; float: right; text-align: center;padding:0;font-size:14px;height: 27px;"     >
+									<option style=";height: 25px;line-height: 25px;text-align: center;vertical-align: middle;display: table-cell"  ng-repeat="xx in formDefIdsObj.zxType" value="{{xx.key}}">
+										{{xx.val}}
+									</option>
+								</select>
+							</span>
+							<span class="input-group-btn">
+							<input type="text" style="font-weight: normal; width: 258px; height: 27px;right: -1px; text-align: left" class="form-control" ng-model="docNameOrTitle.b" ng-keyup="enterKeyupAllTab($event)" placeholder="请输入公文标题或文号,回车确认搜索。"/>
+                                      <a href="" class="bj" style="border-top-left-radius:0;margin-right: 5px; border-bottom-left-radius:0;"
+										 ng_click="activeTypeDocs(orgNavType)"><img src="images/search.svg">搜索</a>
+                                <a href="" class="bj"
+								   ng_click="showDetail(orgNavType)">高级搜索</a>
+							</span>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			 <div class="panel-body" id="panel-body-table" style="padding-right: 15px;">
+                <div id="myTabContent" class="table_shadow"  ng-include="formPath"  style="overflow:auto; max-height: 85%">
+                </div>
+                <div class="ceter_p" id="ceter_p">
+                    <div class="ceter_s">
+                        <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+                    </div>
+                 </div>
+            </div>
+         </div>
+	</section>
+</div>
+
+  
+
+
+<div class="modal fade " id="fawenCountModal" tabindex="-1" role="dialog" aria-labelledby="mySmallCountModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myCountModalLabel">[{{countformDefIdsObj[orgNavType].title}}]</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group" align="center" ng-show="$parent.currGroupId != 'all'">
+						<label for="category"  class="col-sm-2 control-label">类别</label>
+						<div id="category" class="col-sm-10">
+							<select  class="form-control"   ng-model="countQueryBean.formDefId">
+								<option value="" ng-selected="true">全部</option>
+								<option value="{{f.formDefId}}" ng-repeat="f in countCategoryList">{{f.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="countNumber" class="col-sm-2 control-label">统计年份</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" ng-model="countQueryBean.docYear" id="countNumber" placeholder="请输入年份">
+						</div>
+					</div>
+					<div class="form-group" ng-if="orgNavType==='fawen' || orgNavType==='shangjilaiwen'">
+						<label for="wngk" class="col-sm-2 control-label">委内公开</label>
+						<div id="wngk" class="col-sm-10">
+							<select  class="form-control"   ng-model="countQueryBean.wngk">
+								<option value="{{f.key}}" ng-selected="0==$index" ng-repeat="f in countformDefIdsObj.wngk">{{f.val}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="orgNavType==='fawen' || orgNavType==='shangjilaiwen'">
+						<label for="dwgk" class="col-sm-2 control-label">对外公开</label>
+						<div id="dwgk" class="col-sm-10">
+							<select  class="form-control"   ng-model="countQueryBean.dwgk">
+								<option value="{{f.key}}" ng-selected="0==$index" ng-repeat="f in countformDefIdsObj.dwgk">{{f.val}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" ng-if="orgNavType==='fawen' || orgNavType==='shangjilaiwen'">
+						<label for="mj" class="col-sm-2 control-label">密级</label>
+						<div id="mj" class="col-sm-10">
+							<select  class="form-control"   ng-model="countQueryBean.secretLevel">
+								<option value="" ng-selected="true">所有</option>
+								<option value="{{f.name}}"  ng-repeat="f in countformDefIdsObj.SecurityLevelList">{{f.name}}</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer mf">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="countDoctypeInformation()">统计</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="fawenCountSituationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallCountModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content" style="height: 90%">
+			<div class="modal-header" >
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myCountSituationModalLabel">[{{countformDefIdsObj[orgNavType].situation}}]</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+					<thead>
+						<tr>
+							<th width="10%">序号</th>
+							<th width="15%">委内公开/否</th>
+							<th width="10%">主动公开</th>
+							<th width="10%">依申请公开</th>
+							<th width="10%">不予公开</th>
+							<th width="10%">秘密</th>
+							<th width="10%">机密</th>
+							<th width="10%">绝密</th>
+
+						</tr>
+					</thead>
+					<tr >
+						<td>{{countformDefIdsObj.countNumber.count}}/{{countformDefIdsObj.countNumber.numberCopies}}份</td>
+						<td>{{countformDefIdsObj.countNumber.wngk}}/{{countformDefIdsObj.countNumber.notWngk}}</td>
+						<td>{{countformDefIdsObj.countNumber.zdgk}}</td>
+						<td >{{countformDefIdsObj.countNumber.ysqgk}}</td>
+						<td >{{countformDefIdsObj.countNumber.bygk}}</td>
+						<td>{{countformDefIdsObj.countNumber.secret}}/{{countformDefIdsObj.countNumber.secretCopies}}份</td>
+						<td>{{countformDefIdsObj.countNumber.confidential}}/{{countformDefIdsObj.countNumber.confidentialCopies}}份</td>
+						<td>{{countformDefIdsObj.countNumber.topSecret}}/{{countformDefIdsObj.countNumber.topSecretCopies}}份</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer mf">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="exportDoctypeInformation('InformationExport')">导出当前结果</button>
+
+			</div>
+		</div>
+	</div>
+</div>

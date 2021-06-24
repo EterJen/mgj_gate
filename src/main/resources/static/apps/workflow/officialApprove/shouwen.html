@@ -1,0 +1,146 @@
+<!--<div>
+	<a href="" class="btn btn-primary" ng-click="showDetailCount()">统计</a>
+</div>-->
+<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+	<thead>
+		<tr>
+			<th width="3%">关注</th>
+			<th width="15%">收文编号</th>
+			<th width="16%">来文字号</th>
+			<th style="white-space: pre-wrap" width="38%">标                题</th>
+			<th width="10%">发送日期</th>
+			<th width="10%">处理人</th>
+			<th width="8%">密级</th>
+			
+		</tr>
+	</thead>
+	<tr ng-repeat="task in currTaskList"
+		ng-click="gotoDetail(task)">
+		<td id="pop{{task.id}}"  ng-click="collectionPros($index);$event.stopPropagation();" title="点击关注"><span ng-class="{'glyphicon glyphicon-bookmark collection' : task.belongingProInst.collection, 'glyphicon glyphicon-bookmark notCollection' : !task.belongingProInst.collection}" ></span></td>
+		<td>{{::task.belongingProInst.docFullName}}</td>
+		<td>{{::task.belongingProInst.incomingDocNum}}</td>
+		<td style="text-align: left;">{{::task.belongingProInst.title}}</td>
+		<td>{{::task.belongingProInst.createTime | limitTo : 10}}<br>{{::proInst.createTime | limitTo : -8}}</td>
+	
+		<td>{{::task.assigneeName}}</td>
+		<td >
+			{{::task.theCommonFormInfo.secretLevel}}
+		</td>
+	</tr>
+</table>
+
+
+
+		
+<div class="modal fade " id="shouwenModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">收文查询</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+		  <div class="form-group">
+		    <label for="shouwenNumber" class="col-sm-2 control-label">收文文号</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="shouwenNumber" ng-model="queryBean.docFullName" placeholder="请输入收文编号">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="laiwenNumber" class="col-sm-2 control-label">来文文号</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" ng-model="queryBean.incomingDocNum" id="laiwenNumber" placeholder="请输入来文字号">
+		    </div>
+		  </div>
+		<div class="form-group">
+				<label for="showenTitle" class="col-sm-2 control-label">文件标题</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="showenTitle" ng-model="queryBean.title" placeholder="请输入文件标题">
+				</div>
+			</div>
+		  <div class="form-group">
+		    <label for="showenDanwei" class="col-sm-2 control-label">来文单位</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" ng-model="queryBean.incomingDocDepart" id="showenDanwei" placeholder="请输入来文单位">
+		    </div>
+		  </div>
+		  <div class="form-group" align="center">
+		    <label for="fenshu" class="col-sm-2 control-label">收文份数</label>
+		    <div class="col-sm-10">
+		      <input type="text" ng-model="queryBean.incomingNum" class="form-control" id="fenshu" placeholder="请输入份数">
+		    </div>
+		  </div>
+			<div class="form-group" align="center">
+				<label  class="col-sm-2 control-label">日期</label>
+				<div  class="col-sm-5" >
+					<div  ng-model="queryBean.createTimeS"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="ufcreateTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+						<input   class="form-control" ng-model="queryBean.createTimeZh" size="16" type="text" value="" readonly>
+						<input id="ufcreateTime"  ng-model="queryBean.createTime" ng-change="timeChga()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+				<!--<label style="text-align: center" class="col-sm-2 control-label">到</label>-->
+				<div  class="col-sm-5" >
+					<div  ng-model="queryBean.createTimeE"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="ufcreateTimeEnd" data-link-format="yyyy-mm-dd hh:ii:ss">
+						<input   class="form-control" ng-model="queryBean.createTimeEndZh" size="16" type="text" value="" readonly >
+						<input id="ufcreateTimeEnd"  ng-model="queryBean.createTimeEnd" ng-change="timeChgb()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+			</div>
+
+		</form>
+      </div>
+		<div class="modal-footer mf">
+			<button type="button" class="btn btn-sm btn-primary save" ng-click="queryProInstListChangeBean('shouwenModal')">确定</button>
+			<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+
+		</div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="shouwenPrintModal" tabindex="-1" role="dialog" aria-labelledby="mySmallCountModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content" ng-click="printSecretConfirm()">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myCountSituationModalLabel">[{{countformDefIdsObj[orgNavType].situation}}]</h4>
+			</div>
+			<div class="modal-body" id="printTable">
+				<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+					<thead>
+					<tr>
+						<th width="10%">序号</th>
+						<th width="15%">收文字号</th>
+						<th width="10%">来文字号</th>
+						<th style="white-space: pre-wrap" width="10%">标                题</th>
+						<th width="10%">密级</th>
+						<th width="10%">份数</th>
+					</tr>
+					</thead>
+					<tr ng-repeat="pinstance in countformDefIdsObj.proInstPrintList">
+						<td>{{$index+1}}</td>
+						<td>{{pinstance.docFullName}}</td>
+						<td>{{pinstance.incomingDocNum}}</td>
+						<td >{{pinstance.title}}</td>
+						<td >{{pinstance.theCommonFormInfo.secretLevel}}</td>
+						<td>{{pinstance.theCommonFormInfo.incomingNum}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer mf">
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span ><tm-pagination-a conf="paginationPrintConf"></tm-pagination-a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

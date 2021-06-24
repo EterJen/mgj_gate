@@ -1,0 +1,1102 @@
+--CREATE SEQUENCE "JYJ"."JXWOAUNIVERSALSEQ" INCREMENT BY 1 START WITH 1 MAXVALUE 9223372036854775807 MINVALUE 1;
+
+CREATE TABLE "DIC_TYPE"
+(
+"ID" NUMBER NOT NULL,
+"NAME" VARCHAR2(255),
+"DESCRIPTION" VARCHAR2(512),
+"ENAME" VARCHAR2(255),
+"EXT" VARCHAR2(50),
+"FLAG" VARCHAR2(10),
+"DIC_MODE_ID" NUMBER,
+"ORDER_NUM" VARCHAR2(20),
+CLUSTER PRIMARY KEY("ID")) STORAGE(ON "MAIN", CLUSTERBTR) ;
+COMMENT ON COLUMN "DIC_TYPE"."ORDER_NUM" IS '字典项排序';
+
+CREATE TABLE "DIC_CATEGORY"
+(
+"ID" NUMBER NOT NULL,
+"NAME" VARCHAR2(255),
+"DESCRIPTION" VARCHAR2(255),
+"FLAG" VARCHAR2(10),
+CLUSTER PRIMARY KEY("ID")) STORAGE(ON "MAIN", CLUSTERBTR) ;
+
+CREATE TABLE "DIC_MODE"
+(
+"ID" NUMBER NOT NULL,
+"DICTYPE" VARCHAR2(255),
+"SPLIT_MODE" VARCHAR2(10),
+"CNAME" VARCHAR2(255),
+"CATEGORY_ID" NUMBER,
+"FLAG" VARCHAR2(10),
+CLUSTER PRIMARY KEY("ID")) STORAGE(ON "MAIN", CLUSTERBTR) ;
+
+CREATE TABLE "ORGROLE"
+(
+"ID" NUMBER NOT NULL,
+"PKID" NUMBER,
+"NAME" VARCHAR2(64),
+"DESCRIPTION" VARCHAR2(128),
+"FLAG" NUMBER,
+"CLICKRATE" NUMBER,
+CLUSTER PRIMARY KEY("ID")) STORAGE(ON "MAIN", CLUSTERBTR) ;
+COMMENT ON TABLE "ORGROLE" IS '角色表';
+COMMENT ON COLUMN "ORGROLE"."CLICKRATE" IS '点击率';
+COMMENT ON COLUMN "ORGROLE"."DESCRIPTION" IS '描述';
+COMMENT ON COLUMN "ORGROLE"."FLAG" IS '可用标识';
+COMMENT ON COLUMN "ORGROLE"."ID" IS '主键';
+COMMENT ON COLUMN "ORGROLE"."NAME" IS '角色名称';
+COMMENT ON COLUMN "ORGROLE"."PKID" IS '原主键';
+
+CREATE TABLE "ORGRU"
+(
+"ROLEID" NUMBER,
+"USERID" NUMBER,
+"ORDERNUM" NUMBER) STORAGE(ON "MAIN", CLUSTERBTR) ;
+COMMENT ON TABLE "ORGRU" IS '关系表：角色-人员';
+COMMENT ON COLUMN "ORGRU"."ROLEID" IS '角色id';
+COMMENT ON COLUMN "ORGRU"."USERID" IS '用户id';
+
+CREATE TABLE "MPSAVAILMODULE"
+(
+"ELEMENTID" NUMBER NOT NULL,
+"ELEMENTTYPE" VARCHAR2(50) NOT NULL,
+"MODULECODE" NUMBER,
+"FLAG" VARCHAR2(10),
+"MPSMODULE_ID" NUMBER NOT NULL,
+CLUSTER PRIMARY KEY("ELEMENTID", "ELEMENTTYPE", "MPSMODULE_ID")) STORAGE(ON "MAIN", CLUSTERBTR) ;
+COMMENT ON TABLE "MPSAVAILMODULE" IS '用户模块权限关系授权表';
+COMMENT ON COLUMN "MPSAVAILMODULE"."ELEMENTID" IS '元素类型，范围（u,r,d,p）';
+COMMENT ON COLUMN "MPSAVAILMODULE"."ELEMENTTYPE" IS 'elementid所指示的对象类型，表示人员、角色、部门、岗位表中一个对象的id';
+COMMENT ON COLUMN "MPSAVAILMODULE"."MODULECODE" IS 'mpsmodule表内一个对象的主键值';
+
+CREATE TABLE "MPSMODULE"
+(
+"ID" NUMBER NOT NULL,
+"PKCODE" VARCHAR2(128),
+"TITLE" VARCHAR2(50),
+"ICON" VARCHAR2(128),
+"ACTIONURL" VARCHAR2(500),
+"TARGETFRAME" VARCHAR2(512),
+"DESCRIPTION" VARCHAR2(512),
+"FLAG" VARCHAR2(10),
+"ICONFOCUS" VARCHAR2(128),
+"ICONSELECT" VARCHAR2(128),
+"PARENTID" NUMBER,
+"NG_STATE" VARCHAR2(50),
+"TITLE_MENU_SHOW" VARCHAR2(50),
+CLUSTER PRIMARY KEY("ID")) STORAGE(ON "MAIN", CLUSTERBTR) ;
+COMMENT ON TABLE "MPSMODULE" IS '功能模块表';
+COMMENT ON COLUMN "MPSMODULE"."ACTIONURL" IS '相对url';
+COMMENT ON COLUMN "MPSMODULE"."ID" IS '主键';
+COMMENT ON COLUMN "MPSMODULE"."NG_STATE" IS '基于anjularjs的路由地址';
+COMMENT ON COLUMN "MPSMODULE"."PARENTID" IS '父id';
+COMMENT ON COLUMN "MPSMODULE"."PKCODE" IS '原主键';
+COMMENT ON COLUMN "MPSMODULE"."TITLE" IS '模块标题';
+COMMENT ON COLUMN "MPSMODULE"."TITLE_MENU_SHOW" IS '权限菜单带html格式存储';
+
+---------------hgcmsdb数据库
+CREATE TABLE administrator
+(
+id number NOT NULL,
+sn varchar2(64),
+name varchar2(50),
+display varchar2(20),
+roleid number,
+description varchar2(2000),
+department varchar2(50),
+password varchar2(200),
+mail varchar2(100),
+phone varchar2(11),
+state number,
+cert text,
+createtime datetime,
+modifytime datetime,
+commented varchar2(1024),
+dn varchar2(64),
+isdelete number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+
+
+comment on table administrator is '用户表';
+comment on column administrator.ID is '主键';
+comment on column administrator.sn is 'sn未知';
+comment on column administrator.name is '账号';
+comment on column administrator.display is '姓名';
+comment on column administrator.roleid is '角色ID';
+comment on column administrator.description is '描述';
+comment on column administrator.department is '所属单位';
+comment on column administrator.password is '密码';
+comment on column administrator.mail is '邮箱';
+comment on column administrator.phone is '联系电话';
+comment on column administrator.state is '状态';
+comment on column administrator.cert is '省份证号';
+comment on column administrator.createtime is '创建时间';
+comment on column administrator.modifytime is '修改时间';
+comment on column administrator.commented is '备注';
+comment on column administrator.dn is 'dn未知';
+comment on column administrator.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(200),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '标题';
+comment on column article.description is '描述';
+comment on column article.keywords is '关键字';
+comment on column article.content is '内容';
+comment on column article.articleno is '文号';
+comment on column article.issueno is '？期号';
+comment on column article.author is '作者';
+comment on column article.image is '图片';
+comment on column article.type is '类型  1：近期消息，2：规章制度，3：人员动向，4：技术交流，5：支持下载，6：部门介绍， 7：联系我们';
+comment on column article.flag is '标记 1：通知，2：推荐，3：幻灯，4：图片，5：头条';
+comment on column article.createtime is '创建时间';
+comment on column article.modifytime is '修改时间';
+comment on column article.pdfpath is 'pdf地址';
+comment on column article.linkurl is '链接地址';
+comment on column article.isdelete is '是否删除 0：否，1：是';
+comment on column article.subtype is '?文章属性';
+comment on column article.sortid is '排序';
+
+
+CREATE TABLE articlemodule
+(
+id number NOT NULL,
+modulename varchar2(512),
+description	varchar2(512),
+content	text,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table articlemodule is '文章栏目表';
+comment on column articlemodule.ID is '主键';
+comment on column articlemodule.modulename is '标题';
+comment on column articlemodule.description is '描述';
+comment on column articlemodule.content is '内容';
+comment on column articlemodule.updatetime is '修改时间';
+comment on column articlemodule.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE attachment
+(
+id number NOT NULL,
+name	varchar2(50),
+description	varchar2(250),
+file	varchar2(1024),
+size	varchar2(16),
+createtime	datetime,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table attachment is '附件表';
+comment on column attachment.ID is '主键';
+comment on column attachment.name is '名称';
+comment on column attachment.description is '描述';
+comment on column attachment.file is '文件路径';
+comment on column attachment.size is '文件大小（包括单位）';
+comment on column attachment.createtime is '创建时间';
+comment on column attachment.updatetime is '修改时间';
+comment on column attachment.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE comform
+(
+id number NOT NULL,
+name	varchar2(50),
+description	varchar2(50),
+file	varchar2(1024),
+createtime	datetime,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table comform is '常用表单表';
+comment on column comform.ID is '主键';
+comment on column comform.name is '名称';
+comment on column comform.description is '描述';
+comment on column comform.file is '文件路径';
+comment on column comform.createtime is '创建时间';
+comment on column comform.updatetime is '修改时间';
+comment on column comform.isdelete is '是否删除 0：否，1：是';
+
+
+
+CREATE TABLE dutydate
+(
+id number NOT NULL,
+year number(4),
+holiday varchar2(1024),
+workday varchar2(1024),
+updatetime datetime,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table dutydate is '值班时间表';
+comment on column dutydate.ID is '主键';
+comment on column dutydate.year is '年份';
+comment on column dutydate.holiday is '法定节假日';
+comment on column dutydate.workday is '周末调班';
+comment on column dutydate.updatetime is '修改时间';
+
+CREATE TABLE dutytable
+(
+id number NOT NULL,
+year number(4),
+month	number(2),
+day	number(2),
+week	number(1),
+datelong	varchar2(20),
+holiday	number(1),
+user1	varchar2(20),
+user2	varchar2(20),
+user3	varchar2(20),
+updatetime	datetime,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table dutytable is '值班表';
+comment on column dutytable.ID is '主键';
+comment on column dutytable.year is '年';
+comment on column dutytable.month is '月';
+comment on column dutytable.day is '日';
+comment on column dutytable.week is '星期';
+comment on column dutytable.datelong is '日期';
+comment on column dutytable.holiday is '是否是节假日 0：否，1：是';
+comment on column dutytable.user1 is '技保处';
+comment on column dutytable.user2 is '通信组';
+comment on column dutytable.user3 is '办报组';
+comment on column dutytable.user3 is '修改时间';
+
+
+CREATE TABLE dutytemp
+(
+id number NOT NULL,
+year	number(4),
+month	number(2),
+type	number(1),
+usersortid	varchar2(20),
+updatetime	datetime,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table dutytemp is '值班安排表';
+comment on column dutytemp.ID is '主键';
+comment on column dutytemp.year is '年';
+comment on column dutytemp.month is '月';
+comment on column dutytemp.type is '1:技术保障处，2：通信组，3：办报组';
+comment on column dutytemp.usersortid is '最后一个值班人员排序id';
+comment on column dutytemp.updatetime is '修改时间';
+
+
+CREATE TABLE dutyuser
+(
+id number NOT NULL,
+name	varchar2(50),
+department	number,
+sortid	number,
+startdate	varchar2(50),
+enddate	varchar2(50),
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table dutyuser is '值班人员表';
+comment on column dutyuser.ID is '主键';
+comment on column dutyuser.name is '姓名';
+comment on column dutyuser.department is '部门';
+comment on column dutyuser.sortid is '排班序号';
+comment on column dutyuser.startdate is '不值班开始时间';
+comment on column dutyuser.enddate is '不值班结束时间';
+comment on column dutyuser.updatetime is '修改时间';
+comment on column dutyuser.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE gharticle
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+content	text,
+author	varchar2(20),
+image	varchar2(512),
+type	varchar2(2),
+subtype	varchar2(2),
+sortid	number,
+createtime	datetime,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table gharticle is 'gh文章表';
+comment on column gharticle.ID is '主键';
+comment on column gharticle.title is '标题';
+comment on column gharticle.description is '描述';
+comment on column gharticle.content is '内容';
+comment on column gharticle.author is '作者';
+comment on column gharticle.image is '图片路径';
+comment on column gharticle.type is '';
+comment on column gharticle.subtype is '';
+comment on column gharticle.sortid is '排序';
+comment on column gharticle.createtime is '创建时间';
+comment on column gharticle.updatetime is '修改时间';
+comment on column gharticle.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE ghmenu
+(
+id number NOT NULL,
+name	varchar2(50),
+pid	number,
+location	number(1),
+sortid	number,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table ghmenu is 'gh菜单表';
+comment on column ghmenu.ID is '主键';
+comment on column ghmenu.name is '名称';
+comment on column ghmenu.pid is '父级菜单';
+comment on column ghmenu.location is '首页显示位置，0：左，1：右';
+comment on column ghmenu.sortid is '排序';
+comment on column ghmenu.updatetime is '修改时间';
+comment on column ghmenu.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE ghroll
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+content	text,
+author	varchar2(20),
+image	varchar2(512),
+sortid	number,
+createtime	datetime,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table ghroll is '滚动栏目表';
+comment on column ghroll.ID is '主键';
+comment on column ghroll.title is '标题';
+comment on column ghroll.description is '描述';
+comment on column ghroll.content is '内容';
+comment on column ghroll.author is '作者';
+comment on column ghroll.image is '图片路径';
+comment on column ghroll.sortid is '排序';
+comment on column ghroll.createtime is '创建时间';
+comment on column ghroll.updatetime is '修改时间';
+comment on column ghroll.isdelete is '是否删除 0：否，1：是';
+
+
+
+CREATE TABLE ghuserarticle
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+content	text,
+author	varchar2(20),
+image	varchar2(512),
+type	varchar2(2),
+subtype	varchar2(2),
+sortid	number,
+createtime	datetime,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table ghuserarticle is 'gh用户文章表';
+comment on column ghuserarticle.ID is '主键';
+comment on column ghuserarticle.title is '标题';
+comment on column ghuserarticle.description is '描述';
+comment on column ghuserarticle.content is '内容';
+comment on column ghuserarticle.author is '作者';
+comment on column ghuserarticle.image is '图片路径';
+comment on column ghuserarticle.type is '';
+comment on column ghuserarticle.subtype is '';
+comment on column ghuserarticle.sortid is '排序';
+comment on column ghuserarticle.createtime is '创建时间';
+comment on column ghuserarticle.updatetime is '修改时间';
+comment on column ghuserarticle.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE hyperlink
+(
+id number NOT NULL,
+title varchar2(512),
+linkaddress	varchar2(1024),
+linktype	varchar2(1),
+sortid	number,
+createtime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table hyperlink is 'hy链接表';
+comment on column hyperlink.ID is '主键';
+comment on column hyperlink.title is '标题';
+comment on column hyperlink.linkaddress is '链接地址';
+comment on column hyperlink.linktype is '链接类型';
+comment on column hyperlink.sortid is '排序';
+comment on column hyperlink.createtime is '创建时间';
+comment on column hyperlink.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE jyphonebook
+(
+id number NOT NULL,
+name	varchar2(50),
+department	varchar2(50),
+address	varchar2(50),
+duty	varchar2(50),
+redphone	varchar2(50),
+tel	varchar2(50),
+phone	varchar2(50),
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table jyphonebook is '机要局电话薄表';
+comment on column jyphonebook.ID is '主键';
+comment on column jyphonebook.name is '姓名';
+comment on column jyphonebook.department is '部门';
+comment on column jyphonebook.address is '地址';
+comment on column jyphonebook.duty is '职务';
+comment on column jyphonebook.redphone is '红机';
+comment on column jyphonebook.tel is '联系电话';
+comment on column jyphonebook.phone is '手机';
+comment on column jyphonebook.updatetime is '修改时间';
+comment on column jyphonebook.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE linked
+(
+id number NOT NULL,
+name varchar2(50),
+description varchar2(512),
+value	varchar2(128),
+sortid	number,
+createtime	datetime,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table linked is '链接表';
+comment on column linked.ID is '主键';
+comment on column linked.name is '名称';
+comment on column linked.description is '描述';
+comment on column linked.value is '链接';
+comment on column linked.sortid is '排序号';
+comment on column linked.createtime is '创建时间';
+comment on column linked.updatetime is '修改时间';
+comment on column linked.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE templateMng
+(
+id number NOT NULL,
+name	varchar2(50),
+description	varchar2(50),
+file	varchar2(1024),
+createtime	datetime,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table templateMng is '常用表单表';
+comment on column templateMng.ID is '主键';
+comment on column templateMng.name is '名称';
+comment on column templateMng.description is '描述';
+comment on column templateMng.file is '文件路径';
+comment on column templateMng.createtime is '创建时间';
+comment on column templateMng.updatetime is '修改时间';
+comment on column templateMng.isdelete is '是否删除 0：否，1：是';
+
+CREATE TABLE log
+(
+id number NOT NULL,
+account	varchar2(50),
+ip varchar2(20),
+message	text,
+resulted	varchar2(1),
+createtime datetime,
+commented varchar2(20),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table log is '日记表';
+comment on column log.ID is '主键';
+comment on column log.account is '操作者';
+comment on column log.ip is '操作IP';
+comment on column log.message is '关键字';
+comment on column log.resulted is '操作结果(0：成功；1：失败)';
+comment on column log.createtime is '时间';
+comment on column log.commented is '操作内容';
+
+
+CREATE TABLE msgboard
+(
+id number NOT NULL,
+ORGUSER	varchar2(50),
+department	varchar2(512),
+content	text,
+createtime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table msgboard is '消息表';
+comment on column msgboard.ID is '主键';
+comment on column msgboard.ORGUSER is '姓名';
+comment on column msgboard.department is '部门';
+comment on column msgboard.content is '内容';
+comment on column msgboard.createtime is '创建时间';
+comment on column msgboard.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE notice
+(
+id number NOT NULL,
+name varchar2(50),
+description varchar2(50),
+value	varchar2(128),
+sortid	number,
+createtime	datetime,
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table notice is '通知公告表';
+comment on column notice.ID is '主键';
+comment on column notice.name is '名称';
+comment on column notice.description is '描述';
+comment on column notice.value is '链接';
+comment on column notice.sortid is '排序号';
+comment on column notice.createtime is '创建时间';
+comment on column notice.updatetime is '修改时间';
+comment on column notice.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE shphonebook
+(
+id number NOT NULL,
+org	varchar2(50),
+department	varchar2(50),
+address	varchar2(50),
+redphone	varchar2(50),
+blackphone	varchar2(50),
+name	varchar2(50),
+duty	varchar2(50),
+phone	varchar2(50),
+namea	varchar2(50),
+phonea	varchar2(50),
+nameb	varchar2(50),
+phoneb	varchar2(50),
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table shphonebook is 'sh电话薄表';
+comment on column shphonebook.ID is '主键';
+comment on column shphonebook.org is '部门';
+comment on column shphonebook.department is '单位';
+comment on column shphonebook.address is '地址';
+comment on column shphonebook.redphone is '红机';
+comment on column shphonebook.blackphone is '黑机';
+comment on column shphonebook.name is '领导姓名';
+comment on column shphonebook.duty is '职务';
+comment on column shphonebook.phone is '手机';
+comment on column shphonebook.namea is '密码操作人员A姓名';
+comment on column shphonebook.phonea is '密码操作人员A电话';
+comment on column shphonebook.nameb is '密码操作人员B姓名';
+comment on column shphonebook.phoneb is '密码操作人员B电话';
+comment on column shphonebook.updatetime is '修改时间 ';
+comment on column shphonebook.isdelete is '是否删除 0：否，1：是 ';
+
+
+
+
+CREATE TABLE thematic
+(
+id number NOT NULL,
+title	varchar2(512),
+image	varchar2(512),
+type	varchar2(2),
+subtype	varchar2(2),
+sortid	number,
+linkurl	varchar2(512),
+createtime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table thematic is '专题表';
+comment on column thematic.ID is '主键';
+comment on column thematic.title is '标题';
+comment on column thematic.image is '图片';
+comment on column thematic.type is '类型  0：文章专题，1：链接专题';
+comment on column thematic.subtype is '';
+comment on column thematic.sortid is '排序';
+comment on column thematic.linkurl is '链接url';
+comment on column thematic.createtime is '创建时间';
+comment on column thematic.isdelete is '是否删除 0：否，1：是';
+
+
+
+
+CREATE TABLE twolevelcolumn
+(
+id number NOT NULL,
+name	varchar2(50),
+modifytime	datetime,
+no	number,
+parentlev	number,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table twolevelcolumn is '二级栏目表';
+comment on column twolevelcolumn.ID is '主键';
+comment on column twolevelcolumn.name is '二级栏目名称';
+comment on column twolevelcolumn.modifytime is '编辑时间';
+comment on column twolevelcolumn.no is '';
+comment on column twolevelcolumn.parentlev is '一级栏目';
+comment on column twolevelcolumn.isdelete is '是否删除 0：否，1：是';
+
+
+
+
+
+CREATE TABLE whitelist
+(
+id number NOT NULL,
+ip	varchar2(1024),
+createtime	datetime,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table whitelist is '白名单表';
+comment on column whitelist.ID is '主键';
+comment on column whitelist.ip is 'ip地址（段）';
+comment on column whitelist.createtime is '创建时间';
+
+------------poedb数据库-------------------------
+
+CREATE TABLE engine
+(
+id number NOT NULL,
+displayname	varchar2(512),
+expertsid	text,
+createtime	datetime,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table engine is '项目所属专家表';
+comment on column engine.ID is '主键';
+comment on column engine.displayname is '项目名称';
+comment on column engine.expertsid is '专家';
+comment on column engine.createtime is '修改时间';
+
+
+
+CREATE TABLE experts
+(
+id number NOT NULL,
+displayname	varchar2(512),
+expertstype	number,
+sex	varchar2(1),
+major	varchar2(512),
+technical	varchar2(512),
+job	varchar2(512),
+phone	varchar2(50),
+address	varchar2(50),
+updatetime	datetime,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table experts is '专家表';
+comment on column experts.ID is '主键';
+comment on column experts.displayname is '姓名';
+comment on column experts.expertstype is '库';
+comment on column experts.sex is '性别';
+comment on column experts.major is '从事专业';
+comment on column experts.technical is '技术职称';
+comment on column experts.job is '单位及职务';
+comment on column experts.phone is '联系电话';
+comment on column experts.address is '办公地点';
+comment on column experts.updatetime is '创建修改时间';
+
+
+CREATE TABLE expertstype
+(
+id number NOT NULL,
+typename	varchar2(512),
+description	varchar2(512),
+updatetime	datetime,
+isdelete	number(1),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table expertstype is '专家类型表';
+comment on column expertstype.ID is '主键';
+comment on column expertstype.typename is '名称';
+comment on column expertstype.description is '描述';
+comment on column expertstype.updatetime is '修改时间';
+comment on column expertstype.isdelete is '是否删除 0：否，1：是';
+
+
+CREATE TABLE policy
+(
+id number NOT NULL,
+displayname	varchar2(512),
+description	varchar2(512),
+createTime	datetime,
+state	number,
+expertsid	varchar2(512),
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table policy is '政策表';
+comment on column policy.ID is '主键';
+comment on column policy.displayname is '名称';
+comment on column policy.description is '描述';
+comment on column policy.createTime is '修改时间';
+comment on column policy.state is '状态（1：启用；0：禁用）';
+comment on column policy.expertsid is '操作';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------完结-----------------------------------------------------
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(2),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '';
+comment on column article.description is '';
+comment on column article.keywords is '';
+comment on column article.content is '';
+comment on column article.articleno is '';
+comment on column article.issueno is '';
+comment on column article.author is '';
+comment on column article.image is '';
+comment on column article.type is '';
+comment on column article.flag is '';
+comment on column article.createtime is '';
+comment on column article.modifytime is '';
+comment on column article.pdfpath is '';
+comment on column article.linkurl is '';
+comment on column article.isdelete is '';
+comment on column article.subtype is '';
+comment on column article.sortid is '';
+
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(2),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '';
+comment on column article.description is '';
+comment on column article.keywords is '';
+comment on column article.content is '';
+comment on column article.articleno is '';
+comment on column article.issueno is '';
+comment on column article.author is '';
+comment on column article.image is '';
+comment on column article.type is '';
+comment on column article.flag is '';
+comment on column article.createtime is '';
+comment on column article.modifytime is '';
+comment on column article.pdfpath is '';
+comment on column article.linkurl is '';
+comment on column article.isdelete is '';
+comment on column article.subtype is '';
+comment on column article.sortid is '';
+
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(2),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '';
+comment on column article.description is '';
+comment on column article.keywords is '';
+comment on column article.content is '';
+comment on column article.articleno is '';
+comment on column article.issueno is '';
+comment on column article.author is '';
+comment on column article.image is '';
+comment on column article.type is '';
+comment on column article.flag is '';
+comment on column article.createtime is '';
+comment on column article.modifytime is '';
+comment on column article.pdfpath is '';
+comment on column article.linkurl is '';
+comment on column article.isdelete is '';
+comment on column article.subtype is '';
+comment on column article.sortid is '';
+
+
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(2),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '';
+comment on column article.description is '';
+comment on column article.keywords is '';
+comment on column article.content is '';
+comment on column article.articleno is '';
+comment on column article.issueno is '';
+comment on column article.author is '';
+comment on column article.image is '';
+comment on column article.type is '';
+comment on column article.flag is '';
+comment on column article.createtime is '';
+comment on column article.modifytime is '';
+comment on column article.pdfpath is '';
+comment on column article.linkurl is '';
+comment on column article.isdelete is '';
+comment on column article.subtype is '';
+comment on column article.sortid is '';
+
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(2),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '';
+comment on column article.description is '';
+comment on column article.keywords is '';
+comment on column article.content is '';
+comment on column article.articleno is '';
+comment on column article.issueno is '';
+comment on column article.author is '';
+comment on column article.image is '';
+comment on column article.type is '';
+comment on column article.flag is '';
+comment on column article.createtime is '';
+comment on column article.modifytime is '';
+comment on column article.pdfpath is '';
+comment on column article.linkurl is '';
+comment on column article.isdelete is '';
+comment on column article.subtype is '';
+comment on column article.sortid is '';
+
+
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(2),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '';
+comment on column article.description is '';
+comment on column article.keywords is '';
+comment on column article.content is '';
+comment on column article.articleno is '';
+comment on column article.issueno is '';
+comment on column article.author is '';
+comment on column article.image is '';
+comment on column article.type is '';
+comment on column article.flag is '';
+comment on column article.createtime is '';
+comment on column article.modifytime is '';
+comment on column article.pdfpath is '';
+comment on column article.linkurl is '';
+comment on column article.isdelete is '';
+comment on column article.subtype is '';
+comment on column article.sortid is '';
+
+
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(2),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '';
+comment on column article.description is '';
+comment on column article.keywords is '';
+comment on column article.content is '';
+comment on column article.articleno is '';
+comment on column article.issueno is '';
+comment on column article.author is '';
+comment on column article.image is '';
+comment on column article.type is '';
+comment on column article.flag is '';
+comment on column article.createtime is '';
+comment on column article.modifytime is '';
+comment on column article.pdfpath is '';
+comment on column article.linkurl is '';
+comment on column article.isdelete is '';
+comment on column article.subtype is '';
+comment on column article.sortid is '';
+
+CREATE TABLE article
+(
+id number NOT NULL,
+title varchar2(512),
+description varchar2(512),
+keywords varchar2(512),
+content text,
+articleno varchar2(20),
+issueno varchar2(20),
+author varchar2(20),
+image varchar2(512),
+type varchar2(2),
+flag varchar2(20),
+createtime datetime,
+modifytime datetime,
+pdfpath	varchar2(512),
+linkurl	varchar2(512),
+isdelete	number(1),
+subtype	varchar2(2),
+sortid	number,
+CLUSTER PRIMARY KEY(ID)) STORAGE(ON MAIN, CLUSTERBTR);
+comment on table article is '文章信息表';
+comment on column article.ID is '主键';
+comment on column article.title is '';
+comment on column article.description is '';
+comment on column article.keywords is '';
+comment on column article.content is '';
+comment on column article.articleno is '';
+comment on column article.issueno is '';
+comment on column article.author is '';
+comment on column article.image is '';
+comment on column article.type is '';
+comment on column article.flag is '';
+comment on column article.createtime is '';
+comment on column article.modifytime is '';
+comment on column article.pdfpath is '';
+comment on column article.linkurl is '';
+comment on column article.isdelete is '';
+comment on column article.subtype is '';
+comment on column article.sortid is '';

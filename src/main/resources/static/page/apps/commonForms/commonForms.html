@@ -1,0 +1,89 @@
+<style>
+    .black {
+        color: black;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .mbtitle {
+        width: auto;
+        margin-top: 10px;
+    }
+</style>
+
+
+<div class="listmain clearfix">
+    <div class="mbx">
+        <a href="">常用表单</a>
+
+    </div>
+
+    <input ng-model="queryBean.name" ng-keyup="enterKeyup($event)" placeholder="请输入您要搜索的表单,回车确认搜索。">
+    <div class="mbtitle" id="gzjl">
+        <ul>
+            <li ng-click="activeTable('cybd',$event)"   class="sel"><i class="gzzd"></i>常用表单</li>
+            <li ng-click="activeTable('rjzx',$event)" ><i class="gzzd" ></i>软件中心</li>
+        </ul>
+    </div>
+    <div class="listcontent clearfix textcontent" style="margin-top: 0px;padding-top: 0px">
+        <table ng-if="'cybd' == activeTabStr" class="index-table bule" style="margin-top: 0px">
+            <tr>
+                <th>名称</th>
+                <!--                <th width="50%">描述</th>-->
+                <th width="15%">创建时间</th>
+                <th width="15%">操作</th>
+
+                <th width="8%">下载次数</th>
+
+            </tr>
+            <tr ng-repeat="cms in fc.beanList">
+                <td style="text-align: left" class="tc">{{cms.name}}</td>
+                <!--                <td>{{cms.description}}</td>-->
+                <td>{{cms.createtime|ngSubStr:0:10}}</td>
+                <td>
+                    <a class="glyphicon glyphicon-download-alt" ng-click="fc.download(cms)" style="color: red"></a>
+                </td>
+                <td>{{cms.downloadTimes}}</td>
+            </tr>
+
+
+        </table>
+        <table ng-if="'rjzx' == activeTabStr" class="index-table bule" style="margin-top: 0px">
+            <tr>
+                <th >名称</th>
+                <!--                <th width="45%">描述</th>-->
+                <th width="10%">大小</th>
+                <th  width="15%">创建时间</th>
+                <th  width="10%">操作</th>
+                <th  width="8%">下载次数</th>
+
+
+            </tr>
+            <tr ng-repeat="cms in fc.beanList">
+                <td style="text-align: left" class="tc">{{cms.name}}</td>
+                <td>{{cms.size}}</td>
+                <td>{{cms.createtime|ngSubStr:0:10}}</td>
+                <td>
+                    <a  class="glyphicon glyphicon-download-alt" ng-click="fc.download(cms)" style="color: red"></a>
+                </td>
+                <td>{{cms.downloadTimes}}</td>
+            </tr>
+
+
+
+        </table>
+
+
+    </div><!--list-end-->
+
+
+    <div class="ceter_p" id="ceter_p">
+        <div class="ceter_s">
+            <span class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+        </div>
+    </div>
+
+
+</div><!--main-end-->

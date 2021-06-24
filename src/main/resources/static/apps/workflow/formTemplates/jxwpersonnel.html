@@ -1,0 +1,414 @@
+<style>
+	fieldset {
+		padding: .35em .625em .75em;
+		margin: 0 2px;
+		border: 1px solid silver
+	}
+
+	input[type = "checkbox"] {
+		margin: 0 auto !important;
+	}
+
+	.hideslb {
+		overflow-y: hidden;
+	}
+
+	#middelForm {
+		margin-top: 116px !important;
+	}
+
+	.showslb {
+		overflow-y: auto;
+	}
+
+	legend {
+		padding: .5em;
+		border: 0;
+		width: auto
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+	}
+
+	input[type="number"] {
+		-moz-appearance: textfield;
+	}
+
+	.editable {
+		border: 1px solid green;
+	}
+
+	.center {
+		text-align: center;
+	}
+	.tblGw01 .title {
+		font-size: 12px;
+		font-weight: bold;
+		color: black;
+		padding: 3px;
+		font-family: 仿宋_GB2312;
+		border-top: 1px solid black;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+	}
+
+	.tblGw01 .data {
+		font-size: 14px;
+		border-top: 1px solid black;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+		border-bottom: none !important;
+		padding: 3px;
+	}
+</style>
+<!--<div style="height: 863px">-->
+<div style="min-height: 888px">
+
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+
+		<tr>
+			<td align="center" class="td03" style=" width: 880px;padding-top: 20px;">
+				<p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:3px;">
+					<font face="方正姚体" color="black">临时借（聘）用人员报备表</font>
+				</p>
+				<!--<p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-7px">
+					<font style="    letter-spacing: 5px;    font-size: 40px;" color="black"
+					      face="方正姚体">临时借（聘）用人员报备表</font>
+				</p>-->
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="10%" class="td04b" style="padding-left: 0;"><span class="mptd1">报批号:</span></td>
+			<td width="90%" class="">
+				<input name="报批号"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.approvedNum"
+				       type="text"
+				       style="width: 100%;height: 100%;"
+				       class="Inputhidden01"
+				       readonly
+				       onMouseOver="this.className='Inputhidden01Hover'"
+				       onMouseOut="this.className='Inputhidden01'" size="28">
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="20%" class="td04b center title">临时借（聘）用<br/>用&nbsp;人&nbsp;处&nbsp;室</td>
+			<td width="30%" class="td05b data">
+				<input name="临时借（聘）用用人处室"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.temporaryHireDept"
+				       type="text"
+				       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+				       onMouseOver="this.className='Inputhidden01Hover center'"
+				       onMouseOut="this.className='Inputhidden01 center'" size="18">
+			</td>
+
+			<td width="20%" class="td04b center title">空缺岗位<br/>名&nbsp;&nbsp;&nbsp;&nbsp;称</td>
+			<td width="30%" class="td05b data">
+				<input name="空缺岗位名称"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.vacantPostName"
+				       type="text"
+				       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+				       onMouseOver="this.className='Inputhidden01Hover center'"
+				       onMouseOut="this.className='Inputhidden01 center'" size="18">
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="15%" height="100px" class="td04b center title">承担工作<br/>简要描述<br/>（岗位职责）</td>
+			<td width="85%" height="100px" class="td05b data">
+				<textarea name="承担工作简要描述（岗位职责）"
+				          ng-model="task.theCommonFormInfo.formJxwPersonnel.postResponsibilities"
+				          style="width: 100%;height: 100%;" class="Inputhidden01"
+				          onMouseOver="this.className='Inputhidden01Hover'"
+				          onMouseOut="this.className='Inputhidden01'" size="18">
+				</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td width="15%" height="100px" class="td04b center title">岗位所需<br/>资格条件</td>
+			<td width="85%" height="100px" class="td05b data">
+				<textarea name="岗位所需资格条件"
+				          ng-model="task.theCommonFormInfo.formJxwPersonnel.postQualification"
+				          style="width: 100%;height: 100%;" class="Inputhidden01"
+				          onMouseOver="this.className='Inputhidden01Hover'"
+				          onMouseOut="this.className='Inputhidden01'" size="18">
+				</textarea>
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="30%" class="td04b center title">是否涉密岗位</td>
+			<td width="70%" class="td05b data">
+				<input ng-model="personnelChk.secretPost.Yes" ng-click="$event.currentTarget.readOnly || choseCK('secretPost','Yes',$event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;" ng-click="$event.currentTarget.readOnly || chose('secretPost','Yes')">涉密</span>
+				<input ng-model="personnelChk.secretPost.No" ng-click="$event.currentTarget.readOnly || choseCK('secretPost','No',$event)"
+				       type="checkbox">
+				<span style="cursor: pointer" ng-click="$event.currentTarget.readOnly || chose('secretPost','No')">不涉密</span>
+			</td>
+		</tr>
+		<tr>
+			<td width="30%" class="td04b center title">是否属于临时性岗位</td>
+			<td width="70%" class="td05b data">
+				<input ng-model="personnelChk.temporaryPost.Yes" ng-click="$event.currentTarget.readOnly || choseCK('temporaryPost','Yes', $event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;" ng-click="$event.currentTarget.readOnly || chose('temporaryPost', 'Yes')">是</span>
+				<input ng-model="personnelChk.temporaryPost.No" ng-click="$event.currentTarget.readOnly || choseCK('temporaryPost','No', $event)"
+				       type="checkbox">
+				<span style="cursor: pointer" ng-click="$event.currentTarget.readOnly || chose('temporaryPost','No')">否</span>
+			</td>
+		</tr>
+		<tr>
+			<td width="30%" class="td04b center title">临时借（聘）用起止日期</td>
+			<td width="70%" class="td05b data">
+				<input name="临时借（聘）用起始日期"
+				       id="temporaryHireStartDate"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.temporaryHireStartDate"
+				       type="text"
+				       data-date-format="yyyy-mm-dd"
+				       data-provide="datepicker"
+				       style="width: 30%;height: 100%;" class="Inputhidden01 center"
+				       onMouseOver="this.className='Inputhidden01Hover center'"
+				       onMouseOut="this.className='Inputhidden01 center'" size="18">
+				<span width="10%" class="center">起</span>
+				<span width="10%" class="center">至</span>
+				<input name="临时借（聘）用终止日期"
+				       id="temporaryHireEndDate"
+				       data-date-format="yyyy-mm-dd"
+				       data-provide="datepicker"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.temporaryHireEndDate"
+				       type="text"
+				       style="width: 30%;height: 100%;" class="Inputhidden01 center"
+				       onMouseOver="this.className='Inputhidden01Hover center'"
+				       onMouseOut="this.className='Inputhidden01 center'" size="18">
+				<span width="10%" class="center">止</span>
+			</td>
+		</tr>
+		<tr>
+			<td width="30%" class="td04b center title">拟临时借（聘）用</td>
+			<td width="70%" class="td05b data">
+				<input ng-model="personnelChk.temporaryHireType.borrow" ng-click="$event.currentTarget.readOnly || choseCK('temporaryHireType', 'borrow' ,$event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;" ng-click="$event.currentTarget.readOnly || chose('temporaryHireType', 'borrow')">临时借用</span>
+				<input ng-model="personnelChk.temporaryHireType.engage" ng-click="$event.currentTarget.readOnly || choseCK('temporaryHireType', 'engage' ,$event)"
+				       type="checkbox">
+				<span style="cursor: pointer" ng-click="$event.currentTarget.readOnly || chose('temporaryHireType', 'engage')">临时聘用</span>
+			</td>
+		</tr>
+		<tr>
+			<td width="30%" class="td04b center title">聘用类型</td>
+			<td width="70%" class="td05b data">
+				<input ng-model="personnelChk.engageType.first" ng-click="$event.currentTarget.readOnly || choseCK('engageType', 'first' ,$event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;" ng-click="$event.currentTarget.readOnly || chose('engageType', 'first')">首聘</span>
+				<input ng-model="personnelChk.engageType.once" ng-click="$event.currentTarget.readOnly || choseCK('engageType', 'once' ,$event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;" ng-click="$event.currentTarget.readOnly || chose('engageType', 'once')">续聘一次</span>
+				<input ng-model="personnelChk.engageType.twice" ng-click="$event.currentTarget.readOnly || choseCK('engageType', 'twice' ,$event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;" ng-click="$event.currentTarget.readOnly || chose('engageType', 'twice')">续聘二次</span>
+				<input ng-model="personnelChk.engageType.other" ng-click="$event.currentTarget.readOnly || choseCK('engageType', 'other' ,$event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;" ng-click="$event.currentTarget.readOnly || chose('engageType', 'other')">其他</span>
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="20%" rowspan="3" class="td04b center title">借聘（用）人员简要情况</td>
+			<td width="10%" class="td04b center title">姓名</td>
+			<td width="15%" class="td05b data">
+				<input name="姓名"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.hirePersonName"
+				       type="text"
+				       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+				       onMouseOver="this.className='Inputhidden01Hover center'"
+				       onMouseOut="this.className='Inputhidden01 center'" size="18">
+			</td>
+			<td width="10%" class="td04b center title">性别</td>
+			<td width="15%" class="td05b data">
+				<input name="性别"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.hirePersonGender"
+				       type="text"
+				       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+				       onMouseOver="this.className='Inputhidden01Hover center'"
+				       onMouseOut="this.className='Inputhidden01 center'" size="18">
+			</td>
+			<td width="10%" class="td04b center title">出生年月</td>
+			<td width="15%" class="td05b data">
+				<input name="出生年月"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.hirePersonBirth"
+				       type="text"
+				       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+				       onMouseOver="this.className='Inputhidden01Hover center'"
+				       onMouseOut="this.className='Inputhidden01 center'" size="18">
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" class="td04b center title">学历</td>
+			<td width="20%" class="td05b data" colspan="2">
+				<input name="学历"
+				       ng-model="task.theCommonFormInfo.formJxwPersonnel.hirePersonEducation"
+				       type="text"
+				       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+				       onMouseOver="this.className='Inputhidden01Hover center'"
+				       onMouseOut="this.className='Inputhidden01 center'" size="18">
+			</td>
+
+			<td width="15%" class="td04b center title">毕业院校及专业</td>
+			<td width="20%" class="td05b data" colspan="2">
+				<textarea name="毕业院校及专业"
+				          ng-model="task.theCommonFormInfo.formJxwPersonnel.hirePersonProfession"
+				          style="width: 100%;height: 100%;" class="Inputhidden01"
+				          onMouseOver="this.className='Inputhidden01Hover'"
+				          onMouseOut="this.className='Inputhidden01'" size="18">
+				</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td width="15%" class="td04b center title">借出单位或退休单位名称</td>
+			<td width="20%" class="td05b data" colspan="2">
+				<textarea name="借出单位或退休单位名称"
+				          ng-model="task.theCommonFormInfo.formJxwPersonnel.hirePersonDeptname"
+				          style="width: 100%;height: 100%;" class="Inputhidden01"
+				          onMouseOver="this.className='Inputhidden01Hover'"
+				          onMouseOut="this.className='Inputhidden01'" size="18">
+				</textarea>
+			</td>
+
+			<td width="15%" class="td04b center title">职务或职称</td>
+			<td width="20%" class="td05b data" colspan="2">
+				<textarea name="职务或职称"
+				          id="leaveEndDate"
+				          ng-model="task.theCommonFormInfo.formJxwPersonnel.hirePersonPosition"
+				          type="text"
+				          style="width: 100%;height: 100%;" class="Inputhidden01"
+				          onMouseOver="this.className='Inputhidden01Hover'"
+				          onMouseOut="this.className='Inputhidden01'" size="18">
+				</textarea>
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="20%" class="td04b center title">退休前身份</td>
+			<td width="40%" class="td05b data">
+				<input ng-model="personnelChk.retireIdentity.servant" ng-click="$event.currentTarget.readOnly || choseCK('retireIdentity', 'servant', $event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;"  ng-click="$event.currentTarget.readOnly || chose('retireIdentity', 'servant')">公务员</span>
+				<input  ng-model="personnelChk.retireIdentity.institution" ng-click="$event.currentTarget.readOnly || choseCK('retireIdentity', 'institution', $event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;"  ng-click="$event.currentTarget.readOnly || chose('retireIdentity', 'institution')">事业单位</span>
+				<input  ng-model="personnelChk.retireIdentity.enterprise" ng-click="$event.currentTarget.readOnly || choseCK('retireIdentity', 'enterprise', $event)"
+				       type="checkbox">
+				<span style="cursor: pointer"  ng-click="$event.currentTarget.readOnly || chose('retireIdentity', 'enterprise')">企业</span>
+			</td>
+			<td width="20%" class="td04b center title">是否为处级干部</td>
+			<td width="20%" class="td05b data">
+				<input  ng-model="personnelChk.departmentalCadre.Yes" ng-click="$event.currentTarget.readOnly || choseCK('departmentalCadre', 'Yes',$event)"
+				       type="checkbox">
+				<span style="cursor: pointer;margin-right: 10px;"  ng-click="$event.currentTarget.readOnly || chose('departmentalCadre', 'Yes')">是</span>
+				<input  ng-model="personnelChk.departmentalCadre.No" ng-click="$event.currentTarget.readOnly || choseCK('departmentalCadre', 'No',$event)"
+				       type="checkbox">
+				<span style="cursor: pointer"  ng-click="$event.currentTarget.readOnly || chose('departmentalCadre', 'No')">否</span>
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="5%" height="150px" class="td04b center title">借出单位意见</td>
+			<td width="15%" height="150px" class="td05b data" style="vertical-align: top;">
+				负责人<br/>签字：<br/>请见附件
+			</td>
+			<td width="5%" height="150px" class="td04b center title">用人处室意见</td>
+			<td width="15%" height="150px" class="td05b data">
+				负责人<br/>签字：
+				<div style="height: 110px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.yrcs">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+			<td width="5%" height="150px" class="td04b center title">干部处意见</td>
+			<td width="15%" height="150px" class="td05b data">
+				负责人<br/>签字：
+				<div style="height: 110px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.gbc">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+			<td width="5%" height="150px" class="td04b center title">人事教育处意见</td>
+			<td width="15%" height="150px" class="td05b data">
+				负责人<br/>签字：
+				<div style="height: 110px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.rsjyc">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+			<td width="5%" height="150px" class="td04b center title">党办/行办意见</td>
+			<td width="15%" height="150px" class="td05b data">
+				负责人<br/>签字：
+				<div style="height: 110px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.dbxb">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="45%" class="td04b center title">用人处室分管委领导意见（签字）</td>
+			<td width="55%" class="td05b data">
+				<div style="height: 60px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.yrcld">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="45%" class="td04b center title">干部处分管委领导意见（签字）</td>
+			<td width="55%" class="td05b data">
+				<div style="height: 60px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.gbcld">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="45%" class="td04b center title">人事教育处分管委领导意见（签字）</td>
+			<td width="55%" class="td05b data">
+				<div style="height: 60px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.rsjycld">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="45%" class="td04b center title">党办/行办分管委领导（聘用）意见（签字）</td>
+			<td width="55%" class="td05b data">
+				<div style="height: 60px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.dbxbld">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="45%" class="td04b center title" style="border-bottom: 1px solid black">主要领导意见（签字）</td>
+			<td width="55%" class="td05b data" style="border-bottom: 1px solid black !important;">
+				<div style="height: 60px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+				     onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+					<div class="user-option" ng-repeat="o in task.userOpinions.zyld">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>

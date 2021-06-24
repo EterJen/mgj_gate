@@ -1,0 +1,126 @@
+<style>
+	.bmxx_tit .right a.bj {
+		background: #3986c8; /*border-bottom:2px solid #5880c9;*/
+		width: 72px;
+	}
+
+	thead th {
+		text-align: center !important;
+	}
+
+	.nav-tabs li a {
+		padding: 6px 10px;
+	}
+</style>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div class="panel-heading" id="panel-heading"
+			     style="border-bottom: 1px solid transparent;background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span>会议管理</span>
+						<a href="" hidden class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;" id="directQuery"  ng_click="queryProInstList()"><img src="images/search.svg">搜索</a>
+					</div>
+				</div>
+			</div>
+			<div class="bmxx_tit" id="bmxx_tit" style="margin-bottom: 0;padding-right: 15px;padding-left: 15px">
+				<ul class="nav nav-tabs " style="margin:0 auto;">
+					<li ng-repeat="li in docTypelist track by $index"
+					    ng-class="{active: orgNavType==li.id}" ng-click="choseCandate(li.id)"
+					    style="width:110px;margin-right: -1px;"><a href="">{{li.val}}</a></li>
+				</ul>
+				<div class="right user-titleheading">
+					<div ng-show="orgNavType == 'tz'">
+						<a href="" class="bj" style="margin-left: 30px;" ng-click="showDetail('queryModal')"><img src="images/search.svg">搜索</a>
+						<a href="" class="bj" style="margin-left: 30px;" ng-click="queryProInstListByCondition('Active')"
+						   ng-class="{selected: isFinished == 'Active', unselected: isFinished != 'Active'}">待处理</a>
+						<a href="" class="bj" ng-click="queryProInstListByCondition('Finished')"
+						   ng-class="{selected: isFinished == 'Finished', unselected: isFinished != 'Finished'}">已办</a>
+					</div>
+					<div ng-show="orgNavType == 'dl'">
+						<a href="" class="tj" ng-click="createMeeting()" ng-show="hasJYMSRole"><img src="images/add.svg">新增</a>
+						<a href="" class="bj" style="margin-left: 30px;" ng-click="showDetail('queryModal')"><img src="images/search.svg">搜索</a>
+						<a href="" class="bj" style="margin-left: 30px;" ng-class="{selected: status == 'before', unselected: status != 'before'}"
+						   ng-click="queryProInstListByCondition('before')">待做</a>
+						<a href="" class="bj" ng-class="{selected: status == 'after', unselected: status != 'after'}"
+						   ng-click="queryProInstListByCondition('after')">已做</a>
+						<a href="" class="bj" ng-class="{selected: status == 'all', unselected: status != 'all'}"
+						   ng-click="queryProInstListByCondition('all')">全部</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body" id="panel-body-table" style="padding-right: 15px;">
+				<div id="myTabContent" class="table_shadow" ng-include="formPath"
+				     style="overflow:auto; max-height: 85%">
+				</div>
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+
+<div class="modal fade " id="queryModal" tabindex="-1" role="dialog" aria-labelledby="mySmallQueryModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="mySmallQueryModalLabel">会议查询</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="meetingTimeStart" class="col-sm-2 control-label">会议时间</label>
+						<div class="col-sm-4">
+							<input type="text" id="meetingTimeStart" class="form-control" ng-model="queryBean.dbParams.meetingTimeStart"  readonly="readonly">
+						</div>
+						<label class="col-sm-1 control-label">—</label>
+						<div class="col-sm-4">
+							<input type="text" id="meetingTimeEnd" class="form-control" ng-model="queryBean.dbParams.meetingTimeEnd" readonly="readonly">
+						</div>
+						<label class="col-sm-1 media-middle text-center"></label>
+					</div>
+					<div class="form-group">
+						<label for="issueUnit" class="col-sm-2 control-label">发出单位</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="queryBean.dbParams.issueUnit"
+							       id="issueUnit"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="meetingAddress" class="col-sm-2 control-label">会议地点</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="queryBean.dbParams.meetingAddress" id="meetingAddress"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="meetingContent" class="col-sm-2 control-label">会议内容</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="queryBean.dbParams.meetingContent"
+							       id="meetingContent"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="meetingAttend" class="col-sm-2 control-label">出席对象</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="queryBean.dbParams.meetingAttend"
+							       id="meetingAttend"/>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer mf">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="queryProInstListChangeBean('queryModal')">确定
+				</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

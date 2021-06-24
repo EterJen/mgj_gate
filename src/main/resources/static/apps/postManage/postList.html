@@ -1,0 +1,308 @@
+<style>
+    .modal-dialog {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .modal-content {
+        /*overflow-y: scroll; */
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .modal-body {
+        /*overflow-y: scroll;*/
+        position: absolute;
+        top: 55px;
+        bottom: 65px;
+        width: 100%;
+    }
+
+    .modal-header .close {margin-right: 15px;}
+
+    .modal-footer {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+    }
+</style>
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content" ng-click="deptFocus(node,$event)" ng-dblclick="toggle(this)">
+        <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)">
+
+             <img ng-show="collapsed" src="images/zd-anv-02.png" style="margin-left:4px;">             <img ng-show="!collapsed" src="images/zd-anv-01.png" style="margin-left:4px;">
+        </a>
+        <span class="angular-ui-tree-span" ng-if="node.name.length>5">{{node.name| limitTo : 5}}</span>
+        <span class="angular-ui-tree-span" ng-if="node.name.length<=5">{{node.name}}</span>
+        <a class="btn btn-xs pull-right" data-nodrag>
+            <span class="fa_icon" ng-click="showDialog('postDetailDialog','insert',node,$event)"><img src="images/zd-anv-02.png"></span>
+        </a>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ui-tree-node data-collapsed="true" ng-repeat="node in node.nodes" ng-show="node.visible == undefined ?  true :node.visible" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+    </ol>
+    <ol ui-tree-nodes="" ng-model="node.posts" ng-class="{hidden: collapsed}" ng-if="node.posts!==null && node.posts.length>0 && node.posts[0].name!==null">
+        <li ng-repeat="post in node.posts" ui-tree-node ng-show="post.visible == undefined ?  true :post.visible" >
+            <div ui-tree-handle id="ps_{{post.id}}" class="tree-node tree-node-content" ng-click="postFocus(node,post,$event)">
+                <a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0"></a>
+                <span class="angular-ui-tree-span" ng-if="node.name.length>7">{{post.name| limitTo : 7}}</span>
+                <span class="angular-ui-tree-span" ng-if="node.name.length<=7">{{post.name}}</span>
+            </div>
+        </li>
+    </ol>
+</script>
+
+<div class="modal fade bs-example-modal-lg" id="postDetailDialog" tabindex="-1" role="dialog" aria-labelledby="postModalLbel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="postModalLbel">岗位基本信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="postEditForm" name="postEditForm" role="form">
+                    <!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">岗位名称*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="name" id="name" maxlength="10" ng-model="selectedPost.name" placeholder="请输入岗位名称" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="deptname" class="col-sm-2 control-label">所属部门*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="deptname" name="deptname" maxlength="15" ng-value="selectedDept.name" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description" class="col-sm-2 control-label">岗位描述*</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" maxlength="20" name="description" id="description" ng-model="selectedPost.description" rows="5" placeholder="请输入岗位描述" required/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <!--button type="reset" class="btn btn-sm btn-danger cancel">重置</button>-->
+                <!--<a class="btn btn-primary" ng-click="hideDialog('userDetailDialog')">取消</a>-->
+                <!--<button type="submit" class="btn btn-primary">保存</button>-->
+                <button type="button" class="btn btn-sm btn-default btn-close cancel" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-sm btn-primary btn-enter save" ng-click="savePost()" ng-disabled="postEditForm.$invalid">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <!-- <a class="btn btn-primary btn-sm" ng-click="addPost()">新增岗位</a> -->
+                <!-- <a class="btn btn-primary btn-sm" ng-click="showDialog('postDetailDialog','insert')">新增岗位</a>
+                <a class="btn btn-primary btn-sm pull-right" ng-click="edit()">修改岗位</a>
+                <a class="btn btn-primary btn-sm pull-right" ng-click="delPost()">删除岗位</a> -->
+                <!-- <div class="bmxx_tit">
+					      <div class="left left-btn"><a href="" ng-click="showDialog('postDetailDialog','insert')" class="bj"><img src="images/edit.svg">新增岗位</a></div>
+					      <div class="right">
+					         <a href="" ng-click="edit()" class="bj"><img src="images/edit.svg">修改岗位</a>
+					         <a href="" ng-click="delPost()" class="sc"><img src="images/remove.svg">删除岗位</a>
+					      </div>
+					  </div> -->
+            
+	            <div class="row">
+	                <div class="gdt_cont fixedHeight " style="padding-right: 0; padding-left: 0;">
+	                    <!--ng-blur="$broadcast('angular-ui-tree:expand-all')"-->
+	                    <div class="treeTitle">
+	                        <b>岗位管理</b>
+	                        <div class="postSearch">
+	                            <input id="sss" ng-model="queryText" class="" maxlength="10" placeholder="查询岗位" ng-focus="$broadcast('angular-ui-tree:collapse-all')" ng-keyup="enterKeyup($event,'queryDeptsTree')" type="text"/>
+	                            <i ng-click="filterPostTree()"><img src="images/search-3.png"></i>
+	                        </div>
+	
+	                    </div>
+	                    <!-- <div class="form-group">
+	                    	<input ng-model="queryText" class="form-control" placeholder="查询岗位" ng-focus="$broadcast('angular-ui-tree:collapse-all')" ng-keyup="enterKeyup($event,'queryDeptsTree')" type="text"/>
+	                    </div> -->
+	                    <div ui-tree id="tree-root" data-drag-enabled="false" class="tree-root">
+	                        <ol ui-tree-nodes="" ng-model="deptsTree">
+	                            <li ng-repeat="node in deptsTree" ui-tree-node data-collapsed="true" ng-show="node.visible == undefined ?  true :node.visible" ng-include="'nodes_renderer.html'"></li>
+	                        </ol>
+	                    </div>
+	                </div>
+	                <div class="details" style="padding-left: 2px">
+	                    <div id="pdiv1">
+	                        <div class="bmxx_tit" id="depart_tit">
+	                            <div class="left"><img src="images/bmxx_tit-01.png"> 岗位基本信息
+	                            </div>
+	                            <div class="right">
+	                                <!--<a href=""  class="tj" ng-click="showDialog('postDetailDialog','insert')"><img src="images/add.svg">新增岗位</a>-->
+	                                <a href="" class="bj" ng-click="edit()"><img src="images/edit.svg">修改岗位</a>
+	                                <a href="" class="sc" ng-click="delPost()"><img src="images/remove.svg">删除岗位</a>
+	                            </div>
+	                        </div>
+	                        <div class="postInfo" id="pdiv2">
+	                            <table class="table table-condensed table_zdy">
+	                                <tr>
+	                                    <td width="15%" class="mc_name">岗位名称：</td>
+	                                    <td width="35%">
+	                                        <span ng-if="!isUpdate">{{selectedPost.name}}</span>
+	                                        <div class="form-group" ng-if="isUpdate">
+	                                            <input class="form-control input-sm" maxlength="10" ng-model="selectedPost.name" type="text"/>
+	                                        </div>
+	                                    </td>
+	                                    <td width="15%" class="mc_name">所属部门：</td>
+	                                    <td width="35%">
+	                                        <span ng-if="selectedPost.actived">{{selectedDept.name}}</span>
+	                                        <!-- <span ng-show="!isUpdate">{{selectedDept.name}}</span> -->
+	                                        <!-- <select ng-show="isUpdate" ng-model="optionDeptId">
+	                                            <option selected="{{o.id===optionDeptId}}" ng-repeat="o in depts" value="{{o.id}}">{{o.name}}
+	                                            </option>
+	                                        </select> -->
+	                                        <!-- <select ng-show="isUpdate" ng-model="optionDept" class="form-control input-sm" ng-change="selectOptionDept(optionDept)" ng-options="o.name for o in depts">
+	                                        </select> -->
+	                                    </td>
+	                                </tr>
+	                                <tr>
+	                                    <td class="mc_name">岗位描述：</td>
+	                                    <td colspan="3">
+	                                        <span ng-if="!isUpdate">{{selectedPost.description}}</span>
+	                                        <div class="form-group" ng-if="isUpdate">
+	                                            <input class="form-control input-sm" maxlength="20" ng-model="selectedPost.description" type="text"/>
+	                                        </div>
+	                                    </td>
+	                                </tr>
+	                                <tr style="text-align:center" ng-hide="!isUpdate">
+	                                    <td colspan="4">
+	                                        <a class="btn btn-sm btn-primary" ng-click="savePost()">保存
+	                                        </a>
+	                                        <a class="btn btn-sm btn-default" ng-click="isUpdate = false">取消
+	                                        </a>
+	                                    </td>
+	                                </tr>
+	                            </table>
+	                        </div>
+	
+	                        <!-- <div>
+	                            <div class="pull-left"><p>岗位分配人员</p></div>
+	                            <div class="pull-right">
+	                                <a href="" class="btn btn-primary btn-sm" ng-click="showUsers()">配置人员</a>
+	                                <a href="" class="btn btn-primary btn-sm" ng-click="delUsersFromPost()">移出人员</a>
+	                            </div>
+	                        </div> -->
+	                        <div class="bmxx_tit" id="pdiv3">
+	                            <div class="left"><img src="images/bmxx_tit-02.png">岗位分配人员</div>
+	                            <div class="right">
+	                                <a href="" ng-click="showUsers()" class="tj"><img src="images/add.svg">配置人员</a>
+	                                <a href="" ng-click="delUsersFromPost()" class="sc"><img src="images/remove.svg">移出人员</a>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div id="table_1" class="table_1">
+	                        <table class="table table-striped  table_zdy_2 " style="margin-bottom: 0;">
+	                            <thead>
+	                            <tr>
+	                                <th style="vertical-align: middle;">
+	                                    <input ng-change="nodeTrClick(null,allUsersRoot,null,postUsers,$event)" type="checkbox" ng-model="allUsersRoot.checked"/>
+	                                </th>
+	                                <th>姓名</th>
+	                                <th>登录名</th>
+	                                <th>登录模式</th>
+	                                <th>邮箱</th>
+	                            </tr>
+	                            </thead>
+	                            <tr ng-repeat="u in postUsers">
+	                                <td>
+	                                    <input type="checkbox" ng-change="nodeTrClick(allUsersRoot,u,postUsers,null,$event)" name="checkItem" ng-model="u.checked"/>
+	                                </td>
+	                                <td>{{u.name}}</td>
+	                                <td>{{u.username}}</td>
+	                                <td>
+	                                    <div ng-repeat="un in userModeOptions" ng-if="un.id===u.usermode">
+	                                        <span>{{un.name}}</span>
+	                                    </div>
+	                                    <!-- {{u.usermode}} -->
+	                                </td>
+	                                <td>{{u.email}}</td>
+	                            </tr>
+	                        </table>
+	                    </div>
+	                </div>
+	            </div>
+        	</div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="userList" tabindex="-1" role="dialog" aria-labelledby="myModalCreatDepartment">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalCreatDepartment">配置人员到 "{{selectedDept.name}}" 部门的 "{{selectedPost.name}}" 岗位</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group col-xs-12">
+                        <input type="text" class="form-control" maxlength="10" ng-keyup="enterKeyup($event,'pageAuto')" ng-model="queryBean.name" placeholder="用户名或登录名">
+                        <span class="input-group-btn">
+							<button class="btn btn-primary btn-sm" ng-click ='pageAuto()' style="background: #5588F5; margin-right: 0px;margin-left: 20px;" id="search_submit" type="submit">查 询</button>
+						</span>
+                    </div>
+                </div>
+                <div class="table_shadow" style="max-height:85%;overflow-y: auto;">
+                    <table class="table table-striped  table_zdy_2" style="min-width: 100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" ng-change="nodeTrClick(null,allUsersRoot,null,allUsers,$event)" id="checkAll" ng-model="allUsersRoot.checked"/>
+                                </th>
+                                <th>姓名</th>
+                                <th>用户名</th>
+                                <th>工号</th>
+                                <th>邮箱</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="u in allUsers">  <!-- ng-show="userVisible(u)" -->
+                                <td>
+                                    <input type="checkbox" name="checkItem" ng-change="nodeTrClick(allUsersRoot,u,allUsers,null,$event,'radio')" ng-model="u.checked"/>
+                                </td>
+                                <td>{{u.name}}</td>
+                                <td>{{u.username}}</td>
+                                <td>{{u.alternates}}</td>
+                                <td>{{u.email}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ceter_p">
+                    <div class="ceter_s">
+                        <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer mf">
+                <button type="button" class="btn btn-sm btn-primary save" ng-click="addUsersToPost()">确定</button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+            </div>
+            <!--  <div class="modal-footer" style="text-align: center;">
+                 <a href="" class="btn btn-primary" data-dismiss="modal" ng-click="addUsersToPost()">确定</a>
+                 <a href="" class="btn btn-primary" data-dismiss="modal">关闭</a>
+              </div> -->
+        </div>
+    </div>
+</div>

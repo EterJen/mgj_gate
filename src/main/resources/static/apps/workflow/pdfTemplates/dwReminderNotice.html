@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+/*设定纸张大小*/
+/* A4纸 */
+/* @page{size:210mm*297mm} */
+@page {
+	size: a4
+}
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid silver
+    }
+
+    .hideslb {
+        overflow-y: hidden;
+    }
+
+    .showslb {
+        overflow-y: auto;
+    }
+
+    legend {
+        padding: .5em;
+        border: 0;
+        width: auto
+    }
+	.GwTitleRedLargeBigSF {
+    font-size: 36px;
+    font-weight: 700;
+    /* color: rgb(245, 0, 0); */
+    color:#ce1414;
+    font-family: FZYaoti;
+    padding: 10px;
+	}
+	.tblGw01 {
+    font-size: 12px;
+    border-collapse: collapse;
+	}
+	.tblGw01 .td02 {
+    font-size: 14px;
+    color: #ce1414;
+    border: 0.5px solid;
+    padding: 3px;
+	text-align:center
+	}
+
+	input{
+	text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+	color:#312e2e;
+	}
+.user-option{
+    white-space:pre-wrap;
+    line-height: 18px;
+}
+	.Inputhidden01 {
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    font-family: FangSong_GB2312;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+	font-weight: normal !important;
+}
+.Inputhidden011 {
+    height: inherit;
+    overflow-y: hidden;
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    font-weight: normal !important;
+    font-family: FangSong_GB2312 !important;
+}
+.tab-fontfamily {
+    font-family: FangSong_GB2312 !important;
+   
+}
+.tblGw01 .td03 {
+    color: #ce1414;
+    font-family: FangSong_GB2312;
+    padding: 3px;
+}
+.tblGw01 .td05 {
+    font-size: 15px;
+    color: 333;
+    border-bottom: 1px solid #F88F8F;
+    padding: 3px;
+    font-family: FangSong_GB2312;
+	font-weight: normal !important;
+}
+.fontSizeFamily {
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    font-family: FangSong_GB2312 !important;
+}
+tr td{
+	 font-size: 15px;
+}
+.blu_cz{
+	 font-size: 16px;
+}
+.blu_t{
+	 font-size: 14.5px;
+}
+</style>
+</head>
+<body>
+<!--<div style="border:1px solid black;width:760px;margin-left:auto;margin-right:auto;padding:5 5 50 5">-->
+<table style="width:630px" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td align="center" class="td03">
+            <p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-12px;">
+                <font>中共上海市长城电子督查事项催办通知单</font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" class="td03">
+            <span style="font-size: 20px;font-weight:bold;">$task.theCommonFormInfo.belongProInst.relatedReceiveDocId$</span>
+        </td>
+    </tr>
+</table>
+
+<table style="width:630px" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td colspan="2" class="td03">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td05" width="40%">
+            $task.theCommonFormInfo.belongProInst.chenBanDepart$
+            <!--<input name="承办部门" value="$task.theCommonFormInfo.belongProInst.chenBanDepart$" type="text" class="Inputhidden01 formCtrlField" >-->
+        </td>
+        <td class="td03" width="60%">:</td>
+
+    </tr>
+</table>
+<table style="width:630px" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td03" width="25px"></td>
+        <td class="td03" width="110px">此件（来文字号</td>
+        <td class="td05" >
+            $task.theCommonFormInfo.belongProInst.incomingDocNum$
+            <!--<input name="来文字号" value="$task.theCommonFormInfo.belongProInst.incomingDocNum$" type="text" class="Inputhidden01 formCtrlField" >-->
+        </td>
+        <td class="td03" width="80px">文件标题:</td>
+    </tr>
+</table>
+
+<table style="width:630px" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td  class="td05" width="97%">
+            $task.title1$
+        </td>
+        <td  class="td03">
+
+        </td>
+    </tr>
+    <tr>
+        <td  class="td05" width="97%">
+            $task.title2$
+        </td>
+        <td  class="td03">
+            ）
+        </td>
+    </tr>
+</table>
+
+<table style="width:630px" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td03" width="140px">
+            的办理工作也被列为
+        </td>
+        <td class="td05" width="50%">
+            $task.theCommonFormInfo.belongProInst.incomingDocDepart$
+            <!--<input  name="来文单位" value="$task.theCommonFormInfo.belongProInst.incomingDocDepart$" ng-dblclick="fc.chooseDeparName('incomingDocDepart')"  type="text" class="Inputhidden01" >-->
+        </td>
+        <td class="td03">
+            督查项目。
+        </td>
+    </tr>
+</table>
+
+<table style="width:630px" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <td colspan="3" class="td03" height="10px">&nbsp;
+    </td>
+    <tr>
+        <td class="td03" width="25px"></td>
+        <td class="td03" width="100px">请你处于</td>
+        <td class="td05" width="90px">
+            $task.theCommonFormInfo.belongProInst.xianBanTime$
+        </td>
+        <td class="td03">
+            以前完成下列办理事项：
+        </td>
+    </tr>
+</table>
+
+<table style="width:630px" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td colspan="4" class="td03">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td03" width="5%">
+            1.
+        </td>
+        <td class="td03" width="10%">
+            请会同
+        </td>
+        <td class="td05" width="80%">
+            $task.theCommonFormInfo.belongProInst.authorshipService$
+            <!--<input  name="请会同" for="agree" value="$task.theCommonFormInfo.belongProInst.authorshipService$" ng-click="fc.mattersClk('agree')"  ng-dblclick="fc.chooseDeparName('authorshipService')"  type="text" class="Inputhidden01" >-->
+        </td>
+        <td class="td03" width="5%">
+            <input id="agree"  type="checkbox"  $checked_agree$>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="td03">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td03">
+            2.
+        </td>
+        <td class="td03" colspan="2" style="cursor: pointer" ng-click="fc.mattersClk('opinions')">
+            <span  for="opinions">提出处理意见。</span>
+        </td>
+        <td class="td03">
+            <input id="opinions"  type="checkbox"  $checked_opinions$>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="td03">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td03">
+            3.
+        </td>
+        <td class="td03" colspan="2" style="cursor: pointer" ng-click="fc.mattersClk('progress')">
+            <span for="progress">告知办理进展情况。</span>
+        </td>
+        <td class="td03">
+            <input id="progress"  type="checkbox"  $checked_progress$>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="td03">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td03">
+            4.
+        </td>
+        <td class="td03" colspan="2" style="cursor: pointer" >
+            <span for="result">反馈处理结果。</span>
+        </td>
+        <td class="td03">
+            <input id="result"  type="checkbox"  $checked_result$>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="td03">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="td03">
+            5.
+        </td>
+        <td class="td05" colspan="2">
+            $task.theCommonFormInfo.belongProInst.cityApproval$
+            <!--<input  name="其他" for="otherResult" ng-click="fc.mattersClk('otherResult')" value="$task.theCommonFormInfo.belongProInst.cityApproval$"  type="text" class="Inputhidden01" >-->
+        </td>
+        <td class="td03">
+            <input id="otherResult" type="checkbox" value="fc.reminderNoticeList.otherResult" $checked_otherResult$>
+        </td>
+    </tr>
+</table>
+
+
+
+<table style="width:630px" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <td colspan="2" class="td03">&nbsp;
+    </td>
+    <tr>
+        <td width="70%" class="td03">
+            联系人：叶志向    电话：19202
+        </td>
+        <td width="30%"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="td03">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td  class="td03">
+
+        </td>
+        <td  class="td03" align="center">
+            上海市长城电子党委办公室
+        </td>
+    </tr>
+
+    <tr>
+        <td  class="td03">
+
+        </td>
+        <td  class="td03" align="center">
+            $task.theCommonFormInfo.belongProInst.denluTime$
+        </td>
+    </tr>
+</table>
+<!--</div>-->
+
+</body>
+</html>

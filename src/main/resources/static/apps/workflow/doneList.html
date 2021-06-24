@@ -1,0 +1,154 @@
+<style>
+
+.form-group {
+    margin-right: 0px; 
+    margin-left: 0px;
+    margin-bottom:0px !important;
+}
+
+
+
+thead th {
+	text-align:center !important;
+}
+.addScroll{
+	margin-right: 17px;
+}
+.table th, .table td {
+	text-align: center;
+	vertical-align: middle !important;
+}
+</style>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default"  >
+			 <div class="panel-heading" id="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+            	<div class="bmxx_tit" id="depart_tit">
+					  <div class="left"><img src="images/bmxx_tit-01.png">
+                          <span >已办事项</span>
+						  <a href="" hidden class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;" id="directQuery"  ng_click="queryDoneList()"><img src="images/search.svg">搜索</a>
+                      </div>
+				</div>
+            </div>
+			<div class="bmxx_tit" id="bmxx_tit" style="margin-bottom: 0;padding-right: 15px;padding-left: 15px">
+				<ul class="nav nav-tabs " style="margin:0 auto;">
+					<li ng-repeat="li in docTypelist track by $index" ng-class="{active: orgNavType==li.id}" id="{{'doneTask'+li.id}}" ng-click="changeNavType(li.id)" style="margin-right: -1px;"><a href="">{{li.val}}</a></li>
+				</ul>
+				<div class="right user-titleheading" style="height: inherit;width: 27%" >
+					<div class="form-group" style="margin-bottom: 0px;">
+						<div class="input-group col-xs-12">
+							<!--input加入ng-change="paginationConf.totalItems = -1"导致输入框每次输入内容分页不显示-->
+							<input type="text" style="font-weight: normal; height: 27px;right: -1px; text-align: left" class="form-control"  ng-model="titleDocFullName" ng-keyup="enterKey($event)" placeholder="请输入公文标题或文号,回车确认搜索。"/>
+							<span class="input-group-btn">
+                                      <a href="" class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;"  ng_click="pageAuto()"><img src="images/search.svg">搜索</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+				<div class="table_shadow" style="overflow:auto;">
+					<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+                        <thead ng-if="orgNavType != 'canBeReturn'">
+						 <tr>
+							 <th  class="conllection-first-th">关注</th>
+							 <th width="15%">最新更新时间</th>
+							 <th width="60%">任务标题</th>
+							 <th style="white-space: pre-wrap" width="15%">文        号</th>
+							 <!--<th width="25%">公文标识</th>-->
+							 <!--<th width="10%">办理状态</th>-->
+							 <th width="8%">状态</th>
+						 </tr>
+					 </thead>
+						<thead ng-if="orgNavType == 'canBeReturn'">
+							<tr>
+								<th  class="conllection-first-th">关注</th>
+								<th width="10%">最新更新时间</th>
+								<th width="35%">任务标题</th>
+								<th style="white-space: pre-wrap" width="15%">文        号</th>
+								<th width="10%">发起节点</th>
+								<th width="10%">接收节点</th>
+								<th width="10%">接收人</th>
+								<th width="8%">状态</th>
+								<th  width="5%">操作</th>
+								<!--<th width="25%">公文标识</th>-->
+								<!--<th width="10%">办理状态</th>-->
+							</tr>
+						</thead>
+					 <tbody ng-if="orgNavType != 'canBeReturn'">
+						 <tr ng-repeat="proInst in doneList" ng-click="gotoDetail(proInst)">
+							 <td id="pop{{task.id}}"  ng-click="collectionPros($index);$event.stopPropagation();" title="点击关注"><span ng-class="{'glyphicon glyphicon-bookmark collection' : proInst.collection, 'glyphicon glyphicon-bookmark notCollection' : !proInst.collection}" ></span></td>
+                             <td>{{::proInst.lastUpdatedTime | limitTo : 10}}<br>{{::proInst.lastUpdatedTime | limitTo : -8}}</td>
+							 <td style="text-align: left;">{{::proInst.title}}</td>
+							 <td >{{::proInst.docFullName}}</td>
+							 <td>{{::proInst.handleState}}</td>
+							 <!--<td width="25%">{{::proInst.documentIdentification}}</td>-->
+							 <!--<td >{{::proInst.isFinishedChinese}}</td>-->
+						 </tr>
+					 </tbody>
+						<tbody ng-if="orgNavType == 'canBeReturn'">
+							<tr ng-repeat="proInst in doneList" ng-click="gotoDetail(proInst)">
+								<td id="pop{{task.id}}"  ng-click="collectionPros($index);$event.stopPropagation();" title="点击关注"><span ng-class="{'glyphicon glyphicon-bookmark collection' : proInst.collection, 'glyphicon glyphicon-bookmark notCollection' : !proInst.collection}" ></span></td>
+								<td>{{::proInst.lastUpdatedTime | limitTo : 10}}<br>{{::proInst.lastUpdatedTime | limitTo : -8}}</td>
+								<td style="text-align: left;">{{::proInst.title}}</td>
+								<td >{{::proInst.docFullName}}</td>
+								<td >{{::proInst.canBeReturnTask.fromNodeId}}</td>
+								<td >{{::proInst.canBeReturnTask.belongingNodeId}}</td>
+								<td >{{::proInst.canBeReturnTask.assigneeName}}</td>
+								<td>{{::proInst.handleState}}</td>
+								<td  >
+									<button type="button" ng-click="backTask(proInst.canBeReturnTask); $event.stopPropagation();"  class="btn btn-xs btn-danger">撤回</button>
+								</td>
+							</tr>
+						</tbody>
+                    </table>
+                </div>
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>
+            </div>
+         </div>
+	</section>
+</div>
+
+  
+<div class="modal fade" id="createProInstDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">创建流程</div>
+			<div class="modal-body">
+			   <form  role="form" novalidate ng-submit="saveUser()">
+				<table class="table table-bordered">
+					<tr>
+						<td width="20%">标题：</td>
+						<td>
+							<div class="form-group">
+								<input type="text" ng-model="proInst.title" class="input-sm form-control" />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>流程名称：</td>
+						<td>
+							<div class="form-group">
+								<select class="input-sm form-control" ng-model="proInst.processVersionId" ng-options='x.id as x.nameAndVersion for x in activeProcVersionList' required> </select>
+			                </div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align:center">	
+							<a class="btn btn-primary btn-sm" style="margin-right:2px" ng-click="saveProInst()">保存</a>
+							<a class="btn btn-primary btn-sm" style="margin-right:2px" ng-click="closeCreateDialog()">取消</a>
+						</td>
+					</tr>
+				</table>
+			  </form>	
+			</div>
+		</div>
+	</div>
+</div>   
+
+

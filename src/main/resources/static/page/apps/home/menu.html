@@ -1,0 +1,95 @@
+<div class="top">
+    <div class="logo"></div><!--logo-end-->
+    <div class="menu">
+        <ul>
+            <li ui-sref="menu.coreHome({showNearlyTodo:false})">
+                <div><i class="sy"></i>首页</div>
+            </li>
+            <li>
+                <div ui-sref="menu.cmsList({ifShowInNewList:1,parameterId: 40})"><i class="sy5"></i>工作动态</div>
+            </li>
+            <li>
+                <div ui-sref="menu.cmsList({parameterId:39})"><i class="sy11"></i>通知公告</div>
+            </li>
+            <li>
+                <div ui-sref="menu.cmsList({parameterId:44})"><i class="sy6"></i>工作交流</div>
+            </li>
+            <li>
+                <div ui-sref="menu.cmsList({parameterId:41})"><i class="sy7"></i>规章制度</div>
+            </li>
+            <li>
+                <div ui-sref="menu.cmsList({parameterId:48})"><i class="sy8"></i>理论学习</div>
+            </li>
+            <li>
+                <div ui-sref="menu.cmsList({parameterId:49})"><i class="sy9"></i>业务知识</div>
+            </li>
+            <li>
+                <div ng-click="fc.showDeptInfo()"><i class="sy10"></i>单位介绍</div>
+            </li>
+            <!--            <li><div ><i class="sy11"></i>工会之家</div></li>-->
+        </ul>
+    </div><!--menu-end-->
+    <div class="user">
+        <i></i>
+        <div ng-if="!cu.admin" style="padding-top: 10px;" class="name">
+            <span class="hyn">欢迎您！</span><span ng-bind="cu.display"></span></div>
+        <div ng-if="cu.admin" class="name"><span class="hyn">欢迎您！</span><span ng-bind="cu.display"></span></div>
+        <div class="xtdc">
+            <!--<a ng-click="fc.loginOut()">[登出]</a>--><a ng-if="cu.htfw" style="padding-left: 25px;" ng-click="fc.goToManagement()">[信息发布]</a>
+        </div>
+    </div>
+</div>
+
+</div><!--top-end-->
+
+<div>
+    <div id="contentMenu" ui-view="contentMenu"></div>
+</div>
+
+<div class="footer-bar clearfix">
+    <div ng-repeat="icon in fc.userIcons" ng-click="fc.goUserIconUrl(icon)">
+        <i><img src="images/{{icon.indexIcon.showImageName}}"></i>
+        <div>{{icon.indexIcon.iconname}}</div>
+    </div>
+    <!--<div>
+        <i><img src="images/bt1.png"></i>
+        <div>值班表</div>
+    </div>
+    <div>
+        <i><img src="images/bt2.png"></i>
+        <div>厅内邮件</div>
+    </div>
+    <div>
+        <i><img src="images/bt3.png"></i>
+        <div>常用表单</div>
+    </div>
+    <div>
+        <i><img src="images/bt4.png"></i>
+        <div>联系方式</div>
+    </div>
+    <div>
+        <i><img src="images/bt5.png"></i>
+        <div>软件中心</div>
+    </div>
+    <div>
+        <i><img src="images/bt6.png"></i>
+        <div>综合保障系统</div>
+    </div>
+    <div>
+        <i><img src="images/ico-f-10.png" ></i>
+        <div>自定义</div>
+    </div>
+    <div>
+        <i><img src="images/ico-f-10.png"></i>
+        <div>自定义</div>
+    </div>
+    <div>
+        <i><img src="images/ico-f-10.png"></i>
+        <div>自定义</div>
+    </div>-->
+    <div ui-sref="footBarCustomize">
+        <i><img src="images/ico-f-10.png"></i>
+        <div>自定义</div>
+    </div>
+
+</div>

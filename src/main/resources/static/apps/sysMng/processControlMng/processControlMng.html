@@ -1,0 +1,360 @@
+<style>
+
+	/* .form-group {
+		margin-right: 0px;
+		margin-left: 0px;
+		margin-bottom:0px !important;
+	} */
+	.mr0{margin-right: 0px;}
+
+	.bmxx_tit .right a.bj {
+		background: #3986c8; /*border-bottom:2px solid #5880c9;*/
+		width: 72px;
+	}
+
+	thead th {
+		text-align: center !important;
+	}
+
+</style>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div class="panel-heading" id="panel-heading"
+			     style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span>流程控制</span>
+					</div>
+					<div class="right user-titleheading" style="width: 50%;">
+						<!--<a href="" style="display: none;" ng-click="pageAuto()" id="lckzcx"></a>-->
+						<a href="" ng-class="{selected: yes, unselected: !yes}" ng-click="queryProInstListByCondition('yes')">有待办</a>
+						<a href="" ng-class="{selected: no, unselected: !no}" ng-click="queryProInstListByCondition('no')">无待办</a>
+						<a href="" class="bj" style="margin-left: 30px;"
+						   ng_click="showDetail('queryModal')"><img src="images/search.svg">搜索</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;">
+				<div class="table_shadow" style="overflow:auto; max-height: 70%">
+					<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+						<thead>
+						<tr>
+							<th class="conllection-first-th" >关注</th>
+							<th width="10%">创建日期</th>
+							<th style="white-space: pre-wrap" width="20%">文        号</th>
+							<th style="white-space: pre-wrap" width="60%">标                题</th>
+							<th width="8%">状态</th>
+							<th width="8%">任务数量</th>
+							<th width="8%">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-repeat="proInst in proInstList"
+							    ng-click="gotoDetail(proInst)">
+								<td id="pop{{proInst.id}}"  ng-click="collectionPros($index);$event.stopPropagation();" title="点击关注"><span ng-class="{'glyphicon glyphicon-bookmark collection' : proInst.collection, 'glyphicon glyphicon-bookmark notCollection' : !proInst.collection}" ></span></td>
+								<td>{{::proInst.createTime | limitTo : 10}}<br>{{::proInst.createTime | limitTo : -8}}</td>
+								<td>{{::proInst.docFullName}}</td>
+								<td style="text-align: left;">{{::proInst.title}}</td>
+								<td>{{::proInst.handleState}}</td>
+								<td>{{::proInst.upcomingNum}}</td>
+								<td>
+									<button type="button" ng-click="doControl(proInst);$event.stopPropagation();" class="btn btn-xs btn-primary">控制</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div class="modal fade " id="queryModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">公文查询</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="shouwenNumber" class="col-sm-2 control-label">文号或标题</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="queryBean.docNameOrTitle" id="docNameOrTitle" placeholder="请输入文号或标题">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="shouwenNumber" class="col-sm-2 control-label">文号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="queryBean.docFullName" id="shouwenNumber" placeholder="请输入发文号">
+						</div>
+						<!--  <div class="col-sm-3">
+							<input type="text" class="form-control" placeholder="请输入发文号">
+						  </div>
+						  <label class="col-sm-1 control-label">号</label>-->
+					</div>
+					<div class="form-group">
+						<label for="fawentitle" class="col-sm-2 control-label">标题</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="fawentitle" ng-model="queryBean.title" placeholder="请输入来文字号">
+						</div>
+					</div>
+					<div class="form-group" align="center">
+						<label for="currGroupId"  class="col-sm-2 control-label">公文分类</label>
+						<div id="currGroupId" class="col-sm-10">
+							<select  class="form-control"   ng-change="currGroupIdChg()"  ng-model="currGroupId">
+								<option value="{{f.id}}"  ng-repeat="f in docTypelist">{{f.val}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" align="center" ng-show="currGroupId != 'all'">
+						<label for="formDefId"  class="col-sm-2 control-label">详细分类</label>
+						<div id="formDefId" class="col-sm-10">
+							<select  class="form-control"   ng-model="queryBean.formDefId">
+								<option value="{{f.key}}" ng-selected="0==$index" ng-repeat="f in formDefIds">{{f.val}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" align="center">
+						<label  class="col-sm-2 control-label">发文时间段</label>
+						<div  class="col-sm-5" >
+							<div  ng-model="queryBean.createTimeS"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="ufcreateTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+								<input   class="form-control" ng-model="queryBean.createTimeZh" size="16" type="text" value="" readonly>
+								<input id="ufcreateTime"  ng-model="queryBean.createTime" ng-change="timeChga()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+						</div>
+						<!--<label style="text-align: center" class="col-sm-2 control-label">到</label>-->
+						<div  class="col-sm-5" >
+							<div  ng-model="queryBean.createTimeE"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="ufcreateTimeEnd" data-link-format="yyyy-mm-dd hh:ii:ss">
+								<input   class="form-control" ng-model="queryBean.createTimeEndZh" size="16" type="text" value="" readonly >
+								<input id="ufcreateTimeEnd"  ng-model="queryBean.createTimeEnd" ng-change="timeChgb()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" align="center" >
+						<label for="isFinished"  class="col-sm-2 control-label">是否办结</label>
+						<div id="isFinished" class="col-sm-10">
+							<select  class="form-control"     ng-change="isFinishedChg()"  ng-model="queryBean.isFinished">
+								<option value="{{f.key}}"  ng-selected="0==$index" ng-repeat="f in isFinisheds">{{f.val}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" align="center" ng-show="queryBean.isFinished == 'Finished'">
+						<label  class="col-sm-2 control-label">办结时间段</label>
+						<div  class="col-sm-5" >
+							<div  ng-model="queryBean.finishedDateS"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="uffinishedDate" data-link-format="yyyy-mm-dd hh:ii:ss">
+								<input   class="form-control" ng-model="queryBean.finishedDateZh" size="16" type="text" value="" readonly>
+								<input id="uffinishedDate"  ng-model="queryBean.finishedDate" ng-change="timeChgc()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+						</div>
+						<!--<label style="text-align: center" class="col-sm-2 control-label">到</label>-->
+						<div  class="col-sm-5" >
+							<div  ng-model="queryBean.finishedDateE"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="uffinishedDateEnd" data-link-format="yyyy-mm-dd hh:ii:ss">
+								<input   class="form-control" ng-model="queryBean.finishedDateEndZh" size="16" type="text" value="" readonly >
+								<input id="uffinishedDateEnd"  ng-model="queryBean.finishedDateEnd" ng-change="timeChgd()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer mf">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="queryProInstListChangeBean('queryModal')">确定</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="controlModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-mj" role="document" style=";width: 60%;margin: 20px auto;">
+		<div class="modal-content modal-content-mj" style=" height: 100%; /*padding: 6% 4% 1% 4%;*/">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">流程控制</h4>
+			</div>
+			<div class="modal-body" style="padding-top: 0">
+				<div class="form-group">
+					<div class="input-group" style="text-align: right; width: 100%;margin-top: 5px;">
+                        <button class="btn btn-primary" ng-class="{mr0: todoTaskList.length == 0}" ng-click ='openCreateCurrentTaskModal()'>创建待办</button>
+                        <button class="btn btn-danger" style="margin-right: 0;" ng-show="todoTaskList.length != 0" ng-click ='batchDeleteCurrentTask()'>删除待办</button>
+					</div>
+				</div>
+				<div class="table_shadow" style="overflow-y:auto; max-height: 85%">
+					<table class="table table-striped table_zdy_2" style="min-width:100%;">
+						<thead>
+						<tr>
+							<th width="5%">
+								<input type="checkbox" id="chkAll" ng-change="nodeTrClick(null,allTodoTasksRoot,null,todoTaskList,$event)"
+								       ng-model="allTodoTasksRoot.checked">
+							</th>
+							<th style="white-space: pre-wrap" width="20%">文        号</th>
+							<th style="white-space: pre-wrap" width="50%">标                题</th>
+							<th width="10%">待办人</th>
+							<th width="10%">阶段</th>
+							<th width="10%">任务类型</th>
+							<th width="10%">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-show="todoTaskList.length == 0">
+							<td colspan="7">无待办任务</td>
+						</tr>
+						<tr ng-repeat="task in todoTaskList" ng-show="todoTaskList.length != 0">
+							<td>
+								<input id="{{task.id}}" type="checkbox" name="chkbox" ng-change="nodeTrClick(allTodoTasksRoot,task,todoTaskList,null,$event)"
+								       ng-model="task.checked"/>
+							</td>
+							<td>{{::task.belongingProInst.docFullName}}</td>
+							<td>{{::task.belongingProInst.title}}</td>
+							<td>{{::task.assigneeName}}</td>
+							<td>{{::task.belongNodeName}}</td>
+							<td>{{task.taskType=='NormalFlow'?'正常流转':(task.taskType=='JustFinish'?'办结任务':'')}}</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-xs" ng-click="deleteCurrentTask(task);$event.stopPropagation();">删除</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<!--<button type="button" class="btn btn-sm btn-primary save"
+				        ng-click="doSelectMeetingRoom('meetingRoomSelectModal')">确定</button>-->
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade " id="createTodoTaskModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">创建待办任务</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form" id="createTaskForm" name="createTaskForm">
+					<div class="form-group">
+						<label for="belongingNodeId" class="col-sm-2 control-label">节点名称</label>
+						<div class="col-sm-10">
+							<select class="form-control" ng-model="node" id="belongingNodeId" ng-change="changeNode(node)"
+							        ng-options="node as node.name for node in nodeList" required/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="assigneeName" class="col-sm-2 control-label">接收对象</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="task.assigneeName"
+							       id="assigneeName" placeholder="请选择接收对象" ng-click="showCandidateMultiSelDialog()" required/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="taskType" class="col-sm-2 control-label">任务类型</label>
+						<div class="col-sm-10">
+							<select class="form-control" id="taskType" ng-model="task.taskType" ng-options="type.id as type.val for type in taskTypeList" required/>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer mf">
+				<button type="button" class="btn btn-sm btn-primary save" ng-disabled="!createTaskForm.$valid" ng-click="createCurrentTask('createTodoTaskModal')">确定</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="candidateMultiSelDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title">选择接收者</h4>
+			</div>
+			<div class="modal-body" style="height:600px">
+				<ul class="nav nav-tabs " style="margin:0 auto;">
+					<!--<li ng-class="{active: orgNavType==type.id}" ng-repeat="type in orgNavTypes" ng-click="selectTab(type.id)"
+					    style="margin-right: -1px;"><a href="">{{type.val}}</a></li>-->
+					<li ng-class="{active: orgNavType=='Person'}" ng-click="selectTab('Person')"  style="margin-right: -1px;"><a href="">用户</a></li>
+					<li ng-class="{active: orgNavType=='Role'}" ng-click="selectTab('Role')" style="margin-right: -1px;"><a href="">角色</a></li>
+				</ul>
+
+				<div class="row" style="height:100%">
+					<div class="col-md-6" style="height:95%;overflow:auto">
+						<div ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+							<ol ui-tree-nodes="" ng-model="data">
+								<li ng-repeat="node in treeData" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+							</ol>
+						</div>
+					</div>
+					<div class="col-md-6" style="height:100%;overflow:auto">
+						<div ng-if="orgNavType=='Person'" style="height:50%; overflow: hidden; margin-top: 5px">
+							<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;部门人员列表</div>
+							<div style="height:95%;overflow-y: auto;">
+								<div  class="ry_form"  ng-repeat="user in currDepartUserList track by $index" ng-click="selectUserCandidate(user)">
+									<div class="tit_2 clearfix" style="width:250px">
+										<span class="l" style="width:100%">{{user.name}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="height:40%; margin-top: 5px">
+							<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;已选列表</div>
+							<div style="height:95%;overflow-y: auto;">
+								<div class="ry_form" style="" ng-repeat="participant in ngSelectedCell.data.candidatMap[orgNavType] track by $index" ng-click="removeFromSelected($index)">
+									<div class="tit_2 clearfix" style="width:250px">
+										<span class="l" style="width:100%">{{participant.participantName}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="closeMultiSelDialog()">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="nodes_renderer.html">
+	<div ng-class="{active: nodeId == node.id}" ui-tree-handle class="tree-node tree-node-content" ng-click="selectCandidate(node)" ng-dblclick="toggle(this)">
+		<a class="btn btn-xs angular-ui-tree-span" style="margin-right:0px" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+			<img src="../images/zd-anv-01.png" style="margin-left:2px" height="20px">
+		</a>
+		<a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0"></a>
+		<span class="angular-ui-tree-span" ng-if="node.name.length>9">{{node.name | limitTo : 9}}</span>
+		<span class="angular-ui-tree-span" ng-if="node.name.length<=9">{{node.name}}</span>
+		<a class="btn btn-xs pull-right" data-nodrag>
+			<span class="fa_icon"></span>
+		</a>
+	</div>
+	<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+		<li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+	</ol>
+</script>

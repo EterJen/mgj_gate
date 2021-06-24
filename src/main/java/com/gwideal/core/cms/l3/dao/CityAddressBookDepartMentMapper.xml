@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.CityAddressBookDepartMentMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			CityAddressBookDepartMent t
+  		<where>
+			isdelete=0
+			order by t.orderno 
+		</where>
+	</select>
+	<select id="selectlist" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			CityAddressBookDepartMent t
+  		<where>
+			isdelete=0 and remarks =''
+			order by t.orderno 
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.CityAddressBookDepartMent" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+  
+</mapper>

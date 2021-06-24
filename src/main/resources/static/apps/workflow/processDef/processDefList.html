@@ -1,0 +1,583 @@
+<style>
+	hr {
+        border: 1px;
+        border-bottom: 1px solid #ccc;
+        margin-top: 1px;
+        margin-bottom: 2px;
+        background: #999;
+    }
+
+    .fullAllXy {
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+    }
+
+</style>
+<script type="text/ng-template" id="nodes_renderer.html">
+	<div ui-tree-handle class="tree-node tree-node-content" ng-click="defGroupFocus(node,$event)" ng-dblclick="toggle(this)">
+		<a style="margin-right: 0" class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)">
+
+			<img ng-show="collapsed" src="images/zd-anv-02.png" style="margin-left:4px;">
+			<img ng-show="!collapsed" src="images/zd-anv-01.png" style="margin-left:4px;">
+		</a>
+		<span class="angular-ui-tree-span">{{node.formZhName}}</span>
+	</div>
+	<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+		<li ng-repeat="node in node.nodes" ng-show="node.visible == undefined ?  true :node.visible" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+	</ol>
+	<ol ui-tree-nodes="" ng-model="node.processDefManages" ng-class="{hidden: collapsed}">
+		<li ng-repeat="post in node.processDefManages" ui-tree-node ng-show="post.visible == undefined ?  true :post.visible">
+			<div ui-tree-handle class="tree-node tree-node-content" ng-click="proDefFocus(post,$event)">
+				<a class="btn btn-xs angular-ui-tree-span" style="margin-right: 2px"></a>
+				<span class="angular-ui-tree-span">{{post.name}}</span>
+			</div>
+		</li>
+	</ol>
+</script>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span >
+                      		   流程操作配置
+                          </span>
+					</div>
+					<div class="right user-titleheading" style=" max-width:70%;">
+						<div class="form-group">
+							<div class="input-group col-xs-12">
+								<div class="input-group-btn" >
+									<select id="actionflag" required class="form-control" ng-change="changeNav()" style="padding:0;font-size:14px;height: 27px;width: auto;" ng-options="v.id as v.val for v in flowActionFlags"  ng-model="processDefListParam.flag"></select>
+								</div>
+								<input type="text" style="font-weight:normal;border-right-width: 0px;height: 27px;text-align: left;" class="form-control" ng-model="userSearchStr" ng-keyup="enterKeyup($event)" placeholder="请输入关键字"/>
+								<span class="input-group-btn">
+                                      <a href="" class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;"  ng_click="pageAuto()"><img src="images/search.svg">搜索</a>
+                                      <a href=""  class="tj" style="margin-left: 5px" ng-click="addProcessDefInfo()"><img src="images/add.svg">新 增</a>
+                                </span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body fixedHeight" style="padding-right: 15px;">
+
+
+
+				<div class="row" ng-show="!processActionSetting">
+					<div class="col-md-3" id="proDefTree" style="padding-left: 10px;overflow-y: auto ">
+						<div ui-tree="treeOptions" class="tree-root" id="tree-root" style="padding: 0px" data-drag-delay="300">
+							<ol ui-tree-nodes="" ng-model="processDefList">
+								<li ng-repeat="node in processDefList" ui-tree-node data-collapsed="true" ng-include="'nodes_renderer.html'"></li>
+							</ol>
+						</div>
+					</div>
+					<div class="col-md-9" id="processVersion" style="padding-left: 2px;overflow-y: auto">
+						<!-- <div>
+                             <span ng-if='selectedProcessDefInfo'>流程<b>[{{selectedProcessDefInfo.name}}]</b>的版本信息</span>
+                             <a href="" class="btn btn-primary btn-sm" ng-click="addProcessVersionInfo()">添加版本</a>
+                         </div>-->
+						<div class="pdivdc" ng-if="selectedProDef.showToolBar">
+							<div class="bmxx_tit" id="depart_tit">
+								<div class="left"><img src="images/bmxx_tit-01.png"> 流程定义基本信息
+								</div>
+								<div class="right">
+									<a href="" class="bj" style="margin-left: 7px;" ng-click="isUpdate = true">
+										<img src="images/edit.svg">修改
+									</a>
+									<a href="" class="sc" ng-show="selectedProDef.flag == 1" ng-click="delPdm(selectedProDef)"><img src="images/remove.svg">删除</a>
+									<a href="" class="bj" ng-show="selectedProDef.flag == 0" ng-click="bacUsePdm(selectedProDef)"><img src="images/ry_form-01.png">恢复使用</a>
+								</div>
+							</div>
+							<div class="table_1" style="height: 380px;overflow-y: auto">
+								<table class="table table-condensed table_zdy">
+									<tr>
+										<td width="15%" class="mc_name">序号</td>
+										<td width="35%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.orderNum" type="text"/>
+											<!--   <span ng-if="!isUpdate">{{selectedProDef.orderNum}}</span>
+                                               <div class="form-group" ng-if="isUpdate">
+                                                   <input class="form-control input-sm" ng-model="selectedProDef.orderNum" type="text"/>
+                                               </div>-->
+										</td>
+										<td width="15%" class="mc_name">流程名称：</td>
+										<td width="35%" class="mc_cont">
+											<!--<span ng-if="!isUpdate">{{selectedProDef.name}}</span>-->
+
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.name" type="text"/>
+											<!--<div class="form-group" ng-if="isUpdate">-->
+											<!--<input  ng-if="isUpdate" class="form-control input-sm" ng-model="selectedProDef.name" type="text"/>-->
+											<!--</div>-->
+										</td>
+
+									</tr>
+
+									<tr>
+										<td width="15%" class="mc_name">所属分组：</td>
+										<td width="35%" class="mc_cont">
+											<select style="height: inherit" class=" fullAllXy form-control input-sm" ng-disabled="!isUpdate" ng-options="v.formEnName as v.formZhName for v in processDefList" ng-model="selectedProDef.proDefGroupId">
+											</select>
+										</td>
+										<td width="15%" class="mc_name">流程表单</td>
+										<td width="35%" class="mc_cont">
+											<select style="height: inherit" class="fullAllXy form-control input-sm" ng-disabled="!isUpdate" ng-options="v.formEnName as v.formZhName for v in selectedProDefGroup.processForms" ng-model="selectedProDef.formDefId">
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td width="15%" class="mc_name">发文机关：</td>
+										<td width="35%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.publishOffice" type="text"/>
+											<!--    <span ng-if="!isUpdate">{{selectedProDef.publishOffice}}</span>
+
+                                                <div class="form-group" ng-if="isUpdate">
+                                                    <input class="form-control input-sm" ng-model="selectedProDef.publishOffice" type="text"/>
+                                                </div>-->
+										</td>
+
+										<td width="15%" class="mc_name">发文机关代字：</td>
+										<td width="35%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.publishOfficeBrif" type="text"/>
+											<!--    <span ng-if="!isUpdate">{{selectedProDef.publishOffice}}</span>
+
+                                                <div class="form-group" ng-if="isUpdate">
+                                                    <input class="form-control input-sm" ng-model="selectedProDef.publishOffice" type="text"/>
+                                                </div>-->
+										</td>
+									</tr>
+									<tr>
+										<td width="15%" class="mc_name">签发人：</td>
+										<td width="35%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.issuePerson" type="text"/>
+										</td>
+
+										<td width="15%" class="mc_name">签发职务：</td>
+										<td width="35%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.issuePersonPost" type="text"/>
+										</td>
+									</tr>
+
+									<tr>
+										<td width="15%" class="mc_name">流程描述：</td>
+										<td  class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.description" type="text"/>
+										</td>
+										<td width="15%" class="mc_name">意见展示配置：</td>
+										<td  class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.optionShowConf" type="text"/>
+										</td>
+									</tr>
+
+									<!--<tr>
+                                        <td width="15%" class="mc_name">流程描述：</td>
+                                        <td width="35%" class="mc_cont">
+                                            <input ng-disabled="!isUpdate" class="form-control input-sm" ng-model="selectedProDef.description" type="text"/>
+                                            &lt;!&ndash; <span ng-if="!isUpdate">{{selectedProDef.description}}</span>
+                                             <div class="form-group" ng-if="isUpdate">
+                                                 <input class="form-control input-sm" ng-model="selectedProDef.description" type="text"/>
+                                             </div>&ndash;&gt;
+                                        </td>
+                                    </tr>-->
+
+									<tr>
+										<td colspan="4" class="mc_name">电子公文标识</td>
+									</tr>
+									<tr>
+										<td width="20%" class="mc_name">电子公文 OID：</td>
+										<td width="30%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.docOid" type="text"/>
+										</td>
+										<td width="20%" class="mc_name">统一社会信用代码：</td>
+										<td width="30%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.unifiedSocialCreditCode" type="text"/>
+										</td>
+									</tr>
+
+									<tr>
+										<td width="20%" class="mc_name">内设机构或下属单位代码：</td>
+										<td width="30%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.sendDepartCode" type="text"/>
+										</td>
+										<td width="20%" class="mc_name">代字编码：</td>
+										<td width="30%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.publishSymbol" type="text"/>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="mc_name">当前流水号：</td>
+										<td width="30%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" ng-model="selectedProDef.serialNumber" type="text"/>
+										</td>
+										<td width="20%" class="mc_name"></td>
+										<td width="30%" class="mc_cont">
+											<input ng-disabled="!isUpdate" class="fullAllXy form-control input-sm" type="text"/>
+										</td>
+									</tr>
+
+
+									<!--<tr>
+                                        <td width="15%" class="mc_name">电子公文标识</td>
+                                        <td width="85%" class="mc_cont" colspan="3">
+
+
+                                            <span class="row">
+                                                <div  class="col-xs-12 input-group">
+                                                    <span class="input-group-addon">电子公文 OID：</span>
+                                                    <input ng-disabled="!isUpdate" type="text" class="form-control" ng-model="selectedProDef.docOid">
+                                                    <span class="input-group-addon">统一社会信用代码：</span>
+                                                    <input ng-disabled="!isUpdate"  type="text" class="form-control" style="size: auto" ng-model="selectedProDef.unifiedSocialCreditCode">
+                                                </div>
+
+
+                                            </span>
+                                            <span class="row">
+                                                 <div  class="col-xs-12 input-group">
+                                                    <span class="input-group-addon">内设机构或下属单位代码：</span>
+                                                    <input ng-disabled="!isUpdate" type="text" class="form-control" ng-model="selectedProDef.sendDepartCode">
+                                                    <span class="input-group-addon">代字编码：</span>
+                                                    <input ng-disabled="!isUpdate" type="text" class="form-control" ng-model="selectedProDef.publishSymbol">
+                                                    <span class="input-group-addon">当前流水号：</span>
+                                                    <input ng-disabled="!isUpdate" type="text" class="form-control" ng-model="selectedProDef.serialNumber">
+                                                </div>
+                                            </span>
+
+
+
+
+
+
+                                            &lt;!&ndash;<div class="form-group" ng-if="isUpdate">&ndash;&gt;
+                                                &lt;!&ndash;<input ng-if="isUpdate" class=" input-sm" ng-model="selectedProDef.unifiedSocialCreditCode" type="text"/>&ndash;&gt;
+                                                &lt;!&ndash;<input ng-if="isUpdate" class="form-control input-sm" ng-model="selectedProDef.unifiedSocialCreditCode" type="text"/>&ndash;&gt;
+                                                &lt;!&ndash;<input ng-if="isUpdate" class="form-control input-sm" ng-model="selectedProDef.unifiedSocialCreditCode" type="text"/>&ndash;&gt;
+                                            &lt;!&ndash;</div>&ndash;&gt;
+                                        </td>
+                                    </tr>-->
+
+									<tr ng-if="isUpdate">
+										<td colspan="4" class="text-center">
+											<a href="" class="btn btn-primary btn-sm" ng-click="updatePdmBefore()">保存</a>
+											<a href="" class="btn btn-default btn-sm" ng-click="$parent.isUpdate = false">取消</a>
+										</td>
+									</tr>
+								</table>
+							</div>
+
+							<div class="bmxx_tit">
+								<div class="left"><img src="images/bmxx_tit-01.png">流程版本</div>
+								<div class="right">
+									<a href="" ng-click="addProcessVersionInfo()" class="tj"><img src="images/add.svg">添加版本</a>
+								</div>
+							</div>
+
+							<div class="table_shadow" style="overflow:auto; max-height: 70%">
+								<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+									<thead>
+										<tr>
+											<th width="10%">版本</th>
+											<th width="40%">描述</th>
+											<th width="15%">是否启用</th>
+											<th width="35%">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="processVersion in processVersionList">
+											<td width="10%">{{::processVersion.version}}</td>
+											<td width="40%">{{::processVersion.description}}</td>
+											<td width="15%">{{::processVersion.activeChinese}}</td>
+											<td width="35%">
+												<div>
+													<a href="" ng-if="processVersion.isActive=='0'" class="btn btn-primary btn-xs" ng-click="activeVersion(processVersion)">启用版本</a>
+													<a href="" class="btn btn-primary btn-xs" ng-click="goToVisualEditor(processVersion)">定制流程</a>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="width: 100%; margin-left: -5px;" ng-show="processActionSetting">
+					<div id="table_head" class="table_1" style="padding-right: 17px">
+						<table class="table table-striped  table_zdy_2" style="margin-bottom: 0;">
+							<thead>
+								<tr>
+									<th width="15%">操作ID</th>
+									<th width="15%">按钮名</th>
+									<th width="20%">描述</th>
+									<!--<th width="25%">生效逻辑</th>-->
+									<th width="30%">执行动作</th>
+									<th width="20%">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+					<div id="table_body" style="width:100%;overflow-y: scroll;">
+						<div>
+							<table class="table table-striped  table_zdy_2">
+								<tbody>
+									<tr ng-repeat="formAction in formActionList">
+										<td width="15%">{{formAction.actionId}}</td>
+										<td width="15%">{{formAction.name}}</td>
+										<td width="20%">{{formAction.description}}</td>
+										<!--<td width="25%">{{::formAction.preCondition}}</td>-->
+										<td width="30%">{{formAction.actionToPerform}}</td>
+										<td width="20%">
+											<div>
+												<a href="" ng-if="formAction.flag !='1'" class="btn btn-primary btn-xs" ng-click="reusePfa(formAction)">恢复使用</a>
+												<a href="" ng-if="formAction.flag =='1'" class="btn btn-primary btn-xs" ng-click="updatePfa(formAction)">修改</a>
+												<a href="" ng-if="formAction.flag =='1'" class="btn btn-primary btn-xs" ng-click="delPfa(formAction)">删除</a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+				<!--<div class="row" ng-show="isAttachShow">
+                    <div class="col-md-2" style="padding-right: 0; height:100%;overflow:auto;overflow-x:hidden;">
+                        <div class="sidebar_left" style="width: 100%;">
+                             <div class="sidebar_head sidebar_head_left"></div>
+                             <div class="fj_cont">
+                              <div class="zw_box" >
+                                 <div class="gy_tit clearfix">
+                                   <span class="l bt"><img src="images/sidebar-05.png">模板</span>
+                                   <div class="ej_box r" ng-click="addAttachment('add')">
+                                       <div class="tj"><img src="images/sidebar-07.png">添加</div>
+                                    </div>
+                                </div>
+                                <a href="javascript:void()" class="fj clearfix" data-row-node="{{a}}" ng-click="fc.openDocumentText(a,'groupOwner')" ng-repeat="a in fc.attachList">
+                                    <i class="l"></i><span class="l" style="color:white">{{a.attachment.filename}}</span>
+                                </a>
+                              </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8" style="background:#808080;">
+                        <div id="wpsContent"></div>
+                    </div>
+                    <div class="col-md-2" style="">
+                        <div class="sidebar_right" style="width: 100%;">
+                            <div class="sidebar_right_nav">
+                                <div class="sidebar_head sidebar_head_right"></div>
+                                <ul style="min-height:50%">
+                                    <li>
+                                        <a href="" ng-click="fc.returnForm()"><img src="images/sidebar_right-01.png">返回</a>
+                                    </li>
+                                    <li>
+                                        <a href="" ng-click="fc.SendDataToServer()"><img src="images/sidebar_right-01.png">保存</a>
+                                    </li>
+                                    <li>
+                                        <a href="" ng-click="fc.queryHistoryAttach()"><img src="images/sidebar_right-01.png">查看历史</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+			</div>
+		</div>
+
+
+	</section>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="ProcessDefManageDialog" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalCreatDepartment">新增流程定义</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="pdmEditForm" name="pdmEditForm">
+					<!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">流程名称*</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processDefManage.name" placeholder="请输入流程名称" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">流程描述</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="brief" ng-model="processDefManage.description" placeholder="请输入流程描述" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">所属分组*</label>
+						<div class="col-sm-8">
+							<select required class="form-control input-sm" ng-options="v.formEnName as v.formZhName for v in processDefList" ng-change="changeProcessGroup()" ng-model="processDefManage.proDefGroupId"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">流程表单*</label>
+						<div class="col-sm-8">
+							<select required class="form-control input-sm" ng-options="v.formEnName as v.formZhName for v in selectedProDefGroup.processForms" ng-model="processDefManage.formDefId"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">发文机关</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processDefManage.publishOffice" placeholder="请输入发文机关">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">发文代字</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="brief" ng-model="processDefManage.publishSymbol" placeholder="请输入发文代字">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">统一社会信用代码</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="brief" ng-model="processDefManage.unifiedSocialCreditCode" placeholder="请输入统一社会信用代码">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">序号</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processDefManage.orderNum" placeholder="请输入流程序号">
+						</div>
+					</div>
+				</form>
+				<div align="center">
+					<a href="" class="btn btn-primary btn-sm" ng-disabled="pdmEditForm.$invalid" ng-click="saveProcessDefManageInfo()">保存</a>
+					<a href="" class="btn btn-default btn-sm" ng-click="closeProcessDefManageDialog()">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal fade bs-example-modal-lg" id="ProcessVersionDialog" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalCreatDepartment">新增流程版本</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">版本号</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processVersionEditBean.version" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">流程描述</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processVersionEditBean.description" required>
+						</div>
+					</div>
+				</form>
+				<div align="center">
+					<a href="" class="btn btn-primary btn-sm" ng-click="saveProcessVersionInfo()">保存</a>
+					<a href="" class="btn btn-default btn-sm" ng-click="closeProcessVersionDialog()">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="uploadAttach" tabindex="-1" role="dialog">
+	<iframe frameborder=0 scrolling=no style="background-color:transparent; position: absolute; z-index: -1; width: 100%; height: 100%; top:0;left:0;"></iframe>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">附件上传</h4>
+            </div>
+            <div class="modal-body">
+            	<form class="form-horizontal">
+	            	<div class="form-group">
+	            		<label for="name" class="col-sm-2 control-label">附件说明</label>
+						<div class="col-sm-10">
+							 <textarea class="form-control" rows="3" ng-model="attUploadInfo.annexDescription"></textarea>
+						</div>
+					</div>
+	                <div>
+	                    <input type="file" ng-file-model="fc.headPortrait">
+	                </div>
+	                <div>
+	                    <button ng-click="fc.fileUpload()">上传文件</button>
+	                </div>
+                </form>
+                <div class="table_1" ng-if="fc.attachHistoryList.length>0">
+                    <table class="table table-striped  table_zdy_2">
+                        <thead>
+                        <tr>
+                            <th width="5%">序号</th>
+                            <th width="30%">文件名</th>
+                            <th width="8%">版本</th>
+                            <th width="10%">姓名</th>
+                            <th width="10%">上传时间</th>
+                            <th width="10%">附件说明</th>
+                            <th width="10%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="att in fc.attachHistoryList">
+                                <td>{{$index + 1}}</td>
+                                <td><a href="" ng-click="fc.openDocumentText(att)" data-dismiss="modal">{{att.attachment.filename}}</a></td>
+                                <td>1.{{att.largeVersion===null?0:att.largeVersion}}.{{att.minorVersion===null?0:att.minorVersion}}</td>
+                                <td>{{att.creatorName}}</td>
+                                <td>{{att.attachment.createTime | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                                <td>{{att.annexDescription}}</td>
+                                <td>
+                                    <a ng-href="{{ENV.localapi}}/attach/downloadWps?id={{att.attachment.id}}" class="btn btn-primary btn-xs">下载</a>
+                                    <a href="" class="btn btn-danger btn-xs" ng-click="enclosureAction('delete',att)" ng-repeat="a in att.actionDefList">删除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                        	<tr>
+                        		<td colspan="7">
+                        			<a data-dismiss="modal" class="btn btn-default btn-xs">关闭</a>
+                        		</td>
+                        	</tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="saveDocDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<iframe frameborder=0 scrolling=no style="background-color:transparent; position: absolute; z-index: -1; width: 100%; height: 100%; top:0;left:0;"></iframe>
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:700px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h3 class="modal-title" id="myModalLabel">保存文档</h3>
+            </div>
+            <div class="modal-body" style="height:100px">
+                <div class="form-group">
+                    <input class="form-control input-md" placeholder="请输入文件名" ng-model="fc.currentGroupOwnerAttach.attachment.filename" type="text"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" ng-click="fc.saveDoc()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="main clearfix  sh-bg">
+<!--    <p class="breadcrumb">
+        <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+        >
+        <a>投诉举报</a>
+    </p>-->
+
+    <div class="main-bg clearfix m-t-20 p-0">
+
+        <div class="list-left-tit">
+            <div class="box-shadow-0">
+                <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+                <a ng-show="showzhflag">{{' > '}}{{showzh}}</a>
+            </div>
+        </div>
+
+        <!--left end-->
+        <div class="list-right m-l-0">
+            <div>
+                <div class="register-tit"><span class="red">举报投诉</span></div>
+                <div class="register-main">
+                    <div class="clearfix" style="margin-left: 129px">
+                        <div class="register-name">姓<span style="width: 7px;display: inline-block"></span>&nbsp;<span
+                                style="width:7px;display: inline-block"></span>名
+                        </div>
+                        <div class="register-input-content">
+                            <input class="input-register" ng-model="jbts.name" type="text">
+                            <div class="remind"><i></i></div>
+                        </div>
+                    </div>
+                    <!--1-->
+                    <div class="clearfix" style="margin-left: 129px">
+                        <div class="register-name">联系电话</div>
+                        <div class="register-input-content">
+                            <input class="input-register" type="tel" ng-model="jbts.tel">
+                            <div class="remind"><i></i></div>
+                        </div>
+                    </div>
+                    <!--1-->
+                    <div class="clearfix" style="margin-left: 129px">
+                        <div class="register-name">电子邮件</div>
+                        <div class="register-input-content">
+                            <input class="input-register" type="text" ng-model="jbts.suggestion_Email">
+                            <div class="remind line-height-33"><i></i></div>
+                        </div>
+                    </div>
+                    <!--1-->
+                    <div class="clearfix" style="margin-left: 129px">
+                        <div class="register-name">标题</div>
+                        <div class="register-input-content">
+                            <input class="input-register" ng-model="jbts.suggestion_title" type="text">
+                            <div class="remind line-height-33"><i></i></div>
+                        </div>
+                    </div>
+                    <!--1-->
+                    <div class="clearfix" style="margin-left: 129px">
+                        <div class="register-name">投诉内容</div>
+                        <div class="register-input-content">
+                            <input class="input-register">
+                            <textarea rows="7" ng-model="jbts.suggestion_body" cols="40" class="input-register"></textarea>
+                            <div class="remind line-height-33"><i></i></div>
+                        </div>
+                    </div>
+                    <!--1-->
+                    <div class="clearfix yzm"  style="margin-left: 129px">
+                        <div class="register-name">验<span style="width: 7px;display: inline-block"></span>证<span
+                                style="width: 7px;display: inline-block"></span>码
+                        </div>
+                        <div class="register-input-content">
+                            <input class="input-register" type="text" ng-model="jbts.varCode">
+                            <div class="yzm-content" style="margin-left: 25px"><img width="100%" height="100%" src="../../pyOverSeasUser/trustedRequest/verCode" id="picVerCode">
+                            </div>
+                            <div class="remind"><i></i><span>请将图片上的验证码准确抄写到左侧文本框中。<br/>如果看不清，请 <a class="red-a"
+                                                                                             ng-click="changeImg()">点击这里</a> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--1-->
+                    <div class="register-btn-content">
+                        <button class="tj" ng-click="submit_jbts()">提&nbsp;交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--right end-->
+
+
+
+
+    </div>
+
+
+
+    <!--main-bg end-->
+</div>

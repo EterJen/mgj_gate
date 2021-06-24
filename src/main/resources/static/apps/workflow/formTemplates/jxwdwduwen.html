@@ -1,0 +1,326 @@
+<style>
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid silver
+    }
+
+    /*input[disabled]{color:#fff;opacity:1}*/
+
+    .cityApproval2 {
+        font-weight: bold;
+    }
+
+    .cityApproval3 {
+        background: #ffe4b5;
+    }
+
+    .cityApproval4 {
+        background: #61e1e6;
+    }
+
+    .cityApproval5 {
+        background: #cdfff1;
+    }
+
+    .cityApproval6 {
+        background: #B0E0E6;
+    }
+
+    .hideslb {
+        overflow-y: hidden;
+    }
+
+    .showslb {
+        overflow-y: auto;
+    }
+
+    legend {
+        padding: .5em;
+        border: 0;
+        width: auto
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    .editable {
+        border: 1px solid green;
+    }
+</style>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td03" align="center">
+            <p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-9px">
+                <font face="方正姚体">中共上海市长城电子督查单</font>
+            </p>
+            <p align="center"
+                    ng-show="task.theCommonFormInfo.belongProInst.duwenHandleAgainNum != 1 && task.theCommonFormInfo.belongProInst.duwenHandleAgainNum != null">
+                <font face="方正姚体">(第 <input name="再次办文" type="text" class="Inputhidden01" number-check
+                        ng-model="task.theCommonFormInfo.belongProInst.duwenHandleAgainNum" onMouseOver="this.className='Inputhidden01Hover'"
+                        onMouseOut="this.className='Inputhidden01'" size="5"
+                        style="border-bottom: 1px solid #F88F8F;color:black;width: 20px;text-align: center;"> 次办文)</font>
+            </p>
+        </td>
+        <td align="right" class="td03" style="display:block;">
+            <table width="115" border="0" cellpadding="0" cellspacing="0" class="tblGw01 tab-fontfamily">
+                <tr align="center">
+                    <td width="65%" height="20" class="td02">密&nbsp;&nbsp;&nbsp;&nbsp;级
+                    </td>
+                    <td width="35%" height="20" class="td02">
+                        <input name="密级" ng-click="$event.currentTarget.readOnly || choseDicType('SecurityLevel')" ng-model="task.theCommonFormInfo.secretLevel" type="text"
+                                class="Inputhidden01" style="color:black;width: 100%; " onMouseOver="this.className='Inputhidden01Hover'"
+                                onMouseOut="this.className='Inputhidden01'" value="" readonly>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td class="td02">紧急程度</td>
+                    <td class="td02">
+                        <input name="紧急程度" ng-click="$event.currentTarget.readOnly || choseDicType('emergenceLevel')" ng-model="task.theCommonFormInfo.emergenceLevel" type="text"
+                                class="Inputhidden01" style="color:black;width: 100%;" value="" onMouseOver="this.className='Inputhidden01Hover'"
+                                onMouseOut="this.className='Inputhidden01'">
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td class="td02">委内公开</td>
+                    <td class="td02">
+                        <input name="委内公开" ng-model="task.theCommonFormInfo.belongProInst.wngk" ng-click="$event.currentTarget.readOnly || choseDicType('wngk')"   type="text"
+                                class="Inputhidden01" style="color:black;width: 100%;" onMouseOver="this.className='Inputhidden01Hover'"
+                                onMouseOut="this.className='Inputhidden01'" value="">
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td class="td02">信息公开</td>
+                    <td class="td02">
+                        <input name="信息公开" ng-model="task.theCommonFormInfo.xxgk" ng-click="$event.currentTarget.readOnly || choseDicType('xxgk')"  type="text"
+                                class="Inputhidden01" style="color:black;width: 100%;" onMouseOver="this.className='Inputhidden01Hover'"
+                                onMouseOut="this.className='Inputhidden01'" value="">
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td04">&nbsp;</td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="15%" class="td04">来文单位:
+        </td>
+        <td width="33%" class="td05">
+            <input name="来文单位" ng-model="task.theCommonFormInfo.belongProInst.incomingDocDepart" ng-dblclick="$event.currentTarget.readOnly || choseDicType('SendDept')" type="text"
+                    class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value=""
+                    size="28" style=";width: 100%">
+        </td>
+        <td width="13%" class="td04">来文文号:
+        </td>
+        <td width="38%" class="td05">
+            <input name="来文文号" ng-model="task.theCommonFormInfo.belongProInst.incomingDocNum" type="text" class="Inputhidden01"
+                    onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value="" size="22"
+                    style=";width: 100%">
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="10%" class="td04">本件共
+        </td>
+        <td width="5%" class="td05">
+            <input name="份数" ng-model="task.theCommonFormInfo.belongProInst.incomingNum" type="text" class="Inputhidden01"
+                    onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value="" size="1"
+                    style=";width:100%">
+        </td>
+        <td width="5%" class="td04">份
+        </td>
+        <td width="12%" class="td04">收文日期:
+        </td>
+        <td width="16%" class="td05">
+            <input ng-time id="receiveDocTime" name="收文日期" data-link-field="uffinishedDate" style="width: 0;"
+                    ng-model="task.theCommonFormInfo.belongProInst.receiveDocTime" data-link-format="yyyy-mm-dd"
+                    data-date-format="yyyy-mm-dd hh:ii:ss" type="text" class="Inputhidden01 form_date">
+            <input readonly="readonly"  type="text" value="{{task.theCommonFormInfo.belongProInst.receiveDocTime|limitTo:10}}" size="12"
+                    id="uffinishedDate" focus-hiden="receiveDocTime" onMouseOver="this.className='Inputhidden01Hover'"
+                    onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+        </td>
+        <td width="13%" class="td04">收文文号:
+        </td>
+        <td width="38%" class="td05">
+            <input name="收文文号" ng-model="task.theCommonFormInfo.belongProInst.docFullName" ng-change="fc.parseDocFullName()" ng-dblclick="$event.currentTarget.readOnly || fc.dubDocFullName()" type="text"
+
+                    class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value=""
+                    size="22" style=";width: 100%">
+        </td>
+    </tr>
+</table>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="15%" class="td04">承办部门:
+        </td>
+        <td width="33%" class="td05">
+            <input name="承办部门" ng-model="task.theCommonFormInfo.belongProInst.chenBanDepart" ng-dblclick="$event.currentTarget.readOnly || choseDicType('duwenDept')" type="text"
+                    class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value=""
+                    size="28" style=";width: 100%">
+        </td>
+        <td width="13%" class="td04">限办日期:
+        </td>
+        <td width="38%" class="td05">
+            <input id="xianBanTime" name="限办日期" data-link-field="xianBanTimeb" ng-model="task.theCommonFormInfo.belongProInst.xianBanTime" ng-time
+                    style="width: 0;" data-link-format="yyyy-mm-dd" data-date-format="yyyy-mm-dd hh:ii:ss" type="text"
+                    class="Inputhidden01 form_date">
+            <input  focus-hiden="xianBanTime" id="xianBanTimeb" value="{{task.theCommonFormInfo.belongProInst.xianBanTime|limitTo:10}}"
+                    readonly="readonly" type="text" size="12" onMouseOver="this.className='Inputhidden01Hover'"
+                    onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="15%" class="td04">关联收文号:
+        </td>
+        <td width="85%" class="td05">
+            <input name="关联收文号" ng-model="task.theCommonFormInfo.belongProInst.relatedReceiveDocId"
+                    ng-dblclick="$event.currentTarget.readOnly || relateReceiveDocId('relatedReceiveDocIdDialog')" type="text" class="Inputhidden01" style="width: 100%;height: 100%;"
+                    size="150" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="td04">文件名称：
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" colspan="2" height="60" class="td05">
+            <textarea name="文件名称" ng-model="task.theCommonFormInfo.belongProInst.title" class="InputHidden01" style="width: 100%;height: 100%;"
+                    onMouseOver="this.className='InputHidden01Hover'" onMouseOut="this.className='InputHidden01'"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="td04">市领导批示：
+        </td>
+    </tr>
+    <tr>
+        <td  height="145px" colspan="2" ng-dblclick="$event.currentTarget.readOnly || fc.cityApprovalEdit()" valign="top" class="td05" >
+            <input type="hidden" name="市领导批示" />
+            <div style="height: 145px;color: black" auto-scroll-disable onMouseOver="this.className='Inputhidden01Hover'"
+                 onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+                <div class="user-option {{'cityApproval'+o.stepId}}"  ng-repeat="o in task.userOpinions.sldps">{{o.opinion}}</div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="td04">委领导批示：
+        </td>
+    </tr>
+    <tr>
+        <td height="105" colspan="2" valign="top" class="td05">
+            <div style="height: 105px;color: black" auto-scroll-disable onMouseOver="this.className='Inputhidden01Hover'"
+                    onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+                <div class="user-option" ng-repeat="o in task.userOpinions.wldps">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0||o.agentFlag==2" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag == 1" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+            </div>
+        </td>
+    </tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="50%" class="td04">
+            督办意见：
+        </td>
+        <td class="td04">
+            <input type="checkbox" name="重点督办" id="重点督办" ng-model="task.theCommonFormInfo.belongProInst.pointSupervise"
+                    style="vertical-align: middle;" onclick="checkChange('重点督办')">&nbsp;<label for="重点督办" style="cursor: pointer">领导重点督办</label>
+        </td>
+    </tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td height="60" colspan="2" valign="top" class="td05">
+            <div style="height: 60px;color: black" auto-scroll-disable onMouseOver="this.className='Inputhidden01Hover'"
+                    onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+                <div class="user-option" ng-repeat="o in task.userOpinions.dbyj">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0||o.agentFlag==2" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag == 1" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="td04">处室意见：
+        </td>
+    </tr>
+    <tr>
+        <td height="80" colspan="2" valign="top" class="td04">
+            <div onMouseOver="this.className='Inputhidden01Hover'" style="height: 80px" auto-scroll-disable onMouseOut="this.className='Inputhidden01'"
+                    class="Inputhidden01">
+                <div class="user-option" ng-repeat="o in task.userOpinions.csyj">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0||o.agentFlag==2" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag == 1" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="td04">
+            <span ng-show="task.belongingNodeId == '2' || task.belongingNodeId == '5'">办理情况：</span>
+            <span ng-show="task.belongingNodeId != '2' && task.belongingNodeId != '5'">意见总结：</span>
+        </td>
+    </tr>
+    <tr>
+        <td height="60" colspan="2" valign="top" style="border-bottom:0" class="td05">
+            <div style="height: 60px;color: black" onMouseOver="this.className='Inputhidden01Hover'" auto-scroll-disable
+                    onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+                <div class="user-option" ng-repeat="o in task.userOpinions.blqk">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0||o.agentFlag==2" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag == 1" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="40" style="    padding-right: 0px;
+    padding-left: 0px;;" class="td04">登录:
+        </td>
+        <td width="55"><input name="登录" type="text" ng-model="task.theCommonFormInfo.belongProInst.denluPerson" class="Inputhidden01"
+                readonly="readonly" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value="" size="5"
+                style="color:black; "></td>
+        <td width="90">
+            <input id="denluTime" data-link-field="denluTimeb" ng-model="task.theCommonFormInfo.belongProInst.denluTime" ng-time style="width: 0;"
+                   name="登录日期"  data-link-format="yyyy-mm-dd" data-date-format="yyyy-mm-dd hh:ii:ss" type="text" class="Inputhidden01 form_date_tr">
+            <input  focus-hiden="denluTime" id="denluTimeb" value="{{task.theCommonFormInfo.belongProInst.denluTime|limitTo:10}}"
+                    readonly="readonly" type="text" size="12" onMouseOver="this.className='Inputhidden01Hover'"
+                    onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+        </td>
+        <td width="40" class="td04">督办:
+        </td>
+        <td width="50"><input name="督办" type="text" ng-model="task.theCommonFormInfo.belongProInst.dubanPerson" class="Inputhidden01"
+                readonly="readonly" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value="" size="5"
+                style="color:black; "></td>
+        <td width="90">
+            <input id="dubanTime" data-link-field="dubanTimeb" ng-model="task.theCommonFormInfo.belongProInst.dubanTime" ng-time style="width: 0;"
+                   name="督办日期"  data-link-format="yyyy-mm-dd" data-date-format="yyyy-mm-dd hh:ii:ss" type="text" class="Inputhidden01 form_date_tr">
+            <input  focus-hiden="dubanTime" id="dubanTimeb" value="{{task.theCommonFormInfo.belongProInst.dubanTime|limitTo:10}}"
+                    readonly="readonly" type="text" size="12" onMouseOver="this.className='Inputhidden01Hover'"
+                    onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+        </td>
+        <td width="40" class="td04">审核:
+        </td>
+        <td width="50"><input name="审核" type="text" class="Inputhidden01" ng-model="task.theCommonFormInfo.belongProInst.shenhePerson"
+                onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" readonly="readonly" value="" size="5"
+                style="color:black;"></td>
+        <td width="90">
+
+            <input id="shenheTime" data-link-field="shenheTimeb" ng-model="task.theCommonFormInfo.belongProInst.shenheTime" ng-time style="width: 0;"
+                   name="审核日期"  data-link-format="yyyy-mm-dd" data-date-format="yyyy-mm-dd hh:ii:ss" type="text" class="Inputhidden01 form_date_tr">
+            <input  focus-hiden="shenheTime" id="shenheTimeb" value="{{task.theCommonFormInfo.belongProInst.shenheTime|limitTo:10}}"
+                    readonly="readonly" type="text" size="12" onMouseOver="this.className='Inputhidden01Hover'"
+                    onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+        </td>
+    </tr>
+</table>
+

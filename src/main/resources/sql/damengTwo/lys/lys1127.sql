@@ -1,0 +1,2 @@
+insert into MPSMODULE (ID, PKCODE, TITLE, ACTIONURL, TARGETFRAME, DESCRIPTION, FLAG, PARENTID, NG_STATE, TITLE_MENU_SHOW)
+values (759500, '05030600','流程控制','/coreHome/processControl','processControl','流程控制','1',100334,'coreHome.processControl','流程控制');

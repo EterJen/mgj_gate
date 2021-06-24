@@ -1,0 +1,590 @@
+@font-face {
+    font-family: 楷体_GB2312; /*这里是说明调用来的字体名字*/
+    src: url("font/kaiti.ttf"); /*这里是字体文件路径*/
+}
+
+@font-face {
+    font-family: 仿宋_GB2312; /*这里是说明调用来的字体名字*/
+    src: url("font/fangsong_GB2312.ttf"); /*这里是字体文件路径*/
+}
+
+
+@font-face {
+    font-family: 方正姚体; /*这里是说明调用来的字体名字*/
+    src: url("font/fangzheng.ttf"); /*这里是字体文件路径*/
+}
+.modal{
+    background: transparent;
+}
+.tdMw-title {
+    font-family: 仿宋_GB2312;
+    font-size: 14px;
+    color: #000;
+    font-weight: bolder !important;
+}
+
+.tdMw-title span {
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+.tdMw-span {
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+.footer-btn {
+    margin-top: 2%;
+    font-family: 仿宋_GB2312;
+    text-align: center;
+}
+
+.tab-fontfamily {
+    font-family: 仿宋_GB2312 !important;
+    font-weight: bolder !important;
+}
+
+.formEdite {
+    padding-left: 5% !important;
+    /* padding: 0 5% 10% 5%; */
+}
+
+.fontSizeFamily {
+    font-weight: bold !important;
+    font-family: 仿宋_GB2312 !important;
+    font-size: 14px;
+    font-weight: 550;
+    color: #000;
+}
+
+.kaiti14px {
+    font-family: 楷体_GB2312 !important;
+    font-weight: 500 !important;
+    font-size: 14px;
+    color: #000;
+}
+
+.modal-content-mj {
+    /*overflow-y: scroll; */
+    position: absolute;
+    max-height: 100%;
+    overflow-y: auto;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.modal-dialog-mj {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.modal-dialog-mj-less {
+    position: absolute;
+    overflow-y: auto;
+    max-height: 55%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.modalText-title {
+    font-size: 14px;
+    color: #2f4e87;
+    font-weight: bold;
+    color: #2f4e87;
+}
+
+.modtext-blue {
+    color: #25388D;
+    font-size: 14px;
+}
+
+.controle-span {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.angular-ui-tree-span .margin-left {
+    margin-left: 8px
+}
+
+.input-regestgroup {
+    float: right;
+    width: 50%;
+}
+
+.user-titleheading {
+  /*   width: 60%; */
+    margin-left: 151px;
+    margin-top: 5px;
+    text-align: left;
+}
+
+.pag-user .pagination {
+    float: left !important;
+    margin-bottom: 20px;
+}
+
+.ceter_p {
+    position: relative;
+    margin: 12px auto;
+    float: left;
+    /*left: 52%;*/
+}
+.ceter_s {
+    position: relative;
+    float: left;
+    left: -50%;
+}
+
+.pagination > .active > span {
+    background-color: #66a7e9  !important;
+    border-color:#66a7e9  !important;
+}
+
+.pag-user span {
+    font-size: 12px;
+    line-height: 12px;
+    cursor: pointer;
+}
+
+.pag-user .page-total {
+    /* text-align: left; */
+    float: left !important;
+    margin-left: 1%;
+}
+
+.td-div01 {
+    height: 100px;
+}
+
+/* .user-titleheading a{
+	float:right;
+} */
+/* ---意见录入---- */
+.modal-body .yjlu-inline {
+    display: inline-block;
+    width: 100%
+
+}
+
+.modal-body .yjlu-inline label {
+    display: inline;
+}
+
+.modal-body .yjlu-inline .yjlu-span {
+    display: inline;
+}
+
+.modal-body .yjlu-inline .yjlu-input {
+    display: inline;
+}
+
+.modal-body .yjlu-inline .yjlu-divinput {
+    display: inline;
+    padding: 1px 2px;
+    font-size: 12px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+}
+
+.modal-body .yjlu-inline .yjlu-margin {
+    margin-left: 2%;
+}
+
+.modal-body .yjlu-divmargin {
+    margin-top: 2%;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.btn:last-child {
+    margin-right: 0;
+}
+
+.btn {
+    margin-right: 20px;
+}
+
+.panel {
+    margin-bottom: 0;
+}
+
+.panel-body {
+    padding-bottom: 0
+}
+
+.btn-primary {
+    background: #6a9bf7;
+    border-bottom: 2px solid #5880c9;
+    color: #fff !important;
+}
+
+.btn-primary:hover {
+    background: #5588F5;
+}
+
+.btn-del{
+    background: #e97066 !important;
+    border-bottom: 2px solid #e97066;
+    color: #fff !important;
+}
+.btn-del:hover {
+    background: #e97066 !important;
+}
+
+.fixedHeight {
+    overflow: auto;
+    overflow-x: hidden;
+    padding-right: 0;
+}
+
+.sorttable {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.gdt_cont .treeTitle {
+    font-size: 16px;
+    color: #4484F3;
+    font-weight: bold;
+   /*  margin-top: 25px; */
+    margin-bottom: 8px;
+    margin-left: 12px;
+}
+
+.gdt_cont .treeTitle .postSearch {
+    float: right;
+    width: 45%;
+  
+    margin-right: 5%;
+}
+
+.gdt_cont .treeTitle .postSearch input {
+    height: 22px;
+    line-height: 22px;
+    margin-left: 5px;
+    /* margin-top: 2px;
+    margin-left: 10px; */
+    width: 93%;
+    border: none;
+    font-size:12px;
+    background: none;
+      border-radius: 20px;
+    border: 1px solid #d2d6de;
+    padding-left:6px;
+}
+/*
+
+.pagination {
+    float: left;
+    margin: 0
+}
+
+
+
+.page-total input {
+    width: 40px
+}
+*/
+.pagination {
+    float: left !important;
+    margin: 0 !important;
+    /*margin-bottom: 20px !important;*/
+}
+.page-total {
+    float: left !important;
+    padding-left: 20px;
+    font-size:13px;
+}
+.page-list .page-total input, .page-list .page-total select{
+    height: 30.08px !important;
+    border: 1px solid #ddd;
+}
+
+.pagenation-last-child {
+    margin-left: 0 ;
+    border-top-right-radius: 4px ;
+    border-bottom-right-radius: 4px ;
+}
+
+
+.modalButRight {
+    text-align: right;
+}
+
+.mj-title .left {
+    float: left;
+    width: 50%;
+    padding-left: 1%
+}
+
+.mj-title .right {
+    float: right;
+    width: 50%;
+    padding-right: 1%;
+    text-align: right;
+}
+
+.tblMW01, .input-text input {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tblMW01 .td-col03 {
+    height: 150px;
+    vertical-align: top;
+}
+
+.tblMW01 .td-col03 .td-div02 {
+    text-align: left;
+    width: 35%;
+    margin-left: 65%
+}
+
+.tblMW01 .td-col03 .td-div03 {
+    text-align: left;
+    width: 35%;
+    margin-left: 65%
+}
+
+.select-mj {
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+    border: solid 1px #fff;
+
+    /*很关键：将默认的select选择框样式清除*/
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    /*在选择框的最右侧中间显示小箭头图片*/
+    /* background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent; */
+
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+    /* padding-right: 14px; */
+    width: auto;
+    padding: 0 32%;
+    margin: 0;
+}
+
+.select-mj option {
+
+    text-align: center;
+
+}
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+.select-mj::-ms-expand {
+    display: none;
+}
+
+.angular-ui-tree-handle {
+    background: #f8faff;
+    border: 1px solid #dae2ea;
+    color: #7c9eb2;
+    /* padding: 2px 2px; */
+}
+
+.angular-ui-tree-handle:hover {
+
+    background: #fff;
+    border-color: #fe8300;
+}
+
+.angular-ui-tree-handle {
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+tr.angular-ui-tree-empty {
+    height: 100px
+}
+
+.group-title {
+    background-color: #687074 !important;
+    color: #FFF !important;
+}
+
+/* --- Tree --- */
+.tree-node {
+    border: 1px solid #dae2ea;
+    background: #fff;
+    color: #7c9eb2;
+}
+
+.angular-ui-tree-node > .active {
+    color:#fe8300!important;
+    background: #fff !important;
+    border-color: #fe8300 !important;
+}
+
+.angular-ui-tree-node > .active:hover {
+    color: #fe8300 !important;
+}
+
+.angular-ui-tree-node > .active .ng-binding {
+    color: #fe8300  !important;
+}
+
+.nodrop {
+    background-color: #f2dede;
+}
+
+.tree-node-content {
+    margin: 1px 1px 3px 1px;
+}
+
+.tree-handle {
+    padding: 3px;
+    background: #428bca;
+    color: #FFF;
+    margin-right: 10px;
+}
+
+.angular-ui-tree-handle:hover {
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.angular-ui-tree-span {
+    font-size: 11px;
+    /* font-size: 0.35rem; */
+    /*font-family: Hiragino Sans GB;*/
+    overflow: hidden; /*超出部分隐藏*/
+    white-space: nowrap; /*不换行*/
+    text-overflow: ellipsis;
+}
+
+.modal-header{
+	font-weight:bold;font-size:18px;
+}
+.panel-body.fixedHeight{
+	/* margin-top:-20px */
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
+	background-color:#448dcb;
+	color:#fff;
+}
+.bmxx_tit .right a.selected{
+	background:#448dcb!important;
+}
+.bmxx_tit .right a.unselected{
+	background:#cdcdcd!important;
+}
+.spinner {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    margin: auto;
+    width: 65px;
+    height: 80px;
+    text-align: center;
+    font-size: 10px;
+}
+
+.spinner > div {
+    background-color: #fff;
+    height: 100%;
+    width: 10px;
+    display: inline-block;
+
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+    0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+    20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes stretchdelay {
+    0%, 40%, 100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }  20% {
+           transform: scaleY(1.0);
+           -webkit-transform: scaleY(1.0);
+       }
+}
+.flyover{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: rgba(0,0,0,.75);
+    opacity: .2;
+}
+
+.bgground{
+     padding: 0;
+     margin: 0;
+     background-color: #92977f;
+     background-size: cover;
+     position: relative;
+ }
+.nomagin{
+    /*margin: 12px;*/
+    padding: 12px;
+    background-color: #92977f;
+    background-size: cover;
+    position: relative;
+}
+.main{
+   /*  margin: 12px ; */
+    box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.25);
+}
+html,input,button,body{
+	font-family:"文泉驿微米黑","宋体"
+}
+html{
+	/* padding:12px!important */
+}
+.panel-body.fixedHeight{
+	/* margin:0 -1px; */
+}

@@ -1,0 +1,120 @@
+<style>
+
+    .modal-dialog {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .modal-content {
+        /*overflow-y: scroll; */
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .modal-body {
+        /*overflow-y: scroll;*/
+        position: absolute;
+        top: 55px;
+        bottom: 65px;
+        width: 100%;
+    }
+
+    .modal-header .close {margin-right: 15px;}
+
+    .modal-footer {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+    }
+
+</style>
+<div class="bmxx_tit" style="margin-bottom: 2px" >
+		  <div class="left"><img src="images/bmxx_tit-02.png">代理人设置</div>
+		  <div class="right">
+			 <a href="" ng-click="chooseUsers('$scope.byAgent()')" class="bj"><img src="images/b-btn-01.png">授权<!--被代理 byAgent--></a>
+              <a href=""  ng-click="chooseUsers('$scope.delAgent()')" style="margin-left: 5px" class="sc"><img src="images/remove.svg">删除授权<!--被代理 byAgent--></a>
+		  </div>
+</div>
+<div class="panel-body fixedHeight" style="padding-right: 0px;padding-left: 0px;">
+                <div class="table_shadow" style="overflow:auto; max-height: 85%" > <!-- style="overflow:auto; height: 60%" -->
+                    <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+                        <thead>
+                        <tr>
+                            <th width="10%">用户姓名</th>
+                            <th width="30%">已授权</th>
+                            <th width="60%">已获得</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in usearAgentList">
+                            <td>{{::user.name}}</td>
+                            <td><span ng-repeat="u in user.byAgentUser">{{::u.name}} <span ng-if="$index != user.byAgentUser.length-1">、</span> </span></td>
+                            <td><span ng-repeat="u in user.agentUser">{{::u.name}} <span ng-if="$index != user.agentUser.length-1"></span></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+</div>
+
+<div  class="modal fade bs-example-modal-lg" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalCreatDepartment">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" style="font-size: 14px" id="myModalCreatDepartment">{{userModalHeadMsg}}</h4>
+            </div>
+            <div class="modal-body" >
+
+                <div class="form-group" ng-show="byAgentFlag">
+                    <div class="input-group col-xs-12">
+                        <input type="text" name="keyword" id="keyword" ng-keyup="enterKeyup($event)" ng-model="userSearchStr" class="form-control" placeholder="请您输入关键词">
+                        <span class="input-group-btn">
+                        <button class="btn btn-success" ng-click ='pageAuto()' style="background: #5588F5; margin-right: 0px;margin-left: 20px;" id="search_submit" type="submit">查 询</button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="table_shadow" style="overflow-y:auto; max-height: 85%" > <!-- style="overflow:auto; height: 60%" -->
+                    <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+                        <thead>
+                            <tr ng-click = "checkUserParent(allUsersRoot)">
+                                <th width="3%" >
+                                    <input type="checkbox" ng-click="$event.stopPropagation();" ng-change="nodeTrClick(null,allUsersRoot,null,dbUsers,$event)" id="checkAll" ng-model="allUsersRoot.checked"/>
+                                </th>
+                                <th width="8%">姓名</th>
+                                <th width="8%">用户名</th>
+                                <th width="5%">性别</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in dbUsers" ng-click = "checkUserChildren(user)">
+                                <td>
+                                    <input type="checkbox" name="checkItem" ng-click="$event.stopPropagation();" ng-change="nodeTrClick(allUsersRoot,user,dbUsers,null,$event)" ng-model="user.checked"/>
+                                </td>
+                                <td>{{::user.name}}</td>
+                                <td>{{::user.username}}</td>
+                                <td>{{::user.gender}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ceter_p" ng-show="byAgentFlag">
+                    <div class="ceter_s">
+                        <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer mf">
+                <button class="btn btn-primary btn-sm save" ng-click="execNgScript(userModalConfirmAction)">确定</button>
+                <button class="btn btn-default btn-sm cancel" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

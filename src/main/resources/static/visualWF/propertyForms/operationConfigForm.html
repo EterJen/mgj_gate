@@ -1,0 +1,43 @@
+<table class="table table-condensed">
+
+    <tr ng-repeat-start="formAction in ngSelectedCell.data.formActions">
+        <td class="tlable" width="25%">操作标识</td>
+        <td width="75%">
+        	<div class="form-group">
+        		<input class="form-control input-md" ng-model="formAction.id" type="text"/>
+        	</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="tlable">操作名称</td>
+        <td>
+        	<div class="form-group">
+        		<input class="form-control input-md" ng-model="formAction.name" type="text"/>
+        	</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">前置条件</td>
+        <td>
+        	<div class="form-group">
+        		<input class="form-control input-md" ng-model="formAction.preCondition" type="text"/>
+        	</div>
+        </td>
+    </tr>
+    <tr ng-repeat-end>
+        <td class="tlable">后置逻辑</td>
+        <td>
+        	<div class="form-group">
+        		<select class="form-control" ng-model="formAction.actionToPerform"></select>
+        	</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="4" style="text-align:center">
+            <a href="" class="btn btn-primary btn-sm" ng-click="addFormAction()">添加表单操作</a>
+        </td>
+    </tr>
+    
+</table>

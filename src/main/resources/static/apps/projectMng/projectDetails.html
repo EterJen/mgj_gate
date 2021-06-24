@@ -1,0 +1,446 @@
+<style>
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	text-align:center;
+	vertical-align:middle;	
+	padding:4px;
+}
+
+.form-horizontal .form-group {
+    margin-right: 0px; 
+    margin-left: 0px;
+    margin-bottom:0px;
+}
+
+.form-control {
+	/* height:32px; */
+}
+
+.lq_label{
+	font-size: 14px;
+}
+
+</style>
+<div class="container">
+	<form class="form-horizontal" role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="saveProjectInput()">
+		<table class="table table-bordered" id="projectDetailTable1">
+			<tr>
+				<td colspan="8"><b>一、项目基本信息</b></td>
+			</tr>
+			<tr>
+				<td class="lq_label" width="15%">申报类型</td>
+				<td colspan="3" width="35%">
+					<div class="form-group">
+						<select class="form-control" ng-model="projectInfo.sec_flag" required>
+							<option value="">请选择</option>
+							<option value="1">建设性</option>
+							<option value="2">维护性</option>
+						</select>
+					</div>
+				</td>
+				<td class="lq_label"  width="15%">投资类型</td>
+				<td colspan="3"  width="35%">
+				    <div class="form-group">
+				    	<select class="form-control" ng-model="projectInfo.companytype" required>
+							<option value="">请选择</option>
+							<option value="区全额补贴">区全额补贴</option>
+							<option value="区部分补贴">区部分补贴</option>
+							<option value="镇财政补贴">镇财政补贴</option>
+							<option value="村自铮补贴">村自铮补贴</option>
+						 </select>
+				    </div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="lq_label">项目名称</td>
+				<td colspan="7">
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.projectname" type="text" required ng-maxlength="100" /> 
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label">申报单位</td>
+				<td colspan="3">
+					<div class="form-group">
+						<select class="form-control" ng-model="projectInfo.buildoffice">
+							<option ng-repeat="x in buildOfficeList track by $index" value="{{x.value}}">{{x.name}}</option>
+						</select>
+					</div>
+				</td>
+				<td class="lq_label">立项单位</td>
+				<td colspan="3">
+					<div class="form-group">
+						<select class="form-control" ng-model="projectInfo.otherbuildoffice">
+							<option ng-repeat="x in buildOfficeList track by $index" value="{{x.value}}">{{x.name}}</option>
+						</select>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label">项目类别</td>
+				<td colspan="3">
+					<div class="form-group">
+						<select class="form-control" ng-model="projectInfo.projectchar">
+							<option value="">请选择</option>
+							<option value="基础设施建设">基础设施建设</option>
+							<option value="社会民生改善">社会民生改善</option>
+							<option value="城乡统筹发展">城乡统筹发展</option>
+							<option value="生态环境建设">生态环境建设</option>
+							<option value="土地收储">土地收储</option>
+							<option value="动迁房和商品房建设">动迁房和商品房建设</option>
+							<option value="动迁和土地储备">动迁和土地储备</option>
+							<option value="存量设施改造">存量设施改造</option>
+							<option value="大中修">大中修</option>
+							<option value="日常维修养护">日常维修养护</option>
+							<option value="综合整治">综合整治</option>
+							<option value="应急处置">应急处置</option>
+							<option value="管理活动">管理活动</option>
+						</select>
+					</div>
+				</td>
+				<td class="lq_label">项目性质</td>
+				<td  colspan="3">
+					<div class="form-group">
+						<select class="form-control" ng-model="projectInfo.projecttype" required>
+							<option value="">请选择</option>
+							<option value="6">新开</option>
+							<option value="5">续建</option>
+							<option value="11">规划储备</option>
+						</select>
+					</div>
+				</td> 
+			</tr>
+			<tr>
+				<td class="lq_label">项目编码</td>
+				<td colspan="7">
+					<input class="form-control" ng-model="projectInfo.projectCode" type="text" ng-maxlength="100" readonly /> 
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label" rowspan="2">项目选址</td>
+				<td colspan="7" align="left">
+					<div class="form-group" style="font-size:14px">
+						东至：<input ng-model="projectInfo.projectadd" type="text"/>
+						西至：<input ng-model="projectInfo.projectadd2" type="text"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="7" align="left">
+					<div class="form-group" style="font-size:14px">
+						南至：<input ng-model="projectInfo.projectadd3" type="text"/>
+						北至：<input ng-model="projectInfo.projectadd4" type="text"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label">建设规模</td>
+				<td colspan="3">
+					<div class="form-group" style="font-size:14px">
+						新增建设用地(亩)：<input type="text" ng-model="projectInfo.sec_increasedbuildland">
+					</div>
+				</td>
+				<td colspan="4">
+					<div class="form-group" style="font-size:14px">
+						 建筑面积(平方米)：<input type="text" ng-model="projectInfo.sec_buildarea">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label">主要建设内容</td>
+				<td colspan="7">
+					<div class="form-group" style="font-size:14px">
+						<textarea class="form-control" rows="10" cols="113" ng-model="projectInfo.buildcontent" style="font-size: 12px"></textarea>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label">城市维护项目范围</td>
+				<td colspan="7" align="left">
+					<div class="form-group" style="font-size:14px">
+						<span ng-repeat="cm in projectInfo.cityMaintainList">
+				         	<input type="checkbox" ng-model="cm.selected" ng-true-value="'Yes'" ng-false-value="'No'">{{cm.dicName}}
+				        </span>
+					</div>
+				</td>
+				
+			</tr>
+			<tr>
+				<td class="lq_label">所属重点领域</td>
+				<td colspan="7" align="left">
+					<div class="form-group" style="font-size:14px">
+						<span ng-repeat="cm in projectInfo.keyFieldsList">
+				         	<input type="checkbox" ng-model="cm.selected" ng-true-value="'Yes'" ng-false-value="'No'">{{cm.dicName}}
+				        </span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label">涉及村居及公司</td>
+				<td colspan="7" class="lq_td_input" align="left">
+					<div class="form-group" style="font-size:14px">
+						<span ng-repeat="cm in projectInfo.streetAndTownsList">
+				         	<input type="checkbox" ng-model="cm.selected" ng-true-value="'Yes'" ng-false-value="'No'">{{cm.dicName}}
+				        </span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="8"><b>二、资金来源及构成</b></td>
+			</tr>
+			<tr>
+				<td class="lq_label">概算价<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.roughPrice" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label" width="10%">立项价<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.establishPrice" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">中标价<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.bidPrice" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label" width="10%">审计价<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.auditPrice" type="text" required /> 
+					</div>
+				</td>
+			</tr>	
+			<tr>
+				<td class="lq_label">结算金额<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.arrangedmoeny" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label" width="10%">审价金额<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.foreastmoney" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">审计金额<br>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.sec_citybase" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label" width="10%" colspan="2"></td>
+			</tr>	
+			<tr>
+				<td class="lq_label">总投资及构成<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="calAllcountcost()" type="text" required readonly/> 
+					</div>
+				</td>
+				<td class="lq_label" width="10%">建安工程量<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.projectcost" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">前期费用<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.earlyPhaseCost" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">其它费用<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.otherscost" type="text" required /> 
+					</div>
+				</td>
+			</tr>	
+			<tr>
+				<td class="lq_label" rowspan="2">本年拟申请资金<br/>（万元）</td>
+				<td rowspan="2">
+					<div class="form-group">
+						<input class="form-control" ng-model="calThisYearFund()" type="text" required readonly/> 
+					</div>
+				</td>
+				<td class="lq_label" width="10%">中央资金<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.centralmoney" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">市资金<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.citymoney" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">区资金<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.esplees" type="text" required /> 
+					</div>
+				</td>
+			</tr>	
+			<tr>	
+				<td class="lq_label" width="10%">街镇资金<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.sec_cityandgarden" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">村、公司融资<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.sec_companyfinancing" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">其它<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.othermoney" type="text" required /> 
+					</div>
+				</td>
+			</tr>
+			<tr>	
+				<td class="lq_label">上年度实际累计支付<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.lastYearTotalInvest" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">结转计划<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="calPlanMoney()" type="text" required readonly/> 
+					</div>
+				</td>
+				<td class="lq_label" colspan="4"></td>
+			</tr>
+			<tr>
+				<td colspan="8"><b>三、项目建设情况</b></td>
+			</tr>
+			<tr>	
+				<td class="lq_label">开工日期</td>
+				<td colspan="3">
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.startworktime" type="text" required readonly data-date-format="yyyy-mm-dd" data-provide="datepicker"/> 
+					</div>
+				</td>
+				<td class="lq_label">竣工日期</td>
+				<td colspan="3">
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.overtime" type="text" required readonly data-date-format="yyyy-mm-dd" data-provide="datepicker"/> 
+					</div>
+				</td>
+				<td class="lq_label" colspan="2"></td>
+			</tr>
+			<tr>	
+				<td class="lq_label">设计单位</td>
+				<td colspan="3">
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.sec_designunit" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">中标金额<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.secDesignunitmoney" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">联系人</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.secDesignunitcontact" type="text" required /> 
+					</div>
+				</td>
+			</tr>
+			<tr>	
+				<td class="lq_label">监理单位</td>
+				<td colspan="3">
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.sec_supervisorunit" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">中标金额<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.secSupervisorunitmoney" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">联系人</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.secSupervisorunitcontact" type="text" required /> 
+					</div>
+				</td>
+			</tr>
+			<tr>	
+				<td class="lq_label">施工单位</td>
+				<td colspan="3">
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.sec_executionunit" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">中标金额<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.secExecutionunitmoney" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">联系人</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.secExecutionunitcontact" type="text" required /> 
+					</div>
+				</td>
+			</tr>
+			<tr>	
+				<td class="lq_label">审价单位</td>
+				<td colspan="3">
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.sec_checkpriseunit" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">中标金额<br/>（万元）</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.secCheckpriseunitmoney" type="text" required /> 
+					</div>
+				</td>
+				<td class="lq_label">联系人</td>
+				<td>
+					<div class="form-group">
+						<input class="form-control" ng-model="projectInfo.secCheckpriseunicontact" type="text" required /> 
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label">项目建设依据及其它</td>
+				<td colspan="7">
+					<div class="form-group" style="font-size:14px">
+						<textarea class="form-control" rows="10" cols="113" ng-model="projectInfo.othersproof" style="font-size: 12px"></textarea>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label">项目当前情况描述</td>
+				<td colspan="7">
+					<div class="form-group" style="font-size:14px">
+						<textarea class="form-control" rows="10" cols="113" ng-model="projectInfo.currentProgressSituation" style="font-size: 12px"></textarea>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="lq_label" colspan="8">
+					<a class="btn btn-primary" ng-click="saveProjectInfo()">保存</a>
+				</td>
+			</tr>
+		</table>	
+	</form>
+</div>

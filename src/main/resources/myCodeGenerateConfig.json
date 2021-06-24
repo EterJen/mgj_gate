@@ -1,0 +1,14 @@
+{
+  "dbName":"dameng",
+  "pkStrategy":"Sequence",
+  "pkSequence":"JXWOAUniversalSeq",
+  "metaPackageList":[
+    {
+      "packageNameBase":"com.gwideal.core.cms",
+      "metaTableConfigs":[
+        {"tableName":"MANAGER_OF_BUSINESS_SECRET","entityName":"managerOfBusinessSecret"}
+      ]
+    }
+
+  ]
+}

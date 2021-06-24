@@ -1,0 +1,123 @@
+.wrapper-theme-bg-1 {
+    background: url(../../js_1/img/wrapper-theme-bg-1.png) no-repeat;
+    background-size: cover;
+    transition: all .2s .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -ms-behavior: url(../../js_1/css_1/backgroundsize.min.htc);
+    behavior: url(../../js_1/css_1/backgroundsize.min.htc);
+    min-height: 100%;
+    min-width: 1140px;
+    position: relative;
+}
+.mswrapper.list-wrapper{
+    height: 500px;
+	width:1380px;
+    background-color: rgba(118,95,88,0.7);
+    /* background-position: center bottom; */
+}
+/*common.css*/
+.list-wrapper {
+    width: 86%;
+    margin: 0 auto;
+    text-align: center;
+    background-position: bottom;
+    border-radius: 5px;
+    padding-bottom: 30px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.icon-list-container{
+    max-height: 445px;
+}
+.icon-list-container .icon-list-title{
+    margin-left: 30px;
+    text-align: left;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 700;
+    height: 36px;
+    line-height: 36px;
+
+}
+.list-wrapper.mswrapper{
+    padding-bottom: 30px;
+    position: relative;
+}
+.list-wrapper.mswrapper .btn-wrapper{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 20px;
+}
+
+.am-modal-dialog.article-content-wrapper {
+    padding: 0 20px;
+    margin: 0 auto;
+    border-radius: 6px;
+    width: 90%;
+    height: 90%;
+    text-align: center;
+}
+
+.article-content-box {
+    /*position: absolute;*/
+    top: 93px;
+    left: 20px;
+    right: 20px;
+    bottom: 44px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: 14px;
+    color: #1a202e;
+    text-indent: 27px;
+    line-height: 2;
+}
+
+.rouse {
+    margin-left: 15px;
+}
+
+.am-modal-dialog.article-content-wrapper .article-title {
+    margin-top:20px;
+    /*min-height: 50px;*/
+    /*line-height: 50px;*/
+    color: #1249ac;
+    font-size: 20px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.am-modal-dialog.article-content-wrapper .article-time {
+    color: #405075;
+    font-size: 14px;
+    border-bottom: 1px solid #c3c5cb;
+    padding-bottom: 10px;
+}
+
+.am-modal-footer.article-btn {
+    position: absolute;
+    bottom: 0;
+    top: 5px;
+    width: 72px;
+    right: 5px;
+    background: url(../../js_1/img/a-bnt.png) no-repeat;
+    text-align: center;
+    /* background-color: rgba(195, 197, 201, 0.5);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px; */
+}
+
+.am-modal-footer.article-btn .am-modal-btn {
+    color: #fff;
+    font-weight: 700;
+    height: 32px;
+    line-height: 32px;
+}
+
+.am-modal-footer.article-btn:hover .am-modal-btn {
+    /* color: #00c3ff; */
+}
+
+.am-modal-btn:active {
+    background: unset;
+}

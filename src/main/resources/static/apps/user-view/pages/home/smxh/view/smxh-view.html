@@ -1,0 +1,114 @@
+<div class="main clearfix  sh-bg">
+ <!--   <p class="breadcrumb">
+        <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+        >
+        <span>商密协会</span>
+    </p>-->
+    <div class="main-bg clearfix p-0 m-t-20">
+        <div class="list-left-tit">
+            <div class="box-shadow-0">
+                <i class="smxh-blue"></i>
+                <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+                >
+                <span ng-click="fc.goState(fc.topBarMap.smxh)" style="cursor: pointer">商密协会</span>
+            </div>
+        </div>
+        <!--tit end-->
+        <div class="li-tab">
+            <ul class=" clearfix">
+                <li ng-class="{'sel': (x == selNav) }" ng-repeat="x in navs" ng-click="navChange(x)">{{navMaps[x].zh}}</li>
+            </ul>
+        </div>
+
+        <div ng-if="articleContentView" >
+            <div class="main-bg clearfix  p-0">
+                <div class="final">
+                    <div class="art-head">
+                        <h2 class="clear-default" ng-bind="bean.title"></h2>
+                        <span class="fbrq">发布日期：</span>
+                        <span ng-bind="bean.publishTime|dateStrFormatZh"></span>
+                        <span class="m-l-20 fbrq">来源：</span>
+                        <span ng-bind="bean.docFrom"></span>
+                    </div>
+
+                    <div ng-if="article.image.show" class="article-image-main">
+                        <img ng-img="{{article.image.content}}">
+                    </div>
+                    <div ng-if="article.video.show" class="article-video-main">
+                        <iframe frameborder=0 ng-gw-video="{{article.video.content}}" autoPlay="true" allowfullscreen="true" webkitallowfullscreen="true" controls="controls" scrolling="no" border="0" framespacing="0" mozallowfullscreen="true"></iframe>
+                    </div>
+                    <div ng-if="article.text.show" ng-sce-html="article.text.content"></div>
+                    <div ng-if="article.attachments.show" class="art-fj ">
+                        <p class="textalign-l font-16 fujian">
+                            <span class="fbrq">附件：</span>
+                        </p>
+                        <div ng-repeat="x in article.attachments.content" style="text-indent: 64px" class="textalign-l  fujian">
+                            <a gw-ng-href="{{x.uuidName}}">{{x.originalName}}</a>
+                        </div>
+                    </div>
+                    <div class=" ">
+                        <div class="fanhui">
+                            <button ng-click="navChange('jqhd')">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="!articleContentView" style="padding-top: 1px" class="bg-white smxh-tab-content">
+
+            <div ng-if="'xhjs' == selNav">
+                <div ng-sce-html="bean.content"></div>
+                <!--   <div class="hydw">
+                       <button  ><i></i>会员单位</button>
+                   </div>-->
+            </div><!--tab1-->
+            <div ng-if="'hydw' == selNav">
+                <div class="list-right m-l-0" style="padding-left: 0;padding-right: 0">
+                    <ul class="list-secondary clear-default">
+                        <li  ng-repeat="x in beanList" ng-class="{'zhiding': (1 == x.ifSetTop)}">
+                            <a raw-href="{{x.url}}">
+                                <span style="display: inline" ng-bind-html="x.name"></span>
+                            </a>
+                            <span class="article-rq" ng-bind="x.addtime|timeYmd"></span>
+                        </li>
+                    </ul>
+                    <div class="list-bott">
+                        <div class="mng-pagelist">
+                            <div>
+                                <tm-pagination conf="linklistPaginationConf"></tm-pagination>
+                            </div>
+                            </diva>
+                        </div>
+
+                    </div>
+                    <!--fenye end-->
+                </div>
+            </div>
+            <div ng-if="'jqhd' == selNav">
+                <div class="list-right m-l-0" style="padding-left: 0;padding-right: 0">
+                    <ul class="list-secondary clear-default">
+                        <li ng-click="smxhArticleView(x)" ng-repeat="x in beanList" ng-class="{'zhiding': (1 == x.ifSetTop)}">
+                            <a>
+                                <label ng-if="1 == x.ifSetTop" class="blue">【置顶】</label>
+                                <label ng-if="1 == x.showNewFlag" class="new">【最新】</label>
+                                <span style="display: inline" ng-bind-html="x.title | highLight:fc.articleNameLike:'match-word'"></span>
+                            </a>
+                            <span class="article-rq" ng-bind="x.publishTime|timeYmd"></span>
+                        </li>
+                    </ul>
+                    <div class="list-bott">
+                        <div class="mng-pagelist">
+                            <div>
+                                <tm-pagination conf="paginationConf"></tm-pagination>
+                            </div>
+                            </diva>
+                        </div>
+
+                    </div>
+                    <!--fenye end-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.basic.l3.dao.DicCategoryMapper">
+
+
+	<select id="list" resultMap="listResultMap">
+		select
+		a.*,
+		${@com.gwideal.core.common.CoreBaseEntity@getSelectColumns('dic_mode','b.','b_')}
+		FROM DIC_CATEGORY a
+		LEFT JOIN DIC_MODE b ON a.ID = b.CATEGORY_ID AND b.flag != '0'
+		<where>
+			a.flag != '0'
+		</where>
+	</select>
+	<resultMap id="listResultMap" type="com.gwideal.core.basic.l4.entity.DicCategory" autoMapping="true">
+		<id property="id" column="id"/>
+		<collection property="dicModes" column="b_id" ofType="com.gwideal.core.basic.l4.entity.DicMode"
+					columnPrefix="b_">
+		</collection>
+	</resultMap>
+
+	<insert id="delDicModes" >
+		<foreach collection="dicModes" item="item" index="index" separator=";">
+			DELETE FROM DIC_MODE
+			WHERE CATEGORY_ID =#{id} AND ID =#{item.id}
+		</foreach>
+	</insert>
+  
+</mapper>

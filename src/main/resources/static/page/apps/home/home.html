@@ -1,0 +1,703 @@
+<style>
+    .idx2-c .layui-laydate, .layui-laydate-hint {
+        border: 0;
+        box-shadow: 0 0 0
+    }
+
+    .todo-work-edit input {
+        font-size: 18px !important;
+        margin: 0 !important;
+    }
+
+    .todo-work-edit textarea {
+        font-size: 18px !important;
+        margin: 0 !important;
+    }
+
+    .todo-work-edit select {
+        font-size: 18px !important;
+        margin: 0 !important;
+    }
+
+    .todo-work-edit td {
+        font-size: 18px !important;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    .dbsx p {
+        font-size: 13px;
+        color: #fff;
+        font-weight: bolder;
+        float: right;
+        margin-top: 21px;
+    }
+
+    /*.daiban > div {
+        display: inline;
+        width: 420px;
+        !*height: 63px;*!
+        box-shadow: 0px 3px 3px #d5d2c5;
+        float: left;
+    }*/
+    .dbsx span {
+        font-size: 13px;
+        color: yellow;
+        font-weight: bolder;
+    }
+
+    .idx2-c #calendar .layui-laydate-main {
+        width: 100%
+    }
+
+    .idx2-c #calendar .layui-laydate {
+        width: 100%;
+        height: 270px;
+        line-height: 270px;
+        float: left
+    }
+
+    .idx2-c .layui-laydate-header {
+        height: 49px;
+        line-height: 49px;
+        overflow: hidden;
+        padding: 0;
+        font-weight: bold;
+        font-size: 25px;
+        color: #3479b5;
+    }
+
+    .idx2-c .layui-laydate-header .layui-icon {
+        height: 32px;
+        line-height: 32px;
+    }
+
+    .idx2-c .layui-laydate-content tbody td {
+        height: 29px;
+        line-height: 29px;
+        padding: 0;
+        background: #fff;
+        width: 60px
+    }
+
+    .idx2-c .layui-laydate-content thead th {
+        height: 29px;
+        line-height: 29px;
+        padding: 0;
+        background: #fff;
+        width: 60px
+    }
+
+    .swiper-container-horizontal > .swiper-pagination-bullets {
+        top: 309px;
+        background: transparent;
+    }
+
+    .fullcalendar-day {
+        border-left: 1px dotted green;
+        border-top: 1px dotted green;
+    }
+
+    .calendar-hover {
+        border: 1px solid red;
+    }
+
+    .fullcalendar-body th {
+        padding: 5px;
+        height: 20px;
+    }
+
+    .fullcalendar-detail {
+        border-radius: 5px;
+        position: absolute;
+        z-index: 10;
+        /*background-color: rgb(0, 0, 102);*/
+        background-color: #f4802d;
+        display: none;
+        /*opacity: 0.8;*/
+        padding: 5px;
+        text-align: left;
+        filter: Alpha(opacity=80);
+        width: 280px;
+    }
+
+    .day-todo-work-show {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 275px;
+        display: inline-block;
+    }
+
+    .fullcalendar-detail-div {
+        background-color: #f4802d;
+    }
+
+    .fullcalendar-detail-div:hover {
+        background-color: white;
+    }
+
+    .fullcalendar-detail-div a {
+        font-weight: bolder;
+        color: white;
+    }
+
+    .fullcalendar-detail-div:hover a {
+        color: #f4802d;
+    }
+
+
+    .fullcalendar-detail div { /*background:#CCFFCC;*/
+        margin-top: 3px;
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    .fullcalendar-detail
+    .lunarFestival {
+        color: red;
+    }
+
+    .fullcalendar-detail
+    .solarFestival {
+        color: blue;
+    }
+
+    .calendar-selected {
+        border: 1px solid red;
+    }
+
+    /*.fullcalendar-body td.festival{background:url("data:image/png;base64,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");background-repeat: no-repeat;background-position: top right;}*/
+
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        font-weight: 700;
+    }
+
+    #startday {
+        display: inline-block;
+    }
+
+    #endday {
+        display: inline-block;
+    }
+
+    .cms-wait-task-day {
+        position: relative;
+        width: 20px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .calendar-day td {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    nearly-todo {
+
+    }
+
+    .nearly-todo  tr  td {
+        border: 1px solid #fd5047 !important;
+        cursor: pointer;
+    }
+</style>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script><!--<script type="text/javascript" src="js/jquery.fullcalendar.js"></script>-->
+<div class="main clearfix">
+    <div class="mainleft clearfix">
+        <div class="tzgg">
+            <div class="newstab">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" ng-repeat="pic in fc.tpxwList" ng-click="common.goDetails(pic)">
+                            <img ng-src="{{fc.ENV+pic.image}}"/>
+                            <div class="heikuang">
+                                <span ng-bind="pic.title"></span>
+                            </div>
+                        </div>
+                    </div><!--lunbo-->
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <div class="newsright">
+                <div ui-sref="menu.cmsList({ifShowInNewList:1,parameterId: 40})" style="cursor: pointer" class="title"> 工作动态
+                    <a href="" ui-sref="menu.cmsList({ifShowInNewList:1,parameterId: 40})">
+                        <i></i>
+                    </a>
+                </div>
+                <a ng-click="common.goDetails(fc.jrgxList[0])"><p ng-bind="fc.jrgxList[0].title"></p></a>
+                <div class="newsmain clearfix">
+                    <!--                    <a ng-bind="fc.jrgxList[0].content |just_text |docNameCut:130 " href="#!/menu/cmsDetails/{{fc.jrgxList[0].id}}"></a>-->
+                    <a ng-bind="fc.jrgxList[0].content" ng-click="common.goDetails(fc.jrgxList[0])"></a>
+                </div>
+                <div>
+                    <ul>
+                        <li ng-show="!$first" ng-repeat="jrgx in fc.jrgxList">
+                            <!--                            <a href="#!/menu/cmsDetails/{{jrgx.id}}">{{jrgx.title}}</a>-->
+                            <a ng-click="common.goDetails(jrgx)" ng-bind="jrgx.title"></a>
+                            <img src="images/new.gif" ng-if="fc.showNewImage(jrgx)"/>
+                        </li>
+                        <!--<li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                        <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                        <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                        <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div><!--tzgg-end-->
+        <div class="mainbottom clearfix">
+            <div class="mbtitle" id="gzjl">
+                <ul>
+                    <li ng-click="fc.gz();$event.stopPropagation();" class="sel">
+                        <i class="gzjl"></i>
+                        工作交流
+                    </li>
+                    <li ng-click="fc.gz();$event.stopPropagation();">
+                        <i class="gzzd"></i>
+                        规章制度
+                    </li>
+                </ul>
+                <a href="" ng-click="fc.gz();$event.stopPropagation();">
+                    <i></i>
+                </a>
+            </div>
+            <div class="tabcontent">
+                <div class="mbtabon">
+                    <div>
+                        <ul>
+                            <li ng-repeat="article in fc.gzjlList | limitTo:-fc.gzjlList.length:fc.gzjlList.length>8?8:fc.gzjlList.length">
+                                <a ng-bind="article.title" ng-click="common.goDetails(article)"></a>
+                                <img src="images/new.gif" ng-if="fc.showNewImage(article)"/>
+                            </li>
+                            <!--<li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="disnone">
+                    <ul>
+                        <li ng-repeat="a in fc.gzzdList | limitTo:-fc.gzzdList.length:fc.gzzdList.length>8?8:fc.gzzdList.length">
+                            <a ng-bind="a.title" ng-click="common.goDetails(a)"></a>
+                            <img src="images/new.gif" ng-if="fc.showNewImage(a)"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div><!--mainbottoml-end-->
+        <div class="mainbottom ml16">
+            <div class="mbtitle" id="llxx">
+                <ul>
+                    <li ng-click="fc.llxx();$event.stopPropagation();" class="sel">
+                        <i class="llxx"></i>
+                        理论学习
+                    </li>
+                    <li ng-click="fc.llxx();$event.stopPropagation();">
+                        <i class="ywzs"></i>
+                        业务知识
+                    </li>
+                </ul>
+                <a href="" ng-click="fc.llxx();$event.stopPropagation();">
+                    <i></i>
+                </a>
+            </div>
+            <div class="tabcontent">
+                <div class="mbtabon">
+                    <div>
+                        <ul>
+                            <li ng-repeat="article in fc.llxxList | limitTo:-fc.llxxList.length:fc.llxxList.length>8?8:llxxList.length">
+                                <a ng-bind="article.title" ng-click="common.goDetails(article)"></a>
+                                <img src="images/new.gif" ng-if="fc.showNewImage(article)"/>
+                            </li>
+                            <!--<li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>
+                            <li><a>世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行世界贸易网点联盟第17届年会暨世界贸易便利化论坛在上海举行</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="disnone">
+                    <ul>
+                        <li ng-repeat="article in fc.ywzsList | limitTo:-fc.ywzsList.length:fc.ywzsList.length>8?8:fc.ywzsList.length">
+                            <a ng-bind="article.title" ng-click="common.goDetails(article)"></a>
+                            <img src="images/new.gif" ng-if="fc.showNewImage(article)"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div><!--mainbottomr-end-->
+    </div><!--mainleft-end-->
+    <div class="mainright clearfix">
+        <div class="search">
+            <input type="text" ng-model="fc.titleValue" ng-keyup="fc.enterKeyup($event)" placeholder="请输入要搜索的内容,回车确认搜索。"/>
+        </div>
+        <div class="daiban clearfix">
+            <div class="dbsx" ng-click="fc.goToOaToDoTask()" style="cursor: pointer">
+                <i></i>
+                待办任务
+                <div ng-bind="fc.gongwengToDoNum"></div>
+            </div>
+            <div class="aqwd ml20" ng-click="fc.goToOaHuiyi()" style="cursor: pointer">
+                <i></i>
+                会议通知
+                <div ng-bind="fc.huiyiToDoNum"></div>
+
+            </div>
+        </div>
+        <!--<div class="daiban clearfix">
+
+            <div class="dbsx" style="display: inline" ng-click="fc.goToOaToDoTask()">
+                <i></i>
+                待办事项
+                <div style="display: inline;margin-left: 0px;margin-right: 8px" ng-bind="fc.taskTodeCount" >15</div>
+&lt;!&ndash;                <p>收文<span ng-bind="fc.shouwenNum"></span>发文<span ng-bind="fc.fawenNum"></span>接待工作<span ng-bind="fc.jiedaiNum"></span><p>&ndash;&gt;
+                                <p>收文<span >【00】</span>发文<span >【00】</span>接待工作<span >【00】</span><p>
+            </div>
+        </div>-->
+        <div class="rlgl clearfix">
+            <!--<div class="title2"> 日历管理</div>-->
+            <div region="center">
+                <div class="easyui-fullCalendar" fit="true" style="height: 100%"></div>
+            </div>
+            <!--<div class="h430" style="padding-top: 1px;cursor: default;width: 100%;background-color: #EEF6FF;">
+                <div class="w100 idx2-c fl" style="height: 250px">
+                    <div id="calendar" style="margin: 0 5px;height: 240px;line-height: 240px;overflow: hidden;"></div>
+                </div>
+                <div class="b7-buttom w100">
+                    <div class="fl w100 pr30 cd ">
+                        <table class="ml20" style="width:340px;table-layout: fixed">
+                            <tr ng-repeat="mt in mtdtl | limitTo:4" class="w100" style="border-bottom: 1px dotted #abd9c7;">
+                                <td class="w60 fs16 cp-f h30 pl10 "  ng-click="goContent('coreHome.executiveLeaderArrange')"
+                                    style="word-break: keep-all;white-space: nowrap;overflow: hidden;text-overflow: ellipsis">
+                                    1&lt;!&ndash;{{mt.r}}&ndash;&gt;&lt;!&ndash;[地点:{{mt.a}}]&ndash;&gt;</td>
+                                <td class="w30 fs16  h30" align="right">&lt;!&ndash;{{curString(mt.d)}}&ndash;&gt;2</td>
+                            </tr>
+                        </table>
+                        &lt;!&ndash;<a class="fs16 cp pl25 pt5 h30 c-dark-blue w100" style="overflow: hidden;text-align: left;white-space:nowrap;display: block;"
+                        ng-click="goContent('coreHome.executiveLeaderArrange')" ng-repeat="mt in mtdtl | limitTo : 2">
+                            {{mt.r}}[{{mt.a}}]{{mt.d}}
+                            </a>&ndash;&gt;
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <div class="zhuanti clearfix">
+            <div class="swiper-container-right clearfix">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" title="{{zt.title}}" ng-repeat="zt in fc.ztxxList" ng-click="fc.themLink(zt)">
+                        <img ng-src="{{fc.ENV+zt.image}}"/>
+                    </div>
+
+                </div><!--lunbo-->
+            </div><!--zhuanti-end-->
+            <!--<section id="demos">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="owl-carousel2 owl-theme ">
+                            <div class="item">
+                                <a href=""><img src="images/zhuanti.png"/></a>
+                            </div>
+                            <div class="item">
+                                <a href=""><img src="images/zhuanti.png"/></a>
+                            </div>
+                            <div class="item">
+                                <a href=""><img src="images/zhuanti.png"/></a>
+                            </div>
+                            <div class="item">
+                                <a href=""><img src="images/zhuanti.png"/></a>
+                            </div>
+                            <div class="item">
+                                <a href=""><img src="images/zhuanti.png"/></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>-->
+        </div><!--zhuanti-end-->
+        <div class="yqlj">
+            友情链接
+            <select id="yqljis" ng-click="fc.changLinked()" ng-model="fc.linkedValue">
+                <option value="" selected>请选择</option>
+                <option ng-repeat="l in fc.linkList" value="{{l.value}}">{{l.name}}</option>
+            </select>
+
+        </div>
+    </div><!--mainright-end-->
+</div><!--main-end-->
+
+<div class="fullcalendar-detail">
+    <div class="fullcalendar-detail-div" ng-repeat="s in fc.targetDay.bzBean.huiyi">
+        <font class="day-todo-work-show" style="font-size:18px;">
+            <a class="detail-li-a" ng-click="fc.showMeeting(s)">[{{s.meetingStartTime|ngSubStr:11:6}}]：{{s.otherTitle}}</a>
+        </font>
+    </div>
+    <div class="fullcalendar-detail-div" ng-repeat="s in fc.targetDay.bzBean.work">
+        <font class="day-todo-work-show" style="font-size:18px;">
+            <a class="detail-li-a" ng-click="fc.editePerson(s)">[{{s.starttime}}]：{{s.title}}</a>
+        </font>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="nearlyWorkDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="margin-top: 180px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">近日工作安排</h4>
+            </div>
+            <div class="modal-body todo-work-edit">
+                <div class="table_shadow nearly-todo" style="overflow:auto;">
+                    <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+                        <thead>
+                        <td width="15%">时间</td>
+                        <td width="30%">地点</td>
+                        <td>事项</td>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="nearlyTodo in nearlyWork" ng-click="fc.detaileShow(nearlyTodo)">
+                            <td width="15%">{{::nearlyTodo.date}}<br/>{{::nearlyTodo.starttime}}</td>
+                            <td width="30%" style="text-align: left">{{::nearlyTodo.address}}</td>
+                            <td style="text-align: left">{{::nearlyTodo.title}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="meetingBindingDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">会议安排</h4>
+            </div>
+            <div class="modal-body todo-work-edit">
+                <form class="form-horizontal" id="leaderWorkArrangeForm" name="leaderWorkArrangeForm" role="form">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td width="15%">登记人</td>
+                            <td width="35%">
+                                <div class="form-group" style="margin: 0;">
+                                    <input type="text" class="form-control" ng-model="meetingBinding.creatorName" readonly/>
+                                </div>
+                            </td>
+                            <td width="15%">会议日期</td>
+                            <td width="35%">
+                                <div class="form-group" style="margin: 0;">
+                                    <input type="text" class="form-control" value="{{meetingBinding.meetingStartTime|ngSubStr:0:10}}" readonly/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>开始时间</td>
+                            <td>
+                                <div class="form-group" style="margin: 0;">
+                                    <input type="text" class="form-control" value="{{meetingBinding.meetingStartTime|ngSubStr:11}}" readonly/>
+                                </div>
+                            </td>
+                            <td>预计结束时间</td>
+                            <td>
+                                <div class="form-group" style="margin: 0;">
+                                    <input type="text" class="form-control" value="{{meetingBinding.meetingEndTime|ngSubStr:11}}" readonly/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>会议标题</td>
+                            <td colspan="3">
+                                <div class="form-group" style="margin: 0;">
+                                    <input type="text" class="form-control" ng-model="meetingBinding.otherTitle" readonly/>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>会议地址</td>
+                            <td colspan="3">
+                                <div class="form-group" style="margin: 0;">
+                                    <input type="text" class="form-control" ng-model="meetingBinding.otherMeetingAddress" readonly/>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>会议内容</td>
+                            <td colspan="3">
+                                <div class="form-group" style="margin: 0;">
+                                    <textarea ng-model="meetingBinding.meetingContent" rows="3" ng-maxlength="2048" readonly></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>会议范围</td>
+                            <td colspan="3">
+                                <div class="form-group" style="margin: 0;">
+                                    <textarea ng-model="meetingBinding.participationScopeStr" rows="3" ng-maxlength="2048" readonly></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div style="text-align: center">
+
+                                    <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">
+                                        关闭
+                                    </button>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="createArrangeDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">工作安排</h4>
+            </div>
+            <div class="modal-body todo-work-edit">
+                <form class="form-horizontal" id="leaderWorkArrangeForm" name="leaderWorkArrangeForm" role="form">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>姓&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</td>
+                            <td colspan="3">
+                                <!--<input type="hidden" class="form-control" id="userid" ng-model="queryBean.userid"/>
+                                <input type="hidden" class="form-control" id="usercname" ng-model="queryBean.usercname"/-->
+                                <div class="form-group" style="margin: 0;">
+                                    <input type="text" class="form-control" ng-model="queryBean.usercname" readonly/>
+                                    <!--<select class="form-control" ng-change="changeUser(user)" ng-model="user" ng-options="x as x.name for x in leaderList" required></select>-->
+                                </div>
+                            </td>
+                            <!--<td width="15%">部门</td>
+                            <td width="30%">
+                                {{deptcname}}
+                                <input type="hidden" class="form-control" id="deptcname" ng-model="queryBean.deptcname"/>
+                                <input type="hidden" class="form-control" id="deptid" ng-model="queryBean.deptid"/>
+                            </td>-->
+                        </tr>
+                        <tr>
+                            <td width="15%">工作名称</td>
+                            <td width="30%">
+                                <div class="form-group" style="margin: 0;">
+                                    <textarea ng-model="queryBean.title" rows="3" ng-maxlength="2048" required></textarea>
+                                </div>
+                            </td>
+                            <td width="15%">工作地点</td>
+                            <td width="30%">
+                                <div class="form-group" style="margin: 0;">
+                                    <textarea ng-model="queryBean.address" rows="3" ng-maxlength="512"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="15%">工作概要</td>
+                            <td colspan="3">
+                                <div class="form-group" style="margin: 0;">
+                                    <textarea ng-model="queryBean.brief" rows="3" ng-maxlength="1024"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="15%">工作日期</td>
+                            <td colspan="3">
+                                <div class="form-group" style="margin: 0;">
+                                    <label for="startday">开始日期：</label>
+                                    <input type="text" id="startday" ng-model="queryBean.startday" style="width: 20%;" ng-disabled="queryBean.parentactionid != null"/>
+                                    <span>--</span>
+                                    <label for="endday">结束日期(可多天)：</label>
+                                    <input type="text" id="endday" ng-model="queryBean.endday" required style="width: 20%;" ng-disabled="queryBean.parentactionid != null"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="15%">工作时间</td>
+                            <td colspan="3">
+                                <div class="form-group" style="margin: 0;">
+                                    <label for="starttime">开始时间：</label>
+                                    <select id="starttime" ng-model="queryBean.startTimeHour" ng-options="h.val as h.label for h in starttimeHours" style="margin-right: 5px;width: 10%;" required></select>
+                                    <span>时</span>
+                                    <select ng-model="queryBean.startTimeMinute" ng-options="m.val as m.label for m in minutes" style="margin: 0 10px;width: 10%;" required></select>
+                                    <span>分</span>
+                                    <span>--</span>
+                                    <label for="endtime">结束时间：</label>
+                                    <select id="endtime" ng-model="queryBean.endTimeHour" ng-options="h.val as h.label for h in endtimeHours" style="margin-right: 5px;width: 10%;" required></select>
+                                    <span>时</span>
+                                    <select ng-model="queryBean.endTimeMinute" ng-options="m.val as m.label for m in minutes" style="margin: 0 10px;width: 10%;" required></select>
+                                    <span>分</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div ng-show="queryBean.id == null" style="text-align: center">
+                                    <button type="button" class="btn btn-sm btn-primary save" ng-disabled="!leaderWorkArrangeForm.$valid" ng-click="saveArrange('createArrangeDialog')">
+                                        确定
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">
+                                        关闭
+                                    </button>
+                                </div>
+                                <div ng-show="queryBean.id != null">
+                                    <!--<button type="button" class="btn btn-sm btn-success save" ng-click="openCreateArrangeDialog(null, userid, date)">创建新安排</button>-->
+                                    <button type="button" class="btn btn-sm btn-primary save" ng-click="saveArrange('createArrangeDialog')">
+                                        保存
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger save" ng-click="deleteArrange('createArrangeDialog')">
+                                        删除
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">
+                                        关闭
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="left">活动细目</td>
+                        </tr>
+                        <tr ng-show="actionItemList.length != 0" s>
+                            <td colspan="4" class="left" ng-click="openCreateArrangeDialog(actionItemList[0])">全部活动</td>
+                        </tr>
+                        <tr ng-repeat="action in actionItemList" ng-if="$index>0">
+                            <td colspan="4" class="left" ng-click="openCreateArrangeDialog(action)">{{::action.startday}}</td>
+                        </tr>-->
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,508 @@
+<style>
+	.modal-dialog {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.modal-content {
+		/*overflow-y: scroll; */
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.modal-body {
+		/*overflow-y: scroll;*/
+		position: absolute;
+		top: 55px;
+		bottom: 65px;
+		width: 100%;
+	}
+
+	.modal-header .close {
+		margin-right: 15px;
+	}
+
+	.modal-footer {
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+	}
+	.viewModeUser{display: inline-block;color: #051b3b;margin: 10px 10px 0 10px;}
+	.ry_form .active{background: #fe8300 !important;}
+	.bta {
+		background: #e97066;
+		border-bottom: 2px solid #e97066;
+		width: 96px;
+		height: 27px;
+		line-height: 27px;
+		display: inline-block;
+		text-align: center;
+		border-radius: 3px;
+		font-size: 14px;
+		color: #fff !important;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		font-weight: bold;
+		text-decoration: none !important;
+		margin-left: 3px;
+	}
+	/*不可用的确定按钮*/
+	.disabled-button{
+		border-color: #D4D4D4 !important;
+		background-color: #D4D4D4 !important;
+		color: #fff;
+		cursor:not-allowed !important;
+	}
+</style>
+
+<script type="text/ng-template" id="modes_renderer.html">
+	<div  id="dp_{{mode.id}}" ui-tree-handle class="tree-node tree-node-content"
+		 ng-click="toModeContent($event,mode)" style="padding-left: 7px;font-size: 14px;font-weight: normal;white-space: nowrap;">
+		<a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)">
+			<img ng-show="collapsed" src="images/zd-anv-02.png" style="margin-left:4px;">
+			<img ng-show="!collapsed" src="images/zd-anv-01.png" style="margin-left:4px;">
+		</a>
+		<span class="angular-ui-tree-span">{{mode.name}}</span>
+	</div>
+	<ol ui-tree-nodes="" ng-model="mode.nodes" ng-class="{hidden: collapsed}">
+		<li ng-repeat="mode in mode.nodes" ui-tree-node ng-include="'modes_renderer.html'" ></li>
+	</ol>
+	<!--<ol ui-tree-nodes="" ng-model="mode.nodes">
+		<li ng-repeat="node in mode.nodes" ui-tree-node >
+			<div ui-tree-handle class="tree-node tree-node-content" ng-click="toModeContent($event,node)" style="padding-left: 7px;font-size: 14px;font-weight: normal;white-space: nowrap;">
+				&lt;!&ndash;<a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0">
+                </a>&ndash;&gt;
+				<span class="angular-ui-tree-span">{{node.name}}</span>
+			</div>
+		</li>
+	</ol>-->
+</script>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div id="myTabContent" class="panel panel-default"  >
+			<div class="panel-body">
+				<div class="row">
+					<div class="gdt_cont fixedHeight " style="padding-right: 0; padding-left: 0;">
+						<div class="treeTitle">
+							<b>文章栏目</b>
+							<div class="postSearch">
+								<input ng-model="queryText" placeholder="查询模式"
+									   ng-focus="$broadcast('angular-ui-tree:collapse-all')"
+									   ng-keyup="modeSearch($event)" type="text"/>
+								<i><img src="images/search-3.png"></i>
+							</div>
+						</div>
+						<div ui-tree id="tree-root" data-drag-enabled="false" class="tree-root">
+							<ol ui-tree-nodes="" ng-model="dataObject.dicTypeList">
+								<li ng-repeat="mode in dataObject.dicTypeList" ui-tree-node ng-include="'modes_renderer.html'"></li>
+							</ol>
+						</div>
+					</div>
+					<div class="details" style="padding-left: 2px">
+						<!--<div class="bmxx_tit">
+							<div class="left"><img src="images/bmxx_tit-02.png">栏目管理</div>
+							<div class="right">
+								<a href=""  ng-click="addBean('add')"  class="bj">新增</a>
+								<a href="" ng-click="addGoods('edit')"  class="bj">修改</a>
+								<a href="" ng-click="delete()" ng-class="{'disabled-button':queryBean.status=='Bought'}" class="sc">删除</a>
+
+							</div>
+						</div>-->
+
+						<div id="table_1" class="table_1">
+							<form class="form-horizontal" id="columnEditForm" name="columnEditForm">
+								<div class="form-group">
+									<label for="name" class="col-sm-2 control-label">栏目名称*：</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="name" ng-model="dataObject.submitBean.name" placeholder="请输入物品名称" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="pictureArticle" class="col-sm-2 control-label">图片文章*：</label>
+									<div class="col-sm-10">
+										<select class="input-sm"  style="width: 100%" id="pictureArticle" ng-model="dataObject.submitBean.pictureArticle" ng-init="dataObject.submitBean.pictureArticle='false'">
+											<option value="false">否</option>
+											<option value="true">是</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="parentlev" class="col-sm-2 control-label">父栏目*：</label>
+									<div class="col-sm-10">
+										<select class="input-sm"  style="width: 100%" id="parentlev" ng-model="dataObject.submitBean.parentlev" ng-options="x.id as x.name for x in dataObject.oneColumn">
+											<option value=""></option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="modifytime" class="col-sm-2 control-label">更新时间：</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="modifytime" ng-model="dataObject.submitBean.modifytime" disabled  />
+									</div>
+								</div>
+							</form>
+							<div style="text-align: center">
+								<button type="button" class="btn btn-sm btn-primary save" ng-disabled="columnEditForm.$invalid" ng-click="columnEditForm.$invalid || saveBean()">修改</button>
+								<button type="button" class="btn btn-sm btn-danger remove" ng-disabled="columnEditForm.$invalid" ng-click="columnEditForm.$invalid || deleteBean()">删除</button>
+								<button type="button" class="btn btn-sm btn-primary save" ng-disabled="columnEditForm.$invalid" ng-click="columnEditForm.$invalid || addBean()">新增保存</button>
+							</div>
+
+							<!--<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+								<tr>
+									<td width="65px" ng-show="queryBean.status!='NotPurchased'">物品名称:</td>
+									<td width="20%" ng-show="queryBean.status!='NotPurchased'">
+										<input type="text" style="width: 100%"  ng-model="queryBean.nameLike"  placeholder="请输入物品名称">
+									</td>
+									<td width="65px" ng-show="queryBean.status!='NotPurchased'">物品编号:</td>
+									<td width="20%" ng-show="queryBean.status!='NotPurchased'">
+										<input type="text" style="width: 100%"  ng-model="queryBean.numbering"  placeholder="请输入物品编号">
+									</td>
+
+
+									<td width="65px" ng-show="queryBean.status=='NotPurchased'">申请时间:</td>
+									<td width="90px" ng-show="queryBean.status=='NotPurchased'">
+										<select  class="form-control"   ng-model="queryBean.year" ng-change="searchGoods()">
+											<option value="" >所有</option>
+											<option value="{{y}}"  ng-repeat="y in dataObject.years">{{y}}</option>
+										</select>
+									</td>
+									<td width="35px" ng-show="queryBean.status=='NotPurchased'">年</td>
+									<td width="70px" ng-show="queryBean.status=='NotPurchased'">
+										<select  class="form-control"   ng-model="queryBean.month" ng-change="searchGoods()">
+											<option value="" >所有</option>
+											<option value="{{m}}"  ng-repeat="m in dataObject.months">{{m}}</option>
+										</select>
+									</td>
+									<td width="35px" ng-show="queryBean.status=='NotPurchased'">月</td>
+									<td width="65px">物品状态:</td>
+                                    <td width="20%">
+                                        <select class="input-sm" style="width: 100%" ng-change="changeItemStatus(queryBean.status)" ng-model="queryBean.status" ng-options="x.key as x.val for x in dataObject.itemStatusDicTypeIdList">
+                                        </select>
+                                    </td>
+									<td>
+										<a href="" class="bta" ng-click="searchGoods()">查询</a>
+									</td>
+								</tr>
+							</table>-->
+
+							<!--<table ng-show="queryBean.status!='NotPurchased'" class="table table-striped  table_zdy_2" style="min-width:100%;">
+								<thead>
+								<tr>
+									<th class="conllection-first-th" width="35px"></th>
+									<th width="5%">编号</th>
+									<th width="15%">物品名称</th>
+									<th width="12%">分类</th>
+									<th width="12%">数量</th>
+									<th width="6%">单位</th>
+									<th width="6%">规格</th>
+									<th width="8%">所需部门</th>
+									<th width="20%">备注</th>
+									<th width="20%">申请理由</th>
+									<th width="20%">登记时间</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="goods in dataObject.goodsList"  ng-click="goodsChecked(goods)">
+									<td>
+										<input  type="checkbox" ng-model="goods.checked">
+									</td>
+									<td>{{goods.numbering}}</td>
+									<td>{{goods.name}}</td>
+									<td>{{goods.dicTypeName}}</td>
+									<td>{{goods.quantity}}</td>
+									<td>{{goods.unit}}</td>
+									<td>{{goods.specification}}</td>
+									<td>{{goods.requiredDepartment}}</td>
+									<td>{{goods.remarks}}</td>
+									<td>{{goods.reasonAplication}}</td>
+									<td>{{goods.createTime}}</td>
+								</tr>
+								</tbody>
+							</table>-->
+						</div>
+						<!--<div class="ceter_p" id="ceter_p" ng-show="queryBean.status!='NotPurchased'">
+							<div class="ceter_s">
+								<span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+							</div>
+						</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+
+<!--
+<div class="modal fade" id="goodsModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalgoods">{{dataObject.submitModel.title}}</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">物品名称*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="name" ng-model="dataObject.submitBean.name" placeholder="请输入物品名称" />
+						</div>
+						<label for="numbering" class="col-sm-2 control-label">物品数量*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="numbering" ng-model="dataObject.submitBean.quantity" placeholder="请输入物品数量" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="specification" class="col-sm-2 control-label">规格*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="specification" ng-model="dataObject.submitBean.specification" placeholder="请输入物品规格" />
+						</div>
+						<label for="dicTypeId" class="col-sm-2 control-label">物品分类*：</label>
+						<div class="col-sm-4">
+							<select id="dicTypeId" class="form-control" ng-model="dataObject.submitBean.dicTypeId" ng-options='x.id as x.name for x in dataObject.dicTypeList[0].dicTypes' required></select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="unit" class="col-sm-2 control-label">单位*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="unit" ng-model="dataObject.submitBean.unit" placeholder="请输入单位" />
+						</div>
+						<label for="requiredDepartment" class="col-sm-2 control-label">所需部门*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="requiredDepartment" ng-model="dataObject.submitBean.requiredDepartment" placeholder="请输入所需部门" />
+						</div>
+
+					</div>
+
+					<div class="form-group">
+						<label for="remarks" class="col-sm-2 control-label">备注：</label>
+						<div class="col-sm-4">
+							<textarea id="remarks" ng-model="dataObject.submitBean.remarks" rows="4" class="form-control">
+							</textarea>
+						</div>
+						<label for="reasonAplication" class="col-sm-2 control-label">申请理由：</label>
+						<div class="col-sm-4">
+							<textarea id="reasonAplication" ng-model="dataObject.submitBean.reasonAplication" rows="4" class="form-control">
+							</textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="saveOrUpdate()">{{dataObject.submitModel.submitName}}</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+&lt;!&ndash;采购入库按按钮model&ndash;&gt;
+<div class="modal fade bs-example-modal-lg" id="PurchaseModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalPurchase">物品信息选择</h4>
+				<a href="" ng-click="goodsInbound()"  class="bj bta">入库</a>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+					<thead>
+					<tr>
+						<th class="conllection-first-th" width="35px"></th>
+						<th width="5%">编号</th>
+						<th width="15%">物品名称</th>
+						<th width="12%">物品分类</th>
+						<th width="12%">物品数量</th>
+						<th width="6%">单位</th>
+						<th width="6%">规格</th>
+						<th width="8%">单价</th>
+						<th width="20%">最近采购时间</th>
+						<th width="20%">备注</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="goods in dataObject.StorageList"  ng-click="goodsStorageChecked(goods)">
+						<td>
+							<input  type="checkbox" ng-model="goods.checked">
+						</td>
+						<td>{{goods.numbering}}</td>
+						<td>{{goods.name}}</td>
+						<td>{{goods.dicTypeName}}</td>
+						<td>{{goods.quantity}}</td>
+						<td>{{goods.unit}}</td>
+						<td>{{goods.specification}}</td>
+						<td>{{goods.unitPrice}}</td>
+						<td>{{goods.purchaseTime}}</td>
+						<td>{{goods.remarks}}</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				&lt;!&ndash;<button type="button" class="btn btn-sm btn-primary save" ng-click="saveOrUpdate()">{{dataObject.submitModel.submitName}}</button>&ndash;&gt;
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="inboundModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalinbound">物品入库单填写</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="name1" class="col-sm-2 control-label">物品名称*：</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="name1" ng-model="dataObject.currentSelectBean.name" placeholder="请输入物品名称" readonly/>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="specification1" class="col-sm-2 control-label">规格*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="specification1" ng-model="dataObject.currentSelectBean.specification" placeholder="请输入物品规格" readonly/>
+						</div>
+						<label  class="col-sm-2 control-label">物品分类*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control"  ng-model="dataObject.currentSelectBean.dicTypeName" placeholder="请输入物品规格" readonly/>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="quantity" class="col-sm-2 control-label">物品数量*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="quantity" ng-model="dataObject.currentSelectBean.quantity" placeholder="请输入物品数量" />
+						</div>
+						<label for="purchasePeople" class="col-sm-2 control-label">采购人*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="purchasePeople" ng-model="dataObject.currentSelectBean.purchasePeople" placeholder="请输入采购人" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="unit1" class="col-sm-2 control-label">单位*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="unit1" ng-model="dataObject.currentSelectBean.unit" placeholder="请输入单位" readonly/>
+						</div>
+						<label for="unitPrice" class="col-sm-2 control-label">单价*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="unitPrice" ng-model="dataObject.currentSelectBean.unitPrice" placeholder="请输入物品单价" readonly/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="manager" class="col-sm-2 control-label">经办人*：</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="manager" ng-model="dataObject.currentSelectBean.manager" placeholder="请输入经办人" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="remarks1" class="col-sm-2 control-label">备注：</label>
+						<div class="col-sm-10">
+							<textarea id="remarks1" ng-model="dataObject.currentSelectBean.remarks" rows="4" class="form-control">
+							</textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="saveStorage()">入库</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="addgoodsModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="addmyModalgoods">新增物品信息</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="name2" class="col-sm-2 control-label">物品名称*：</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="name2" ng-model="dataObject.goodsInformation.name" placeholder="请输入物品名称" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="specification2" class="col-sm-2 control-label">规格*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="specification2" ng-model="dataObject.goodsInformation.specification" placeholder="请输入物品规格" />
+						</div>
+						<label for="dicTypeId2" class="col-sm-2 control-label">物品分类*：</label>
+						<div class="col-sm-4">
+							<select id="dicTypeId2" class="form-control" ng-model="dataObject.goodsInformation.dicTypeId" ng-options='x.id as x.name for x in dataObject.dicTypeList[0].dicTypes' required></select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="unitPrice2" class="col-sm-2 control-label">单价*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="unitPrice2" ng-model="dataObject.goodsInformation.unitPrice" placeholder="请输入物品单价" />
+						</div>
+						<label for="isApplicationItem" class="col-sm-2 control-label">是否需要申请物品*：</label>
+						<div class="col-sm-4">
+							<select id="isApplicationItem" class="form-control" ng-model="dataObject.goodsInformation.isApplicationItem">
+								<option value="否" >否</option>
+								<option value="是" >是</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="unit3" class="col-sm-2 control-label">单位*：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="unit3" ng-model="dataObject.goodsInformation.unit" placeholder="请输入单位" />
+						</div>
+						<label for="isSpecialItem" class="col-sm-2 control-label">是否特殊物品*：</label>
+						<div class="col-sm-4">
+							<select id="isSpecialItem" class="form-control" ng-model="dataObject.goodsInformation.isSpecialItem">
+								<option value="否" >否</option>
+								<option value="是" >是</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="remarks3" class="col-sm-2 control-label">备注：</label>
+						<div class="col-sm-10">
+							<textarea id="remarks3" ng-model="dataObject.goodsInformation.remarks" rows="4" class="form-control">
+							</textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="saveGoodsManagement()">增加</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>-->

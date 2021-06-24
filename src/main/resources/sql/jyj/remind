@@ -1,0 +1,4 @@
+1.administrator表字段comment更改为commented
+2.link表更改为linked
+3.log表字段comment更改为commented，result更改为resulted
+4.msgboard表字段user更改为orguser

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.IndexIconMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			INDEX_ICON t
+  		<where>
+			isdelete=0 order by t.orderno asc
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.IndexIcon" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+
+	<select id="queryIconsIsContainUserIcon" resultMap="listResultMap" >
+		select
+		t.*,
+		(case when t.parentid is null then 'on' when t.parentid is not null and indexIcon.id is not null then 'on' end) status
+		from
+		INDEX_ICON t
+		left join INDEX_USER_ICON indexIcon on indexIcon.ICONID=t.id and indexIcon.userid = #{currentUser.coreUser.id}
+		<where>
+			isdelete=0
+			order by t.orderno asc,indexIcon.orderno asc
+		</where>
+	</select>
+
+  
+</mapper>

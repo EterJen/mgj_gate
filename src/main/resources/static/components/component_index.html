@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-ui-router.min.js"></script>
+    <script src="boot.js"></script>
+    <script src="usersComp.js"></script>
+    <script src="userDetailComp.js"></script>
+    <style>
+      a.deactivated {
+        color: lightgrey;
+      }
+      li.userselected {
+        font-weight: bolder;
+      }
+    </style>
+  </head>
+
+  <body ng-app="app">
+    <ui-view></ui-view>
+  </body>
+  
+
+</html>

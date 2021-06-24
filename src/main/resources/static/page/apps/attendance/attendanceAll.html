@@ -1,0 +1,153 @@
+<style>
+    .black {
+        color: black;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .showlunardate {
+        height: 16px !important;
+        padding: 0 !important;
+        margin: 0px !important;
+        width: 8px !important;
+    }
+
+    .zbbltd {
+        vertical-align: top;
+        border-right: 1px solid #eef0f2 !important;
+        border-left: 0 !important;
+        border-top: 0 !important;
+        border-bottom: 0 !important;
+    }
+
+    .zbbrtd {
+        vertical-align: top;
+        border-right: 0 !important;
+        border-top: 0 !important;
+        border-bottom: 0 !important;
+        border-left: 1px solid #eef0f2 !important;
+    }
+
+    textarea {
+        margin-top: 15px;
+        height: 100%;
+    }
+
+    .choose {
+        background-color: chartreuse;
+    }
+
+</style>
+
+
+<div class="listmain clearfix phone-book-cont">
+    <div class="mbx">
+        <a href="">考勤</a>
+
+    </div>
+    <div style="float: right;margin-top: 10px;">
+        <a href="" class="zbb-btn btn btn-danger btn-sm" ng-click="save()">保存</a>
+        <a href="" class="zbb-btn btn btn-danger btn-sm" ng-click="export()">导出考勤表</a>
+    </div>
+
+<!--    <div style="float: right;margin-top: 10px;">
+        <table style="border: 0px !important;cellpadding:0; cellspacing:0" class="zbb-sel-table tblGw01">
+            <tr>
+                <td width="65px">
+                    <select ng-change="queryBeanList()" style="font-size: 18px;text-align: center;margin: 0;line-height: 12px" class="input-sm form-control" ng-model="fc.currentMonth" ng-options='m for m in fc.month'></select>
+                </td>
+                <td width="30px" style="text-align:center;font-size: 18px;padding: 0">
+                    月
+                </td>
+                <td>
+                    <a href="" class="zbb-btn btn btn-danger btn-sm" ng-click="save()">保存</a>
+                </td>
+                <td>
+                    <a href="" class="zbb-btn btn btn-danger btn-sm" ng-click="export()">导出考勤表</a>
+                </td>
+            </tr>
+        </table>
+    </div>-->
+
+    <table style="border: 0px !important;width:100%" ; border="0" ;align="center" cellpadding="0" cellspacing="0"
+           class="zbb-sel-table tblGw01">
+        <caption style="text-align: center;text-decoration: underline;font-size: 22px;">市委办公厅、研究室工作人员考勤表</caption>
+
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align: center;">（考勤周期：{{fc.currentYear}}年{{fc.currentMonth}}月1日至{{fc.currentMonth}}月{{fc.localeDayCount}}日）</th>
+        </tr>
+        <tr>
+            <th style="font-size: 18px;">单 位: 机要局</th>
+            <th style="text-align: right;">考勤日期:{{fc.localeDate}}</th>
+        </tr>
+        </thead>
+    </table>
+
+    <div style="margin-top: 0 !important;padding-top:0 !important;" class="listcontent clearfix textcontent" id="print">
+        <table class="index-table bule" style="margin-top: 0px">
+            <tr>
+                <td class="zbbltd">
+                    <table class="index-table bule nobd" ng-repeat="bean in item">
+                        <!-- <tr>
+                             <th>部  门：</th>
+                             <th>{{bean.name}}</th>
+                         </tr>-->
+                        <tr>
+                            <th class="keep-space">序号</th>
+                            <th class="keep-space">姓名</th>
+                            <th class="keep-space" ng-repeat="x in fc.localDay" style="width: 35px;">{{x}}</th>
+                            <th class="keep-space">说明</th>
+                        </tr>
+
+                        <tr ng-repeat="x in fc.userList[$index]">
+                            <td>{{$index +1 + 14*($parent.$index)}}</td>
+                            <td>{{x.username}}</td>
+                            <td ng-repeat="y in x.vdays" class="ff-fsgb2312">
+                                <span style="cursor:pointer;display: block;width: 100%;height: 100%;" ng-click="changeT(x,y)" ng-bind="y.val"></span>
+                            </td>
+                            <td ng-click="choose(this)" style="cursor:pointer;" class="ff-fsgb2312"
+                                ng-class="{'choose':flag[$index +1 + 14*($parent.$index)]}">{{explains[$index]}}</td>
+                        </tr>
+                        <tr ng-repeat="x in explains|limitTo:(14-fc.userList[$index].length)">
+                            <td>{{$index+fc.userList[$parent.$index].length+1 + + 14*($parent.$index)}}</td>
+                            <td></td>
+                            <td ng-repeat="x in fc.localDay" class="ff-fsgb2312"></td>
+                            <td ng-click="choose2(this)" style="cursor:pointer;" class="ff-fsgb2312"
+                                ng-class="{'choose':flag[$index+fc.userList[$parent.$index].length+1  + 14*($parent.$index)]}">{{explains[$index + fc.userList[$parent.$index].length]}}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="3"></td>
+                            <td rowspan="3">备注</td>
+                            <td rowspan="3" colspan="{{fc.localeDayCount}}">
+                                <textarea ng-model="item[$index].mark">
+
+                                </textarea>
+                            </td>
+                            <td ng-click="choose3(this)"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr ng-if="$index == item.length - 1">
+                            <td></td>
+                            <td>审核人：</td>
+                            <td colspan="3"></td>
+                            <td ng-repeat="x in fc.localDay|limitTo:22"></td>
+                            <td colspan="3">考勤人：</td>
+                            <td colspan="3">{{cu.display}}</td>
+                            <td ng-repeat="x in fc.localDay|limitTo:1"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

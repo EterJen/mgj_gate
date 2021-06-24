@@ -1,0 +1,318 @@
+.GwTitleRedLargeBigSF{
+    font-size: 33px;
+    font-weight: bold;
+    color: #F50000;
+    padding: 10px;
+    font-family: "方正姚体";
+}
+.modal{
+    background: transparent;
+}
+.vertical-middle {
+    vertical-align: middle;
+}
+.user-option{
+    /*margin-top: -5px;*/
+    overflow: hidden;
+    white-space:pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: justify;
+    line-height: 15px;
+}
+.padding-rmtb{
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.user-option div span image{
+    margin-right: -25px;
+}
+input{
+    padding: 0;
+}
+input[disabled]:hover,input:disabled:hover,input.disabled:hover{
+    background: #F5F5F5;
+    /*-webkit-text-fill-color:#F5F5F5;*/
+    -webkit-opacity:1;
+    opacity: 1;
+}
+input[disabled],input:disabled,input.disabled{
+    background: white;
+    /*-webkit-text-fill-color:white;*/
+    -webkit-opacity:1;
+    opacity: 1;
+}
+.tblGw01 {
+    font-size: 12px;
+    border-collapse: collapse;
+}
+.tblGw01 .td01 {
+    font-size: 12pt;
+    color: #F50000;
+    border: 1px solid #F88F8F;
+    padding: 3px;
+    font-weight: bold;
+}
+.tblGw01 .td02 {
+    font-size: 14px;
+    color: #F50000;
+    border: 1px solid;
+    padding: 3px;
+}
+.tblGw01 .td02b {
+    font-size: 14px;
+    border: 1px solid black;
+    padding: 3px;
+    font-family: 仿宋_GB2312;
+    font-weight: bold;
+    color: black;
+}
+.td02b>input{
+    text-align: center;
+}
+.td02>input{
+    text-align: center;
+}
+.tblGw01 .td03 {
+    font-size: 14px;
+    color: F50000;
+    padding: 3px;
+}
+.tblGw01 .td04 {
+    /*font-size: 12pt;*/
+    font-weight: bold !important;
+    color: #F50000;
+    padding: 3px;
+    font-family: 仿宋_GB2312;
+}
+
+.tblGw01 .td04b {
+    font-size: 12pt;
+    font-weight: bold;
+    color: black;
+    padding: 3px;
+    font-family: 仿宋_GB2312;
+}
+
+.tblGw01 .td06 {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #FF0000;
+    padding: 3px;
+}
+
+.tblGw01 .td05 {
+    /*font-size: 14px;*/
+    font-weight: bold;
+    color: black;
+    border-bottom: 1px solid #F88F8F;
+    padding: 3px;
+}
+
+.tblGw01 .td05b {
+    font-size: 14px;
+    border-bottom: 1px solid black;
+    padding: 3px;
+}
+
+.cursor-not-allowed{
+    cursor: not-allowed;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+input {
+    font-size: 12px;
+}
+.text-center{
+    text-align: center;
+}
+td div{
+    overflow-y: auto;
+}
+.Inputhidden01 {
+    color: black;
+    width: 100%;
+    height: 100%;
+    font-weight: 500 !important;
+    color:black; font-family: 楷体_GB2312;
+    font-size: 14px;
+    border: none;
+    background-color: #FFF;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+}
+.Inputhidden011 {
+    height: inherit;color: black;
+    overflow-y: hidden;
+    font-size: 14px;
+    border: none;
+    background-color: #FFF;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+    font-family: "仿宋_GB2312";
+}
+.Inputhidden01Super {
+    font-size: 12px;
+    border: none;
+    background-color: #FFF;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #FFF;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+    font-family: "仿宋_GB2312";
+}
+.Inputhidden02 {
+    font-family: "仿宋_GB2312";
+    font-size: 14px;
+    color: #FF0000;
+    background-color: #FFF;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    font-weight: bold;
+}
+.Inputhidden03 {
+    font-family: 仿宋_GB2312;
+    font-size: 14px;
+    border: none;
+    background-color: #FFF;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+}
+
+.Inputhidden03Hover
+{
+    font-family: 仿宋_GB2312;
+    font-size: 14px;
+    border: none;
+    background-color: #F5F5F5;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+
+}
+
+.Inputhidden01Hover {
+    font-weight: normal !important;
+    color: black;
+    font-size: 14px;
+    border: none;
+    width: 100%;
+    height: 100%;
+    background-color: #F5F5F5;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+    font-family: "楷体_GB2312";
+}
+input[ng-time]{
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
+    color: transparent;
+}
+.Inputhidden01Hoverb {
+    font-size: 14px;
+    /*overflow-y: auto;*/
+    border: none;
+    font-weight: bold !important;
+    /*background-color: #F5F5F5;*/
+    cursor:pointer;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+    font-family: "仿宋_GB2312";
+}
+.Inputhidden01Hover2 {
+    height: inherit;color: black;
+    font-size: 14px;
+    overflow-y: auto;
+    border: none;
+    background-color: #F5F5F5;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+    font-family: "仿宋_GB2312";
+}
+
+.InputUnderline01 {
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #F50000;
+    background-color: #FFF;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+}
+.InputUnderline01Hover {
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #F50000;
+    background-color: #F5F5F5;
+    SCROLLBAR-FACE-COLOR: #FFF;
+    SCROLLBAR-HIGHLIGHT-COLOR: #FFF;
+    SCROLLBAR-SHADOW-COLOR: #FFF;
+    SCROLLBAR-3DLIGHT-COLOR: #FFF;
+    SCROLLBAR-ARROW-COLOR: #F50000;
+    SCROLLBAR-TRACK-COLOR: #FFF;
+    SCROLLBAR-DARKSHADOW-COLOR: #FFF;
+    SCROLLBAR-BASE-COLOR: #FFF;
+}
+
+.Inputhidden011 div pre{
+    font-family: 仿宋_GB2312;background-color: #FFF;font-weight: normal;
+}
+.Inputhidden01Hover2 div pre{
+    font-family: 仿宋_GB2312;background-color: #F5F5F5;font-weight: normal;
+}

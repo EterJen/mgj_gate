@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.basic.l3.dao.DicTypeMapper">
+
+
+    <select id="list" resultMap="listResultMap">
+        select
+        t.*
+        from
+        DIC_TYPE t
+        <where>
+            ${dynamicConditions}
+        </where>
+    </select>
+    <resultMap id="listResultMap" type="com.gwideal.core.basic.l4.entity.DicType" autoMapping="true">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="queryByModeDicTypeList" resultMap="listResultMap">
+        select
+        t.*
+        from
+        DIC_TYPE t
+        inner join DIC_MODE m ON m.ID = t.DIC_MODE_ID and m.flag='1'
+        <where>
+            t.flag='1'
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(initType)">
+                and m.DICTYPE=#{initType}
+            </if>
+
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(name)">
+                <bind name="nameB" value="'%' + name + '%'"/>
+                and t.name like #{nameB}
+            </if>
+            order by to_number(t.ORDER_NUM) asc nulls first
+        </where>
+    </select>
+
+    <select id="queryMaxNumber" resultType="string">
+        select
+        nvl(max(ORDER_NUM),0) + 1
+        from
+        DIC_TYPE t
+        where
+        1=1
+        <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(flag)">
+            and t.flag=#{flag}
+        </if>
+        <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(dicModeId)">
+            and t.DIC_MODE_ID=#{dicModeId}
+        </if>
+
+    </select>
+
+    <insert id="delDicTypes">
+        UPDATE DIC_TYPE SET FLAG = '0'
+        <where>
+            id IN (
+            <foreach collection="dicTypes" item="item" index="index" separator=",">
+                #{item.id}
+            </foreach>
+            )
+        </where>
+    </insert>
+
+    <select id="getDicTypesByDicModeName" resultMap="listResultMap">
+        select
+          t.*
+        from dic_type t join dic_mode d on t.dic_mode_id = d.id
+        <where>
+            t.flag != '0' and d.dictype = #{modeName}
+        </where>
+    </select>
+    
+</mapper>

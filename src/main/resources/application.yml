@@ -1,0 +1,68 @@
+mgjmh-app:
+  version: "2021-06-22-155"
+
+cors-conf:
+  allowedOrigins:
+    - "127.0.0.1"
+    - "172.17.12.1"
+    - "180.163.105.2"
+    - "180.163.105.11"
+    - "sh.gov.cn"
+
+spring:
+  thymeleaf:
+    enabled: true  #开启thymeleaf视图解析
+    encoding: utf-8  #编码
+    prefix: classpath:/static/  #前缀
+    cache: false  #是否使用缓存
+    mode: HTML5  #严格的HTML语法模式
+    suffix: .html  #后缀名
+
+sysInitVal:
+  forRedisService:
+    selShouWenTypesXz: jxwshouwen,jxwxinhan,jywjj,jywjy,jywjb,jywjg
+    selShouWenTypesDw: jxwdwshouwen,jxwdwxinhan
+
+    shouwen_manage_listmap:
+      - name: jxwshouwen
+        cTaskSwdl: ct.BELONGING_NODE_ID = 1
+        cTaskSwcl: ct.BELONGING_NODE_ID <> 1
+        hTaskSwdl: h.FROM_NODE_ID = 1
+        hTaskSwcl: h.FROM_NODE_ID <> 1
+      - name: jxwxinhan
+        cTaskSwdl: ct.BELONGING_NODE_ID = 1
+        cTaskSwcl: ct.BELONGING_NODE_ID <> 1
+        hTaskSwdl: h.FROM_NODE_ID = 1
+        hTaskSwcl: h.FROM_NODE_ID <> 1
+      - name: jywjj
+        cTaskSwdl: ct.BELONGING_NODE_ID = 1
+        cTaskSwcl: ct.BELONGING_NODE_ID <> 1
+        hTaskSwdl: h.FROM_NODE_ID = 1
+        hTaskSwcl: h.FROM_NODE_ID <> 1
+      - name: jywjy
+        cTaskSwdl: ct.BELONGING_NODE_ID = 1
+        cTaskSwcl: ct.BELONGING_NODE_ID <> 1
+        hTaskSwdl: h.FROM_NODE_ID = 1
+        hTaskSwcl: h.FROM_NODE_ID <> 1
+      - name: jywjb
+        cTaskSwdl: ct.BELONGING_NODE_ID = 1
+        cTaskSwcl: ct.BELONGING_NODE_ID <> 1
+        hTaskSwdl: h.FROM_NODE_ID = 1
+        hTaskSwcl: h.FROM_NODE_ID <> 1
+      - name: jywjg
+        cTaskSwdl: ct.BELONGING_NODE_ID = 1
+        cTaskSwcl: ct.BELONGING_NODE_ID <> 1
+        hTaskSwdl: h.FROM_NODE_ID = 1
+        hTaskSwcl: h.FROM_NODE_ID <> 1
+      - name: jxwdwshouwen
+        cTaskSwdl: ct.BELONGING_NODE_ID = 1
+        cTaskSwcl: ct.BELONGING_NODE_ID <> 1
+        hTaskSwdl: h.FROM_NODE_ID = 1
+        hTaskSwcl: h.FROM_NODE_ID <> 1
+      - name: jxwdwxinhan
+        cTaskSwdl: ct.BELONGING_NODE_ID = 1
+        cTaskSwcl: ct.BELONGING_NODE_ID <> 1
+        hTaskSwdl: h.FROM_NODE_ID = 1
+        hTaskSwcl: h.FROM_NODE_ID <> 1
+      - name: yscgjshengpi
+        allNode: 1 = 1

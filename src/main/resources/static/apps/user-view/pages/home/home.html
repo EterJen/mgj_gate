@@ -1,0 +1,38 @@
+<!--<div class="msck"></div>&lt;!&ndash;模式窗口底板&ndash;&gt;-->
+<div class="head">
+    <div class="mid-head" id="a1">
+
+    </div>
+    <a ng-click="fc.smallSideBarShow()" class="sidebar-mid" id="a2"></a>
+    <!--移动端菜单-->
+
+    <div class="logo">
+        <div class="clear-default">
+            <p class="head-date clear-default"><span ng-bind="fc.currentDay.startLocalDateTime | dateStrFormatZh"></span> <span ng-bind="fc.currentDay.dayOfWeekZh"></span></p>
+            <input class="clear-default" type="text" ng-model="fc.articleNameLike" ng-keyup="fc.articleNameLikeKeyUp($event)" placeholder="请输入关键词进行检索"  />
+        </div>
+    </div>
+</div>
+<div id="big-sidebar" class="sidebar clearfix">
+    <ul class="clearfix clear-default" style="display: table">
+        <li style="display: table-cell" ng-class="{'sidebar-sel': (fc.activeTopBar == x.en)}" ng-click="fc.goState(x)" ng-repeat="x in fc.topBar" ng-bind="x.zh"></li>
+    </ul>
+</div><!--sidebar--><!--head-->
+<div id="small-sidebar"  style="width: 15%" class="sidebar clearfix">
+    <ul class="clearfix clear-default">
+        <li ng-class="{'sidebar-sel': (fc.activeTopBar == x.en)}" ng-click="fc.goState(x)" ng-repeat="x in fc.topBar" ng-bind="x.zh"></li>
+    </ul>
+</div>
+<div  ui-view="content">
+
+</div>
+
+<div class="foot">
+    <p class="foot-icon">沪ICP备09049797号 沪公网安备：31010102004544号 政府网站标识码：3100000044</p>
+    <p>版权所有：上海市密码管理局 本站访问量：169893</p>
+    <p class="blue-font">（建议将电脑显示屏的分辨率调整为1920 X 1080浏览本网站）</p>
+</div><!--foot-->
+
+
+
+

@@ -1,0 +1,184 @@
+<style>
+    .black {
+        color: black;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .iscu {
+        color: red !important;
+    }
+
+    .showlunardate {
+        height: 16px !important;
+        padding: 0 !important;
+        margin: 0px !important;
+        width: 8px !important;
+    }
+
+    .zbbltd {
+        vertical-align: top;
+        border-right: 1px solid #eef0f2 !important;
+        border-left: 0 !important;
+        border-top: 0 !important;
+        border-bottom: 0 !important;
+    }
+
+    .zbbrtd {
+        vertical-align: top;
+        border-right: 0 !important;
+        border-top: 0 !important;
+        border-bottom: 0 !important;
+        border-left: 1px solid #eef0f2 !important;
+    }
+</style>
+
+
+<div class="listmain clearfix">
+    <div class="mbx">
+        <a href="">{{fc.currentMonth}}月份值班表</a>
+
+    </div>
+    <table style="border: 0px !important;width:100%" ; border="0" ;align="center" cellpadding="0" cellspacing="0" class="zbb-sel-table tblGw01">
+        <tr>
+            <td width="82px">
+                <select ng-change="queryBeanList()" style="font-size:18px;text-align: center;margin: 0;line-height: 12px" class="input-sm form-control" ng-model="fc.currentYear" ng-options='y for y in fc.years'> </select>
+            </td>
+            <td width="42px" style="text-align:center;font-size: 18px;padding: 0">
+                年
+            </td>
+            <td width="65px">
+                <select ng-change="queryBeanList()" style="font-size: 18px;text-align: center;margin: 0;line-height: 12px" class="input-sm form-control" ng-model="fc.currentMonth" ng-options='m for m in fc.month'></select>
+            </td>
+            <td width="30px" style="text-align:center;font-size: 18px;padding: 0">
+                月
+            </td>
+            <td width="30px" style="text-align:right;font-size: 18px;padding: 0">
+                <input type="checkbox" ng-model="showlunardate" style=" height: 16px !important; padding: 0 !important; margin: 0px !important; width: 8px !important;">
+            </td>
+            <td style="text-align:left;width: 72px;font-size: 18px;padding-left:10px">显示农历</td>
+            <td class="zbb-btn">
+
+                <a href="" class="zbb-btn btn btn-danger btn-sm" ng-click="nextMonthQuery()">下月</a>
+                <a href="" class="zbb-btn btn btn-danger btn-sm" style="float: right" ng-click="exportMonthJbc()">技术保障处导出</a>
+                <a href="" class="zbb-btn btn btn-danger btn-sm" style="float: right;margin-right: 10px" ng-click="exportMonthTxbw()">通信报务处导出</a>
+                <!--  <a href="" class="btn btn-danger btn-sm" ng-click="printDuty()">打印全部</a> -->
+                <a ng-if="cu.admin" href="" class="zbb-btn btn btn-danger btn-sm" ng-click="dutyManager()">排班管理</a>
+
+            </td>
+        </tr>
+    </table>
+    <!--<div class="form-group" style="margin-bottom: 0px;">
+        <div class="input-group col-xs-4">
+            <select style="width: 50px" class="input-sm form-control" ng-model="fc.currentYear" ng-options='y for y in fc.years'>
+            </select>
+            <span class="input-group-btn">
+                                      年
+							</span>
+        </div>
+        <div class="input-group col-xs-4">
+            <select style="width: 50px" class="input-sm form-control" ng-model="fc.currentMonth" ng-options='m in fc.month'></select>
+            <span class="input-group-btn">
+                                      月
+							</span>
+        </div>
+    </div>-->
+    <!--<input ng-model="queryBean.name" ng-keyup="enterKeyup($event)" placeholder="请输入您要搜索的姓名,回车确认搜索。">-->
+
+
+    <div style="margin-top: 0 !important;padding-top:0 !important;" class="listcontent clearfix textcontent" id="print">
+        <table class="index-table bule" style="margin-top: 0px">
+            <tr>
+                <td class="zbbltd">
+                    <table class="index-table bule nobd">
+                        <tr>
+                            <th class="keep-space" width="15%">{{'日期'|nameFormat}}</th>
+                            <th class="keep-space" width="7%">{{'星期'|nameFormat}}</th>
+                            <th class="keep-space" width="9%">{{'通信'|nameFormat}}</th>
+                            <th class="keep-space" width="9%">{{'办报'|nameFormat}}</th>
+                            <th width="10%">技术保障处</th>
+                        </tr>
+                        <tr ng-repeat="duty in fc.beanList">
+                            <td class="tc">{{duty.rotadate1|ngSubStr:5:12}}<span ng-show="showlunardate"> ({{duty.rotadate1TolunarDate}})</span>
+                            </td>
+                            <td class="keep-space" ng-if="duty.rotatype1!=0" style="font-weight:bold;color:red;font-style:italic;">{{duty.rotaweek1|nameFormat}}</td>
+                            <td class="keep-space" ng-if="duty.rotatype1==0">{{duty.rotaweek1|nameFormat}}</td>
+                            <td class="keep-space" ng-class="{iscu: iscu(duty.rotatxname1)}">{{duty.rotatxname1|nameFormat}}</td>
+                            <td class="keep-space" ng-class="{iscu: iscu(duty.rotabwname1)}">{{duty.rotabwname1|nameFormat}}</td>
+                            <td class="keep-space" ng-class="{iscu: iscu(duty.rotaname1)}">{{duty.rotaname1|nameFormat}}</td>
+                        </tr>
+
+                    </table>
+                </td>
+                <td width="1px" style="border: 0"></td>
+                <td class="zbbrtd">
+                    <table class="index-table bule nobd">
+                        <tr>
+                            <th class="keep-space" width="15%" ng-bind="'日期'|nameFormat"></th>
+                            <th class="keep-space" width="7%">{{'星期'|nameFormat}}</th>
+                            <th class="keep-space" width="9%">{{'通信'|nameFormat}}</th>
+                            <th class="keep-space" width="9%">{{'办报'|nameFormat}}</th>
+                            <th width="10%">技术保障处</th>
+                        </tr>
+                        <tr ng-repeat="duty in fc.beanList" ng-if="duty.rotatxname2 != null">
+
+                            <td class="tc">{{duty.rotadate2|ngSubStr:5:12}}<span ng-show="showlunardate"> ({{duty.rotadate2TolunarDate}})</span>
+                            </td>
+                            <td class="keep-space" ng-if="duty.rotatype2!=0" style="font-weight:bold;color:red;font-style:italic;">{{duty.rotaweek2|nameFormat}}</td>
+                            <td class="keep-space" ng-if="duty.rotatype2==0">{{duty.rotaweek2|nameFormat}}</td>
+                            <td ng-class="{iscu: iscu(duty.rotatxname2)}" class="keep-space" ng-bind="duty.rotatxname2|nameFormat"></td>
+                            <td ng-class="{iscu: iscu(duty.rotabwname2)}" class="keep-space">{{duty.rotabwname2 |nameFormat}}</td>
+                            <td ng-class="{iscu: iscu(duty.rotaname2)}" class="keep-space">{{duty.rotaname2 |nameFormat}}</td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--<table class="index-table bule">
+            <tr>
+                <th width="15%">日期</th>
+                <th width="7%">星期</th>
+                <th width="9%">通信</th>
+                <th width="9%">办报</th>
+                <th width="10%">技术保障处</th>
+                <th width="15%">日期</th>
+                <th width="7%">星期</th>
+                <th width="9%">通信</th>
+                <th width="9%">办报</th>
+                <th width="10%">技术保障处</th>
+            </tr>
+            <tr ng-repeat="duty in fc.beanList">
+                <td class="tc">{{duty.rotadate1|ngSubStr:5:12}}<span ng-show="showlunardate"> ({{duty.rotadate1TolunarDate}})</span>
+                </td>
+                <td ng-if="duty.rotatype1!=0" style="font-weight:bold;color:red;font-style:italic;">{{duty.rotaweek1}}
+                </td>
+                <td ng-if="duty.rotatype1==0">{{duty.rotaweek1}}</td>
+                <td class="keep-space">{{duty.rotatxname1|nameFormat}}</td>
+                <td class="keep-space">{{duty.rotabwname1|nameFormat}}</td>
+                <td class="keep-space">{{duty.rotaname1|nameFormat}}</td>
+                <td class="tc">{{duty.rotadate2|ngSubStr:5:12}}<span ng-show="showlunardate"> ({{duty.rotadate2TolunarDate}})</span>
+                </td>
+                <td ng-if="duty.rotatype2!=0" style="font-weight:bold;color:red;font-style:italic;">{{duty.rotaweek2}}
+                </td>
+                <td ng-if="duty.rotatype2==0">{{duty.rotaweek2}}</td>
+                <td class="keep-space">{{duty.rotatxname2|nameFormat}}</td>
+                <td class="keep-space">{{duty.rotabwname2|nameFormat}}</td>
+                <td class="keep-space">{{duty.rotaname2|nameFormat}}</td>
+            </tr>
+
+        </table>-->
+
+
+    </div><!--list-end-->
+
+
+    <!--<div class="ceter_p" id="ceter_p">
+        <div class="ceter_s">
+            <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+        </div>
+    </div>-->
+
+</div><!--main-end-->

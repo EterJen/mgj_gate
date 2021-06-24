@@ -1,0 +1,168 @@
+<style>
+    /*多选框样式*/
+    .multiselect-parent{
+        width: 100%;
+    }
+    .multiselect-parent  div button{
+        width: 100%;
+    }
+    .dropdown-menu{
+        background: #e1e9fc;
+        width: 100%;
+    }
+
+    .table tr  {
+        text-align:center;
+    }
+    .table tr td:first-child {
+        font-weight:bold;
+        color:#2f4e87;
+        font-size:14px;
+        text-align:center;
+    }
+    hr {
+        border: 1px;
+        border-bottom: 1px solid #ccc;
+        margin-top: 1px;
+        margin-bottom: 2px;
+        background: #999;
+    }
+</style>
+<div style="height: 93%;overflow-x:hidden;overflow-y: auto">
+    <table class="table table-condensed">
+        <tr>
+            <td>流转提示语</td>
+            <td>
+                <div class="form-group">
+                    <input class="form-control input-md" ng-model="ngSelectedCell.data.flowActionTips" type="text"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>任务基数</td>
+            <td>
+                <div class="form-group">
+                    <select class="form-control" ng-model="ngSelectedCell.data.taskInitType" ng-options="x.id as x.name for x in taskInitType" required></select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>任务创建模式</td>
+            <td>
+                <div class="form-group">
+                    <select class="form-control" ng-model="ngSelectedCell.data.taskCreateMode" ng-options="x.id as x.name for x in taskCreateMode" required></select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>任务流转模式</td>
+            <td>
+                <div class="form-group" ng-dropdown-multiselect=""
+                     options="taskReturnMode"
+                     selected-model="ngSelectedCell.data.taskReturnMode">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>候选人展开</td>
+            <td>
+                <div class="form-group" ng-dropdown-multiselect=""
+                     options="candidatesExpandTypes "
+                     selected-model="ngSelectedCell.data.candidatesExpandTypes">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>候选人提前</td>
+            <td>
+                <div class="form-group" ng-dropdown-multiselect=""
+                     options="candidatesOrder"
+                     selected-model="ngSelectedCell.data.candidatesOrder">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>候选类型排序</td>
+            <td>
+                <div class="form-group" ng-dropdown-multiselect=""
+                     options="candiTypeOrder"
+                     selected-model="ngSelectedCell.data.candiTypeOrder">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>默认候选人计算</td>
+            <td>
+                <div class="form-group">
+                    <input class="form-control input-md" ng-model="ngSelectedCell.data.candidatesCacultLogic" type="text"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>意见必填</td>
+            <td>
+                <div class="form-group">
+                    <select class="form-control" ng-model="ngSelectedCell.data.optionValidate" ng-options="x.value as x.name for x in booleanOptions" required></select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>意见必填失败回显</td>
+            <td>
+                <div class="form-group">
+                    <input class="form-control input-md" ng-model="ngSelectedCell.data.optionValidateErrorMsg" type="text"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>意见代签</td>
+            <td>
+                <div class="form-group">
+                    <select class="form-control" ng-model="ngSelectedCell.data.optionAgent" ng-options="x.value as x.name for x in booleanOptions" required></select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>前置条件</td>
+            <td>
+                <div class="form-group">
+                    <input class="form-control input-md" ng-model="ngSelectedCell.data.preCondition" type="text"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>前置条件失败回显</td>
+            <td>
+                <div class="form-group">
+                    <input class="form-control input-md" ng-model="ngSelectedCell.data.preConditionFalseMessage" type="text"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>后置逻辑</td>
+            <td>
+                <div class="form-group">
+                    <input class="form-control input-md" ng-model="ngSelectedCell.data.postLogic" type="text"/>
+                </div>
+            </td>
+        </tr>
+ 		<tr >
+        <td class="tlable">智能提醒配置</td>
+        <td>
+            <div class="form-group">
+                <a href="" class="btn btn-primary btn-sm" ng-click="intelligenceSetting()">智能提醒配置操作</a>
+            </div>
+        </td>
+    </tr> 
+
+
+    </table>
+</div>
+<hr/>
+<div class="modal-footer mf" style="position: inherit;padding-top: 3px;padding-bottom: 0">
+    <button type="submit" class="btn btn-primary btn-enter btn-sm save" ng-click="saveAndUpdateProperties()" ng-disabled="selectedCanditList.length <= 0">保存</button>
+    <!--<button type="button" class="btn btn-default btn-close btn-sm cancel"  ng-click="hideWorkflowDialog()">关闭</button>-->
+</div>
+
+
+

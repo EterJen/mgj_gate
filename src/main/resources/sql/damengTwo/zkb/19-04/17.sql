@@ -1,0 +1,12 @@
+alter table WF_FORM_YGCGZSBAOPI add (remark VARCHAR2(4000)) ;
+comment on column WF_FORM_YGCGZSBAOPI.remark is '备注';
+alter table WF_FORM_YGCGZSBAOPI add (approval_number VARCHAR2(200)) ;
+comment on column WF_FORM_YGCGZSBAOPI.approval_number is '外办批件号';
+alter table WF_FORM_YGCGZSBAOPI add (office_number VARCHAR2(30)) ;
+comment on column WF_FORM_YGCGZSBAOPI.office_number is '局级人数';
+alter table WF_FORM_YGCGZSBAOPI add (directorl_number VARCHAR2(30)) ;
+comment on column WF_FORM_YGCGZSBAOPI.directorl_number is '处级人数';
+alter table WF_FORM_YGCGZSBAOPI add (section_number VARCHAR2(30)) ;
+comment on column WF_FORM_YGCGZSBAOPI.section_number is '科级人数';
+alter table WF_FORM_YGCGZSBAOPI add (use_time VARCHAR2(30)) ;
+comment on column WF_FORM_YGCGZSBAOPI.use_time is '境外停留时间';

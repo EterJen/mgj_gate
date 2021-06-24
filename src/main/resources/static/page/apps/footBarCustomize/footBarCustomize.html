@@ -1,0 +1,99 @@
+<style>
+    .list-wrapper .icon-wrapper{
+        width:140px;
+    }
+    .list-wrapper .icon-wrapper{
+        padding-left: 0}
+    .list-wrapper .icon-wrapper .name{
+        height:24px;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        display: block;
+    }
+    .list-wrapper{
+        min-height: 666px;
+    }
+    .btn{padding: 0}
+</style>
+
+
+<div class="top">
+    <div class="logo"></div><!--logo-end-->
+    <div class="menu">
+        <ul>
+            <li ui-sref="menu.coreHome({showNearlyTodo:false})"><div><i class="sy"></i>首页</div></li>
+            <li><div ui-sref="menu.cmsList({parameterId:39})"><i class="sy5"></i>通知公告</div></li>
+            <li><div ui-sref="menu.cmsList({parameterId:44})"><i class="sy6"></i>工作交流</div></li>
+            <li><div ui-sref="menu.cmsList({parameterId:41})"><i class="sy7"></i>规章制度</div></li>
+            <li><div ui-sref="menu.cmsList({parameterId:48})"><i class="sy8"></i>理论学习</div></li>
+            <li><div ui-sref="menu.cmsList({parameterId:49})"><i class="sy9"></i>业务知识</div></li>
+            <li><div ui-sref="menu.cmsDetails({parameterId:340})"><i class="sy10"></i>单位介绍</div></li>
+<!--            <li><div ><i class="sy11"></i>工会之家</div></li>-->
+        </ul>
+    </div><!--menu-end-->
+    <div class="user">
+        <i></i>
+        <div style="padding-top: 10px;" class="name"><span class="hyn">欢迎您！</span><span ng-bind="cu.display"></span></div>
+        <div class="xtdc"><a>[登出]</a></div>
+    </div>
+
+</div><!--top-end-->
+
+
+<div class="list-wrapper mswrapper">
+    <div class="icon-list-container">
+        <div ng-repeat="iconT in fc.topList">
+            <p class='icon-list-title'>{{iconT.iconname}}</p>
+            <ul class="icon-list o-h">
+                <li ng-repeat="icon in iconT.nodes" class="icon-wrapper list-context f-l {{icon.status}}" id="{{icon.id}}" >
+                    <div class="name" title="{{icon.iconname}}">{{icon.iconname}}</div>
+                    <div class="icon-bg">
+                        <div class="icon {{icon.imgname}}"></div>
+                        <div class="add-btn" ng-click="fc.addEvent(icon,$event)"></div>
+                        <div class="url-div" ng-dblclick="fc.openApp(icon.iconurl)" title="双击打开应用" style="cursor:pointer">&nbsp;</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="btn-wrapper">
+        <div class="btn-yes btn" ng-click="fc.doSave()">保存</div>
+        <div class="btn btn-no" ng-click="fc.doReturn()">退回</div>
+    </div>
+</div>
+
+
+
+
+<div class="footer i-f">
+    <div class="bottom-wrapper">
+        <div class="b-l"></div>
+        <div class="b-c">
+            <div class="bc-wrapper">
+                <ul class="am-avg-sm-11 am-thumbnails wrapper-abs sort-drag-wrapper">
+                    <li ng-repeat="indexUserIcon in fc.userIcons" class="icon-wrapper sort-drag">
+                        <input type="hidden" name="indexUserIcon.id" value="{{indexUserIcon}}">
+                        <span class="icon-box">
+                            <div class="icon-bg {{indexUserIcon.indexIcon.classname}}">
+                                <div class="icon {{indexUserIcon.indexIcon.imgname}}"></div>
+                                <div class="del-btn" ng-click="fc.delEvent(indexUserIcon,$event)"></div>
+                                <div class="name" title="{{indexUserIcon.indexIcon.iconname}}">{{indexUserIcon.indexIcon.iconname}}</div>
+                            </div>
+                            <!--<div class="name" title="{{indexUserIcon.indexIcon.iconname}}">{{indexUserIcon.indexIcon.iconname}}</div>
+                            <div class="icon-bg {{indexUserIcon.indexIcon.classname}}">
+                                <div class="icon {{indexUserIcon.indexIcon.imgname}}"></div>
+                                <div class="del-btn" ng-click="fc.delEvent(indexUserIcon,$event)"></div>
+                            </div>-->
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="b-r"></div>
+    </div>
+
+</div>

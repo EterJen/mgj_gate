@@ -1,0 +1,288 @@
+<style>
+.bmxx_tit .right a.tj{background:#85a834;/* border-bottom:2px solid #449c5c */;width: 72px;}
+.form-group {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+
+.table th, .table td {
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.addScroll{
+	margin-right: 15px;
+}
+</style>
+
+<div class="content-wrapper">
+	<section class="content">
+		 <div class="panel panel-default" id="currentTaskContent">
+			 <div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+            	<div class="bmxx_tit" id="depart_tit">
+					  <div class="left"><img src="images/bmxx_tit-01.png">
+                          <span >
+                      		   意见调整
+                          </span>
+                      </div>
+					<div class="right user-titleheading" style="width: 27%">
+						<div class="form-group" style="margin-bottom: 0px;">
+							<div class="input-group col-xs-12">
+								<!--<div class="input-group-btn" style="right: -2px;" >
+									<select name="type" class="form-control" style="padding:0;font-size:14px;height: 27px;width: auto;" ng-options="v as v.name for v in emergenceLevels" ng-model="selectUserType"  ng-change="pageAuto()" ></select>
+								</div>-->
+								<input type="text" style="font-weight: normal; height: 27px;right: -1px; text-align: left" class="form-control" ng-model="titleDocFullName" ng-keyup="enterKeyup($event)" placeholder="请输入公文标题或文号,回车确认搜索。"/>
+								<span class="input-group-btn">
+                                      <a href="" class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;"  ng_click="pageAuto()"><img src="images/search.svg">搜索</a>
+                                      <!--<a href=""  class="tj" style="margin-left: 5px" ng-click="openCreateProInstDialog()" ><img src="images/add.svg">发起</a>-->
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+			 <div class="bmxx_tit" id="bmxx_tit" style="margin-bottom: 0;padding-right: 15px;padding-left: 15px" ng-if="isleader">
+				 <ul class="nav nav-tabs " style="margin:0 auto;">
+					 <li ng-repeat="li in docTypelist track by $index" ng-class="{active: orgNavType==li.id}" ng-click="changeNavType(li.id)" style="margin-right: -1px;"><a href="">{{li.val}}<!--<span class="badge bg-red">22</span>--></a></li>
+				 </ul>
+				 <!--<div class="right user-titleheading" style="height: inherit">
+					 <div class="form-group" style="margin-bottom: 0px;">
+						 <div class="input-group col-xs-12">
+							 <input type="text" style="font-weight: normal; height: 27px;right: -1px; text-align: left" class="form-control" ng-change="paginationConf.totalItems = -1" ng-model="titleDocFullName" ng-keyup="enterKey($event)" placeholder="请输入公文标题或文号"/>
+							 <span class="input-group-btn">
+                                      <a href="" class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;"  ng_click="pageAuto()"><img src="images/search.svg">搜索</a>
+							</span>
+						 </div>
+					 </div>
+				 </div>-->
+			 </div>
+			 <div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+                <div class="table_shadow" style="overflow:auto; max-height: 70%">
+                    <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+                        <thead>
+				                    <tr>
+					                      	<th width="10%">发送时间</th>
+											<th width="75%">任务标题</th>
+											<th style="white-space: pre-wrap" width="15%">文        号</th>
+				                    </tr>
+                        </thead>
+                        <tbody>
+							<tr ng-repeat="task in currTaskList" ng-click="gotoOpinionList(task)">
+                                <td>{{::task.createTime | limitTo : 10}}<br>{{::task.createTime | limitTo : -8}}</td>
+								<td style="text-align: left;">{{::task.title}}</td>
+								<td class="text-left">{{::task.docFullName}}</td>
+				        	</tr>
+						</tbody>
+                    </table>
+                </div>
+                 <div class="ceter_p" id="ceter_p">
+                    <div class="ceter_s">
+                        <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+                    </div>
+                 </div>
+            </div>
+         </div>
+	</section>
+</div>
+
+
+<div class="modal fade" id="createProInstDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">创建流程</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="title" class="col-sm-2 control-label">标题：</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="title" ng-model="proInst.title" placeholder="请输入标题" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="pvd" class="col-sm-2 control-label">流程名称：</label>
+						<div class="col-sm-10">
+							<select id="pvd" class="form-control" ng-model="proInst.processVersionId" ng-options='x.id as x.nameAndVersion for x in activeProcVersionList' required></select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="saveProInst()">确定</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade " id="OpinionList" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">意见修改</h4>
+			</div>
+			<div class="modal-body" style="max-height:90%;overflow-y: auto;">
+				<div class="table_shadow" style="max-height:55%;min-height:55%;overflow-y: auto;">
+					<table class="table table-striped  table_zdy_2" style="min-width: 100%">
+						<thead>
+						<tr>
+							<th width="80%">意见</th>
+							<th width="20%">输入人员</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="o in currOpinionList" ng-dblclick="queryOpinion(o.id)">
+							<td>{{o.opinion}}</td>
+							<td>{{o.approverName}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<!--<div class="ceter_p">
+					<div class="ceter_s">
+						<span  class=""><tm-pagination conf="opinionPaginationConf"></tm-pagination></span>
+					</div>
+				</div>-->
+				<p>已删除意见</p>
+				<div class="table_shadow" style="max-height:35%;min-height:35%;overflow-y: auto;">
+					<table class="table table-striped  table_zdy_2" style="min-width: 100%">
+						<thead>
+						<tr>
+							<th width="80%">意见</th>
+							<th width="20%">输入人员</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="c in currDeleteOpinionList" >
+							<td>{{c.opinion}}</td>
+							<td>{{c.approverName}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<!--<div class="ceter_p">
+					<div class="ceter_s">
+						<span  class=""><tm-pagination conf="deletePpinionPaginationConf"></tm-pagination></span>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade " id="OpinionDetail" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">意见修改</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="approveTime" class="col-sm-2 control-label">输入日期</label>
+						<div class="col-sm-10">
+							<!--<input class="yjlu-divinput" required type="text" class="form-control" id="approveTime" ng-model="activeOption.approveTime" placeholder="填报日期" readonly="readonly" data-date-format="yyyy-mm-dd" data-provide="datepicker">-->
+							<div  ng-model="currEditeOpinion.approveTime" id="approveTime"  ng-time class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="uffinishedDate" data-link-format="yyyy-mm-dd hh:ii:ss">
+								<input   class="form-control" ng-model="currEditeOpinion.approveTime" size="16" type="text" value="" readonly>
+								<input id="uffinishedDate"  ng-model="currEditeOpinion.approveTime"  ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+						</div>
+						<!--<label for="inDate" class="col-sm-2 control-label">输入日期</label>
+
+						<div class="col-sm-10">
+							<input
+									id="shenheTime"
+									data-link-field="shenheTimeb"
+									ng-model="task.theCommonFormInfo.belongProInst.shenheTime"
+									ng-time
+									style="width: 0;"
+									data-link-format="yyyy-mm-dd"
+									data-date-format="yyyy-mm-dd hh:ii:ss"
+									type="text"
+									class="Inputhidden01 form_date_tr"
+							>
+							<input
+									name="审核日期"
+									focus-hiden = "shenheTime"
+									id="shenheTimeb"
+									value="{{task.theCommonFormInfo.belongProInst.shenheTime|limitTo:10}}"
+									readonly="readonly"
+									type="text"
+									size="12"
+									class="Inputhidden01Hoverb"
+									style="color:black;font-weight: normal;;font-family: 仿宋_GB2312;width: 90%">
+							</td>
+							<input type="text" id="inDate" class="form-control"  placeholder="请输入日期"  ng-model="currEditeOpinion.approveTime" data-date-format="yyyy-mm-dd" data-provide="datepicker" readonly>
+						</div>-->
+					</div>
+					<div class="form-group">
+						<label for="laiwenNumber" class="col-sm-2 control-label">输入人员</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="currEditeOpinion.approverName" id="laiwenNumber" placeholder="请输入人员">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="auditCreater" class="col-sm-2 control-label">输入内容</label>
+						<div class="col-sm-10">
+							<textarea id="auditCreater" class="form-control" rows="4" ng-model="currEditeOpinion.opinion"></textarea>
+						</div>
+					</div>
+					<div class="form-group clean-margin-bottom">
+						<div class="ceter_p">
+							<div class="ceter_s">
+								<button type="submit" class="btn btn-sm btn-primary" ng-click="updateOpinion()">确定</button>
+								<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">关闭</button>
+								<button type="submit" class="btn btn-sm btn-primary" ng-click="deleteOpinion()">意见删除</button>
+								<button type="submit" class="btn btn-sm btn-primary" ng-click="historyOpinion()">历史意见</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="OpinionHistoryList" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">历史修改意见</h4>
+			</div>
+			<div class="modal-body" style="max-height:90%;min-height:80%;overflow-y: auto;">
+				<div class="table_shadow" >
+					<table class="table table-striped  table_zdy_2" style="min-width: 100%">
+						<thead>
+						<tr>
+							<th width="10%">修改时间</th>
+							<th width="10%">人员修改</th>
+							<th width="80%">意见内容</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="o in HistoryOpinionList">
+							<td>{{o.approveTime}}</td>
+							<td>{{o.approverName}}</td>
+							<td>{{o.approveOpinion}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div style="text-align: center;">
+					<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,241 @@
+<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+    <thead>
+    <tr>
+        <th class="conllection-first-th">关注</th>
+        <th width="13%">收文编号</th>
+        <th width="8%">提案(意见)编号</th>
+        <th width="50%">标题/案由</th>
+        <th width="8%">代表/提案人</th>
+        <th width="6%">发送岗位</th>
+        <th width="6%">当前处理人</th>
+        <th width="6%">发文日期</th>
+        <th width="6%">办理处室</th>
+        <th width="6%">状态</th>
+    </tr>
+    </thead>
+    <tr ng-repeat="proInst in proInstList"
+        ng-click="gotoDetail(proInst)" ng-class="{current : pro.id == proInst.id}">
+        <td id="pop{{proInst.id}}"  ng-click="collectionPros($index);$event.stopPropagation();" title="点击关注"><span ng-class="{'glyphicon glyphicon-bookmark collection' : proInst.collection, 'glyphicon glyphicon-bookmark notCollection' : !proInst.collection}" ></span></td>
+	    <td ng-bind-html="proInst.docFullName | highlight : docNameOrTitle.b"></td>
+        <td>{{::proInst.theCommonFormInfo[initDetaiTable(proInst)].proposalNumber}}</td>
+	    <td style="text-align: left;" ng-bind-html="proInst.title | highlight : docNameOrTitle.b"></td>
+        <td>{{::proInst.theCommonFormInfo[initDetaiTable(proInst)].proposalPeople}}</td>
+        <td></td>
+        <td>{{::proInst.transactor}}</td>
+        <td>{{::proInst.theCommonFormInfo[initDetaiTable(proInst)].receiveDate | limitTo : 10}}</td>
+        <td>{{::proInst.handleDept}}</td>
+        <td>{{::proInst.handleState}}</td>
+    </tr>
+</table>
+
+<div class="modal fade" id="rdzxModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">公文定位</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="shouwenNumber" class="col-sm-2 control-label">收文编号:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="input-sm form-control" id="shouwenNumber" ng-model="queryBean.docFullName" placeholder="请输入收文编号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tianNumber" class="col-sm-2 control-label">提案(意见)编号:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" numberic ng-model="queryBean.dbParams.proposalNumber" id="tianNumber" placeholder="请输入提案(意见)编号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="showenTitle" class="col-sm-2 control-label">文件标题:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="showenTitle" ng-model="queryBean.title" placeholder="请输入文件标题">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="daibiao" class="col-sm-2 control-label">代表/提案人：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="daibiao" ng-model="queryBean.dbParams.proposalPeople" placeholder="请输入代表/提案人">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="laiwendanwei" class="col-sm-2 control-label">来文单位:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="queryBean.incomingDocDepart" id="laiwendanwei" placeholder="请输入来文单位">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="jie" class="col-sm-2 control-label">届:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" number-check ng-model="queryBean.severalSessions" id="jie" placeholder="请输入数字几届">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ci" class="col-sm-2 control-label">次:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" number-check ng-model="queryBean.second" id="ci" placeholder="请输入数字几次">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="wenleibie" class="col-sm-2 control-label">文类别：</label>
+                        <div class="col-sm-10">
+                            <select class="input-sm form-control" id="wenleibie" ng-model="queryBean.formDefId" ng-options="x.key as x.val for x in formDefIdsObj.rdzx">
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="banlijieguo" class="col-sm-2 control-label">办理结果：</label>
+                        <div class="col-sm-10">
+                            <select class="input-sm form-control" id="banlijieguo" ng-model="queryBean.dbParams.handlingResult" ng-options="x.name as x.name for x in dicMod.jieguo">
+                            </select>
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">来文日期:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  placeholder="请输入起始日期" readonly="readonly" ng-model="queryBean.dbParams.receiveDate" data-date-format="yyyy-mm-dd 00:00:00" data-provide="datepicker">
+                        </div>
+                        <label  class="col-sm-1 control-label">到</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  placeholder="请输入结束日期" readonly="readonly" ng-model="queryBean.dbParams.receiveDateEnd" data-date-format="yyyy-mm-dd 00:00:00" data-provide="datepicker">
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <button type="submit" class="btn btn-sm btn-primary save" ng-click="queryProInstListChangeBean()">确定</button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="rdzxCountModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 70%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalRdzxCount">统计信息</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" width="5%">类别</th>
+                            <th rowspan="2" width="5%">单位</th>
+                            <th rowspan="2" width="5%">数量</th>
+                            <th colspan="3">信息公开</th>
+                            <th colspan="6">办理结果</th>
+                        </tr>
+                        <tr>
+                            <th width="10%">主动公开</th>
+                            <th width="10%">不予公开</th>
+                            <th width="10%">依申请公开</th>
+                            <th width="10%">留作参考</th>
+                            <th width="10%">计划解决</th>
+                            <th width="10%">正在解决</th>
+                            <th width="10%">解决采纳</th>
+                            <th width="10%">解决或采纳</th>
+                            <th width="10%">列入计划拟解决</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td rowspan="3">政协</td>
+                        <td >主办</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxCount}}</td>
+                        <td >{{countformDefIdsObj.rdzxCount.zxZdgkCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxBygkCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxYsqgkCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxLzckCount}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxJjhcnCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxLrjhnjjCount}}</td>
+                    </tr>
+
+                    <tr>
+                        <td >会办</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxCountHui}}</td>
+                        <td >{{countformDefIdsObj.rdzxCount.zxZdgkCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxBygkCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxYsqgkCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxLzckCountHui}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxJjhcnCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxLrjhnjjCountHui}}</td>
+                    </tr>
+                    <tr>
+                        <td >合办</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxCountHe}}</td>
+                        <td >{{countformDefIdsObj.rdzxCount.zxZdgkCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxBygkCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxYsqgkCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxLzckCountHe}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxJjhcnCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.zxLrjhnjjCountHe}}</td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="3">人大</td>
+                        <td >主办</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdCount}}</td>
+                        <td >{{countformDefIdsObj.rdzxCount.rdZdgkCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdBygkCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdYsqgkCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdLzckCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdJhjjCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdZzjjCount}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdJjcnCount}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td >会办</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdCountHui}}</td>
+                        <td >{{countformDefIdsObj.rdzxCount.rdZdgkCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdBygkCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdYsqgkCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdLzckCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdJhjjCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdZzjjCountHui}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdJjcnCountHui}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td >合办</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdCountHe}}</td>
+                        <td >{{countformDefIdsObj.rdzxCount.rdZdgkCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdBygkCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdYsqgkCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdLzckCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdJhjjCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdZzjjCountHe}}</td>
+                        <td>{{countformDefIdsObj.rdzxCount.rdJjcnCountHe}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+           <!-- <div class="modal-footer mf">
+                <button type="submit" class="btn btn-sm btn-primary save" ng-click="queryProInstListChangeBean()">确定</button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+            </div>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<style>
+	.modal-dialog {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.modal-content {
+		/*overflow-y: scroll; */
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.modal-body {
+		/*overflow-y: scroll;*/
+		position: absolute;
+		top: 55px;
+		bottom: 65px;
+		width: 100%;
+	}
+
+	.modal-header .close {
+		margin-right: 15px;
+	}
+
+	.modal-footer {
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+	}
+	.viewModeUser{display: inline-block;color: #051b3b;margin: 10px 10px 0 10px;}
+	.ry_form .active{background: #fe8300 !important;}
+	.bta {
+		background: #e97066;
+		border-bottom: 2px solid #e97066;
+		width: 96px;
+		height: 27px;
+		line-height: 27px;
+		display: inline-block;
+		text-align: center;
+		border-radius: 3px;
+		font-size: 14px;
+		color: #fff !important;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		font-weight: bold;
+		text-decoration: none !important;
+		margin-left: 3px;
+	}
+	/*不可用的确定按钮*/
+	.disabled-button{
+		border-color: #D4D4D4 !important;
+		background-color: #D4D4D4 !important;
+		color: #fff;
+		cursor:not-allowed !important;
+	}
+</style>
+
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span >
+                      		   白名单管理
+                          </span>
+					</div>
+
+					<!--<div  class="right user-titleheading" style="width: 50%">
+						<a href="" class="bj" ng-click="fc.addBean('documentModal')" >新增</a>
+						<a href="" class="sc" ng-click="fc.batchDelete()" >删除</a>
+					</div>-->
+				</div>
+			</div>
+			<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+				<!--<div class="table_shadow" style="overflow:auto; max-height: 70%">-->
+					<form class="form-horizontal" style="width: 90%" id="documentForm" name="documentForm">
+						<div class="form-group">
+							<label for="description" class="col-sm-2 control-label">ip地址*</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="description" rows="5" ng-model="newBean.ip"  style="resize:none; width: 100%" required></textarea>
+							</div>
+						</div>
+						<div class="form-group" style="text-align: center;margin-top: 30px">
+							<button type="button" ng-disabled="documentForm.$invalid" class="btn btn-sm btn-primary save" ng-click="documentForm.$invalid || fc.saveBean()">保存</button>
+						</div>
+					</form>
+				<!--</div>-->
+				<!--<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</section>
+</div>
+

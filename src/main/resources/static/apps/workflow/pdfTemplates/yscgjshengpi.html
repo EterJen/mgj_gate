@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+
+        /*设定纸张大小*/
+        /* A4纸 */
+        /* @page{size:210mm*297mm} */
+        @page {
+            size: a4
+        }
+
+        fieldset {
+            padding: .35em .625em .75em;
+            margin: 0 2px;
+            border: 0.6px solid silver
+        }
+
+        .hideslb {
+            overflow-y: hidden;
+        }
+
+        .showslb {
+            overflow-y: auto;
+        }
+
+        legend {
+            padding: .5em;
+            border: 0;
+            width: auto
+        }
+
+        input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .GwTitleRedLargeBigSF {
+            font-size: 33px;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+            font-family: FZYaoti;
+            padding: 10px;
+        }
+
+        .user-option {
+            white-space: pre-wrap;
+            line-height: 18px;
+        }
+
+        .tblGw01 {
+            font-size: 12px;
+            border-collapse: collapse;
+        }
+
+        .tblGw01 .td02 {
+            font-size: 14px;
+            color: rgb(0, 0, 0);
+            border: 0.6px solid rgb(0, 0, 0);
+            padding: 3px;
+            text-align: center
+        }
+
+        input {
+            text-rendering: auto;
+            color: initial;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: start;
+            margin: 0em;
+            font: 400 13.3333px Arial;
+        }
+
+        .Inputhidden01 {
+            color: black;
+            font-size: 14px;
+            background-color: rgb(255, 255, 255);
+            font-family: FangSong_GB2312;
+            font-weight: bold !important;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            font-weight: bold;
+        }
+
+        .Inputhidden011 {
+            height: inherit;
+            color: black;
+            overflow-y: hidden;
+            font-size: 14px;
+            background-color: rgb(255, 255, 255);
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            font-weight: bold !important;
+            font-family: FangSong_GB2312;
+        }
+
+        /*.ck-span {*/
+            /*margin-left: -5px;*/
+            /*margin-right: 4px;*/
+        /*}*/
+
+        .vertical-middle {
+            /*float: bottom;*/
+            /*transform: scale(0.8,0.8);*/
+            vertical-align: middle;
+        }
+
+        .vertical-middle-parent {
+            margin: 0;
+            padding: 0;
+        }
+        .tab-fontfamily {
+            font-family: FangSong_GB2312 !important;
+        }
+
+        .tblGw01 .td04 {
+            font-family: FangSong_GB2312 !important;
+            font-size: 14.5px !important;
+            padding: 3px;
+        }
+
+        .tblGw01 .td05 {
+            font-size: 14px !important;
+            font-family: KaiTi !important;
+            border-bottom: 0.6px solid rgb(0, 0, 0);
+            padding: 3px;
+        }
+
+        .text-top {
+            vertical-align: text-top;
+        }
+
+        .no-border-bottom {
+            border-bottom: 0px !important;
+        }
+
+
+        .fontSizeFamily {
+            font-size: 14px;
+            color: rgb(0, 0, 0);
+            font-weight: bold !important;
+            font-family: FangSong_GB2312 !important;
+        }
+
+        tr td {
+            font-size: 14px;
+            font-family: FangSong_GB2312;
+        }
+
+        .tblGw01 .td03 {
+            margin-top: -30px;
+        }
+
+        .blu_cz {
+            font-size: 16px;
+        }
+
+        .blu_t {
+            font-size: 14.5px;
+        }
+    </style>
+</head>
+<body>
+<table style="width:100%" border="0" align="center" cellpadding="0"
+       cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td03" width="540" align="center">
+            <p class="GwTitleRedLargeBigSF" align="center"
+               style="display: inline; letter-spacing: -7px">
+                <font>登记备案人员因私出国（境）报批单</font>
+            </p>
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+
+    <tr height="30">
+        <td width="76"
+            class="td04">人员类别
+        </td>
+        <td width="380px"
+            class="td05 vertical-middle-parent" style="border-bottom: 0px">
+            <input name="人员类别" fc.userType.inPost radio-click='fc.userType' radio-click-val='inPost' class="vertical-middle " type="checkbox" >
+            <span radio-click='fc.userType' radio-click-val='inPost' class="ck-span ">机关在职</span>
+
+            <input radio-click='fc.userType' fc.userType.directly radio-click-val='directly' class="vertical-middle " type="checkbox">
+            <span radio-click='fc.userType' radio-click-val='directly' class="ck-span ">直属单位</span>
+
+            <input radio-click='fc.userType' radio-click-val='retirement' class="vertical-middle " fc.userType.retirement type="checkbox">
+            <span radio-click='fc.userType' radio-click-val='retirement' class="ck-span ">退离休</span>
+        </td>
+        <td width="90"
+            class="td04">$task.theCommonFormInfo.docPrefix$</td>
+        <td
+                class="td04">
+            （
+        </td>
+        <td width="40"
+            class="td04">
+            $task.theCommonFormInfo.docYear$
+        </td>
+        <td
+                class="td04">）
+        </td>
+
+        <td width="40"
+            class="td04">
+            $task.theCommonFormInfo.docNumber$
+        </td>
+        <td
+                class="td04">号
+        </td>
+    </tr>
+</table>
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+
+    <tr height="30">
+        <td class="td04" width="77px">申请人姓名</td>
+        <td class="td05" width="130px">
+            $task.theCommonFormInfo.formYscgjshengpi.applicant$
+        </td>
+        <td class="td04" width="227px"></td>
+        <td class="td04" width="70px">单位/职务</td>
+        <td class="td05">
+            $task.theCommonFormInfo.formYscgjshengpi.deptPost$
+        </td>
+    </tr>
+</table>
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+
+    <tr height="30">
+        <td width="40"
+            class="td04">事由
+        </td>
+        <td width="163px"
+            class="td04" style="border-bottom: 0px">
+            <input name="出国事由" radio-click='fc.yscgReason' radio-click-val='travel' class="vertical-middle "
+                   type="checkbox" fc.yscgReason.travel>
+            <span radio-click='fc.yscgReason' radio-click-val='travel' class="ck-span ">旅游</span>
+
+            <input radio-click='fc.yscgReason' radio-click-val='visRelatives' class="vertical-middle " type="checkbox"
+                   fc.yscgReason.visRelatives>
+            <span radio-click='fc.yscgReason' radio-click-val='visRelatives' class="ck-span ">探亲</span>
+
+            <input radio-click='fc.yscgReason' radio-click-val='other' class="vertical-middle " type="checkbox"
+                   fc.yscgReason.other>
+            <span radio-click='fc.yscgReason' radio-click-val='other' class="ck-span ">其他</span>
+
+        </td>
+        <td class="td05" width="152px">
+            $task.theCommonFormInfo.formYscgjshengpi.otherReason$
+        </td>
+        <td width="79px"></td>
+        <td class="td04" width="60px">目的地</td>
+        <td class="td05">
+            $task.theCommonFormInfo.formYscgjshengpi.destination$
+        </td>
+    </tr>
+</table>
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+
+    <tr height="30">
+        <td class="td04" width="110px">出国（境）时间</td>
+        <td width="110px"
+            class="td05">
+            $task.theCommonFormInfo.formYscgjshengpi.startDate$
+        </td>
+        <td class="td04" width="20px">至</td>
+        <td width="110px"
+            class="td05">$task.theCommonFormInfo.formYscgjshengpi.endDate$</td>
+        <td class="td04" width="73px"></td>
+        <td class="td04" width="95px">境外停留天数</td>
+        <td class="td05">
+            $task.theCommonFormInfo.formYscgjshengpi.overseasStayDays$
+        </td>
+    </tr>
+    <tr height="20">
+        <td></td>
+    </tr>
+</table>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td colspan="2" valign="top" class="td04">拟办意见：</td>
+    </tr>
+    <tr>
+        <td height="100px" colspan="2" valign="top" class="td05 text-top no-border-bottom ">
+           $task.userOpinions.csyj$
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top" class="td04">干部处意见：</td>
+    </tr>
+    <tr>
+        <td height="80" colspan="2" valign="top" class="td05 text-top no-border-bottom ">
+            $task.userOpinions.gbcyj$
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top" class="td04">委领导意见：</td>
+    </tr>
+    <tr>
+        <td height="250" colspan="2" valign="top" class="td05 text-top no-border-bottom ">
+            $task.userOpinions.ldps$
+        </td>
+    </tr>
+</table>
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+
+    <tr height="30">
+        <td width="44"
+            class="td04">证件情况
+        </td>
+        <td width="101px"
+                class="td05" style="border-bottom: 0px">
+            <input name="证件情况" radio-click='fc.certificates' radio-click-val='newCreate' class="vertical-middle "
+                   type="checkbox" fc.certificates.newCreate>
+            <span radio-click='fc.certificates' radio-click-val='newCreate' class=""
+                  style="margin-right: 10px;">申请新办</span>
+
+            <input radio-click='fc.certificates' radio-click-val='newReceive' class="vertical-middle " type="checkbox"
+                   fc.certificates.newReceive>
+            <span radio-click='fc.certificates' radio-click-val='newReceive' class=""
+                  style="margin-right: 10px;">申请领用</span>
+
+            <input radio-click='fc.certificates' radio-click-val='other' class="vertical-middle " type="checkbox"
+                   fc.certificates.other>
+            <span radio-click='fc.certificates' radio-click-val='other' class="">其他</span>
+        </td><td width="125px" class="td05">
+        $task.theCommonFormInfo.formYscgjshengpi.otherCertificates$
+        </td>
+    </tr>
+</table>
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+
+    <tr height="30">
+        <td width="100"
+            class="td04">证件类别
+        </td>
+        <td width="240"
+            class="td05" style="border-bottom: 0px">
+            <input name="证件类别" radio-click='fc.certificateType' radio-click-val='passport' class="vertical-middle "
+                   type="checkbox" fc.certificateType.passport>
+            <span radio-click='fc.certificateType' radio-click-val='passport' class=""
+                  style="margin-right: 10px;">护照</span>
+
+            <input radio-click='fc.certificateType' radio-click-val='HongKong' class="vertical-middle " type="checkbox"
+                   fc.certificateType.HongKong>
+            <span radio-click='fc.certificateType' radio-click-val='HongKong' class=""
+                  style="margin-right: 10px;">港澳</span>
+
+            <input radio-click='fc.certificateType' radio-click-val='Taiwan' class="vertical-middle " type="checkbox"
+                   fc.certificateType.Taiwan>
+            <span radio-click='fc.certificateType' radio-click-val='Taiwan' class="">台湾</span>
+        </td>
+        <td class="td04" width="63px">证件号码</td>
+        <td class="td05">
+            $task.theCommonFormInfo.formYscgjshengpi.certificateNumber$
+        </td>
+    </tr>
+</table>
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+
+    <tr height="30">
+        <td class="td04" width="100">证件领用时间</td>
+        <td width="170"
+            class="td05">$task.theCommonFormInfo.formYscgjshengpi.receiveTime$</td>
+        <td width="70"></td>
+        <td class="td04" width="91">证件归还时间</td>
+        <td
+                class="td05">$task.theCommonFormInfo.formYscgjshengpi.returnTime$</td>
+    </tr>
+</table>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td04" width="40">备注：</td>
+    </tr>
+    <tr>
+        <td height="140" class="td05 text-top no-border-bottom " style="border-bottom: 0px">
+            <!--<textarea cols="40" class="Inputhidden011" id="textarea4" style=" resize:none; width: 100%;height:100%;" ng-model="task.theCommonFormInfo.formFawen.huiQian" onMouseOver="this.className='Inputhidden01Hover2'" onMouseOut="this.className='Inputhidden011'"></textarea>-->
+            $task.theCommonFormInfo.formYscgjshengpi.remarks$
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

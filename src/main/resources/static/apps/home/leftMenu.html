@@ -1,0 +1,34 @@
+<style>
+    #secondMenu::-webkit-scrollbar {
+        display: none
+    }
+    .disHide{
+        cursor:default !important;
+        color: #d2d2d2 !important;
+    }
+</style>
+<div id="secondMenu"
+     style="overflow-y: auto;overflow-x: hidden">
+    <ul class="sidebar-menu">
+        <li class="treeview {{b.icon}}"
+            ng-class="{active: b.secondMenuActive}"
+            ng-click="secondMenuChenge(b,$event)"
+            ng-repeat="b in secondAuthTree">
+            <a href=""  ui-sref-opts="{reload: true}"  >
+                <div class="l-white-bg">
+                    <div class="{{b.iconfocus}}"></div>
+                </div>
+                <em class="{{b.icon}}"></em>
+                <span>{{b.title  }}</span>
+                <i class=""></i></a>
+            <dl class="dl_box">
+                <dd ng-class="{dd_on: c.ddon}"
+                    ng-click="goToContent(c,$event);"
+                    ng-repeat="c in b.nodes">
+                    <p >{{c.title  }}</p>
+                </dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+

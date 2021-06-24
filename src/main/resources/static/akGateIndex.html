@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA0-Compatible"
+              content="ie=edge">
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+
+            }
+
+            li {
+                list-style: none;
+            }
+
+            .l-box-wrapper {
+                width: 386px;
+                height: 190px;
+                background-color: #008b78;
+            }
+
+            .l-box-wrapper .l-box-content {
+                margin: 0 15px;
+            }
+
+            .l-box-wrapper .l-box-content .l-box-title {
+                padding-left: 9px;
+                font-size: 24px;
+                color: #fff;
+                font-weight: 700;
+                height: 47px;
+                line-height: 48px;
+                border-bottom: 2px solid #fff;
+            }
+
+            .l-box-list-wrapper {
+                margin-top: 8px;
+            }
+
+            .l-box-list-wrapper .l-left-box {
+                float: left;
+                width: 50%;
+            }
+
+            .l-box-list-wrapper .l-right-box {
+                float: left;
+                width: 50%;
+            }
+
+            .l-left-box .list-desc-wrapper {
+                margin-right: 8px;
+            }
+
+            .l-right-box .list-desc-wrapper {
+                margin-left: 8px;
+            }
+
+            .list-desc-wrapper {
+                /* overflow: hidden; */
+                height: 25px;
+                line-height: 25px;
+                background-color: #00685a;
+                font-size: 14px;
+                color: #fff;
+                font-weight: 700;
+                padding-left: 5px;
+                position: relative;
+            }
+
+            .l-article-wrapper {
+                margin-right: 8px;
+            }
+
+            .l-article-wrapper .l-list .l-item {
+                padding: 9px 0;
+                font-size: 12px;
+                color: #fff;
+                padding-left: 10px;
+                position: relative;
+                height: 16px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                border-bottom: 1px dotted rgba(255, 255, 255, .5);
+            }
+
+            .l-article-wrapper .l-list .l-item:last-child {
+                border-bottom: none;
+            }
+
+            .l-right-box .l-article-wrapper {
+                margin-left: 8px;
+                margin-right: 0;
+            }
+
+            .l-article-wrapper .l-list .l-item::after {
+                content: '';
+                position: absolute;
+                width: 2px;
+                height: 2px;
+                background-color: #fffc00;
+                left: 2px;
+                top: 50%;
+                margin-top: -1px;
+            }
+
+            .list-desc-wrapper:before {
+                display: block;
+                content: "";
+                clear: both;
+            }
+
+            .list-desc-wrapper:after {
+                content: '';
+                clear: both;
+                left: 50%;
+                margin-left: -8px;
+                width: 0;
+                bottom: -8px;
+                height: 0;
+                border-width: 8px 8px 0;
+                border-style: solid;
+                border-color: #00685a transparent transparent;
+                position: absolute;;
+            }
+
+            .l-f-r {
+                float: right;
+                margin-right: 7px;
+                height: 25px;
+            }
+
+            .l-f-r .desc-count {
+                font-size: 20px;
+                font-weight: 700;
+                color: #fffc00;
+            }
+
+            .list-desc-wrapper:before {
+                content: '';
+                clear: both;
+                display: block;
+            }
+
+            .list-desc-wrapper::after {
+                content: '';
+                clear: both;
+                display: block;
+            }
+        </style>
+        <script src="js/angular.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script type="text/javascript">
+          var sonHost = "http://172.17.12.1:9999";
+          var sessionid = "F9EDF0BCD45C5A1328FC58F924E14A60";
+
+          var app = angular.module('myApp', []);
+          app.config(['$httpProvider', config]);
+
+          function config($httpProvider) {
+            $httpProvider.defaults.withCredentials = true;
+          }
+
+          app.controller('myCtrl', function ($scope) {
+            this.silenceWithAuthAjax = function (url, jsonObject, successFunc) {
+              $(".flyover").show();
+              $.ajax({
+                type: "POST",
+                url: sonHost + url,
+                beforeSend: function (request) {
+                  request.setRequestHeader("Content-type", "application/json");
+                },
+                dataType: 'json',
+                data: JSON.stringify(jsonObject),
+                success: function (resultInfo) {
+                  $(".flyover").hide();
+                  console.log(resultInfo);
+
+                  successFunc(resultInfo);
+                },
+                error: function (XMLResponse) {
+                  $(".flyover").hide();
+                  console.log(JSON.stringify(XMLResponse));
+                }
+              })
+            };
+
+            $scope.gotoDetail = function (task, cIdx) {
+              console.log(task);
+              var formDefId = task.belongingProInst.formDefId
+              window.open(sonHost + "/index.html#!/officialDocuments/" + formDefId + "/" + task.id + "?sessionid=" + sessionid, task.id);
+            }
+
+            /*   this.silenceWithAuthAjax("/cors/login/akGateHost",{operation:"GETUSERINFO",sessionid:"xxxxxxx"},function (resultInfo) {
+                   $scope.taskNum = resultInfo.additionalInfo.taskNum;
+                   $scope.top3Task = resultInfo.additionalInfo.top3Task;
+               })*/
+
+            this.silenceWithAuthAjax("/rCurrentTaskInfo/cors/akGateHost/top3TodoTask", {
+              operation: "GETUSERINFO", sessionid: sessionid
+            }, function (resultInfo) {
+              $scope.taskNum = resultInfo.additionalInfo.taskNum;
+              $scope.top3Task = resultInfo.additionalInfo.top3Task;
+              $scope.$applyAsync();
+            })
+
+            /*    var url='http://172.17.12.1:9999/redirectLogin/akGateHost?operation=GETUSERINFO&sessionid=xxxxxxx';
+                $.ajax({
+                    type:'get',
+                    dataType:'jsonp',
+                    url:'http://172.17.12.1:9999/test/jsonp',
+                    data:{'id':123},
+                    success:function(data){
+                        console.log('success...');
+                    }
+                });*/
+            /*  let res = $sce.trustAsResourceUrl(url);
+              $http.jsonp(res,{jsonpCallbackParam:'callback'})
+                  .then(res=>{
+                      $scope.arr=res.data.s
+                  },()=>{
+                      alert('error!!!!')
+                  })*/
+            /*
+                        $.ajax({
+                            url:url,
+                            dataType:'json',
+                            processData: false,
+                            type:'get',
+                            success:function(data){
+                                alert(data.name);
+                            },
+                            error:function(XMLHttpRequest, textStatus, errorThrown) {
+                                alert(XMLHttpRequest.status);
+                                alert(XMLHttpRequest.readyState);
+                                alert(textStatus);
+                            }}
+                        );
+            */
+
+
+          });
+
+        </script>
+    </head>
+
+
+    <body ng-app="myApp"
+          ng-controller="myCtrl">
+        <div class="l-box-wrapper">
+            <div class="l-box-content">
+                <div class="l-box-title">
+                    待办事项
+                </div>
+                <div class="l-box-list-wrapper">
+                    <div class="l-left-box">
+                        <div class="list-desc-wrapper">
+                            <span class="l-desc-name">新系统收发文</span>
+                            <span class="l-f-r"
+                                  style="cursor:hand">
+                            <span class="desc-count">{{taskNum}}</span>
+                            <span class="desc-dw">件</span>
+                        </span>
+                        </div>
+                        <div class="l-article-wrapper">
+                            <ul class="l-list">
+                                <li ng-repeat="t in top3Task"
+                                    style="cursor:hand"
+                                    class="l-item"
+                                    ng-click="gotoDetail(t)">{{t.belongingProInst.docFullName}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="l-right-box">
+                        <div class="list-desc-wrapper">
+                            <span class="l-desc-name">现有系统</span>
+                            <span class="l-f-r">
+                            <span class="desc-count">03</span>
+                            <span class="desc-dw">件</span>
+                        </span>
+                        </div>
+                        <div class="l-article-wrapper">
+                            <ul class="l-list">
+                                <li class="l-item">根据《工业和信息化部办公根据《工业和信息化部办公</li>
+                                <li class="l-item">根据《工业和信息化部办公根据《工业和信息化部办公</li>
+                                <li class="l-item">根据《工业和信息化部办公根据《工业和信息化部办公</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </body>
+
+</html>

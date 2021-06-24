@@ -1,0 +1,340 @@
+<style>
+
+	.downTree {
+		margin-right: 10%;
+	}
+
+	.nodownTree {
+		margin-right: 8px
+	}
+
+	.tabledownTree {
+		margin-left: 40%
+	}
+
+
+
+	.sorTable {
+		margin: 0;
+		border-radius: 0;
+		border: 0
+	}
+
+	p {
+		border-bottom: 0;
+		margin: 0
+	}
+	hr {
+		border: 1px;
+		border-bottom: 1px solid #ccc;
+		margin-top: 1px;
+		margin-bottom: 2px;
+		background: #999;
+	}
+
+	.fullAllXy {
+		width: 100%;
+		height: 100%;
+		font-size: 14px;
+
+		border: none;
+	}
+	/* .form-group{margin-bottom: 0} */
+</style>
+<script type="text/ng-template" id="nodes_renderer.html">
+	<div ui-tree-handle class="tree-node tree-node-content" ng-click="defGroupFocus(node,$event)" ng-dblclick="toggle(this)">
+		<a style="margin-right: 0" class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)">
+
+			 <img ng-show="collapsed" src="images/zd-anv-02.png" style="margin-left:4px;">             <img ng-show="!collapsed" src="images/zd-anv-01.png" style="margin-left:4px;">
+		</a>
+		<span class="angular-ui-tree-span">{{node.formZhName}}</span>
+	</div>
+	<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+		<li ng-repeat="node in node.nodes" ng-show="node.visible == undefined ?  true :node.visible" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+	</ol>
+	<ol ui-tree-nodes="" ng-model="node.processDefManages" ng-class="{hidden: collapsed}">
+		<li ng-repeat="post in node.processDefManages | orderBy:'orderNum'"  ui-tree-node ng-show="post.visible == undefined ?  true :post.visible">
+			<div ui-tree-handle class="tree-node tree-node-content" data-nodrag  ng-click="proDefFocus(post,$event)">
+				<a class="btn btn-xs angular-ui-tree-span"  style="margin-right: 2px"></a>
+				<span class="angular-ui-tree-span">{{post.name}}</span>
+			</div>
+		</li>
+	</ol>
+</script>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default">
+				<div class="row">
+					<div class="gdt_cont fixedHeight " style="padding-right: 0; padding-left: 14px;">
+						<div class="treeTitle"><b> 流程定义</b></div>
+						<div ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+							<ol ui-tree-nodes="" ng-model="data">
+								<li ng-repeat="node in processDefList" ui-tree-node ng-include="'nodes_renderer.html'" ></li>
+							</ol>
+						</div>
+					</div>
+					<div class="details" style="padding-left: 2px">
+						<div class="bmxx_tit" id="depart_tit">
+							<div class="left"><img src="images/bmxx_tit-01.png">流程定义信息</div>
+							<div class="right">
+								<a href="" class="tj" ng-show="selectedProDef.flag == 1" ng-click="addProcessDefInfo()"><img src="images/add.svg">新增流程</a>
+								<a href="" class="bj" ng-show="selectedProDef.flag == 1" ng-click="isUpdate = true"><img src="images/edit.svg">编辑流程</a>
+								<a href="" class="sc" style="margin-left: 0" ng-show="selectedProDef.flag == 1" ng-click="delPdm(selectedProDef)"><img src="images/remove.svg">删除流程</a>
+								<a href="" class="bj" ng-show="selectedProDef.flag == 0" ng-click="bacUsePdm(selectedProDef)"><img src="images/ry_form-01.png">恢复使用</a>
+							</div>
+						</div>
+						<div class="table_1" style="height: 380px;overflow-y: auto">
+							<table class="table table-condensed table_zdy">
+								<tr>
+									<td width="15%" class="mc_name">序号</td>
+									<td width="35%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.orderNum" type="text" />
+									</td>
+									<td width="15%" class="mc_name">流程名称：</td>
+									<td width="35%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.name" type="text"/>
+									</td>
+
+								</tr>
+
+								<tr>
+									<td width="15%" class="mc_name">所属分组：</td>
+									<td width="35%" class="mc_cont">
+										<select style="height: inherit; background-color: #fff;" class="fullAllXy form-control input-sm" ng-disabled="!isUpdate" ng-options="v.formEnName as v.formZhName for v in processDefList" ng-model="selectedProDef.proDefGroupId">
+										</select>
+									</td>
+									<td width="15%" class="mc_name">流程表单</td>
+									<td width="35%" class="mc_cont">
+										<select style="height: inherit; background-color: #fff;" class="fullAllXy form-control input-sm" ng-disabled="!isUpdate" ng-options="v.formEnName as v.formZhName for v in selectedProDefGroup.processForms" ng-model="selectedProDef.formDefId">
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td width="15%" class="mc_name">发文机关：</td>
+									<td width="35%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.publishOffice" type="text"/>
+									</td>
+
+									<td width="15%" class="mc_name">发文机关代字：</td>
+									<td width="35%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.publishOfficeBrif" type="text"/>
+
+									</td>
+								</tr>
+								<tr>
+									<td width="15%" class="mc_name">签发人：</td>
+									<td width="35%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.issuePerson" type="text"/>
+									</td>
+
+									<td width="15%" class="mc_name">签发职务：</td>
+									<td width="35%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.issuePersonPost" type="text"/>
+									</td>
+								</tr>
+
+								<tr>
+									<td width="15%" class="mc_name">流程描述：</td>
+									<td  class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.description" type="text"/>
+									</td>
+									<td width="15%" class="mc_name">意见展示配置：</td>
+									<td  class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.optionShowConf" type="text"/>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td colspan="4" class="mc_name">电子公文标识</td>
+								</tr>
+								<tr>
+									<td width="20%" class="mc_name">电子公文 OID：</td>
+									<td width="30%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.docOid" type="text"/>
+									</td>
+									<td width="20%" class="mc_name">统一社会信用代码：</td>
+									<td width="30%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.unifiedSocialCreditCode" type="text"/>
+									</td>
+								</tr>
+
+								<tr>
+									<td width="20%" class="mc_name">内设机构或下属单位代码：</td>
+									<td width="30%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.sendDepartCode" type="text"/>
+									</td>
+									<td width="20%" class="mc_name">代字编码：</td>
+									<td width="30%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.publishSymbol" type="text"/>
+									</td>
+								</tr>
+								<tr>
+									<td width="20%" class="mc_name">当前流水号：</td>
+									<td width="30%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" ng-model="selectedProDef.serialNumber" type="text"/>
+									</td>
+									<td width="20%" class="mc_name"></td>
+									<td width="30%" class="mc_cont">
+										<input ng-disabled="!isUpdate" style="background-color: #fff;" class="fullAllXy form-control input-sm" type="text"/>
+									</td>
+								</tr>
+
+
+								<tr ng-if="isUpdate">
+									<td colspan="4" class="text-center">
+										<a href="" class="btn btn-primary btn-sm" ng-click="updatePdmBefore()">保存</a>
+										<a href="" class="btn btn-default btn-sm" ng-click="$parent.isUpdate = false">取消</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="table_11">
+							<div class="bmxx_tit" >
+								<div class="left"><img src="images/bmxx_tit-01.png">版本管理</div>
+								<div class="right">
+									<a href="" ng-click="addProcessVersionInfo()" class="tj"><img src="images/add.svg">添加版本</a>
+								</div>
+							</div>
+							<div class="table_shadow" style="overflow:auto; max-height: 70%">
+								<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+									<thead>
+										<tr>
+											<th width="10%">版本</th>
+											<th width="40%">描述</th>
+											<th width="15%">是否启用</th>
+											<th width="35%">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="processVersion in processVersionList">
+											<td width="10%">{{::processVersion.version}}</td>
+											<td width="40%">{{::processVersion.description}}</td>
+											<td width="15%">{{::processVersion.activeChinese}}</td>
+											<td width="35%">
+												<div>
+													<a style="margin-right: 7px" href="" ng-if="processVersion.isActive=='0'" class="btn btn-primary btn-xs" ng-click="activeVersion(processVersion)">启用版本</a>
+													<a href="" class="btn btn-primary btn-xs" ng-click="goToVisualEditor(processVersion)">定制流程</a>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</section>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="ProcessDefManageDialog" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalCreatDepartment">新增流程定义</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="pdmEditForm" name="pdmEditForm">
+					<!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">流程名称*</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processDefManage.name" placeholder="请输入流程名称" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">流程描述</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="brief" ng-model="processDefManage.description" placeholder="请输入流程描述" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">所属分组*</label>
+						<div class="col-sm-8">
+							<select required class="form-control input-sm" ng-options="v.formEnName as v.formZhName for v in processDefList" ng-change="changeProcessGroup()" ng-model="processDefManage.proDefGroupId"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">流程表单*</label>
+						<div class="col-sm-8">
+							<select required class="form-control input-sm" ng-options="v.formEnName as v.formZhName for v in selectedProDefGroup.processForms" ng-model="processDefManage.formDefId"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">发文机关</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processDefManage.publishOffice" placeholder="请输入发文机关">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">发文代字</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="brief" ng-model="processDefManage.publishSymbol" placeholder="请输入发文代字">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="brief" class="col-sm-2 control-label">统一社会信用代码</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="brief" ng-model="processDefManage.unifiedSocialCreditCode" placeholder="请输入统一社会信用代码">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">序号</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processDefManage.orderNum" placeholder="请输入流程序号">
+						</div>
+					</div>
+				</form>
+				<div align="center">
+
+				</div>
+			</div>
+			<div class="modal-footer mf">
+				<a href="" class="btn btn-primary btn-sm save" ng-disabled="pdmEditForm.$invalid" ng-click="saveProcessDefManageInfo()">保存</a>
+				<a href="" class="btn btn-default btn-sm cancel" ng-click="closeProcessDefManageDialog()">关闭</a>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="ProcessVersionDialog" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalCreatDepartment">新增流程版本</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">版本号</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processVersionEditBean.version" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">流程描述</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" ng-model="processVersionEditBean.description" required>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer mf">
+				<a href="" class="btn btn-primary btn-sm save" ng-click="saveProcessVersionInfo()">保存</a>
+				<a href="" class="btn btn-default btn-sm cancel" data-dismiss="modal">关闭</a>
+
+			</div>
+		</div>
+	</div>
+</div>

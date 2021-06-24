@@ -1,0 +1,767 @@
+<style>
+    .bmxx_tit .right a.tj {
+        background: #85a834; /* border-bottom:2px solid #449c5c */;
+        width: 72px;
+    }
+
+    .form-group {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    .green-col {
+        background: #1fbba6 !important;
+        color: white !important;
+    }
+
+
+    .gold-col {
+        background: #c1af49 !important;
+        color: white !important;
+    }
+
+    .red-col {
+        background: #e9714e !important;
+        color: white !important;
+    }
+
+    .no-col {
+        background: #3986c8 !important;
+        color: white !important;
+    }
+
+    .table_shadow .active td {
+        background: #e0eafc !important;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    .bta {
+        background: #e97066;
+        border-bottom: 2px solid #e97066;;
+        width: 96px;
+        height: 27px;
+        line-height: 27px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #fff !important;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        text-decoration: none !important;
+        margin-left: 3px;
+    }
+
+    .addScroll {
+        margin-right: 15px;
+    }
+
+    .darkgrey {
+        background: darkgrey;
+        cursor: no-drop !important;
+    }
+</style>
+
+<script type="text/ng-template" id="modes_renderer.html">
+    <div id="dp_{{mode.id}}" ui-tree-handle class="tree-node tree-node-content"
+         ng-click="toModeContent($event,mode)" style="padding-left: 7px;font-size: 14px;font-weight: normal;white-space: nowrap;">
+        <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)">
+            <img ng-show="collapsed" src="images/zd-anv-02.png" style="margin-left:4px;">
+            <img ng-show="!collapsed" src="images/zd-anv-01.png" style="margin-left:4px;">
+        </a>
+        <span class="angular-ui-tree-span">{{mode.name}}</span>
+    </div>
+    <ol ui-tree-nodes="" ng-model="mode.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="mode in mode.nodes" ui-tree-node ng-include="'modes_renderer.html'"></li>
+    </ol>
+</script>
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="panel panel-default" ng-if="!fc.isEdit">
+            <div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+                <div class="bmxx_tit" id="depart_tit">
+                    <div class="left"><img src="images/bmxx_tit-01.png">
+                        <span>
+                      		   文章管理
+                          </span>
+                    </div>
+
+                    <div class="right user-titleheading" style="width: 70%">
+<!--                        <a href="" class="btn bj " ng-disabled="!articleMng.add.able" ng-click="!articleMng.add.able||fc.addBean('confirmationApplicationModal')">新增</a>-->
+                        <!--<a href="" class="bj" >自动创建</a>
+                        <a href="" class="bj" ng-click="fc.editBean('confirmationApplicationModal')">编辑</a>
+                        <a href="" class="bj" ng-click="fc.deletBean()">删除</a>
+                        <a href="" class="bj" ng-click="fc.editBean('sortApplicationModal')">排序</a>-->
+                        <a href="" class="btn bj" ng-click="fc.topManagement('topApplicationModal')">置顶管理</a>
+                        <a href="" class="btn bj" ng-click="fc.createdAutomatically('createdAutomaticallyModal')">自动创建</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+                <div class="gdt_cont fixedHeight " style="padding-right: 0; padding-left: 0;">
+                    <!--<div class="treeTitle">
+                        <b>文章栏目</b>
+                        <div class="postSearch">
+                            <input ng-model="queryText" placeholder="查询模式"
+                                   ng-focus="$broadcast('angular-ui-tree:collapse-all')"
+                                   ng-keyup="modeSearch($event)" type="text"/>
+                            <i><img src="images/search-3.png"></i>
+                        </div>
+                    </div>-->
+                    <div ui-tree id="tree-root" data-drag-enabled="false" class="tree-root">
+                        <ol ui-tree-nodes="" ng-model="dataObject.dicTypeList">
+                            <li ng-repeat="mode in dataObject.dicTypeList" ui-tree-node ng-include="'modes_renderer.html'"></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="table_shadow" style="overflow:auto; max-height: 70%">
+                    <table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+                        <tr>
+
+                            <!--<td width="65px">类型:</td>
+                            <td width="15%">
+                                <select class="input-sm" style="width: 100%" ng-model="queryBean.type" ng-options="x.id as x.name for x in dataObject.oneColumn">
+                                </select>
+                            </td>-->
+
+                            <td width="65px">标题:</td>
+                            <td width="15%">
+                                <input type="text" style="width: 100%" ng-model="queryBean.title" placeholder="请输入标题">
+                            </td>
+                            <td width="65px">关键字:</td>
+                            <td width="15%">
+                                <input type="text" style="width: 100%" ng-model="queryBean.keywords" placeholder="请输入关键字">
+                            </td>
+                            <td>
+                                <a href="" class="bta" ng-click="searchGoods()">查询</a>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+                        <thead>
+                        <tr>
+                            <th width="35px"></th>
+                            <!--<th class="conllection-first-th" width="35px"></th>-->
+
+                            <th width="3%">排序</th>
+                            <th >标题</th>
+
+                            <th width="10%">所属栏目</th>
+                            <th width="10%">发布时间</th>
+                            <th width="10%">发布人</th>
+<!--                            <th width="15%">文号</th>-->
+<!--                            <th width="10%">期号</th>-->
+                            <th width="15%">操作</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--ng-click="fc.selectBean($event.currentTarget,bean)"-->
+                        <tr ng-repeat="bean in dataObject.goodsList" ng-click="fc.editBean('edit',bean)">
+                            <td>{{$index+1}}</td>
+                            <!--<td>
+                                <input  type="checkbox" ng-click="$event.stopPropagation();" >
+                            </td>-->
+                            <td>{{bean.sortid}}</td>
+                            <td>
+                                {{bean.title}}
+                            </td>
+                            <td>{{bean.columnChinese}}</td>
+
+                            <td>{{bean.createtime}}</td>
+                            <td>{{bean.author}}</td>
+<!--                            <td>{{bean.keywords}}</td>-->
+<!--                            <td>{{bean.articleno}}</td>-->
+<!--                            <td>{{bean.issueno}}</td>-->
+
+                            <td style="text-align: left">
+
+                                <button style="margin-left: 20px" type="button" class="btn btn-sm btn-danger " title="删除" ng-click="fc.deletBean(bean);$event.stopPropagation();">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+
+                                <button type="button" class="btn btn-sm btn-primary " title="排序" ng-click="fc.editBean('sortApplicationModal',bean);$event.stopPropagation();">
+                                    <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary " ng-click="fc.preview(bean);$event.stopPropagation();" title="预览">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+
+                                <button type="button" class="btn btn-sm btn-primary " ng-if="bean.pdfpath != null" ng-click="fc.downloadPdf(bean);$event.stopPropagation();" title="下载">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </button>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ceter_p" id="ceter_p">
+                    <div class="ceter_s">
+                        <span class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myTabContent" class="panel panel-default" ng-if="fc.isEdit">
+            <div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+                <div class="bmxx_tit" id="depart_tit">
+                    <div class="left"><img src="images/bmxx_tit-01.png">
+                        <span>
+                      		   创建/编辑文章
+                          </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;max-height: 85%;">
+                <div class=" fixedHeight" style="padding-left: 2px">
+                    <div id="" class="">
+                        <form class="form-horizontal" id="articleEditForm" name="articleEditForm">
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">标题*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="title" ng-model="newBean.title" maxlength="100" placeholder="请输入标题" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="keywords" class="col-sm-2 control-label">关键字</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="keywords" ng-model="newBean.keywords" maxlength="100" placeholder="请输入关键字">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="type" class="col-sm-2 control-label">所属栏目*</label>
+                                <div class="col-sm-4">
+                                    <select class="input-sm" style="width: 100%" id="type" ng-change="fc.changeColumu(fc.type)" ng-model="fc.type" ng-options="x as x.name for x in dataObject.oneColumn">
+                                    </select>
+                                </div>
+                                <label for="flag" ng-show="fc.showTwoColumn" class="col-sm-2 control-label">子栏目*</label>
+                                <div class="col-sm-4" ng-show="fc.showTwoColumn">
+                                    <select class="input-sm" style="width: 100%" id="flag" ng-change="fc.changeTwoColumu(fc.flag)" ng-model="fc.flag" ng-options="x as x.name for x in dataObject.twoColumn">
+
+                                    </select>
+                                </div>
+                                <!--<label for="fujian" ng-show="fc.showImg" class="col-sm-2 control-label">图片</label>
+                                <div class="col-sm-4" ng-show="fc.showImg">
+                                    <input type="file" id="fujian" class="form-control" ng-file-model="fc.headPortrait">
+                                </div>-->
+                            </div>
+
+                            <div class="form-group" ng-show="fc.showImg">
+                                <label for="fujian" class="col-sm-2 control-label">图片</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="fujian" class="form-control" ng-file-model="fc.headPortrait">
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-show="newBean.initType=='isAttach'">
+                                <label for="wenjian" class="col-sm-2 control-label">文件</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="wenjian" class="form-control" ng-file-model="fc.docmentAttach">
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-show="fc.showImg && newBean.id!=null">
+                                <div class="col-sm-12">
+                                    <img ng-src="{{newBean.image}}" style="margin: 0 auto" ng-click="fc.showIMG(newBean.image)" class="img-rounded img-responsive idCardBack" width="40%" height="40%" alt="请先上传图片">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="linkurl" class="col-sm-2 control-label">链接地址</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="linkurl" ng-model="newBean.linkurl" maxlength="100" placeholder="请输入链接地址">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">文章属性</label>
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label class="checkbox-inline">
+                                            <input ng-model="dataObject.showDay" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showDay',$event)">
+                                            显示日期
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input ng-model="dataObject.canPrint" type="checkbox" ng-click="fc.addToNotOpenReasonCk('canPrint',$event)">
+                                            可打印
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input ng-model="dataObject.showDepart" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showDepart',$event)">
+                                            显示部门
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input ng-model="dataObject.showTitle" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showTitle',$event)">
+                                            显示标题
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input ng-model="dataObject.top" type="checkbox" ng-click="fc.addToNotOpenReasonCk('top',$event)">
+                                            置顶
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input ng-model="dataObject.showTop" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showTop',$event)">
+                                            显示置顶
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="articleno" class="col-sm-2 control-label">文号</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="articleno" ng-model="newBean.articleno" maxlength="100" placeholder="请输入文号">
+                                </div>
+                                <label for="issueno" class="col-sm-2 control-label">期号</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="issueno" ng-model="newBean.issueno" maxlength="100" placeholder="请输入期号">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="template" class="col-sm-2 control-label">模板选择</label>
+                                <div class="col-sm-10">
+                                    <select class="input-sm" style="width: 100%" id="template" ng-model="newBean.issueno" ng-options="x.id as x.name for x in dataObject.oneColumn">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+							<textarea ck-editor id="editor1" name="editor1" rows="10" cols="80" ng-model="newBean.content">
+                    		</textarea>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <!--<button type="button" ng-disabled="articleEditForm.$invalid" class="btn btn-sm btn-primary save" ng-click="passedApplication()">预览</button>-->
+                    <button type="button" ng-disabled="articleEditForm.$invalid" class="btn btn-sm btn-primary save" ng-click="articleEditForm.$invalid || fc.saveBean()">
+                        保存
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default cancel" ng-click="fc.isEdit=false">取消</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!--<div class="modal fade bs-example-modal-lg" id="confirmationApplicationModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" style="width: 70%;" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalApplication">创建/编辑文章</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="articleEditForm" name="articleEditForm">
+					<div class="form-group">
+						<label for="title" class="col-sm-2 control-label">标题*</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="title" ng-model="newBean.title" maxlength="100" placeholder="请输入标题" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="keywords" class="col-sm-2 control-label">关键字*</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="keywords" ng-model="newBean.keywords" maxlength="100" placeholder="请输入关键字" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="type" class="col-sm-2 control-label">所属栏目*</label>
+						<div class="col-sm-4">
+							<select class="input-sm" style="width: 100%" id="type" ng-change="fc.changeColumu()" ng-model="newBean.type" ng-options="x.id as x.name for x in dataObject.oneColumn">
+							</select>
+						</div>
+						<label for="flag" ng-show="!fc.showImg" class="col-sm-2 control-label">子栏目*</label>
+						<div class="col-sm-4" ng-show="!fc.showImg">
+							<select class="input-sm"  style="width: 100%" id="flag" ng-model="newBean.flag" ng-options="x.id as x.name for x in dataObject.twoColumn">
+							</select>
+						</div>
+						<label for="fujian" ng-show="fc.showImg" class="col-sm-2 control-label">图片</label>
+						<div class="col-sm-4" ng-show="fc.showImg">
+							<input type="file" id="fujian" class="form-control" ng-file-model="fc.headPortrait">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="linkurl" class="col-sm-2 control-label">链接地址*</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="linkurl" ng-model="newBean.linkurl" maxlength="100" placeholder="请输入标题" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label  class="col-sm-2 control-label">文章属性</label>
+						<div class="col-sm-10">
+							<div class="checkbox">
+								<label class="checkbox-inline">
+									<input ng-model="dataObject.showDay" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showDay',$event)"> 显示日期
+								</label>
+								<label class="checkbox-inline">
+									<input ng-model="dataObject.canPrint" type="checkbox" ng-click="fc.addToNotOpenReasonCk('canPrint',$event)"> 可打印
+								</label>
+								<label class="checkbox-inline">
+									<input ng-model="dataObject.showDepart" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showDepart',$event)"> 显示部门
+								</label>
+								<label class="checkbox-inline">
+									<input ng-model="dataObject.showTitle" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showTitle',$event)"> 显示标题
+								</label>
+								<label class="checkbox-inline">
+									<input ng-model="dataObject.top" type="checkbox" ng-click="fc.addToNotOpenReasonCk('top',$event)"> 置顶
+								</label>
+								<label class="checkbox-inline">
+									<input ng-model="dataObject.showTop" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showTop',$event)"> 显示置顶
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="articleno" class="col-sm-2 control-label">文号*</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="articleno" ng-model="newBean.articleno" maxlength="100" placeholder="请输入文号" required>
+						</div>
+						<label for="issueno" class="col-sm-2 control-label">期号*</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="issueno" ng-model="newBean.issueno" maxlength="100" placeholder="请输入期号" required>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="template" class="col-sm-2 control-label">模板选择</label>
+						<div class="col-sm-10">
+							<select class="input-sm" style="width: 100%" id="template" ng-model="newBean.issueno"  ng-options="x.id as x.name for x in dataObject.oneColumn">
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-12">
+							<textarea ck-editor id="editor1" name="editor1" rows="10" cols="80" ng-model="newBean.content">
+                    		</textarea>
+						</div>
+					</div>
+
+
+
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<button type="button" ng-disabled="articleEditForm.$invalid" class="btn btn-sm btn-primary save" ng-click="passedApplication()">预览</button>
+				<button type="button" ng-disabled="articleEditForm.$invalid" class="btn btn-sm btn-primary save" ng-click="articleEditForm.$invalid || fc.saveBean('confirmationApplicationModal')">保存</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>-->
+
+
+<div class="modal fade bs-example-modal-lg" id="sortApplicationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalShortApplication">文章排序</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="articleSortForm" name="articleSortForm">
+                    <div class="form-group">
+                        <label for="titleSort" class="col-sm-2 control-label">标题*</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="titleSort" ng-model="newBean.title" maxlength="100" placeholder="请输入标题" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sortid" class="col-sm-2 control-label">排序*</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="sortid" numberic ng-model="newBean.sortid" maxlength="100" placeholder="请输入排序号" required>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" ng-disabled="articleSortForm.$invalid" class="btn btn-sm btn-primary save" ng-click="articleSortForm.$invalid || fc.saveBean('sortApplicationModal')">
+                    保存
+                </button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="topApplicationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalTopApplication">置顶管理</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+                    <thead>
+                    <tr>
+
+                        <th width="35px"></th>
+                        <th width="5%">排序</th>
+                        <th width="15%">标题</th>
+                        <th width="12%">类型</th>
+                        <th width="6%">发布时间</th>
+                        <th width="10%">操作</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="beans in dataObject.topList">
+                        <td>{{$index+1}}</td>
+                        <td>{{beans.sortid}}</td>
+                        <td>{{beans.title}}</td>
+                        <td>{{beans.type}}</td>
+                        <td>{{beans.createtime}}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm " ng-click="fc.unpin(beans)">取消置顶</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" style="z-index: 99999;background: rgba(0,0,0,0.3);" id="simpleProgressModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 70%; top: 6%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" >文件上传中，请等待</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" role="progressbar"
+                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                            style="width: {{fileUploadProgress.progress}}%;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center;font-size: 18px">
+                完成：{{fileUploadProgress.progress}}%
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="createdAutomaticallyModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 70%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalApplication">自动创建文章</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="acreatedAutomaticallyEditForm" name="acreatedAutomaticallyEditForm">
+                    <div class="form-group" hidden>
+                        <label  ng-click="dsr.run()" class="col-sm-2 control-label">其他缓存</label>
+                        <div class="col-sm-10">
+                            <input  class="input-sm form-control" ng-model="dsr.postBean.sql"  > </input>
+                        </div>
+                    </div>
+                    <div  class="form-group" hidden>
+                        <label for="type1" class="col-sm-2 control-label">链接</label>
+                        <div class="col-sm-10">
+                            <input type="text"  class="form-control" id="linkurl" ng-model="newBean.linkurl" maxlength="100" placeholder="请输入标题" >
+                        </div>
+                    </div>
+                    <div ng-if="docmentAttachNew()" class="form-group" >
+                        <label for="fujian1" class="col-sm-2 control-label">文件 <font color="red">*</font></label>
+                        <div class="col-sm-10">
+                            <input required="" type="file" id="fujian1" class="form-control" ng-file-ng-model="fc.docmentAttach" ng-change="fc.initTitle()" ng-model="newBean.originalTitle">
+                        </div>
+                    </div>
+                    <div ng-if="docmentAttachUpdate()" class="form-group" >
+                        <label for="fujian1" class="col-sm-2 control-label">文件</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="fujian1" class="form-control" ng-file-ng-model="fc.docmentAttach" ng-change="fc.initTitle()" ng-model="newBean.originalTitle">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title1" class="col-sm-2 control-label">标题 <font color="red">*</font></label>
+                        <div class="col-sm-10">
+                            <input type="text" required="" class="form-control" id="title1" ng-model="newBean.title" maxlength="100" placeholder="请输入标题" required>
+                        </div>
+                    </div>
+                    <div ng-if="newBean.flag == 47" class="form-group">
+                        <label for="title1" class="col-sm-2 control-label">图片描述 </label>
+                        <div class="col-sm-10">
+                            <textarea  data-ng-trim ='false' name="editor1" rows="3" style="width: 100%;"  ng-model="newBean.content">
+                    		</textarea>
+                        </div>
+                    </div>
+                    <div ng-if="newBean.flag == 47" class="form-group" >
+                        <div class="col-sm-12" style="text-align: center; font-size: 18px;color: red;font-weight: bold">
+                            提示：图片新闻图片兼容尺寸为：(446px X 340px)
+                        </div>
+                    </div>
+                    <div ng-if="newBean.flag == 46" class="form-group" >
+                        <div class="col-sm-12" style="text-align: center; font-size: 18px;color: red;font-weight: bold">
+                            提示：专题新闻封面图片兼容尺寸为：(420px X 128px)
+                        </div>
+                    </div>
+                    <div ng-if="docmentPhotoNew()" class="form-group" >
+                        <label for="fujian1" class="col-sm-2 control-label">图片 <font color="red">*</font></label>
+                        <div class="col-sm-10">
+                            <input required="" type="file" id="photo" class="form-control" ng-file-ng-model="fc.headPortrait"  ng-model="newBean.photo">
+                        </div>
+                    </div>
+                    <div ng-if="docmentPhotoUpdate()" class="form-group" >
+                        <label for="fujian1" class="col-sm-2 control-label">图片</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="photo" class="form-control" ng-file-ng-model="fc.headPortrait"  ng-model="newBean.photo">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label for="type1" class="col-sm-2 control-label">所属栏目 <font color="red">*</font></label>
+                        <div class="col-sm-10">
+                            <select class="input-sm" required="" style="width: 100%" ng-change="fc.atouChangeColumu()" id="type1" ng-model="newBean.flag" ng-options="x.id+'' as x.name for x in dataObject.autoCreateColumns">
+                            </select>
+                        </div>
+                        <!--	<label for="flag1" ng-show="!fc.showImg" class="col-sm-2 control-label">子栏目*</label>
+                            <div class="col-sm-4" >
+                                <select class="input-sm"  style="width: 100%" id="flag1" ng-model="newBean.flag" ng-options="x.id as x.name for x in dataObject.twoColumn">
+                                </select>
+                            </div>-->
+
+                    </div>
+                    <div  class="form-group">
+                        <label for="type1" class="col-sm-2 control-label">展示到<span style="color: red">[工作动态]</span>栏目</label>
+                        <div class="col-sm-10">
+                            <select class="input-sm"  style="width: 100%"   ng-model="newBean.ifShowInNewList" ng-options="x.val as x.name for x in ifShowInNewList">
+                            </select>
+                        </div>
+
+                    </div>
+
+                  <!--  <div ng-if="notPhotoUpload()" class="form-group">
+                        <label for="type1" class="col-sm-2 control-label">自动转pdf文档 </label>
+                        <div class="col-sm-10">
+                            <select class="input-sm"  style="width: 100%"   ng-model="newBean.docNeed2Pdf" ng-options="x.val as x.name for x in booleanChoose">
+                            </select>
+                        </div>
+
+                    </div>-->
+                   <!-- <div ng-if="notPhotoUpload()" class="form-group">
+                        <label for="keywords1" class="col-sm-2 control-label">关键字</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="keywords1" ng-model="newBean.keywords" maxlength="100" placeholder="请输入关键字">
+                        </div>
+                    </div>-->
+                    <!--<div class="form-group">
+                        <label  class="col-sm-2 control-label">文章属性</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox">
+                                <label class="checkbox-inline">
+                                    <input ng-model="dataObject.showDay" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showDay',$event)"> 显示日期
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input ng-model="dataObject.canPrint" type="checkbox" ng-click="fc.addToNotOpenReasonCk('canPrint',$event)"> 可打印
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input ng-model="dataObject.showDepart" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showDepart',$event)"> 显示部门
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input ng-model="dataObject.showTitle" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showTitle',$event)"> 显示标题
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input ng-model="dataObject.top" type="checkbox" ng-click="fc.addToNotOpenReasonCk('top',$event)"> 置顶
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input ng-model="dataObject.showTop" type="checkbox" ng-click="fc.addToNotOpenReasonCk('showTop',$event)"> 显示置顶
+                                </label>
+                            </div>
+                        </div>
+                    </div>-->
+
+                 <!--   <div ng-if="notPhotoUpload()" class="form-group">
+                        <label for="articleno1" class="col-sm-2 control-label">文号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="articleno1" ng-model="newBean.articleno" maxlength="100" placeholder="请输入文号">
+                        </div>
+                        <label for="issueno1" class="col-sm-2 control-label">期号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="issueno1" ng-model="newBean.issueno" maxlength="100" placeholder="请输入期号">
+
+                        </div>
+                    </div>-->
+
+                    <div ng-if="notPhotoUpload()" class="form-group">
+                        <label for="articleno1" class="col-sm-2 control-label">附件列表</label>
+                        <div class="col-sm-10">
+                            <table class="table table-striped  table_zdy_2 " style="margin-bottom: 0;">
+                                <thead>
+                                <tr>
+                                    <th >文件名</th>
+                                    <th width="30%">文件</th>
+                                    <th width="8%">排序</th>
+                                    <th width="20%"><a ng-click="articleAttCtl.func.attVoListPush()" class="btn btn-success btn-xs">添加</a></th>
+                                </tr>
+                                </thead>
+                                <tr   ng-repeat="f  in articleAttCtl.fileds.attVoList">
+                                    <td><input ng-model="f.showName" style="width: 100%"></td>
+                                    <td ><input style="width: 100%;" type="file" load-info="fileUploadProgress" ng-File="f"  ></td>
+                                    <td><input ng-model="f.orderNum" ng-change="articleAttCtl.func.resort()" style="width: 100%;text-align: center"></td>
+                                    <td>
+                                        <a class="btn btn-del btn-xs" ng-if="articleAttCtl.func.vdieoAutoPlayAble(f)" ng-click="articleAttCtl.func.changePdfPath(f)">默认播放</a>
+                                        <a class="btn btn-del btn-xs" ng-click="articleAttCtl.func.attVoListPop(f)">删除</a>
+                                        <a class="btn btn-success btn-xs" ng-click="articleAttCtl.func.download(f)">下载</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <!--<button type="button" ng-disabled="articleEditForm.$invalid" class="btn btn-sm btn-primary save" ng-click="passedApplication()">预览</button>-->
+                <button type="button" ng-disabled="acreatedAutomaticallyEditForm.$invalid" class="btn btn-sm btn-primary save" ng-click="acreatedAutomaticallyEditForm.$invalid || fc.saveBean('createdAutomaticallyModal')">
+                    保存
+                </button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

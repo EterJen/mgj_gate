@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.yeWu.l3.dao.PyOverSeasUserMapper">
+
+    <select id="getPyOverSeasUser" resultMap="listResultMap">
+        SELECT * FROM MGJ_GATE.PY_OVERSEASUSER
+        <where>
+            1=1
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(username)">
+                and username = #{username}
+            </if>
+
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(password)">
+                AND PASSWORDS = #{password}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="savePyOverSeasUser">
+		INSERT INTO MGJ_GATE.PY_OVERSEASUSER(userid,username,passwords,organizationname,email,datatime,arrest,state )
+        VALUES
+        ((SELECT nvl(max(USERID),0)+1 FROM MGJ_GATE.PY_OVERSEASUSER),#{username},#{password},#{organname},#{email},
+        SYSTIMESTAMP,0,1)
+	</insert>
+
+    <update id="updatePyOverSeasUserToken">
+        update MGJ_GATE.PY_OVERSEASUSER set token=#{token} where username=#{username}
+    </update>
+
+    <update id="updatePyOverSeasUserTokenPassword">
+        update MGJ_GATE.PY_OVERSEASUSER set PASSWORDS=#{password},token='' where token=#{token}
+    </update>
+
+    <select id="getPyOverSeasUserToken" resultMap="listResultMap">
+        SELECT * FROM MGJ_GATE.PY_OVERSEASUSER
+        <where>
+            1=1
+
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(token)">
+                AND token = #{token}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="listResultMap" type="com.gwideal.core.yeWu.l4.entity.PyOverSeasUser" autoMapping="true">
+        <id property="userid" column="userid"/>
+    </resultMap>
+
+
+</mapper>

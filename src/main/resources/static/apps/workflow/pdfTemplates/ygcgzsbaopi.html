@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+
+        /*设定纸张大小*/
+        /* A4纸 */
+        /* @page{size:210mm*297mm} */
+        @page {
+            size: a4
+        }
+        fieldset {
+            padding: .35em .625em .75em;
+            margin: 0 2px;
+            border: 0.6px solid silver
+        }
+
+        .hideslb {
+            overflow-y: hidden;
+        }
+
+        .showslb {
+            overflow-y: auto;
+        }
+
+        legend {
+            padding: .5em;
+            border: 0;
+            width: auto
+        }
+
+        input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .GwTitleRedLargeBigSF {
+            font-size: 33px;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+            font-family: FZYaoti;
+            padding: 10px;
+        }
+
+        .user-option{
+            white-space:pre-wrap;
+            line-height: 18px;
+        }
+
+        .tblGw01 {
+            font-size: 12px;
+            border-collapse: collapse;
+        }
+
+        .tblGw01 .td02 {
+            font-size: 14px;
+            color: rgb(0, 0, 0);
+            border: 0.6px solid rgb(0, 0, 0);
+            padding: 3px;
+            text-align: center
+        }
+
+        input {
+            text-rendering: auto;
+            color: initial;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: start;
+            margin: 0em;
+            font: 400 13.3333px Arial;
+        }
+
+        .Inputhidden01 {
+            color: black;
+            font-size: 14px;
+            background-color: rgb(255, 255, 255);
+            font-family: FangSong_GB2312;
+            font-weight: bold !important;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            font-weight: bold;
+        }
+
+        .Inputhidden011 {
+            height: inherit;
+            color: black;
+            overflow-y: hidden;
+            font-size: 14px;
+            background-color: rgb(255, 255, 255);
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            font-weight: bold !important;
+            font-family: FangSong_GB2312;
+        }
+
+        .tab-fontfamily {
+            font-family: FangSong_GB2312 !important;
+        }
+
+        .tblGw01 .td04 {
+            font-family: FangSong_GB2312 !important;
+            font-size: 14.5px !important;
+            padding: 3px;
+        }
+
+        .tblGw01 .td05 {
+            font-size: 14px !important;
+            font-family: KaiTi !important;
+            border-bottom: 0.6px solid rgb(0, 0, 0);
+            padding: 3px;
+        }
+        .text-top{
+            vertical-align: text-top;
+        }
+        .no-border-bottom{
+            border-bottom: 0px !important;
+        }
+
+
+        .fontSizeFamily {
+            font-size: 14px;
+            color: rgb(0, 0, 0);
+            font-weight: bold !important;
+            font-family: FangSong_GB2312 !important;
+        }
+
+        tr td {
+            font-size: 14px ;
+            font-family: FangSong_GB2312;
+        }
+        .tblGw01 .td03 {
+            margin-top: -30px;
+        }
+        .blu_cz{
+            font-size: 16px;
+        }
+        .blu_t{
+            font-size: 14.5px;
+        }
+    </style>
+</head>
+<body>
+    <table style="width:100%" border="0" align="center" cellpadding="0"
+       cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td03" width="540" align="center">
+            <p class="GwTitleRedLargeBigSF" align="center"
+               style="display: inline; letter-spacing: -7px">
+                <font>因公出国政审报批单</font>
+            </p>
+            </td>
+    </tr>
+</table>
+
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+
+    <tr height="30">
+        <td width="60"
+            class="td04">拟稿日期
+        </td>
+        <td width="140"
+            class="td05">
+            $task.theCommonFormInfo.formYgcgzsbaopi.niGaoDate$
+        </td>
+        <td width="40"
+            class="td04">公开
+        </td>
+        <td width="20"
+            class="td05">
+            <span >$task.theCommonFormInfo.belongProInst.wngk$</span>
+        </td>
+        <td width="60"
+            class="td04"><span>长城电子</span></td>
+        <td width="80"
+            class="td05">
+            $task.theCommonFormInfo.departName$
+        </td>
+        <td width="23"
+            class="td04">
+            （
+        </td>
+        <td width="34"
+            class="td04">
+            $task.theCommonFormInfo.docYear$
+        </td>
+        <td width="23"
+            class="td04">）
+        </td>
+
+        <td width="30"
+            class="td05">
+            $task.theCommonFormInfo.docNumber$
+        </td>
+        <td width="30"
+            class="td04">号
+        </td>
+    </tr>
+</table>
+
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="67" class="td04">标题:</td>
+    </tr>
+    <tr>
+        <td class="text-top td05" height="50">
+            $task.theCommonFormInfo.belongProInst.title$
+        </td>
+    </tr>
+    <tr>
+        <TD>&nbsp;</TD>
+    </TR>
+</table>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td colspan="2" valign="top" class="td04">拟办意见：</td>
+    </tr>
+    <tr>
+        <td height="80" colspan="2" valign="top" class="td05 no-border-bottom">
+            $task.userOpinions.csyj$
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top" class="td04">干部处意见：</td>
+    </tr>
+    <tr>
+        <td height="60" colspan="2" valign="top" class="td05 no-border-bottom">
+            $task.userOpinions.gbcyj$
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top" class="td04">委领导意见：</td>
+    </tr>
+    <tr>
+        <td height="235" colspan="2" valign="top" class="no-border-bottom td05">
+            $task.userOpinions.wldyj$
+        </td>
+    </tr>
+</table>
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+    <tr height="30">
+        <td width="76"
+            class="td04">外事报批号
+        </td>
+        <td width="250px"
+            class="td05">
+            $task.theCommonFormInfo.belongProInst.relatedReceiveDocId$
+        </td>
+        <td ></td>
+        <td class="td04" width="76px">外办批件号</td>
+        <td class="td05" width="250px">
+            $task.theCommonFormInfo.formYgcgzsbaopi.approvalNumber$
+        </td>
+
+    </tr>
+</table>
+    <table style="width:100%;border-collapse:separate !important"
+           border="0"
+           align="center"
+           cellpadding="0"
+           cellspacing="0"
+           class="tblGw01">
+        <tr height="30">
+            <td class="td04" width="106px">派往国家、地区</td>
+            <td colspan="7" class="td05">
+                $task.theCommonFormInfo.formYgcgzsbaopi.destination$
+            </td>
+        </tr>
+    </table>
+<table style="width:100%;border-collapse:separate !important"
+       border="0"
+       align="center"
+       cellpadding="0"
+       cellspacing="0"
+       class="tblGw01">
+    <tr height="30">
+        <td class="td04" width="65px">出访人数</td>
+        <td class="td05" width="30px">
+            $task.theCommonFormInfo.formYgcgzsbaopi.memberSum$
+        </td>
+        <td class="td04" width="4px"></td>
+        <td class="td04" width="80px">其中：局级</td>
+        <td width="40" class="td05">
+            $task.theCommonFormInfo.formYgcgzsbaopi.officeNumber$
+        </td>
+        <td class="td04" width="40px">处级</td>
+        <td width="40" class="td05">
+            $task.theCommonFormInfo.formYgcgzsbaopi.directorlNumber$
+        </td>
+        <td class="td04" width="40px">科级</td>
+        <td width="40" class="td05">
+            $task.theCommonFormInfo.formYgcgzsbaopi.sectionNumber$
+        </td>
+        <td class="td04" width="46px"></td>
+        <td class="td04" width="133px">国（境）外停留时间</td>
+        <td  class="td05">
+            $task.theCommonFormInfo.formYgcgzsbaopi.useTime$
+        </td>
+    </tr>
+</table>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td class="td04" width="40" >备注：</td>
+    </tr>
+    <tr>
+        <td height="140" class="text-top no-border-bottom td05" >
+            $task.theCommonFormInfo.formYgcgzsbaopi.remark$
+        </td>
+    </tr>
+</table>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr style="height: 20px">
+        <td colspan="9"></td>
+    </tr>
+    <tr>
+        <td class="td04" width="40">拟办</td>
+        <td width="80"></td>
+        <td width="150">
+            $task.belongingProInst.creatorName$
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

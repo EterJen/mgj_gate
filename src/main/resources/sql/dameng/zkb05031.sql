@@ -1,0 +1,1 @@
+alter table wf_process_def_manage add (flag varchar2(15));

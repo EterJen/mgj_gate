@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="index-ico.ico" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>上海市密码管理局</title>
+<!--    <p>Hello, [[${appVersion}]]!</p>-->
+<!--    <p>Hello, <span th:text="${appVersion}">Sebastian</span>!</p>-->
+
+    <script type="text/javascript">
+        var timestamp = '[(${appVersion})]';
+        var mgjmhReqHost = '[(${scheme})]' + "://" + '[(${reqHost})]';
+
+        document.write("<link rel=\"stylesheet\" href='assets/css/owl.carousel.css?rnd=" + timestamp + "'></l" + "link>");
+        document.write("<link rel=\"stylesheet\" href='assets/css/owl.theme.css?rnd=" + timestamp + "'></l" + "link>");
+        document.write("<link rel=\"stylesheet\" href='assets/css/layout.css?rnd=" + timestamp + "'></l" + "link>");
+        document.write("<link rel=\"stylesheet\" href='assets/css/pagination.css?rnd=" + timestamp + "'></l" + "link>");
+        document.write("<link rel=\"stylesheet\" href='assets/css/reset.css?rnd=" + timestamp + "'></l" + "link>");
+        document.write("<link rel=\"stylesheet\" href='assets/css/screen.css?rnd=" + timestamp + "'></l" + "link>");
+
+        document.write("<link rel=\"stylesheet\" href='assets/css/skin-"+"[(${userViewSkin})]"+".css?rnd=" + timestamp + "'></l" + "link>");
+
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/jquery/1.11.3/jquery.min.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/jquery-plugin/bay-window/jquery.bay-window.js?rnd=" + timestamp + "'></s" + "cript>");
+
+        document.write("<script type=\"text/javascript\" src='assets/js/owl.carousel.js?rnd=" + timestamp + "'></s" + "cript>");
+
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/angularjs/1.6.8/angular.min.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/angularjs/1.6.8/oc-lazyLoad.min.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/angularjs/1.6.8/angular-ui-router.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/angularjs/1.6.8/angular-sanitize.min.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/angularjs/1.6.8/pagination.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/angularjs/1.6.8/jcs-auto-validate.min.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/angularjs/1.6.8/angularjs-dropdown-multiselect.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/lib/angularjs/1.6.8/ng-sortable.min.js?rnd=" + timestamp + "'></s" + "cript>");
+
+        document.write("<script type=\"text/javascript\" src='../../common-assets/const/sys-info.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/utils/gw-object-utils.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/utils/gw-date-utils.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/extend/array-extend.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/extend/date-extend.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/storge/gw-session-storge.js?rnd=" + timestamp + "'></s" + "cript>");
+
+        document.write("<script type=\"text/javascript\" src='router/index.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='router/router.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/ng-common/directive/ng-directive.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/ng-common/filter/ng-filter.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/ng-common/network/ng-http-request.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/ng-common/network/mgjgate-http.js?rnd=" + timestamp + "'></s" + "cript>");
+        document.write("<script type=\"text/javascript\" src='../../common-assets/ng-common/service/ng-loading.js?rnd=" + timestamp + "'></s" + "cript>");
+    </script>
+
+</head>
+<style>
+    .ng-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 999999;
+        /*background-color: rgba(0, 0, 0, .75);*/
+        background: #e9edf1 url(./assets/images/sh-bg.png) no-repeat bottom;padding-top: 25px;
+        /*opacity: .2;*/
+    }
+    .ng-loading-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 65px;
+        height: 80px;
+        text-align: center;
+        font-size: 10px;
+    }
+
+    .ng-loading-container > div {
+        /*background-color: #fff;*/
+        background-color: #3f96e0;
+        height: 100%;
+        width: 10px;
+        display: inline-block;
+
+        -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+        animation: stretchdelay 1.2s infinite ease-in-out;
+    }
+    .ng-loading-container .ng-loading-rect1 {
+        -webkit-animation-delay: -1.2s;
+        animation-delay: -1.2s;
+    }
+
+    .ng-loading-container .ng-loading-rect2 {
+        -webkit-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+
+    .ng-loading-container .ng-loading-rect3 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+
+    .ng-loading-container .ng-loading-rect4 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+    }
+
+    .ng-loading-container .ng-loading-rect5 {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+    }
+
+    @-webkit-keyframes stretchdelay {
+        0%, 40%, 100% {
+            -webkit-transform: scaleY(0.4)
+        }
+        20% {
+            -webkit-transform: scaleY(1.0)
+        }
+    }
+
+    @keyframes stretchdelay {
+        0%, 40%, 100% {
+            transform: scaleY(0.4);
+            -webkit-transform: scaleY(0.4);
+        }
+        20% {
+            transform: scaleY(1.0);
+            -webkit-transform: scaleY(1.0);
+        }
+    }
+    .v-display{
+        visibility: visible;
+    }
+    .v-hide {
+        visibility: hidden;
+    }
+
+</style>
+
+<body>
+
+<div id="gwngapp" ng-app="gwngapp" >
+    <ui-view></ui-view>
+</div>
+<div id="gwngapploading"  >
+    <div class="ng-loading-container">
+        <div class="ng-loading-rect1"></div>
+        <div class="ng-loading-rect2"></div>
+        <div class="ng-loading-rect3"></div>
+        <div class="ng-loading-rect4"></div>
+        <div class="ng-loading-rect5"></div>
+    </div>
+</div>
+</body>
+</html>

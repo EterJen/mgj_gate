@@ -1,0 +1,61 @@
+<div class="main clearfix  sh-bg">
+  <!--  <p class="breadcrumb">
+        <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+        >
+        <a ng-click="fc.goArticleList(fc.topBarMap[fc.activeTopBar])" ng-bind="fc.topBarMap[fc.activeTopBar].zh"></a>
+    </p>-->
+    <div class="main-bg clearfix m-t-20 p-0">
+        <div class="list-left-tit">
+            <div class="box-shadow-0">
+                <i class="{{categoryIdStrPathArr[0]}}-blue"></i>
+                <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+
+                <a ng-show="showzhflag">{{' > '}}{{showzh}}</a>
+                <a ng-show="!showzhflag" ng-repeat="x in categoryIdStrPathArr" ng-click="fc.goArticleList(x)" >{{' > '}}{{fc.allArticleCategoryStrMap[x].name}}</a>
+            </div>
+        </div>
+        <!--tit end-->
+
+        <!--left end-->
+        <div class="list-right m-l-0 border-tplj" ng-if="showTpljList">
+            <ul class="clear-default tplj-wrap">
+                <li class="clearfix" ng-repeat="x in tpljList">
+                    <div class="tplj-img tplj-{{x.categoryStr}}">
+                        <a ng-click="fc.goArticleList(x.categoryStr)">
+                            <div>{{x.name}}</div>
+                        </a>
+                    </div>
+                    <div class="tplj-content">
+                        <div class="tplj-tit">{{x.name}}</div>
+                        <p>{{x.description}}</p>
+                        <a ng-click="fc.goArticleList(x.categoryStr)">查看详情></a>
+                    </div>
+                </li><!--1-->
+            </ul>
+        </div>
+        <div class="list-right m-l-0" ng-if="!showTpljList">
+            <ul class="list-secondary clear-default">
+                <li ng-click="fc.articleView(x)" ng-repeat="x in beanList" ng-class="{'zhiding': (1 == x.ifSetTop)}">
+                    <a>
+                        <label ng-if="1 == x.ifSetTop" class="blue">【置顶】</label>
+                        <label ng-if="1 == x.showNewFlag" class="new">【最新】</label>
+                        <span style="display: inline" ng-bind-html="x.title | highLight:fc.articleNameLike:'match-word'"></span>
+                    </a>
+                    <span class="article-rq" ng-bind="x.publishTime|timeYmd"></span>
+                </li>
+            </ul>
+            <div class="list-bott">
+                <div class="mng-pagelist">
+                    <div>
+                        <tm-pagination conf="paginationConf"></tm-pagination>
+                    </div>
+                    </diva>
+                </div>
+
+            </div>
+            <!--fenye end-->
+        </div>
+        <!--right end-->
+    </div>
+    <!--main-bg end-->
+</div>

@@ -1,0 +1,73 @@
+<style>
+    .art-head {
+        margin-bottom: 20px;
+    }
+
+    .art-fj {
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .article-image-main {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .article-image-main img {
+        display: block;
+        max-width: 100%;
+        margin: auto auto
+    }
+
+    .article-video-main {
+        height: 700px;
+        padding: 0px 43px;
+    }
+
+    .article-video-main iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        margin: 10px auto
+    }
+</style>
+<div class="main clearfix  sh-bg">
+    <p class="breadcrumb">
+        <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+        <a ng-repeat="x in categoryIdStrPathArr" ng-click="fc.goArticleList(x)">{{' > '}}{{fc.allArticleCategoryStrMap[x].name}}</a>
+        >
+        <span>正文</span>
+    </p>
+    <div class="main-bg clearfix m-t-20 p-0">
+        <div class="final">
+            <div class="art-head">
+                <h2 ng-bind="bean.title"></h2>
+                <span class="fbrq">发布日期：</span>
+                <span ng-bind="bean.publishTime|dateStrFormatZh"></span>
+                <span class="m-l-20 fbrq">来源：</span>
+                <span ng-bind="bean.docFrom"></span>
+            </div>
+
+            <div ng-if="article.image.show" class="article-image-main">
+                <img ng-img="{{article.image.content}}">
+            </div>
+            <div ng-if="article.video.show" class="article-video-main">
+                <iframe frameborder=0 ng-gw-video="{{article.video.content}}" autoPlay="true" allowfullscreen="true" webkitallowfullscreen="true" controls="controls" scrolling="no" border="0" framespacing="0" mozallowfullscreen="true"></iframe>
+            </div>
+            <div ng-if="article.text.show" ng-sce-html="article.text.content"></div>
+            <div ng-if="article.attachments.show" class="art-fj ">
+                <p class="textalign-l font-16 fujian">
+                    <span class="fbrq">附件：</span>
+                </p>
+                <div ng-repeat="x in article.attachments.content" style="text-indent: 64px" class="textalign-l  fujian">
+                    <a gw-ng-href="{{x.uuidName}}">{{x.originalName}}</a>
+                </div>
+            </div>
+            <div class=" ">
+                <div class="fanhui">
+                    <button ng-click="fc.goBack()">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

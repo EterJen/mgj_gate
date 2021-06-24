@@ -1,0 +1,120 @@
+<style>
+	.bmxx_tit .right a {
+		width: 52px;
+	}
+
+	.bmxx_tit .right a.tj {
+		background: #85a834;
+		height: 27px;
+		line-height: 27px;
+	}
+	.downTree {
+		margin-right: 10%;
+	}
+
+	.nodownTree {
+		margin-right: 8px
+	}
+
+	.tabledownTree {
+		margin-left: 40%
+	}
+
+	.fixedHeight {
+		height: 90%;
+		line-height: 500px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+
+	.sorTable {
+		margin: 0;
+		border-radius: 0;
+		border: 0
+	}
+
+	p {
+		border-bottom: 0;
+		margin: 0
+	}
+
+	.modal-dialog {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.modal-content {
+		/*overflow-y: scroll; */
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.modal-body {
+		/*overflow-y: scroll;*/
+		position: absolute;
+		top: 55px;
+		bottom: 65px;
+		width: 100%;
+	}
+
+	.modal-header .close {
+		margin-right: 15px;
+	}
+
+	.modal-footer {
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+	}
+
+	/* .form-group{margin-bottom: 0} */
+</style><!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+
+	<div ng-class="{active: meetingRoomId == node.id}" ui-tree-handle class="tree-node tree-node-content"
+	     ng-click="getMeetingRoomArrange(node)" ng-dblclick="toggle(this)">
+		<a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)"
+		   ng-if="node.nodes !== null && node.nodes.length !== 0">
+			<img src="images/zd-anv-01.png" style="margin-left:4px;">
+		</a>
+		<span class="angular-ui-tree-span" ng-if="node.name.length>9"><span class="margin-left">{{node.name | limitTo : 9}}</span></span>
+		<span class="angular-ui-tree-span" ng-if="node.name.length<=9"><span class="margin-left">{{node.name}}</span></span>
+	</div>
+
+	<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+		<li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+	</ol>
+</script>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default">
+			<div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span>会议室安排</span>
+					</div>
+				</div>
+			</div>
+			<div class="bmxx_tit" id="bmxx_tit" style="margin-bottom: 0;padding-right: 15px;padding-left: 15px">
+				<ul class="nav nav-tabs " style="margin:0 auto;">
+					<li ng-repeat="li in tabList track by $index" ng-class="{active: currTab==li.id}"
+					    ng-click="choseCandate(li.id)" style="margin-right: -1px;"><a href="">{{li.val}}</a></li>
+				</ul>
+				<div class="right user-titleheading" style="width: 50%" ng-show="currTab=='summary'">
+					<a href="" class="tj" ng-model="meetingDateQueryPre" ng-click="requestSummary(meetingDateQueryPre)"><</a>
+					<input type="text" ng-model="meetingDateQueryStr" style="height: 27px;line-height: 27px;width: 250px;font-size: 14px;font-weight: normal;">
+					<a href="" class="tj" ng-model="meetingDateQueryNext" ng-click="requestSummary(meetingDateQueryNext)">></a>
+				</div>
+			</div>
+			<div class="panel-body" id="panel-body-table" style="padding-right: 15px;">
+				<div id="myTabContent" ng-include="formPath"></div>
+			</div>
+		</div>
+	</section>
+</div>

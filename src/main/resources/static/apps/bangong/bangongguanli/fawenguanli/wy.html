@@ -1,0 +1,24 @@
+<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+    <thead>
+    <tr>
+        <th width="6%">发文日期</th>
+        <th width="12%">发文字号</th>
+        <th style="white-space: pre-wrap" width="50%">标                题</th>
+        <th width="6%">签发人</th>
+        <th width="3%">份数</th>
+        <th width="6%">状态</th>
+        <th width="3%">密级</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="tr_{{proInst.id}}" data-defId="{{proInst.formDefId}}" ng-repeat="proInst in proInstList" ng-click="gotoDetail(proInst)">
+        <td>{{::proInst.createTime | limitTo : 10}}<br>{{::proInst.createTime | limitTo : -8}}</td>
+        <td>{{::proInst.docFullName}}</td>
+        <td style="text-align: left;">{{::proInst.title}}</td>
+        <td>{{::proInst.issuer}}</td>
+        <td>{{::proInst.incomingNum}}</td>
+        <td>{{::proInst.handleState}}</td>
+        <td>{{::proInst.secretLevelName}}</td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,177 @@
+<style>
+#nodeFormTable tr td {
+	text-align:center;
+}
+.tlable{
+	font-weight:bold;
+	color:#2f4e87;
+	font-size:14px;
+}
+</style>
+<table id="nodeFormTable" class="table table-condensed">
+    <tr>
+        <td class="tlable" width="30%">节点序号</td>
+        <td width="70%">
+        	<div class="form-group">
+        		<input class="form-control input-md" ng-model="ngSelectedCell.data.orderNum" type="text"/>
+        	</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">节点名称</td>
+        <td>
+        	<div class="form-group">
+        		<input class="form-control input-md" ng-model="ngSelectedCell.data.name" type="text"/>
+        	</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">节点描述</td>
+        <td>
+        	<div class="form-group">
+        		<input class="form-control input-md" ng-model="ngSelectedCell.data.description" type="text"/>
+        	</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">开始节点</td>
+        <td>
+        	<div class="form-group">
+        		<select class="form-control" ng-model="ngSelectedCell.data.isInitNode" ng-options="x.value as x.name for x in booleanOptions" required></select>
+        	</div>
+        </td>
+    </tr>
+    <!--<tr>
+        <td class="tlable">需要接收</td>
+        <td>
+        	<div class="form-group">
+        		<select class="form-control" ng-model="ngSelectedCell.data.isAccept" ng-options="x.value as x.name for x in booleanOptions" required></select>
+        	</div>
+        </td>
+    </tr>-->
+    <tr>
+        <td class="tlable">密级修改</td>
+        <td>
+            <div class="form-group">
+                <select class="form-control" ng-model="ngSelectedCell.data.editRank" ng-options="x.value as x.name for x in booleanOptions" required></select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">打开修订</td>
+        <td>
+            <div class="form-group">
+                <select class="form-control" ng-model="ngSelectedCell.data.currNodeIsEnableRevision" ng-options="revision.value as revision.name for revision in booleanOptions" required></select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">显示修订</td>
+        <td>
+        	<div class="form-group">
+        		<select class="form-control" ng-model="ngSelectedCell.data.currNodeIsShowRevise" ng-options="x.value as x.name for x in booleanOptions" required></select>
+        	</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="tlable">隐藏文件</td>
+        <td>
+        	<div class="checkbox-inline">
+        		<label class="checkbox-inline">
+				  <input type="checkbox" id="content" ng-model="contentType.content" ng-click="addNodeContentType('content')"> 正文
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" id="taohong" ng-model="contentType.taohong" ng-click="addNodeContentType('taohong')"> 套红
+				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" id="zhuanban" ng-model="contentType.zhuanban" ng-click="addNodeContentType('zhuanban')"> 转版
+				</label>
+        	</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="tlable">附件权限</td>
+        <td>
+            <div class="form-group">
+                <a href="" class="btn btn-primary btn-sm" ng-click="showAttachmentDialog()">附件权限管理</a>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="tlable">附件历史权限</td>
+        <td>
+            <div class="form-group">
+                <a href="" class="btn btn-primary btn-sm" ng-click="showAttachmentHistoryDialog()">附件历史权限管理</a>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="tlable">接收成功</td>
+        <td>
+            <div class="form-group">
+                <input type="text" class="input-sm form-control" ng-model="ngSelectedCell.data.acceptSuccess"  />
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">流转排序</td>
+        <td>
+            <div class="form-group">
+                <input type="text" class="input-sm form-control" ng-model="ngSelectedCell.data.flowActionOrder"  />
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">参与者配置</td>
+        <td>
+            <div class="form-group">
+                <div class="input-group ">
+                    <div class="input-group-btn" style="width: 80%">
+                        <select class="form-control"  ng-model="ngSelectedCell.data.candidateExpType" ng-options="x.key as x.val for x in candidateSettingType" required></select>
+                    </div>
+                    <span class="input-group-btn" style="width: 20%">
+                        <button class="btn btn-success" ng-click = "candidateExpTypeSetting()"  style="width:100%;background-color: #5588F5;" id="search_submit" >配置</button>
+                    </span>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="tlable">任务处理操作</td>
+        <td>
+        	<div class="form-group">
+        		<a href="" class="btn btn-primary btn-sm" ng-click="showFormActionDialog()">配置任务处理操作</a>
+        	</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="tlable">历史查看操作</td>
+        <td>
+            <div class="form-group">
+                <a href="" class="btn btn-primary btn-sm" ng-click="hisViewActionSetting()">配置历史查看操作</a>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="4" style="text-align:center">
+            <a href="" class="btn btn-primary btn-sm" ng-click="saveAndUpdateProperties()">保存</a>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+     

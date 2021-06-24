@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.numberCertificateManagerMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			NUMBER_CERTIFICATE_MANAGER t
+  		<where>
+			1=1
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(serialNumber)">
+				<bind name="displaynameB" value="'%' + serialNumber + '%'"/>
+				and t.SERIAL_NUMBER like #{displaynameB}
+			</if>
+			order by t.id desc
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.numberCertificateManager" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+  
+</mapper>

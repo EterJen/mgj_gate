@@ -1,0 +1,102 @@
+INSERT INTO WF_PROCESS_DEF_MANAGE  (ID, NAME, DESCRIPTION, ORDER_NUM, FORM_DEF_ID, PRO_DEF_GROUP_ID, FLAG, PUBLISH_OFFICE, PUBLISH_SYMBOL, UNIFIED_SOCIAL_CREDIT_CODE, DOC_OID, SEND_DEPART_CODE, SERIAL_NUMBER, PUBLISH_OFFICE_BRIF, ISSUE_PERSON, ISSUE_PERSON_POST, OPTION_SHOW_CONF, DOC_PREFIX) VALUES (600003, '因公出国政审报批', '因公出国政审报批流程', 16, 'ygcgzsbaopi', 'xinhan', '1', '', '', '', '', '', '', '', '', '', '{ "csyj": [ "2", "4" ], "gbcyj": [ "3" ], "wldyj": [ "5" ] }', '长城电子');
+INSERT INTO WF_PROCESS_DEF_MANAGE  (ID, NAME, DESCRIPTION, ORDER_NUM, FORM_DEF_ID, PRO_DEF_GROUP_ID, FLAG, PUBLISH_OFFICE, PUBLISH_SYMBOL, UNIFIED_SOCIAL_CREDIT_CODE, DOC_OID, SEND_DEPART_CODE, SERIAL_NUMBER, PUBLISH_OFFICE_BRIF, ISSUE_PERSON, ISSUE_PERSON_POST, OPTION_SHOW_CONF, DOC_PREFIX) VALUES (600004, '因私出国(境)审批', '因私出国(境)审批流程', 16, 'yscgjshengpi', 'xinhan', '1', '', '', '', '', '', '', '', '', '', '{ "hegao": [ "2", "4" ], "huigao": [ "3" ], "shenhe": [ "5" ], "qianfa": [ "6" ] }', '长城电子');
+
+INSERT INTO WF_PROCESS_DEF_VERSION (ID, PROCESS_DEF_ID, VERSION, FILE_NAME, FILE_PATH, IS_ACTIVE, DESCRIPTION) VALUES (946139, 600003, 1, 'e59021ae-fcae-4350-8baf-321105087f0b', 'e59021ae-fcae-4350-8baf-321105087f0b.xml', '1', '因公出国政审报批流程');
+INSERT INTO WF_PROCESS_DEF_VERSION (ID, PROCESS_DEF_ID, VERSION, FILE_NAME, FILE_PATH, IS_ACTIVE, DESCRIPTION) VALUES (946208, 600004, 1, '8475005b-8bfa-4a35-ba9a-0a577ab455d4', '8475005b-8bfa-4a35-ba9a-0a577ab455d4.xml', '1', '因私出国(境)审批单');
+
+
+-- 因公出国政审报批
+create table WF_FORM_YGCGZSBAOPI
+(
+	ID NUMBER,
+	commander VARCHAR2(40),
+	member_sum NUMBER,
+	destination VARCHAR2(200),
+	NI_GAO_USERID NUMBER,
+	NI_GAO_USERNAME VARCHAR2(64),
+	NI_GAO_DATE DATETIME,
+	FORM_COMMON_ID NUMBER,
+	PRIMARY KEY (ID)
+);
+
+comment on table WF_FORM_YGCGZSBAOPI is '因公出国政审报批';
+comment on column WF_FORM_YGCGZSBAOPI.ID is '主键';
+comment on column WF_FORM_YGCGZSBAOPI.commander is '团长';
+comment on column WF_FORM_YGCGZSBAOPI.member_sum is '人数';
+comment on column WF_FORM_YGCGZSBAOPI.destination is '目的地';
+comment on column WF_FORM_YGCGZSBAOPI.NI_GAO_USERID is '拟稿人id';
+comment on column WF_FORM_YGCGZSBAOPI.NI_GAO_USERNAME is '拟稿人姓名';
+comment on column WF_FORM_YGCGZSBAOPI.NI_GAO_DATE is '拟稿日期';
+comment on column WF_FORM_YGCGZSBAOPI.FORM_COMMON_ID is '公用表单id';
+commit;
+
+
+-- 因私出国(境)审批单
+create table WF_FORM_YSCGJSHENGPI
+(
+	ID NUMBER,
+	DEPT_POST VARCHAR2(200),
+	REASON VARCHAR2(40),
+	OTHER_REASON VARCHAR2(400),
+	destination VARCHAR2(200),
+	START_DATE DATETIME,
+	END_DATE DATETIME,
+	OVERSEAS_STAY_DAYS NUMBER,
+	NATIONAL_HOLIDAY NUMBER,
+	WEEKEND_DAYS NUMBER,
+	APPLY_DAYS number,
+	CERTIFICATES VARCHAR2(40),
+	OTHER_CERTIFICATES VARCHAR2(400),
+	COMMITMENTS VARCHAR2(4000),
+	COMMITMENT_PERSON VARCHAR2(40),
+	COMMITMENT_DATE DATETIME,
+	DIRECTOR_OPINION VARCHAR2(4000),
+	DIRECTOR_SIGN_NAME VARCHAR2(40),
+	DIRECTOR_SIGN_DATE DATETIME,
+	CONTROL_LEADER_OPINION VARCHAR2(4000),
+	CONTROL_LEADER_SIGN_NAME VARCHAR2(40),
+	CONTROL_LEADER_SIGN_DATE DATETIME,
+	REMARKS VARCHAR2(4000),
+	NI_GAO_USERID NUMBER,
+	NI_GAO_USERNAME VARCHAR2(64),
+	NI_GAO_DATE DATETIME,
+	FORM_COMMON_ID NUMBER,
+	PRIMARY KEY (ID)
+);
+
+comment on table WF_FORM_YSCGJSHENGPI is '因私出国(境)审批单';
+comment on column WF_FORM_YSCGJSHENGPI.ID is '主键';
+comment on column WF_FORM_YSCGJSHENGPI.DEPT_POST is '单位/职务';
+comment on column WF_FORM_YSCGJSHENGPI.reason is '事由';
+comment on column WF_FORM_YSCGJSHENGPI.other_reason is '其他事由';
+comment on column WF_FORM_YSCGJSHENGPI.destination is '目的地';
+comment on column WF_FORM_YSCGJSHENGPI.START_DATE is '开始时间';
+comment on column WF_FORM_YSCGJSHENGPI.END_DATE is '结束时间';
+comment on column WF_FORM_YSCGJSHENGPI.OVERSEAS_STAY_DAYS is '境外停留天数';
+comment on column WF_FORM_YSCGJSHENGPI.NATIONAL_HOLIDAY is '法定假日天数';
+comment on column WF_FORM_YSCGJSHENGPI.WEEKEND_DAYS is '双休日天数';
+comment on column WF_FORM_YSCGJSHENGPI.APPLY_DAYS is '申请天数';
+comment on column WF_FORM_YSCGJSHENGPI.CERTIFICATES is '出国（境）证件';
+comment on column WF_FORM_YSCGJSHENGPI.OTHER_CERTIFICATES is '其他证件';
+comment on column WF_FORM_YSCGJSHENGPI.COMMITMENTS is '承诺事项';
+comment on column WF_FORM_YSCGJSHENGPI.COMMITMENT_PERSON is '承诺人';
+comment on column WF_FORM_YSCGJSHENGPI.COMMITMENT_DATE is '承诺日期';
+comment on column WF_FORM_YSCGJSHENGPI.DIRECTOR_OPINION is '处长意见';
+comment on column WF_FORM_YSCGJSHENGPI.DIRECTOR_SIGN_NAME is '处长意见签名';
+comment on column WF_FORM_YSCGJSHENGPI.DIRECTOR_SIGN_DATE is '处长意见签名日期';
+comment on column WF_FORM_YSCGJSHENGPI.CONTROL_LEADER_OPINION is '分管领导意见';
+comment on column WF_FORM_YSCGJSHENGPI.CONTROL_LEADER_SIGN_NAME is '分管领导意见签名';
+comment on column WF_FORM_YSCGJSHENGPI.CONTROL_LEADER_SIGN_DATE is '分管领导意见签名日期';
+comment on column WF_FORM_YSCGJSHENGPI.REMARKS is '备注';
+comment on column WF_FORM_YSCGJSHENGPI.NI_GAO_USERID is '拟稿人id';
+comment on column WF_FORM_YSCGJSHENGPI.NI_GAO_USERNAME is '拟稿人姓名';
+comment on column WF_FORM_YSCGJSHENGPI.NI_GAO_DATE is '拟稿日期';
+comment on column WF_FORM_YSCGJSHENGPI.FORM_COMMON_ID is '公用表单id';
+
+
+INSERT INTO WF_FORM_ACTION (ID, ACTION_ID, NAME, DESCRIPTION, PRE_CONDITION, ACTION_TO_PERFORM, IMAGE_URL, ORDER_NUM, FLAG, ACTION_TYPE) VALUES (600007, 'transYgcgzsbp', '外事审批', '流程：因公出国外事审批', '$scope.fc.wpsDetail.middleContentType==''form'' && $scope.task.status==''Accepted''', '$scope.fc.transBlyjbp(''transYgcgzsbp'')', 'images/sidebar_right-bc.svg', 870, '1', 'currentTaskDeal');
+
+INSERT INTO MPSMODULE (ID, PKCODE, TITLE, ICON, ACTIONURL, TARGETFRAME, DESCRIPTION, FLAG, ICONFOCUS, ICONSELECT, PARENTID, NG_STATE, TITLE_MENU_SHOW) VALUES (600000, '02100600', '因私出国', 'treeview_2', '/coreHome/yscgMng', 'parent.MPBiz', null, '1', null, null, 100117, 'coreHome.yscgMng', '因私出国');
+
+commit;
+

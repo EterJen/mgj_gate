@@ -1,0 +1,491 @@
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+  <div ui-tree-handle class="tree-node tree-node-content auth-tab-tree" ng-click="toContent(node,$event)">
+    <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+	  <img src="images/zd-anv-01.png" style="margin-left:4px;">
+    </a>
+    <a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0">
+    	<img src="images/zd-anv-01.png" style="margin-left:4px;">
+	</a>
+      <input type="radio" name="selectDepartTreeData" value="{{node.id}}" ng-if="elementtype!=='P'"
+					 ng-click="changeDepartCurrentTree(node,node.nodes,$event)" />
+      <span class="angular-ui-tree-span">{{node.name}}</span>
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'" ng-show="visible(node)">
+    </li>
+  </ol>
+</script>
+
+<style>
+ #authManageList>.nav>li>a {
+	padding: 0;
+	margin: 0;
+	word-wrap: break-word;
+	font-size: 20px;
+    margin: auto 3px;
+    line-height: 18px;
+}
+
+#authManageList>.nav>li {
+	/* height: 15%; */
+	margin: 0;
+}
+
+.departAuthTree {
+	width: 30%;
+	float: left;
+	height:100%;line-height:500px;overflow:auto;overflow-x:hidden;
+}
+
+.departAuthcontent {
+	width: 69%;
+	float: right;
+}
+</style>
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_premiss.html">
+  <div ui-tree-handle class="tree-node tree-node-content auth-premiss-tree" ng-click="toPermissContent(node,$event)" ng-dblclick="queryPremissUsers(node)">
+    <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+       <img src="images/zd-anv-01.png" style="margin-left:4px;">
+    </a>
+    <a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0">
+    	<img src="images/zd-anv-01.png" style="margin-left:4px;">
+	</a>
+      <input type="checkbox" 
+					ng-model="node.checked" ng-click="changePremissCurrentTree(node,node.nodes,$event)" />
+      <span class="angular-ui-tree-span">{{node.title}}</span>
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_premiss.html'" ng-show="visible(node)">
+    </li>
+  </ol>
+</script>
+
+<!-- 已经拥有权限 template -->
+<script type="text/ng-template" id="nodes_havePermiss.html">
+  <div ui-tree-handle class="tree-node tree-node-content auth-premiss-tree" ng-dblclick="toggle(this)">
+    <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+      <!--<span class="fa"
+            ng-class="{'fa-plus': collapsed, 'fa-minus': !collapsed}">
+      </span>-->
+	  <img src="images/zd-anv-01.png" style="margin-left:4px;">
+    </a>
+    <a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0">
+    	<img src="images/zd-anv-01.png" style="margin-left:4px;">
+	</a>
+      <span class="angular-ui-tree-span">{{node.title}}</span>
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_havePermiss.html'" ng-show="visible(node)">
+    </li>
+  </ol>
+</script>
+
+<div class="content-wrapper">
+	<section class="content mng-content">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<!-- <p>部门管理</p>
+				<a href="" class="btn btn-primary" ng-click="authorization()">授权</a>
+				<a href="" class="btn btn-primary" ng-click="select('all')">全选</a>
+				<a href="" class="btn btn-primary"
+					ng-click="select('no')">全不选</a> <input type="text"
+					ng-model="search"> <a href="" class="btn btn-primary"
+					ng-click="addDepart('addUser')">搜 索</a>  -->
+			
+				<div class="row" id="authDepart">
+					<div class="gdt_cont" style="padding-right: 0; padding-left: 14px;overflow:auto;overflow-x:hidden;">
+	                        <div class="treeTitle"><b>权限管理</b></div>
+	                        <div ui-tree id="tree-root" class="tree-root" data-drag-enabled="false">
+								<ol ui-tree-nodes="" ng-model="premiss">
+									<li ng-repeat="node in premiss" ui-tree-node
+										ng-include="'nodes_premiss.html'" ng-show="visible(node)"></li>
+								</ol>
+							</div>
+	                </div>
+	                <div class="details" style="padding-left: 2px">
+	                	<!-- bmxx_tit start -->
+	                    <div class="bmxx_tit" id="depart_tit">
+	                        <div class="left"><img src="images/bmxx_tit-01.png">权限信息</div>
+	                        <div class="right">
+								<a href="" class="bj" ng-click="authorization()">
+	                                <img src="images/edit.svg">授权
+	                            </a>
+	                            <a href="" class="bj" ng-click="select('all')">
+	                                <img src="images/edit.svg">全选
+	                            </a>
+	                            <a href="" class="bj" ng-click="select('no')">
+	                                <img src="images/edit.svg">全不选
+	                            </a>
+	                            <input type="text" ng-model="searchName" placeholder="{{searchPlaceholder}}" />
+	                            <a href="" class="bj" ng-click="searchByname()"><img src="images/search.svg">搜 索
+	                            </a>
+	                        </div>
+	                    </div>
+						<!--<div class="bmxx_tit" id="authManageList" style="margin-bottom: 0;padding-right: 15px;padding-left: --1px;">-->
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist" style="margin-top: 5px;">
+					<!--			<li role="presentation" class="active" style="margin-right: -1px;">
+									<a href="/#home" ng-click="tabClick('U')"
+									   aria-controls="home" role="tab" data-toggle="tab">人员</a>
+								</li>
+								<li role="presentation" style="margin-right: -1px;">
+									<a href="/#profile" ng-click="tabClick('D')"
+									   aria-controls="profile" role="tab" data-toggle="tab">部门</a>
+								</li>-->
+								<li role="presentation" style="margin-right: -1px;">
+									<a href="/#messages" ng-click="tabClick('R')"
+									   aria-controls="messages" role="tab" data-toggle="tab">角色</a>
+								</li>
+							<!--	<li role="presentation" style="margin-right: -1px;">
+									<a href="/#settings" ng-click="tabClick('P')"
+									   aria-controls="settings" role="tab" data-toggle="tab">岗位</a>
+								</li>-->
+								<!-- <li role="presentation">
+                                    <a href="/#zhicheng"
+                                    aria-controls="settings" role="tab" data-toggle="tab">职称</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="/#zhuanye"
+                                    aria-controls="settings" role="tab" data-toggle="tab">专业</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="/#profile" ng-click="tabClick('G')"
+                                    aria-controls="profile" role="tab" data-toggle="tab">组</a>
+                                </li>-->
+							</ul>
+						<!--</div>-->
+	                    <div style="overflow:hidden;">
+	                    	<!--<div class="bmxx_tit" id="authManageList" >
+								&lt;!&ndash; Nav tabs &ndash;&gt;
+								<ul class="nav nav-tabs" role="tablist">
+									<li role="presentation" class="active">
+									    <a href="/#home" ng-click="tabClick('U')"
+										aria-controls="home" role="tab" data-toggle="tab">人员</a>
+										</li>
+									<li role="presentation">
+										<a href="/#profile" ng-click="tabClick('D')" 
+										aria-controls="profile" role="tab" data-toggle="tab">部门</a>
+									</li>
+									<li role="presentation">
+										<a href="/#messages" ng-click="tabClick('R')"
+										aria-controls="messages" role="tab" data-toggle="tab">角色</a>
+									</li>
+									<li role="presentation">
+									    <a href="/#settings" ng-click="tabClick('P')"
+										aria-controls="settings" role="tab" data-toggle="tab">岗位</a>
+									</li>
+									&lt;!&ndash; <li role="presentation">
+									    <a href="/#zhicheng"
+										aria-controls="settings" role="tab" data-toggle="tab">职称</a>
+									</li>
+									<li role="presentation">
+									    <a href="/#zhuanye"
+										aria-controls="settings" role="tab" data-toggle="tab">专业</a>
+									</li> 
+									<li role="presentation">
+									    <a href="/#profile" ng-click="tabClick('G')"
+										aria-controls="profile" role="tab" data-toggle="tab">组</a>
+									</li>&ndash;&gt;
+								</ul>
+							</div>-->
+							<div class="" style="width: 100%">
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div role="tabpanel" class="tab-pane " id="home">
+									 	<div class="table_1" id="sorttable">
+									 		 <table class="table table-striped  table_zdy_2" style="margin-bottom: 0;">
+									 			<thead>
+													<tr>
+														<th width="15%">姓名</th>
+														<th width="15%">用户名</th>
+														<th width="5%">性别</th>
+														<th width="15%">工号</th>
+														<th width="5%">操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="u in entityBeanList">
+														<td>{{::u.name}}</td>
+														<td>{{::u.username}}</td>
+														<td>{{::u.gender}}</td>
+														<td>{{::u.alternates}}</td>
+														<td><a href="" ng-click="searchPeople(u)"><i class="fa fa-search" title="查看"></i></a></td>
+													</tr>
+													<!-- <tr style="text-align:center">
+								                        <td colspan="9">
+								                            <tm-pagination ng-show="paginationOn" conf="paginationConf"></tm-pagination>
+								                            <a class="btn btn-primary" ng-show="paginationOn ==false;" ng-click="searchUserReturn()">退出查询</a>
+								                        </td>
+			                    					</tr> -->
+												</tbody>
+									 		</table>
+									 	</div>
+									</div>
+									<div role="tabpanel" class="tab-pane" id="profile">
+										<div class="departAuthTree">
+											<div ui-tree id="tree-root" data-drag-enabled="false">
+												<ol ui-tree-nodes="" ng-model="data">
+													<li ng-repeat="node in data" ui-tree-node
+														ng-include="'nodes_renderer.html'" ng-show="visible(node)"></li>
+												</ol>
+											</div>
+										</div>
+										<div class="departAuthcontent table_1">
+											<div>
+												<div>{{comTitle}}</div>
+												<div>
+													<span>{{comName}}：{{bindingclickTree.name}}</span>
+													<span class="pull-right"><a href="" class="btn btn-primary" ng-click="searchPeople()">查询</a></span>
+												</div>
+											</div>
+											<table class="table table-striped  table_zdy_2" style="margin-bottom: 0;">
+												<thead>
+													<tr>
+														<th>姓名</th>
+														<th>用户</th>
+														<th>性别</th>
+														<th>工号</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="u in entityBean.users" ng-if="elementtype==='D'">
+														<td>{{::u.name}}</td>
+														<td>{{::u.username}}</td>
+														<td>{{::u.gender}}</td>
+														<td>{{::u.workcode}}</td>
+													</tr>
+													<tr ng-repeat="g in postBean" ng-if="elementtype==='G'">
+														<td>{{::g.name}}</td>
+														<td>{{::g.username}}</td>
+														<td>{{::g.gender}}</td>
+														<td>{{::g.workcode}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div role="tabpanel" class="tab-pane active" id="messages">
+										<div class="table_1" id="table_1">
+											<table class="table table-striped  table_zdy_2" style="margin-bottom: 0;" >
+												<thead>
+														<tr>
+															<th width="8%">单选</th>
+															<th width="20%">角色名称</th>
+															<th width="50%">角色描述</th>
+															<th width="8%">操作</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="r in data">
+															<td><input type="radio" name="selectRoleRadioData" value="{{r.id}}"
+																ng-model="r.checked" ng-click="changePostCurrentData(r)" />
+															</td>
+															<td>{{::r.name}}</td>
+															<td>{{::r.description}}</td>
+															<td><a href="" ng-click="searchPeople(r)"><i class="fa fa-search" title="查看"></i></a></td>
+														</tr>
+													</tbody>
+											</table>
+										</div>
+									</div>
+									<div role="tabpanel" class="tab-pane" id="settings">
+										<div class="departAuthTree">
+											<div ui-tree id="tree-root" data-drag-enabled="false">
+												<ol ui-tree-nodes="" ng-model="data">
+													<li ng-repeat="node in data" ui-tree-node
+														ng-include="'nodes_renderer.html'" ng-show="visible(node)"></li>
+												</ol>
+											</div>
+										</div>
+										<div class="departAuthcontent">
+											<div class="table_1" id="table_1">
+												<table class="table table-striped  table_zdy_2" style="margin-bottom: 0;">
+													<thead>
+														<tr>
+														    <th width="8%">单选</th>
+															<th width="30%">岗位名称</th>
+															<th width="50%">岗位描述</th>
+															<th width="8%">操作</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="p in postBean">
+															<td> <input type="radio" name="selectPostRadioData" value="{{p.id}}"
+									ng-model="p.checked" ng-click="changePostCurrentData(p)" /></td>
+															<td>{{::p.name}}</td>
+															<td>{{::p.description}}</td>
+															<td><a href="" ng-click="searchPeople(p,$index)"><i class="fa fa-search" title="查看"></i></a></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<!-- <div role="tabpanel" class="tab-pane" id="zhicheng">5</div>
+									<div role="tabpanel" class="tab-pane" id="zhuanye">6</div> -->
+									<div role="tabpanel" class="tab-pane" id="zu">
+									
+									</div>
+								</div>
+							</div>
+	                    </div>
+	                    <!-- bmxx_tit end -->
+	                </div>
+				</div>
+			</div>
+	</section>
+</div>
+
+<!-- Modal查已经拥有权限列表 -->
+<div class="modal fade bs-example-modal-sm" id="queryHavePermissList" tabindex="-1"
+	role="dialog" aria-labelledby="myModalCreatDepartment">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalCreatDepartment">已经拥有权限</h4>
+			</div>
+			<div class="modal-body">
+				<div ui-tree id="tree-root" data-drag-enabled="false" ng-if="havePermiss!==null&&havePermiss.length>0">
+					<ol ui-tree-nodes="" ng-model="havePermiss">
+						<li ng-repeat="node in havePermiss" ui-tree-node
+							ng-include="'nodes_havePermiss.html'" ng-show="visible(node)">
+						</li>
+					</ol>
+				</div>
+				<div ng-if="havePermiss===null || havePermiss.length===0">
+					<span>未拥有任何权限</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal查询岗位,角色，组下面的用户 -->
+<div class="modal fade bs-example-modal-lg" id="queryPostUserList" tabindex="-1"
+	role="dialog" aria-labelledby="myModalCreatDepartment">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalCreatDepartment">属于{{selectPoset.name}}的用户</h4>
+			</div>
+			<div class="modal-body">
+				<div class="table_1" id="table_1">
+					<table class="table table-striped  table_zdy_2" style="margin-bottom: 0;">
+						<thead>
+							<tr>
+								<th>姓名</th>
+								<th>用户</th>
+								<th>性别</th>
+								<th>工号</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="u in postUsers">
+								<td>{{::u.name}}</td>
+								<td>{{::u.username}}</td>
+								<td>{{::u.gender}}</td>
+								<td>{{::u.workcode}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal查询权限菜单下的人员和组织关系 -->
+<div class="modal fade " id="queryUserListByPermiss" tabindex="-1"
+	role="dialog" aria-labelledby="queryUserListByPermiss">
+	<div class="modal-dialog " role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalqueryUserListByPermiss">查看人员</h4>
+			</div>
+			<div class="modal-body">
+				<div>
+					<form class="form-horizontal">
+						<div class="form-group" ng-if="showPermissUsers">
+							<div class="col-sm-6">
+						    	<input type="text" class="form-control" ng-model="$parent.searchName"  placeholder="请出入姓名或者用户名">
+						    </div>
+						    <div class="col-sm-6">
+							    <!-- <a href="" class="btn btn-primary btn-sm" ng-click="searchPeople()">查找</a> -->
+								<a href="" class="btn btn-primary btn-sm" ng-click="showPermissUsersClick()">透视</a>
+							</div>
+						</div>
+						<a href="" class="btn btn-primary btn-sm" ng-if="!showPermissUsers" ng-click="showPermissUsersClick()">人员列表</a>
+					</form>
+				</div>
+				<div class="fixedHeight table_1" ng-if="showPermissUsers">
+					<table class="table table-striped  table_zdy_2" style="margin-bottom: 0;">
+						<thead>
+							<tr>
+								<th>姓名</th>
+								<th>用户</th>
+								<!-- <th>性别</th>
+								<th>工号</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="up in PremissBean.userList | filter:searchName">
+								<td>{{up.name}}</td>
+								<td>{{up.username}}</td>
+								<!-- <td>{{::u.gender}}</td>
+								<td>{{::u.workcode}}</td> -->
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="fixedHeight" ng-if="!showPermissUsers">
+					<table class="table table-striped table-bordered table-hover" >
+						<tbody>
+							<tr ng-if="PremissBean.departmentList.length>0" class="info">
+								<td>部门名称</td>
+							</tr>
+							<tr ng-repeat="d in PremissBean.departmentList track by $index" ng-if="PremissBean.departmentList.length>0">
+								<td>{{::d.name}}</td>
+							</tr>
+							
+							<tr ng-if="PremissBean.roleList.length>0" class="info">
+								<td>角色名称</td>
+							</tr>
+							<tr ng-repeat="r in PremissBean.roleList track by $index" ng-if="PremissBean.roleList.length>0">
+								<td>{{::r.name}}</td>
+							</tr>
+							
+							<tr ng-if="PremissBean.postList.length>0" class="info">
+								<td>岗位名称</td>
+							</tr>
+							<tr ng-repeat="p in PremissBean.postList track by $index" ng-if="PremissBean.postList.length>0">
+								<td>{{::p.name}}</td>
+							</tr>
+							
+							<tr ng-if="PremissBean.groupList.length>0" class="info">
+								<td>组名称</td>
+							</tr>
+							<tr ng-repeat="g in PremissBean.groupList track by $index" ng-if="PremissBean.groupList.length>0">
+								<td>{{::g.name}}</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

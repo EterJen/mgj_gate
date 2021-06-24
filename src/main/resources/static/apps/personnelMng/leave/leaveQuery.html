@@ -1,0 +1,85 @@
+<style>
+	.bmxx_tit .right a.bj {
+		background: #3986c8; /*border-bottom:2px solid #5880c9;*/
+		width: 72px;
+	}
+
+	thead th {
+		text-align: center !important;
+	}
+
+	.nav-tabs li a {
+		padding: 6px 10px;
+	}
+</style>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div class="panel-heading" id="panel-heading"
+			     style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span>请假查询</span>
+					</div>
+				</div>
+			</div>
+			<!--<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;">
+				<div class="table_shadow" style="overflow:auto; max-height: 70%">
+					<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+						<thead>
+						<tr>
+							&lt;!&ndash;<th width="5%"></th>&ndash;&gt;
+							<th width="20%">报批号</th>
+							<th width="10%">姓名</th>
+							<th width="30%">假期范围</th>
+							<th width="10%">类型</th>
+							<th width="20%">处室</th>
+							<th width="10%" ng-show="isFinished == 'Active'">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+
+						<tr ng-repeat="proInst in proInstList" >
+							&lt;!&ndash;<td ng-click="proinsCheckCurrent(proInst)">
+								<input id="{{proInst.id}}" type="checkbox" name="chkbox"  ng-click="proinsCheckCurrent(proInst)" ng-model="proInst.checked"/>
+							</td>&ndash;&gt;
+							<td ng-click="gotoDetail(proInst)">{{::proInst.theCommonFormInfo.formJxwLeave.approvedNum}}</td>
+							<td ng-click="gotoDetail(proInst)">{{::proInst.theCommonFormInfo.formJxwLeave.leaveApplyPerson}}</td>
+							<td ng-click="gotoDetail(proInst)">
+								{{::proInst.theCommonFormInfo.formJxwLeave.leaveStartDate | limitTo:10}} 至
+								{{::proInst.theCommonFormInfo.formJxwLeave.leaveEndDate | limitTo : 10}}
+							</td>
+							<td ng-click="gotoDetail(proInst)">{{::proInst.theCommonFormInfo.formJxwLeave.leaveTypeName}}</td>
+							<td ng-click="gotoDetail(proInst)">{{::proInst.theCommonFormInfo.formJxwLeave.leaveApplyDept}}</td>
+							<td ng-show="isFinished == 'Active'">
+								<button type="button" ng-click="leaveCancel(proInst); $event.stopPropagation();" class="btn btn-xs btn-danger">取消</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>
+			</div>-->
+		</div>
+	</section>
+</div>
+
+ <div class="modal fade" id="leaveQueryModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	 <div class="modal-dialog" role="document" style="width: 80%;height: 80%;">
+		 <div class="modal-content">
+			 <div class="modal-header">
+				 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				 <h4 class="modal-title" id="myModalLabel">请假查询</h4>
+			 </div>
+			 <div class="modal-body">
+				 <iframe ng-src="{{leaveQuerySrc}}" height="100%" width="100%" scrolling="no" marginwidth="5%"></iframe>
+			 </div>
+		 </div>
+	 </div>
+ </div>
+

@@ -1,0 +1,151 @@
+
+		<style type="text/css">   
+            table {   
+                font-size: 16pt;   
+            }   
+			.ng-scope {
+				font-size: 16pt;   
+			}
+        	.STYLE1 {color: #FF0000}
+        	.STYLE3 {color: black}
+        	.STYLE4 {color: #0000FF}
+        	.STYLE5 {color: #FF9900}
+        	.STYLE2 {
+				font-size: 24pt;
+				color: #3300FF;
+			}
+			.j_bt_b{
+				background: #d1eef8 /* url(../images/j_bt_b.gif) */ bottom;
+				line-height:25px;
+				border:1px solid #3589c1;
+				text-align:center;
+				font-weight:bold;
+				color:#174266;
+				padding:5px 5px 5 5px;
+				_padding:2px 0px 0 0px;
+				*padding:2px 0px 0 0px;
+				margin:2px 0;
+			}
+
+        </style>   
+
+        <style type="text/css">   
+            .listView  th {   
+                font: bold 12px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;   
+                color: #4f6b72;   
+                border: 1px solid #97c8ff;   
+                letter-spacing: 2px;   
+                text-transform: uppercase;   
+                text-align: left;   
+                padding: 6px 11px;   
+                background: #b9e6fd  no-repeat;   
+            }   
+            .listView  tr {   
+			background:expression(this.rowIndex%2==0 ? "#F8F8F8":"#95bce2" );  }
+			 
+			.STYLE6 {
+			font-size: 12px;
+			color: #FF0000;
+			}
+        </style>   
+
+<script>
+
+function doChoose(obj)
+{
+    if($('#'+obj.id+" ~ select").css('display')=='none')
+    {    
+        $('#'+obj.id+" ~ span").hide();
+        $('#'+obj.id+" ~ input").show();
+        $('#'+obj.id+" ~ select").show();
+    }
+    else
+    {
+        $('#'+obj.id+" ~ span").show();
+        $('#'+obj.id+" ~ input").hide();
+        $('#'+obj.id+" ~ select").hide();
+        //$('#'+obj.id+" ~ input").val("");
+    }
+}
+
+/* function doSubmit()
+{
+	WorkDaySetForm.submit();
+} */
+/* function doSave()
+{
+	WorkDaySetForm.action="saveWorkDay.action";
+	WorkDaySetForm.submit();
+} */
+
+
+</script>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span>
+                      		   节假日管理
+                         </span>
+					</div>
+
+					<div  class="right user-titleheading" style="width: 50%">
+						
+					</div>
+				</div>
+			</div>
+			<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+				<div class="table_shadow" style="overflow:auto; max-height: 70%">
+					
+						<div align="center">
+	  <p style="display: none;">工作日的选择</p>
+	  <p></p>
+	  
+	<form  id="WorkDaySetForm" name="WorkDaySetForm" action="showWorkDay.action" method="post" >  
+	
+    <div align="center">
+    
+      
+      <select name="year" id="year" style="height: 30px;width: 80px"  onchange="doSubmit()"  >
+      </select>年
+	  <select name="month" id="month" style="height: 30px;width: 80px" onchange="doSubmit()">
+	      <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+      </select>月
+     
+ 
+	</div>
+	
+         <dy-compile html="{{dataObject.calendar}}">
+  				</dy-compile>
+    	
+    <input type="button" onclick="doSave()" value="保存" class="j_bt_b"/>
+    </form>
+	<hr/>
+    <span class="STYLE6">注释：选中为工作日，未选中为非工作日。</span>
+	</div>
+	
+					
+				</div>
+				<!--<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</section>
+</div>

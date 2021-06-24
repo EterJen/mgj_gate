@@ -1,0 +1,91 @@
+<div class="sidebar_left" style="width: 100%">
+    <div class="zTreeDemoBackground left" style="height: 50%;padding-top: 6px; overflow-y: auto">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    <!--<div class="fx_nav" style="height:50%">
+        <div style="margin-left: -10px" class="sidebar_head sidebar_head_left"></div>
+        <h1 style="padding-top: 10px"><i></i>{{::task.belongingProInst.processDefVersion.processDefManage.name}}</h1>
+        <div class="box_ul">
+            <ul>
+                <li style="position:relative;" ng-repeat="node in task.historyList" ng-class="{'dq': node.isCurrNode, '': !node.isCurrNode}">
+                    <div>
+                        <i></i><b class="ng" style="color:white;">{{::node.name}}</b>
+                    </div>
+                    <div class="ej">
+                        <div ng-repeat="user in node.usersInTheNode" class="user-btn" style="color:white">
+                            <i ng-class="user.taskStatus"></i> {{::user.name}}&lt;!&ndash;<span ng-repeat="o in user.workflowParamMap.opinion">{{o.opinion}}</span>&ndash;&gt;
+                            <div class="user-suggest-wrapper" ng-if="user.workflowParamMap.opinion.length>0">
+                                <ul class="sug-list">
+                                    <li class="sug-item" ng-repeat="o in user.workflowParamMap.opinion">
+                                        <p class="sug-content">{{o.opinion}}</p>
+                                        <span class="sug-time">{{o.approveTime |dateFilter}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>-->
+    <div class="fj_cont" style="height:50%;padding: 0">
+        <div class="sidebar_head sidebar_head_left" style="height: 2%"></div>
+        <div style="height: 98%;overflow-y: auto; padding: 0 6px" class="zw_box" > <!-- style="border-bottom:1px solid #7190C1;margin-bottom:5px;" -->
+            <!--       <div class="gy_tit clearfix" >
+                       <span class="l bt"><img src="images/sidebar-05.png">正 文</span>
+                       <div ng-if="task.belongingProInst.dbParams.creatZhenwen &&(!fc.evalFormActionPreCon(task.formActionMap['acceptTask'].preCondition))&&fc.evalFormActionPreCon(task.formActionMap['saveForm'].preCondition)">
+                           <div class="ej_box r" ng-click="saveForm(null, fc.zwUpload)" >
+                               <div class="tj"><img src="images/sidebar-07.png">添加</div>
+                           </div>
+                       </div>
+                   </div>-->
+            <!--<div style="margin-bottom:15px" ng-repeat="a in task.belongingProInst.zhengwenMidAttList">
+                <a class="btn btn-primary btn-large" href="#">{{a.attachment.filename}}</a>
+            </div>-->
+
+            <li style="padding-top: 7px;padding-bottom: 8px"
+                 title="文件名：{{a.attachment.filename}}&#10;文件后缀：{{a.fileExt}}&#10;版本：1.{{a.largeVersion}}.{{a.minorVersion}}&#10;创建人：{{a.creatorName}}&#10;创建时间：{{a.attachment.createTime | date:'yyyy-MM-dd'}}"
+                 class="btn-doc-div  doc-type-{{a.fileExt}}  demo3TableRow"
+                 data-row-node="{{a}}" ng-repeat="a in task.belongingProInst.zhengwenMidAttList" ng-click="fc.openDocumentText(a,'groupOwner')">
+                <span style="word-break: break-all; line-height: 18px; overflow: hidden; color:white;font-family: sans-serif;font-size: 16px;letter-spacing: 1px; font-family: 文泉驿微米黑,微软雅黑 ,sans-serif;">{{a.attachment.filename| docNameCut:44}}</span>
+            </li>
+            <!--<div class="btn-group-vertical" style="width: 100% ;padding-top: 5px; height: 100%; overflow-y: auto">
+                <div type="button"
+                     title="文件名：{{a.attachment.filename}}&#10;文件后缀：{{a.fileExt}}&#10;版本：1.{{a.largeVersion}}.{{a.minorVersion}}&#10;创建人：{{a.creatorName}}&#10;创建时间：{{a.attachment.createTime | date:'yyyy-MM-dd'}}"
+                     class="btn btn-doc-div  demo3TableRow" style="text-align:left;width: 100%" data-row-node="{{a}}" ng-repeat="a in task.belongingProInst.zhengwenMidAttList" ng-click="fc.openDocumentText(a,'groupOwner')">
+                    <span style="color:white;font-family: sans-serif;font-size: 18px;font-weight: 500">{{a.attachment.filename|  cut:true:11:'...'}}</span>
+                </div>
+            </div>-->
+            <!--<a href="javascript:void(0);" class=" clearfix demo3TableRow" data-row-node="{{a}}" ng-click="fc.openDocumentText(a,'groupOwner')" ng-repeat="a in task.belongingProInst.zhengwenMidAttList">
+                <span class="l" title="{{a.attachment.filename}}" style="color:white;font-family: sans-serif;font-size: 18px;font-weight: 500">{{a.attachment.filename| limitTo:a.attachment.filename.length-4}}</span>
+            </a>-->
+        </div>
+        <!--<div style="height: 35%" class="zw_box" ng-show="task.belongingProInst.processDefVersion.processDefManage.proDefGroupId == 'fawen'"> &lt;!&ndash; style="border-bottom:1px solid #7190C1;margin-bottom:5px;" &ndash;&gt;
+            <div class="gy_tit clearfix" >
+                <span class="l bt"><img src="images/sidebar-05.png">正 文</span>
+                <div ng-if="task.belongingProInst.dbParams.creatZhenwen &&(!fc.evalFormActionPreCon(task.formActionMap['acceptTask'].preCondition))&&fc.evalFormActionPreCon(task.formActionMap['saveForm'].preCondition)">
+                    <div class="ej_box r" ng-click="saveForm(null, fc.zwUpload)" >
+                        <div class="tj"><img src="images/sidebar-07.png">添加</div>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="fj clearfix demo3TableRow" data-row-node="{{a}}" ng-click="fc.openDocumentText(a,'groupOwner')" ng-repeat="a in task.belongingProInst.zhengwenMidAttList">
+                <i class="l"></i><span class="l" title="{{a.attachment.filename}}" style="color:white;font-family: sans-serif;font-size: 14px;font-weight: 500">{{a.attachment.filename| limitTo:a.attachment.filename.length-4}}</span>
+            </a>
+        </div>-->
+        <!--<div class="fj_box" style="height: 65%">
+            &lt;!&ndash;<i class="hr">&lt;!&ndash; <img  style="hight:1px;width: 100%"> &ndash;&gt;</i>&lt;!&ndash; src="../../images/hr.png" &ndash;&gt;&ndash;&gt;
+            <div style="height: 15%;margin-top: 0" class="gy_tit clearfix">
+                <span class="l bt"><img src="images/formEdit/sidebar-06.png">附 件</span>
+                <div class="ej_box r" ng-click="saveForm(null, fc.fjUpload)" ng-show="fc.attachmentPermissionShow()">
+                    <div class="tj"><img src="images/sidebar-07.png">添加</div>
+                </div>
+            </div>
+            <div style="height: 85%;overflow-y: auto">
+                <a href="javascript:void(0);" class="fj clearfix demo3TableRow" data-row-node="{{b}}" ng-click="fc.openDocumentText(b,'groupOwner')" ng-repeat="b in task.belongingProInst.fujianMidAttList">
+                    <i class="l"></i><span class="l" title="{{b.attachment.filename}}" style="color:white;font-family: sans-serif;font-size: 14px;font-weight: 500">{{b.attachment.filename}}</span>
+                </a>
+            </div>
+        </div>-->
+    </div>
+</div>

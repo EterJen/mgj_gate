@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="source/jquery-1.8.3.min.js"></script>
+<style>
+/*设定纸张大小*/
+/* A4纸 */
+/* @page{size:210mm*297mm} */
+@page {
+	size: a4
+}
+fieldset {
+	padding: .35em .625em .75em;
+	margin: 0 2px;
+	border: 1px solid silver
+}
+.user-option-bold{
+	font-family: KaiTi;font-weight:bold
+}
+.user-option{
+/* 	white-space:pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: justify;
+    line-height: 18px; */
+
+    white-space:pre-wrap;
+    line-height: 18px;
+}
+.hideslb {
+	overflow-y: hidden;
+}
+
+.showslb {
+	overflow-y: auto;
+}
+
+legend {
+	padding: .5em;
+	border: 0;
+	width: auto
+}
+
+input::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+}
+
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+.GwTitleRedLargeBigSF {
+	font-size: 33px;
+	font-weight: bold;
+	color: rgb(0, 0, 0);
+	font-family: FZYaoti;
+	padding: 10px;
+}
+
+.tblGw01 {
+	font-size: 12px;
+	border-collapse: collapse;
+}
+
+.tblGw01 .td02 {
+	font-size: 14px;
+	color: rgb(0, 0, 0);
+	border: 1px solid black;
+	padding: 3px;
+	text-align: center
+}
+
+input {
+	text-rendering: auto;
+	color: initial;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	display: inline-block;
+	text-align: start;
+	margin: 0em;
+	font: 400 13.3333px Arial;
+}
+
+.Inputhidden01 {
+	color: black;
+	font-size: 14px;
+	background-color: rgb(255, 255, 255);
+	font-family: STSong-Light;
+	font-weight: bold !important;
+	border-width: initial;
+	border-style: none;
+	border-color: initial;
+	border-image: initial;
+	font-weight: bold;
+}
+
+.Inputhidden011 {
+    height: inherit;
+    overflow-y: hidden;
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    font-weight: normal !important;
+    font-family: STSong-Light !important;
+}
+
+.tab-fontfamily {
+	font-family: STSong-Light !important;
+}
+
+.tblGw01 .td04 {
+	color: rgb(0, 0, 0);
+	font-family: KaiTi !important;
+	font-weight: bold !important;
+	padding: 3px;
+}
+
+.tblGw01 .td05 {
+	font-size: 14px;
+	font-weight: bold;
+	font-family: STSong-Light !important;
+	border-bottom: 0.6px solid black;
+	padding: 3px;
+}
+
+.fontSizeFamily {
+	font-size: 14px;
+	color: rgb(0, 0, 0);
+	font-weight: bold !important;
+	font-family: STSong-Light !important;
+}
+
+tr td {
+	font-size: 14px;
+	font-family: STSong-Light;
+}
+.blu_cz{
+	 font-size: 16px;
+}
+.blu_t{
+	 font-size: 14.5px;
+}
+.td05b {
+    font-size: 14px;
+    border-bottom: 0.6px solid black;
+    padding: 3px;
+}
+.td04b{
+	font-family: STSong-Light;
+	font-weight: bold;
+}
+.td02b{
+	font-family: STSong-Light;
+	font-weight: bold;
+    color: black;
+    border-width: 0.6px;
+    border-style: solid;
+    border-color: black;
+    border-image: initial;
+    padding: 3px;
+}
+.td02b input {
+    text-align: center;
+}
+.td02b{
+	border:0.6px solid black;
+}
+</style>
+</head>
+
+<body>
+	<table style="width:630px;" border="0" align="center" cellpadding="0"
+		cellspacing="0" class="tblGw01">
+		<tr>
+			<td class="td03" width="540" align="center">
+				<p class="GwTitleRedLargeBigSF" align="center"
+					style="margin-right: 21px; margin-left: -20px; display: inline; letter-spacing: -7px">
+					<font>中共上海市长城电子督查单</font>
+				</p>
+				<p align="center" >
+		        <font face="方正姚体" style="display:$secondDuwen$;margin-top: -25px;">(第 $duwenHandleAgainNum$次办文)</font>
+			</td>
+			<td align="right" class="td03" style="display: block;">
+				<table width="125" border="0" cellpadding="0" cellspacing="0"
+					class="tblGw01 tab-fontfamily" style="float:right">
+					<tr align="center">
+						<td width="65%" height="20" class="td02 blu_t" align="center">密       级
+						</td>
+						<td width="35%" height="20" class="td02"><input
+							value="$task.theCommonFormInfo.secretLevel$" type="text"
+							class="Inputhidden01"
+							style="color: black; font-weight: bold; width: 100%; ">
+						</td>
+					</tr>
+					<tr align="center">
+						<td class="td02 blu_t">紧急程度</td>
+						<td class="td02"><input
+							value="$task.theCommonFormInfo.emergenceLevel$" type="text"
+							class="Inputhidden01"
+							style="color: black; font-weight: bold; width: 100%; "></td>
+					</tr>
+					<tr align="center">
+						<td class="td02 blu_t">委内公开</td>
+						<td class="td02"><input name="委内公开"
+							value="$task.theCommonFormInfo.belongProInst.wngk$"
+							type="text"
+							class="Inputhidden01"
+							style="color: black; font-weight: bold; width: 100%; "></td>
+					</tr>
+					<tr align="center">
+						<td class="td02 blu_t">信息公开</td>
+						<td class="td02"><input name="信息公开"
+							value="$task.theCommonFormInfo.belongProInst.xxgk$"
+							type="text"
+							class="Inputhidden01"
+							style="color: black; font-weight: bold; width: 100%; "></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+
+
+<table style="width: 630" border="0" align="center" cellpadding="0"
+	cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="15%" class="td04 blu_cz">来文单位:</td>
+		<td width="33%" class="td05"><input
+			value="$task.theCommonFormInfo.belongProInst.incomingDocDepart$" type="text"
+			class="Inputhidden01"
+			style="; width: 100%"></td>
+		<td width="13%" class="td04 blu_cz">来文文号:</td>
+		<td width="38%" class="td05"><input
+			value="$task.theCommonFormInfo.belongProInst.incomingDocNum$"
+			type="text" class="Inputhidden01"
+			style="; width: 100%"></td>
+	</tr>
+</table>
+
+<table style="width:630" border="0" align="center" cellpadding="0"
+	cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="10%" class="td04 blu_cz">本件共</td>
+		<td width="5%" class="td05"><input
+			value="$task.theCommonFormInfo.belongProInst.incomingNum$"
+			type="text" class="Inputhidden01"
+			style="; width: 100%"></td>
+		<td width="5%" class="td04 blu_cz">份</td>
+		<td width="13%" class="td04 blu_cz">收文日期:</td>
+		<td width="15%" class="td05"> <input
+			type="text"
+			value="$task.theCommonFormInfo.belongProInst.receiveDocTime$"
+			class="Inputhidden01"
+			style="color: black;; ; width: 90%"></td>
+		<td width="13%" class="td04 blu_cz">收文文号:</td>
+		<td width="38%" class="td05"><input
+			value="$task.theCommonFormInfo.belongProInst.docFullName$"
+			type="text" class="Inputhidden01"
+			style="; width: 100%"></td>
+	</tr>
+</table>
+<table style="width: 630" border="0" align="center" cellpadding="0"
+	cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="15%" class="td04 blu_cz">承办部门:</td>
+		<td width="31%" class="td05"><input
+			value="$task.theCommonFormInfo.belongProInst.chenBanDepart$"
+			type="text"
+			class="Inputhidden01"
+			style="; width: 100%"></td>
+		<td width="13%" class="td04 blu_cz">限办日期:</td>
+		<td width="38%" class="td05"><input
+			value="$task.theCommonFormInfo.belongProInst.xianBanTime$"
+			type="text"  class="Inputhidden01"
+			style="color: black;; ; width: 90%"></td>
+	</tr>
+
+	<tr>
+		<td width="17%" class="td04 blu_cz">关联收文号:</td>
+		<td width="80%" colspan="3" class="td05"><input
+			value="$task.theCommonFormInfo.belongProInst.relatedReceiveDocId$"
+			type="text"
+			class="Inputhidden01"
+			style="; width: 100%"></td>
+	</tr>
+</table>
+
+<table style="width: 630" border="0" align="center" cellpadding="0"
+	cellspacing="0" class="tblGw01">
+<!-- 	<tr>
+		<td width="15%" class="td04 blu_cz">关联收文号:</td>
+		<td class="td05"><input
+			value="$task.theCommonFormInfo.belongProInst.relatedReceiveDocId$"
+			type="text" class="Inputhidden01"
+			style="width: 100%; height: 100%; " size="150"></td>
+	</tr>-->
+<!--	<tr>
+		<td colspan="1" style="width:">关联收文号:</td>
+	    <td colspan="1" class="td05"></td>
+	</tr>-->
+	<tr>
+		<td colspan="2" class="td04 blu_cz">文件名称：</td>
+	</tr>
+	<tr>
+		<td valign="top" colspan="2" height="40" class="td05" style="">
+				<span  style=";color:black">$task.theCommonFormInfo.belongProInst.title$</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="td04 blu_cz">市领导批示：</td>
+	</tr>
+	<tr>
+		<td height="125"  colspan="2" valign="top" class="td05" style="">
+			<div style="height: inherit; color: black;width:630px;" class="Inputhidden011">
+				<div class="user-option" >$task.theCommonFormInfo.cityApproval$</div>
+				<div class="user-option" style="font-family: FZYaoti;font-weight:900"><strong>$task.theCommonFormInfo.cityApproval2$</strong></div>
+			</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="td04 blu_cz">委领导批示：</td>
+	</tr>
+	<tr>
+		<td height="105" colspan="2" valign="top" class="td05">
+			<div style="height: inherit; color: black;width:630px;" class="Inputhidden011">
+				<div class="user-option" style=";word-break: break-all;word-wrap: break-word;">$task.userOpinions.wldps.opinion$</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td  class="td04 blu_cz" width="">
+			督办意见：
+		</td>
+		<td>
+			<table  border="0" cellpadding="0" cellspacing="0">
+				<td style="padding-top: 4px;"><input
+						type="checkbox"
+						ng-model="task.theCommonFormInfo.belongProInst.pointSupervise" $pointSupervise_checked$
+						></td>
+
+				<td ><label class="td04 blu_cz">领导重点督办</label></td>
+			</table>
+		</td>
+
+	</tr>
+	<tr>
+		<td height="50"  colspan="2" valign="top" class="td05" style="">
+			<div style="height: inherit; color: black;width:630px;" class="Inputhidden011">
+				<div class="user-option" style=";">$task.userOpinions.dbyj.opinion$</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="td04 blu_cz" >处室意见：</td>
+	</tr>
+	<tr>
+		<td height="80" colspan="2" valign="top" class="td04">
+			<div class="Inputhidden011" >
+				<div class="user-option" style=";">$task.userOpinions.csyj.opinion$</div>
+				</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="td04 blu_cz">办理情况：</td>
+	</tr>
+	<tr>
+		<td height="60" colspan="2" valign="top" style="border-bottom: 0"
+			class="td05">
+			<div style="height: inherit; color: black;width:630px;" class="Inputhidden011">
+				<div class="user-option" style=";">$task.userOpinions.blqk.opinion$</div>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<table style="width: 630" border="0" align="center" cellpadding="0"
+	cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="60" style="padding-right: 0px; padding-left: 0px;"
+			class="td04 blu_cz">登录:</td>
+		<td width="55"><input  type="text"
+			value="$task.theCommonFormInfo.belongProInst.denluPerson$"
+			class="Inputhidden01"
+			style="color: black; ;width: 100%"></td>
+		<td width="90"> <input class="Inputhidden01"  value="$task.theCommonFormInfo.belongProInst.denluTime$"
+			style="color: black;; ; width: 100%"></td>
+		<td width="60" class="td04 blu_cz">督办:</td>
+		<td width="50"><input type="text"
+			value="$task.theCommonFormInfo.belongProInst.dubanPerson$"
+			class="Inputhidden01"
+			style="color: black; ;width: 100%"></td>
+		<td width="90"><input
+			value="$task.theCommonFormInfo.belongProInst.dubanTime$"
+			type="text" class="Inputhidden01"
+			style="color: black;; ; width: 100%"></td>
+		<td width="60" class="td04 blu_cz">审核:</td>
+		<td width="50"><input type="text" class="Inputhidden01"
+			value="$task.theCommonFormInfo.belongProInst.shenhePerson$"
+			style="color: black; ;width: 100%"></td>
+		<td width="90"><input
+			value="$task.theCommonFormInfo.belongProInst.shenheTime$"
+			type="text" class="Inputhidden01"
+			style="color: black;; ; width: 100%"></td>
+	</tr>
+</table>
+</body>
+</html>

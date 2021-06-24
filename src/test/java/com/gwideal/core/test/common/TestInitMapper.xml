@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.test.common.TestInitMapper">
+    
+   <delete id="cleardb">
+   		<!-- delete from ORGUSER;
+		delete from ORGDEPT;
+		delete from ORGDU;
+		delete from ORGGROUP;
+		delete from ORGGU;
+		delete from ORGPOST;
+		delete from ORGPU;
+		delete from ORGROLE;
+		delete from ORGRU;
+		delete from MPSMODULE;
+		delete from MPSAVAILMODULE; -->
+		delete from wf_process_instance;
+		delete from wf_current_task_info;
+		delete from wf_history_task_info;
+		delete from wf_form_common;
+		delete from  wf_form_fawen;
+		delete from  wf_process_def_manage;
+		delete from  wf_process_def_version;
+   </delete> 
+   
+   <insert id="refreshOrgData">
+		delete from ORGUSER;
+		delete from ORGDEPT;
+		delete from ORGDU;
+		delete from ORGGROUP;
+		delete from ORGGU;
+		delete from ORGPOST;
+		delete from ORGPU;
+		delete from ORGROLE;
+		delete from ORGRU;
+		delete from MPSMODULE;
+		delete from MPSAVAILMODULE; 
+		insert into ORGUSER select * from jxw.ORGUSER;
+		insert into ORGDEPT select * from jxw.ORGDEPT;
+		insert into ORGDU select * from jxw.ORGDU;
+		insert into ORGGROUP select * from jxw.ORGGROUP;
+		insert into ORGGU select * from jxw.ORGGU;
+		insert into ORGPOST select * from jxw.ORGPOST;
+		insert into ORGPU select * from jxw.ORGPU;
+		insert into ORGROLE select * from jxw.ORGROLE;
+		insert into ORGRU select * from jxw.ORGRU;
+		insert into MPSMODULE select * from jxw.MPSMODULE;
+		insert into MPSAVAILMODULE select * from jxw.MPSAVAILMODULE;
+   </insert>
+   
+   
+   <insert id="addInitInfo">
+   		select * from dual;
+   		<!-- 插入用户：密码：testPassword -->
+   		<!-- insert into ORGUSER(id,username,name,password,flag) values(1,'admin','管理员','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(2,'infoDepartUser','信息中心人员1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(3,'infoDepartUser2','信息中心人员2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(4,'officeUser1','办公室人员1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(5,'officeUser2','办公室人员2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(6,'zhuan_zhi_he_gao1','专职核稿人员1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(7,'zhuan_zhi_he_gao2','专职核稿人员2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(8,'zhuan_zhi_he_gao3','专职核稿人员3','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(9,'office_leader1','办公室主任1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(10,'office_leader2','办公室主任2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(11,'office_leader3','办公室主任3','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(12,'office_vice_leader1','办公室副主任1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(13,'office_vice_leader2','办公室副主任2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(14,'office_vice_leader3','办公室副主任3','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(15,'jxw_party_leader1','长城电子党委领导1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(16,'jxw_party_leader2','长城电子党委领导2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(17,'jxw_leader1','长城电子领导1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(18,'jxw_leader2','长城电子领导2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(19,'fa_wen_deng_lu1','发文登录1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(20,'fa_wen_deng_lu2','发文登录2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(21,'wen_yin1','文印1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(22,'wen_yin2','文印2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(23,'qian_zhang1','签章1','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		insert into ORGUSER(id,username,name,password,flag) values(24,'qian_zhang2','签章2','$2a$10$2z0KMpCeo5poCrVGbiT1SecWp2xGAt3auFhtyTqbojHz3qjTnjyAa',1);
+   		
+   		插入部门
+   		insert into orgdept(id,name,flag) values(11,'信息中心',1);
+   		insert into orgdept(id,name,flag) values(12,'办公室',1);
+   		insert into orgdept(id,name,flag) values(13,'长城电子党委领导',1);
+   		insert into orgdept(id,name,flag) values(14,'长城电子领导',1);
+   		
+   		部门人员关系
+   		insert into orgdu(deptid,userid,orderid) values(11,2,1);
+   		insert into orgdu(deptid,userid,orderid) values(11,3,2);
+   		insert into orgdu(deptid,userid,orderid) values(11,6,2);
+   		insert into orgdu(deptid,userid,orderid) values(11,7,2);
+   		insert into orgdu(deptid,userid,orderid) values(11,8,2);
+   		insert into orgdu(deptid,userid,orderid) values(12,4,1);
+   		insert into orgdu(deptid,userid,orderid) values(13,15,1);
+   		insert into orgdu(deptid,userid,orderid) values(13,16,1);
+   		insert into orgdu(deptid,userid,orderid) values(14,17,1);
+   		insert into orgdu(deptid,userid,orderid) values(14,18,1);
+   		insert into orgdu(deptid,userid,orderid) values(12,19,1);
+   		insert into orgdu(deptid,userid,orderid) values(12,20,1);
+   		insert into orgdu(deptid,userid,orderid) values(12,21,1);
+   		insert into orgdu(deptid,userid,orderid) values(12,22,1);
+   		insert into orgdu(deptid,userid,orderid) values(12,23,1);
+   		insert into orgdu(deptid,userid,orderid) values(12,24,1);
+   		
+   		
+   		角色
+   		insert into orgrole(id,name,flag) values(82,'专职核稿',1);
+   		insert into orgrole(id,name,flag) values(83,'发文登录',1);
+   		insert into orgrole(id,name,flag) values(84,'文印',1);
+   		insert into orgrole(id,name,flag) values(85,'签章',1);
+   		
+   		角色和人员关系
+   		insert into orgru(roleid,userid,ordernum) values(82,6,1);
+   		insert into orgru(roleid,userid,ordernum) values(82,7,2);
+   		insert into orgru(roleid,userid,ordernum) values(82,8,3);
+   		insert into orgru(roleid,userid,ordernum) values(83,19,3);
+   		insert into orgru(roleid,userid,ordernum) values(83,20,3);
+   		insert into orgru(roleid,userid,ordernum) values(84,21,3);
+   		insert into orgru(roleid,userid,ordernum) values(84,22,3);
+   		insert into orgru(roleid,userid,ordernum) values(85,23,3);
+   		insert into orgru(roleid,userid,ordernum) values(86,24,3);
+
+		岗位
+		insert into orgpost(id,deptid,name,flag) values(1,12,'办公室主任',1);
+		insert into orgpost(id,deptid,name,flag) values(2,12,'办公室副主任',1);
+		
+		岗位和用户关系
+		insert into orgpu(postid,userid) values(1,9);
+		insert into orgpu(postid,userid) values(1,10);
+		insert into orgpu(postid,userid) values(1,11);
+		insert into orgpu(postid,userid) values(2,12);
+		insert into orgpu(postid,userid) values(2,13);
+		insert into orgpu(postid,userid) values(2,14); -->
+   		
+   </insert> 
+   
+   
+  
+</mapper>

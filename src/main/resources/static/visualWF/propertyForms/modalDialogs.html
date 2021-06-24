@@ -1,0 +1,452 @@
+<style>
+.alert-info{
+	background-color:#85ABEE !important;
+	padding:8px !important;
+}
+</style>
+
+<div class="modal fade" id="formActionDialg" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					任务处理节点操作配置
+				</h4>
+			</div>
+			<div class="modal-body" style="height:600px">
+				<div class="row" style="height:100%">
+		            <div class="col-md-6" style="height:100%;overflow:auto">
+				 	    <div class="alert alert-info">&nbsp;可选表单操作</div>
+				 	    <div class="ry_form"  ng-repeat="item in formActionList | orderBy:'orderNum'" ng-click="moveToSelectedAction(item)">
+		                   <div class="tit_2 clearfix" style="width:250px">
+		                       <span class="l" style="width:100%">{{item.description}}</span>
+		                       <i class="r"></i>
+		                   </div>
+			            </div>
+				 	</div>
+				 	<div class="col-md-6" style="height:100%;overflow:auto">
+				 		<div class="alert alert-info">&nbsp;已选表单操作</div>
+				 	    <div class="ry_form"  ng-repeat="actionId in ngSelectedCell.data.selectedFormActIdList" ng-click="removeFromSelectedAction(actionId)">
+		                   <div class="tit_2 clearfix" style="width:250px">
+		                       <span class="l" style="width:100%"> {{formActionMap[actionId].description}}</span>
+		                       <i class="r"></i>
+		                   </div>
+			            </div>
+					</div>
+				</div>
+     	 	</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="hisViewActionSettingMoadal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="hasmHeade">
+					公文查看节点操作配置
+				</h4>
+			</div>
+			<div class="modal-body" style="height:600px">
+				<div class="row" style="height:100%">
+					<div class="col-md-6" style="height:100%;overflow:auto">
+						<div class="alert alert-info">&nbsp;可选表单操作</div>
+						<div class="ry_form"  ng-repeat="item in formActionList |orderBy:'orderNum'" ng-click="moveToSelectedActionHisViw(item)">
+							<div class="tit_2 clearfix" style="width:250px">
+								<span class="l" style="width:100%">{{item.description}}</span>
+								<i class="r"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6" style="height:100%;overflow:auto">
+						<div class="alert alert-info">&nbsp;已选表单操作</div>
+						<div class="ry_form"  ng-repeat="actionId in ngSelectedCell.data.insHisShowAvilableActions" ng-click="removeFromSelectedActionHisView(actionId)">
+							<div class="tit_2 clearfix" style="width:250px">
+								<span class="l" style="width:100%"> {{formActionMap[actionId].description}}</span>
+								<i class="r"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 智能提醒DIV -->
+<div class="modal fade" id="intelligenceSettingMoadal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="hasmHeade">
+					智能提醒操作配置
+				</h4>
+			</div>
+			<div class="modal-body" style="height:600px">
+				<div class="row" style="height:100%">
+					<div class="col-md-6" style="height:100%;width:100%;overflow:auto">
+						<div class="alert alert-info">&nbsp;请选择关联节点</div>
+							<!-- ng-options="v as v for v in auditTypes"  ng-model="queryBean.operateType" -->
+							<table style="width:100%;">
+								<tr>
+									<td class="col-md-6" style="width:35%" align="right">请选择节点:</td>
+									<td class="col-md-6" style="width:65%" align="left">
+									<select class="form-control input-sm" style="width:40%;" ng-options="x.id as x.name for x in ngSelectedCell.data.intelligenceList" ng-model="ngSelectedCell.data.colNode" >
+										<option value=""></option>
+									</select> </td>
+								</tr>
+							</table>
+						<div class="alert alert-info" style="margin-top: 80px;">&nbsp;请选择关联类别</div>	
+							<table style="width:100%;">
+								<tr>
+									<td class="col-md-6" style="width:35%" align="right">请选择类别:</td>
+									<td class="col-md-6" style="width:65%" align="left">
+										<select class="form-control input-sm" style="width:40%;" ng-options="x.name as x.value for x in ngSelectedCell.data.departPerson" ng-model="ngSelectedCell.data.colName">
+											<option value=""></option>
+										</select>
+									</td>
+								</tr>
+							</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="candidateExpDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					请输入参与者动态表达式
+				</h4>
+			</div>
+			<div class="modal-body" style="height:100px">
+				<table id="nodeFormTable" class="table table-condensed">
+				    <tr>
+				        <td class="tlable" width="25%">表达式类型</td>
+				        <td width="75%">
+				        	<div class="form-group">
+				        		<select class="form-control" ng-model="ngSelectedCell.data.dynamicExpType" ng-options="x.value as x.name for x in dynamicExpTypeOptions" required></select>
+				        	</div>
+				        </td>
+				    </tr>
+				    <tr>
+				        <td class="tlable" width="25%">表达式的值</td>
+				        <td width="75%">
+				        	<div class="form-group">
+				        		<input class="form-control input-md" placeholder="请填写参与者表达式" ng-model="ngSelectedCell.data.dynamicExp" type="text"/>
+				        	</div>
+				        </td>
+				    </tr>
+				  </table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="closeCandidateExpDialog()">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="setCandidateExp()">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="candidateMultiSelDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					选择参与者
+				</h4>
+			</div>
+			<div class="modal-body" style="height:600px">
+				<ul class="nav nav-tabs " style="margin:0 auto;">
+		            <li ng-class="{active: orgNavType=='Person'}" ng-click="selectTab('Person')"  style="margin-right: -1px;"><a href="">用户</a></li>
+		            <li ng-class="{active: orgNavType=='Department'}" ng-click="selectTab('Department')" style="margin-right: -1px;"><a href="">部门</a></li>
+		            <li ng-class="{active: orgNavType=='HoleDepartment'}" ng-click="selectTab('HoleDepartment')" style="margin-right: -1px;"><a href="">整个部门</a></li>		            
+		            <li ng-class="{active: orgNavType=='Role'}" ng-click="selectTab('Role')" style="margin-right: -1px;"><a href="">角色</a></li>
+		            <li ng-class="{active: orgNavType=='Post'}" ng-click="selectTab('Post')" style="margin-right: -1px;"><a href="">岗位</a></li>
+		        </ul>
+
+				<div class="row" style="height:100%">
+		            <div class="col-md-6" style="height:100%;overflow:auto">
+				 		<div ng-if="orgNavType=='Person'||orgNavType=='Department'||orgNavType=='Role'||orgNavType=='HoleDepartment'" ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+				             <ol ui-tree-nodes="" ng-model="data">
+				                 <li ng-repeat="node in treeData" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+				             </ol>
+				         </div>
+				         <div ng-if="orgNavType=='Post'"  ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+				             <ol ui-tree-nodes="" ng-model="data">
+				                 <li ng-repeat="node in treeData" ui-tree-node ng-include="'nodes_renderer_post.html'"></li>
+				             </ol>
+				         </div>
+				 	</div>
+				 	<div class="col-md-6" style="height:100%;overflow:auto">
+						<div ng-if="orgNavType=='Role'" class="form-group">
+							<div class="input-group " style="width: 100%">
+                                <span class="input-group-btn" style="width: 40%">
+                                    <button class="btn btn-success" ng-click = "candidateExpTypeSetting()"  style="width:100%;background-color: #85ABEE;" id="search_submit" >参与者类型</button>
+								</span>
+								<div class="input-group-btn" style="width: 60%">
+									<select class="form-control"  ng-model="ngSelectedCell.data.roleType" ng-options="x.key as x.val for x in roleCandidateAccurateType" required></select>
+								</div>
+							</div>
+						</div>
+
+				 		<div ng-if="orgNavType=='Person'" style="height:50%; overflow: hidden; margin-top: 5px">
+				 			<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;部门人员列表</div>
+                            <div style="height:95%;overflow-y: auto;">
+								<div  class="ry_form"  ng-repeat="user in currDepartUserList track by $index" ng-click="selectUserCandidate(user)">
+									<div class="tit_2 clearfix" style="width:250px">
+										<span class="l" style="width:100%">{{user.name}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+				 		</div>
+		                <div style="height:40%; margin-top: 5px">
+			 				<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;已选列表</div>
+							<div style="height:95%;overflow-y: auto;">
+								<div class="ry_form" style="" ng-repeat="participant in ngSelectedCell.data.candidatMap[orgNavType] track by $index" ng-click="removeFromSelected($index)">
+									<div class="tit_2 clearfix" style="width:250px">
+										<span class="l" style="width:100%">{{participant.participantName}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+		                </div>
+					</div>
+				</div>
+     	 	</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="closeMultiSelDialog()">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="modal fade" id="expressionDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					参与者动态表达式
+				</h4>
+			</div>
+			<div class="modal-body" style="height:100px">
+				<div class="form-group">
+	        		<input class="form-control input-md" placeholder="请填写参与者表达式" ng-model="ngSelectedCell.data.candidateExp" type="text"/>
+	        	</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="setCandidateExp()">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="formActionMngDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">表单操作管理</div>
+			<div class="modal-body">
+				<table class="table table-bordered">
+					<tr>
+						<td width="20%">操作标识：</td>
+						<td>
+							<div class="form-group">
+								<input type="text" class="input-sm form-control" ng-model="formActionEditBean.actionid"  />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>操作名称：</td>
+						<td>
+							<div class="form-group">
+								<input type="text" class="input-sm form-control" ng-model="formActionEditBean.name"  />
+			                </div>
+						</td>
+					</tr>
+					<tr>
+						<td>前置谓词：</td>
+						<td>
+							<div class="form-group">
+								<input type="text" class="input-sm form-control" ng-model="formActionEditBean.preCondition"  />
+			                </div>
+						</td>
+					</tr>
+					<tr>
+						<td>后置逻辑：</td>
+						<td>
+							<div class="form-group">
+								<input type="text" class="input-sm form-control" ng-model="formActionEditBean.actionToPerform"  />
+			                </div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align:center">
+							<a class="btn btn-primary btn-sm" style="margin-right:2px" ng-click="saveFormAction()">保存</a>
+							<a class="btn btn-primary btn-sm" style="margin-right:2px" data-dismiss="modal">取消</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content" ng-click="selectCandidate(node)" ng-dblclick="toggle(this)">
+        <a class="btn btn-xs angular-ui-tree-span" style="margin-right:0px" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+            <img src="../images/zd-anv-01.png" style="margin-left:2px" height="20px">
+        </a>
+        <a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0"></a>
+        <span class="angular-ui-tree-span" ng-if="node.name.length>9">{{node.name | limitTo : 9}}</span>
+        <span class="angular-ui-tree-span" ng-if="node.name.length<=9">{{node.name}}</span>
+        <a class="btn btn-xs pull-right" data-nodrag>
+            <span class="fa_icon"></span>
+        </a>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+    </ol>
+</script>
+<script type="text/ng-template" id="nodes_renderer_post.html">
+    <div ui-tree-handle class="tree-node tree-node-content">
+        <a class="btn btn-xs angular-ui-tree-span"  style="margin-right:0px"  data-nodrag ng-click="toggle(this)" >
+
+			<img class="margin-left" src="../images/zd-anv-01.png" height="20px">
+        </a>
+        <span class="angular-ui-tree-span" ng-if="node.name.length>7">{{node.name| limitTo : 7}}</span>
+        <span class="angular-ui-tree-span" ng-if="node.name.length<=7">{{node.name}}</span>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer_post.html'"></li>
+    </ol>
+    <ol ui-tree-nodes="" ng-model="node.posts" ng-class="{hidden: collapsed}">
+        <li ng-repeat="post in node.posts" ui-tree-node >
+            <div ui-tree-handle class="tree-node tree-node-content"  ng-click="selectCandidate(node,post)">
+                 <a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0">
+    			 </a>
+				<span class="angular-ui-tree-span" ng-if="node.name.length>7">{{post.name| limitTo : 7}}</span>
+                <span class="angular-ui-tree-span" ng-if="node.name.length<=7">{{post.name}}</span>
+            </div>
+        </li>
+    </ol>
+</script>
+
+
+<div class="modal fade bs-example-modal-lg" id="actionDefDialg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    选择附件权限
+                </h4>
+            </div>
+            <div class="modal-body" style="height:600px">
+                <div class="row" style="height:100%">
+                    <div class="col-md-4" style="height:100%;overflow:auto">
+                        <div class="alert alert-info">&nbsp;附件权限可选操作</div>
+                        <div class="ry_form"  ng-repeat="item in actionDefList" ng-click="moveToSelectedAttachAction(item)">
+                            <div class="tit_2 clearfix" style="width:250px">
+                                <span class="l" style="width:100%">{{item.name}}</span>
+                                <i class="r"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8" style="height:100%;overflow:auto">
+                        <div class="alert alert-info">&nbsp;附件权限已选操作</div>
+                        <div class="ry_form" style="width: 100%;height: 29px"  ng-repeat="action in ngSelectedCell.data.actionDefList track by $index" >
+                            <div class="tit_2 clearfix" style="width:250px;display: inline-block" ng-click="removeAttachSelectedAction(action)">
+                                <span class="l" style="width:100%"> {{action.name}}</span>
+                                <i class="r"></i>
+                            </div>
+                            <div class="form-group" style="float: right;margin-right: 15px">
+                                <input type="text" class="form-control" ng-model="action.condition">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="actionDefHistoryDialg" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg" >
+		<div class="modal-content" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="myAcModalLabel">
+					选择附件权限
+				</h4>
+			</div>
+			<div class="modal-body" style="height:600px">
+				<div class="row" style="height:100%">
+					<div class="col-md-4" style="height:100%;overflow:auto">
+						<div class="alert alert-info">&nbsp;附件历史权限可选操作</div>
+						<div class="ry_form"  ng-repeat="item in actionDefList" ng-click="moveToSelectedAttachHistoryAction(item)">
+							<div class="tit_2 clearfix" style="width:250px">
+								<span class="l" style="width:100%">{{item.name}}</span>
+								<i class="r"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8" style="height:100%;overflow:auto">
+						<div class="alert alert-info">&nbsp;附件历史权限已选操作</div>
+						<div class="ry_form" style="width: 100%;height: 29px"  ng-repeat="action in ngSelectedCell.data.actionDefHistoryList track by $index" >
+							<div class="tit_2 clearfix" style="width:250px;display: inline-block" ng-click="removeAttachSelectedHistoryAction(action)">
+								<span class="l" style="width:100%"> {{action.name}}</span>
+								<i class="r"></i>
+							</div>
+							<div class="form-group" style="float: right;margin-right: 15px">
+								<input type="text" class="form-control" ng-model="action.condition">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+			</div>
+		</div>
+	</div>
+</div>

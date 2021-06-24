@@ -1,0 +1,79 @@
+<div class="container">
+	<table class="table table-bordered">
+	   <tr>
+	      <td style='text-align:center' colspan="4"><b>项目基本信息</b> </td>
+	   </tr>
+	   <tr height="24px">
+	      <td width="10%">项目名称</td>
+	      <td width="40%">{{::projectInfo.projectname}}</td>
+	      <td width="10%">申报单位</td>
+	      <td width="40%">{{::projectInfo.buildoffice}}</td>
+	   </tr>
+	   <tr height="24px">
+	      <td>立项单位</td>
+	      <td>{{::projectInfo.otherbuildoffice}}</td>
+	      <td>项目性质</td>
+	      <td>{{::projectInfo.projectchar}}</td>
+	   </tr>  
+	</table>
+	
+	<table class="table table-bordered" id="progressTable">
+	   <tr>
+	      <td colspan="5">目标任务与进度信息</td>
+	   </tr>
+	   <tr>
+	      <td width="5%"><b>月份</b></td>
+	      <td width="50%"><b>目标任务</b></td>
+	      <td width="10%"><b>目标操作</b></td>
+	      <td width="10%"><b>资金进度</b></td>
+	      <td width="10%"><b>节点进度</b></td>
+	   </tr>
+	   <tr ng-repeat="task in projectInfo.tasks track by $index">
+	      <td>{{task.monthNum}}</td>
+	      <td>
+	      	 {{::task.thecontent}}
+	      </td>
+	      <td>
+	      	 <button class="btn btn-primary" ng-click="openTaskProgress($index)">填报目标</button>
+	      </td>
+	      <td>
+	      	 <button class="btn btn-primary" ng-click="openMoneyProgress(projectInfo.id,task.monthNum)">填报资金</button>
+	      </td>
+	      <td>
+	      	 <button class="btn btn-primary" ng-click="openNodeProgress(projectInfo.id,task.monthNum)">填报节点</button>
+	      </td>
+	   </tr>
+	   <tr>
+	   	  	
+	   </tr>
+	</table>
+</div>	
+
+<div class="modal fade" id="taskDialog" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				目标任务填报
+			</div>
+			<div class="modal-body">
+				<table class="table table-bordered">
+					<tr>
+						<td width="30%">月份</td>
+						<td>{{selectedTask.monthNum}}</td>
+					</tr>
+					<tr>
+						<td>目标任务</td>
+						<td><input class="form-control" type="text" ng-model="selectedTask.thecontent" class="input-sm" /></td>
+					</tr>
+					<tr style="text-align:center">
+						<td colspan="2">
+							<a class="btn btn-primary" ng-click="saveTask()">保存</a>
+							<a class="btn btn-primary" ng-click="closeTask()">取消</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>	
+	</div>
+</div>   
+   

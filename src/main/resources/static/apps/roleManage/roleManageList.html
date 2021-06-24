@@ -1,0 +1,280 @@
+<style>
+	.modal-dialog {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.modal-content {
+		/*overflow-y: scroll; */
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.modal-body {
+		/*overflow-y: scroll;*/
+		position: absolute;
+		top: 55px;
+		bottom: 65px;
+		width: 100%;
+	}
+
+	.modal-header .close {margin-right: 15px;}
+
+	.modal-footer {
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+	}
+</style>
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+  <div ui-tree-handle class="tree-node tree-node-content" ng-click="toRoleContent(node,$event)">
+     <!--<a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0" >
+      <span class="fa fa-folder"
+            ng-class="{'fa-plus': collapsed, 'fa-minus': !collapsed}">
+      </span>
+	  <img src="images/zd-anv-01.png">
+    </a>-->
+    <a class="btn btn-xs angular-ui-tree-span" style="padding: 0;margin: 0">
+
+	</a>
+      <!--<input type="checkbox"
+					ng-model="node.checked" ng-click="changeCurrentTree(node,$event)" />-->
+      <span class="angular-ui-tree-span">{{node.name}}</span>
+    <!--<a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+        class="glyphicon glyphicon-remove"></span></a>
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a>-->
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'" ng-show="visible(node)">
+    </li>
+  </ol>
+</script>
+
+<div class="content-wrapper">
+	<section class="content mng-content">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<!-- <a href="" class="btn btn-primary btn-sm" ng-click="addRole('add')">新增角色</a> -->
+
+				<!-- <a href="" class="btn btn-primary btn-sm pull-right" ng-click="addRole('deleteRole')">删除角色</a>
+				<a href="" class="btn btn-primary btn-sm pull-right" ng-click="addRole('update')"  style="margin-right: 8px;">修改角色</a> -->
+				<div class="row">
+				  <div class="gdt_cont fixedHeight " style="padding-right: 0; padding-left: 0;">
+				  		<div class="treeTitle">
+	                    	<b>角色管理</b>
+	                    	<div class="postSearch">
+	                    		<input ng-model="queryText" placeholder="查询角色" maxlength="20" ng-focus="$broadcast('angular-ui-tree:collapse-all')" ng-keyup="roleSearch($event)" type="text"/>
+	                    		<i><img src="images/search-3.png"></i>
+	                    	</div>
+                        </div>
+				      <div ui-tree id="tree-root" data-drag-enabled="false" class="tree-root" ng-show="data!=null&&data.length>0">
+				      <ol ui-tree-nodes="" ng-model="data" >
+				        <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'" ng-show="visible(node)"></li>
+				      </ol>
+				    </div>
+				  </div>
+				  <div class="details" style="padding-left: 2px">
+				  	<div class="bmxx_tit" id="depart_tit">
+						  <div class="left"><img src="images/bmxx_tit-01.png">角色信息</div>
+						  <div class="right">
+						  	<a href="" class="sc" ng-click="cleanCache()"><img src="images/remove.svg">清除缓存</a>
+							  <a href="" class="tj" ng-click="addRole('add')"><img src="images/add.svg">新增角色</a>
+						    <a href=""  class="bj" ng-click="addRole('update')"><img src="images/edit.svg">编辑角色</a>
+						    <a href=""  class="sc" ng-click="addRole('deleteRole')"><img src="images/remove.svg">删除角色</a>
+						  </div>
+					</div>
+				    <div class="">
+				      <table class="table table-condensed table_zdy">
+				         <tr>
+				           <td width="15%" class="mc_name">角色名称*：</td>
+				           <td width="35%">
+				           <span ng-if="isUpdate">{{entityBean.name}}</span>
+				               <div class="form-group" ng-if="!isUpdate">
+								<input  class="form-control input-sm" maxlength="20" ng-model="entityBean.name" type="text" required/>
+							</div>
+				           </td>
+				           <td class="mc_name" width="15%">角色描述*：</td>
+				           <td width="35%"><span ng-if="isUpdate">{{entityBean.description}}</span>
+				               <div class="form-group" ng-if="!isUpdate">
+								<input  class="form-control input-sm" maxlength="30" ng-model="entityBean.description" type="text" required/>
+							</div>
+				           </td>
+				         </tr>
+
+				         <tr ng-if="!isUpdate">
+				           <td colspan="4" class="text-center">
+				              <a href="" class="btn btn-sm btn-primary" ng-click="saveRole('update')">保存</a>
+				              <a href="" class="btn btn-sm btn-default" ng-click="saveRole('updateCancel')">取消</a>
+				           </td>
+				         </tr>
+				      </table>
+				    </div>
+
+				    <!-- <div>
+				      <div class="pull-left">角色所属人员</div>
+					  <div class="pull-right">
+					    <a href="" class="btn btn-primary btn-sm" ng-click="addRole('addUser')">配置人员</a>
+					    <a href="" class="btn btn-primary btn-sm" ng-click="addRole('deleteUser')">移出人员</a>
+					  </div>
+					</div> -->
+					<div class="bmxx_tit" >
+						      <div class="left"><img src="images/bmxx_tit-02.png">角色所属人员</div>
+						      <div class="right">
+						         <a href="" ng-click="addRole('addUser')" class="bj"><img src="images/edit.svg">配置人员</a>
+						         <a href="" ng-click="addRole('deleteUser')" class="sc"><img src="images/remove.svg">移出人员</a>
+						      </div>
+					</div>
+				    <div id="table_1" class="table_1">
+				      <table class="table table-striped  table_zdy_2">
+				      <thead>
+				          <tr>
+				            <th width="3%" style="vertical-align: middle;"><input type="checkbox" id="checkAll"
+						ng-model="userSelectAll" ng-change="changeAll('deleteUser')" /></th>
+				            <th width="10%">登陆名</th>
+				            <th width="10%">用户名</th>
+<!--				            <th width="5%">性别</th>-->
+<!--				            <th width="10%">工号</th>-->
+<!--				            <th width="10%">超时保护</th>-->
+<!--				            <th width="10%">编号</th>-->
+				            <!--<th width="5%">排序1</th>-->
+				          </tr>
+				      </thead>
+				         <tr ng-repeat="u in entityBean.users">
+				           <td><input type="checkbox" name="checkItem"
+						ng-model="u.checked" ng-click="changeCurrent(u,$event,'deleteUser')" /></td>
+				           <td>{{u.name}}</td>
+				           <td>{{u.display}}</td>
+<!--				           <td>{{u.gender}}</td>-->
+<!--				           <td>{{u.workcode}}</td>-->
+<!--				           <td>{{u.timeout}}</td>-->
+<!--				           <td>{{u.name}}</td>-->
+				           <!--<td>{{u.sequenceid}}</td>-->
+
+				         </tr>
+				      </table>
+				    </div>
+				  </div>
+			   </div>
+			</div>
+	</section>
+</div>
+
+<!-- Modal新增角色表单 -->
+<div class="modal fade bs-example-modal-lg" id="creatRole" tabindex="-1" role="dialog" aria-labelledby="myModalCreatRole">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalCreatRolel">新增角色</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal"  id="addRole1" name="addRole1"><!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">角色名称*</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" maxlength="30" ng-model="newRole.name"
+								placeholder="请输入角色名称" required >
+						</div>
+						<div class="col-sm-2">
+							<span>例如：产业投资处</span>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="description" class="col-sm-2 control-label">角色描述*</label>
+						<div class="col-sm-10">
+							<textarea type="text" class="form-control" id="description" maxlength="60" ng-model="newRole.description" rows="5"
+								placeholder="请输入角色描述" required />
+						</div>
+					</div>
+				</form>
+			</div>
+            <div class="modal-footer mf">
+                <button type="submit" class="btn btn-sm btn-primary save" ng-disabled="addRole1.$invalid" ng-click="saveRole('add')">保存</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+            </div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal查询用户list界面 -->
+<div class="modal fade bs-example-modal-lg" id="userList" tabindex="-1"
+	role="dialog" aria-labelledby="myModalCreatRole">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalCreatRole">配置到角色</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group col-xs-12">
+						<input type="text" class="form-control"
+							ng-model="userListFilterKey" maxlength="30" ng-change="userListFilter()" placeholder="请输入姓名或者用户名" >
+						<span class="input-group-btn">
+							<button class="btn btn-primary btn-sm" ng-click ='userListFilter()' style="background: #5588F5; margin-right: 0px;margin-left: 20px;" id="search_submit" type="submit">查 询</button>
+						</span>
+					</div>
+				</div>
+				<div class="table_shadow" style="max-height:85%;overflow-y: auto;">
+					<table class="table table-striped  table_zdy_2" style="min-width: 100%">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="checkAll"
+									ng-model="userSelectAll" ng-change="changeAll('addUser')" /></th>
+								<th>登陆名</th>
+								<th>姓名</th>
+								<!-- <th>所属部门</th> -->
+<!--								<th>性别</th>-->
+<!--								<th>工号</th>-->
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="u in userList" ng-if="u.showAble">
+								<td><input type="checkbox" name="checkItem"
+									ng-model="u.checked"
+									ng-click="changeCurrent(u,$event,'addUser')" />
+								</td>
+								<td>{{u.name}}</td>
+								<td>{{u.display}}</td>
+								<!-- <td><p ng-repeat="d in u.userDepartList">{{d.name}}</p></td> -->
+<!--								<td>{{u.gender}}</td>-->
+<!--								<td>{{u.alternates}}</td>-->
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!--<div class="ceter_p">
+					<div class="ceter_s">
+						<span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>-->
+			</div>
+			<div class="modal-footer mf">
+				<button class="btn btn-primary btn-sm save" ng-click="addUserToRole('saveUserToRole')">确定</button>
+				<button class="btn btn-default btn-sm cancel" data-dismiss="modal">关闭</button>
+			</div>
+			<!-- <div class="modal-footer" style="text-align: center;">
+				<span align="center">
+	            <tm-pagination conf="paginationConf"></tm-pagination>
+	            </span>
+		        <a href="" class="btn btn-primary" ng-click="addUserToDepartment('saveUserToDepart')">确定</a>
+				<a href="" class="btn btn-primary" data-dismiss="modal">关闭</a>
+     	    </div> -->
+		</div>
+	</div>
+</div>

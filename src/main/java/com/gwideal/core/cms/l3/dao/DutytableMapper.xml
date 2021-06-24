@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.DutytableMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.*
+-- 		${@com.gwideal.core.common.CoreBaseEntity@getSelectColumns('administrator','u1.','u1_')},
+-- 		${@com.gwideal.core.common.CoreBaseEntity@getSelectColumns('administrator','u2.','u2_')},
+-- 		${@com.gwideal.core.common.CoreBaseEntity@getSelectColumns('administrator','u3.','u3_')}
+  		from 
+  			DUTYTABLE t
+--   			left join ADMINISTRATOR u1 on u1.id=t.USER1 and u1.ISDELETE=0
+-- 			left join ADMINISTRATOR u2 on u2.id=t.USER2 and u2.ISDELETE=0
+-- 			left join ADMINISTRATOR u3 on u3.id=t.USER3 and u3.ISDELETE=0
+  		<where>
+  			1=1
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(startDate)">
+				AND to_date(t.DATELONG,'yyyy-mm-dd') <![CDATA[>=]]> #{startDate}
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(endDate)">
+				AND to_date(t.DATELONG,'yyyy-mm-dd') <![CDATA[<=]]> #{endDate}
+			</if>
+			order by t.year asc,t.MONTH asc,t.day asc
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.Dutytable" autoMapping="true">
+	     <id property="id" column="id" />
+		<association property="administrator1" column="u1_id" javaType="com.gwideal.core.cms.l4.entity.Administrator"
+					 columnPrefix="u1_"/>
+		<association property="administrator2" column="u2_id" javaType="com.gwideal.core.cms.l4.entity.Administrator"
+					 columnPrefix="u2_"/>
+		<association property="administrator3" column="u3_id" javaType="com.gwideal.core.cms.l4.entity.Administrator"
+					 columnPrefix="u3_"/>
+	</resultMap>
+  
+  
+ 
+   <select id="getDutytableByDate" resultMap="listResultMap" >
+   		select * from DUTYTABLE where <![CDATA[ datelong>=#{startdate} and datelong<=#{enddate} ]]> order by datelong 
+  </select>
+  
+</mapper>

@@ -1,0 +1,22 @@
+<div class="row" style="height:100%">
+ 	<div class="col-md-6" style="height:100%;overflow:auto">
+ 		<div ng-if="ngSelectedCell.data.candidateType=='ListOfDepart'||ngSelectedCell.data.candidateType=='SingleRole'||ngSelectedCell.data.candidateType=='SingleDepart'" ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+             <ol ui-tree-nodes="" ng-model="data">
+                 <li ng-repeat="node in treeData" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+             </ol>
+         </div>
+         <div ng-if="ngSelectedCell.data.candidateType=='ListOfPost'"  ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+             <ol ui-tree-nodes="" ng-model="data">
+                 <li ng-repeat="node in treeData" ui-tree-node ng-include="'nodes_renderer_post.html'"></li>
+             </ol>
+         </div>
+ 	</div>
+ 	<div class="col-md-6" style="height:100%;overflow:auto">
+ 		<div class="ry_form" ng-repeat="node in ngSelectedCell.data.selectedCandidateList track by $index" ng-click="removeFromSelected($index)">
+                   <div class="tit_2 clearfix" style="width:300px">
+                       <span class="l" style="width:100%">{{node.name}}</span>
+                       <i class="r"></i>
+                   </div>
+               </div>
+		</div>
+</div>

@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style>
+		/*设定纸张大小*/
+		/* A4纸 */
+		/* @page{size:210mm*297mm} */
+		@page {
+			size: a4
+		}
+		fieldset {
+			padding: .35em .625em .75em;
+			margin: 0 2px;
+			border: 0.6px solid silver
+		}
+		legend {
+			padding: .5em;
+			border: 0;
+			width: auto
+		}
+
+		input::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+		}
+
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+		}
+
+		input[type="number"] {
+			-moz-appearance: textfield;
+		}
+
+		.GwTitleRedLargeBigSF {
+			font-size: 33px;
+			font-weight: bold;
+			color: rgb(0, 0, 0);
+			font-family: FZYaoti;
+			padding: 10px;
+		}
+
+		.user-option{
+			white-space:pre-wrap;
+			line-height: 18px;
+		}
+
+		.tblGw01 {
+			font-size: 12px;
+			border-collapse: collapse;
+		}
+
+		.tblGw01 .td02 {
+			font-size: 14px;
+			color: rgb(0, 0, 0);
+			border: 0.6px solid rgb(0, 0, 0);
+			padding: 3px;
+			text-align: center
+		}
+
+		input {
+			text-rendering: auto;
+			color: initial;
+			letter-spacing: normal;
+			word-spacing: normal;
+			text-transform: none;
+			text-indent: 0px;
+			text-shadow: none;
+			display: inline-block;
+			text-align: start;
+			margin: 0em;
+			font: 400 13.3333px Arial;
+		}
+
+		.Inputhidden01 {
+			color: black;
+			font-size: 14px;
+			background-color: rgb(255, 255, 255);
+			font-family: FangSong_GB2312;
+			font-weight: bold !important;
+			border-width: initial;
+			border-style: none;
+			border-color: initial;
+			border-image: initial;
+			font-weight: bold;
+		}
+
+		.Inputhidden011 {
+			height: inherit;
+			color: black;
+			overflow-y: hidden;
+			font-size: 14px;
+			background-color: rgb(255, 255, 255);
+			border-width: initial;
+			border-style: none;
+			border-color: initial;
+			border-image: initial;
+			font-weight: bold !important;
+			font-family: FangSong_GB2312;
+		}
+
+		.tblGw01 .td04b {
+			color:  rgb(0, 0, 0);
+			font-family: FangSong_GB2312;
+			font-weight: bold !important;
+			padding: 3px;
+		}
+
+		.tblGw01 .td05b {
+			font-size: 14px;
+			font-weight: bold;
+			color: 333;
+			border-bottom: 0.6px solid rgb(0, 0, 0);
+			padding: 3px;
+		}
+
+		tr td {
+			font-size: 14px ;
+			font-family: FangSong_GB2312;
+		}
+
+		.center {
+			text-align: center;
+		}
+		.tblGw01 .title {
+			font-size: 12px;
+			font-weight: bold;
+			color: black;
+			padding: 3px;
+			font-family: 仿宋_GB2312;
+			border-top: 1px solid black;
+			border-left: 1px solid black;
+			border-right: 1px solid black;
+		}
+
+		.tblGw01 .data {
+			font-size: 14px;
+			border-top: 1px solid black;
+			border-left: 1px solid black;
+			border-right: 1px solid black;
+			border-bottom: none !important;
+			padding: 3px;
+		}
+	</style>
+</head>
+<body>
+
+	<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+
+		<tr>
+			<td align="center" class="td03" style=" width: 840%;">
+				<p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-7px">
+					<font style="    letter-spacing: 13px;    font-size: 40px;" color="black" face="方正姚体">请 假 单</font>
+				</p>
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="10%" class="td04b" style="padding-left: 0;"><span class="mptd1">报批号:</span></td>
+			<td width="50%" class="">
+				<input name="报批号"
+				       value="$task.theCommonFormInfo.formJxwLeave.approvedNum$"
+				       type="text"
+				       style="width: 100%;height: inherit;"
+				       class="Inputhidden01"
+				       size="28">
+			</td>
+			<td width="35%" class="td04b" style="text-align: right;padding: 3px 0;">
+				<span class="mptd1">是否出境:</span>
+				<input type="checkbox" $checked_departure$/>
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="10%" class="td04b center title">姓 名</td>
+			<td width="40%" class="td05b data" colspan="4">
+				<input name="姓名"
+				       value="$task.theCommonFormInfo.formJxwLeave.leaveApplyPerson$"
+				       type="text"
+				       style="width: 100%;height: inherit" class="Inputhidden01 center"
+				       size="18">
+			</td>
+
+			<td width="10%" class="td04b center title">处 室</td>
+			<td width="40%" class="td05b data" colspan="4">
+				<input name="处室"
+				       value="$task.theCommonFormInfo.formJxwLeave.leaveApplyDept$"
+				       type="text"
+				       style="width: 100%;height: inherit;" class="Inputhidden01 center"
+				       size="18">
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td rowspan="2" width="10%" class="td04b center title">休假<br>类别</td>
+			<td width="10%" class="td04b center title">事假</td>
+			<td width="10%" class="td04b center title">病假</td>
+			<td width="10%" class="td04b center title">年休假</td>
+			<td width="10%" class="td04b center title">探亲假</td>
+			<td width="10%" class="td04b center title">婚假</td>
+			<td width="10%" class="td04b center title">丧假</td>
+			<td width="10%" class="td04b center title">生育假</td>
+			<td width="10%" class="td04b center title">陪护假</td>
+			<td width="10%" class="td04b center title">其他</td>
+		</tr>
+		<tr>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.affair$ >
+			</td>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.sick$ >
+			</td>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.annual$ >
+			</td>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.family$ >
+			</td>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.marriage$ >
+			</td>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.funeral$ >
+			</td>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.fertility$ >
+			</td>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.escort$ >
+			</td>
+			<td width="10%" class="td05b center data">
+				<input type="checkbox" $checked_leaveTypes.other$ >
+			</td>
+		</tr>
+	</table>
+	<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+		<tr>
+			<td width="10%" height="50px" class="td04b center title">事 由</td>
+			<td width="90%" height="50px" class="td05b data" colspan="9">
+				<textarea name="事由"
+				          style="width: 100%;height: inherit;" class="Inputhidden011"
+				          size="18">
+					$task.theCommonFormInfo.formJxwLeave.leaveCause$
+				</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="40px" class="td04b center title">请(休)<br>假日期</td>
+			<td width="40%" class="td05b data" colspan="6">
+				<input name="请(休)假开始日期"
+				       id="leaveStartDate"
+				       value="$task.theCommonFormInfo.formJxwLeave.leaveStartDate$"
+				       type="text"
+				       data-date-format="yyyy-mm-dd"
+				       data-provide="datepicker"
+				       style="width: 40%;height: inherit;" class="Inputhidden01 center"
+				       size="18">
+				<span width="20%" class="center">至</span>
+				<input name="请(休)假结束日期"
+				       id="leaveEndDate"
+				       data-date-format="yyyy-mm-dd"
+				       data-provide="datepicker"
+				       value="$task.theCommonFormInfo.formJxwLeave.leaveEndDate$"
+				       type="text"
+				       style="width: 40%;height: inherit;" class="Inputhidden01 center"
+				       size="18">
+			</td>
+			<td width="10%" height="40px" class="td04b center title">请(休)<br>假天数</td>
+			<td width="40%" class="td05b data" colspan="2">
+				<input name="请(休)假天数"
+				       value="$task.theCommonFormInfo.formJxwLeave.leaveDays$"
+				       type="text"
+				       style="width: 80%;height: inherit;" class="Inputhidden01 center"
+				       size="18">天
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="50px" class="td04b center title">出境<br>事由</td>
+			<td width="90%" height="50px" class="td05b data" colspan="9">
+				<textarea name="出境事由"
+				          style="width: 100%;height: inherit;" class="Inputhidden01"
+				          size="18">
+					$task.theCommonFormInfo.formJxwLeave.departureCause$
+				</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="40px" class="td04b center title">出境开<br>始日期</td>
+			<td width="40%" class="td05b center data" colspan="4">
+				<input name="出境开始日期"
+				       id="departureStartDate"
+				       value="$task.theCommonFormInfo.formJxwLeave.departureStartDate$"
+				       type="text"
+				       data-date-format="yyyy-mm-dd"
+				       data-provide="datepicker"
+				       style="width: 100%;height: inherit;" class="Inputhidden01 center"
+				       size="18">
+			</td>
+			<td width="10%" height="40px" class="td04b center title">出境结<br>束日期</td>
+			<td width="40%" class="td05b center data" colspan="4">
+				<input name="出境结束日期"
+				       id="departureEndDate"
+				       data-date-format="yyyy-mm-dd"
+				       data-provide="datepicker"
+				       value="$task.theCommonFormInfo.formJxwLeave.departureEndDate$"
+				       type="text"
+				       style="width: 100%;height: inherit;" class="Inputhidden01 center"
+				       size="18">
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="40px" class="td04b center title">出&nbsp;境<br>目的地</td>
+			<td width="40%" class="td05b data" colspan="4">
+				<input name="出境目的地"
+				       value="$task.theCommonFormInfo.formJxwLeave.departureDestination$"
+			           type="text"
+			           style="width: 100%;height: inherit;" class="Inputhidden01 center"
+			           size="18">
+			</td>
+			<td width="10%" height="40px" class="td04b center title">出境<br>天数</td>
+			<td width="40%" class="td05b data" colspan="4">
+				<input name="出境天数"
+				       value="$task.theCommonFormInfo.formJxwLeave.departureDays$"
+				       type="text"
+				       style="width: 80%;height: inherit;" class="Inputhidden01 center"
+				       size="18">天
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="60px" class="td04b center title">处领导<br>意见</td>
+			<td width="90%" height="60px" class="td05b data" colspan="9">
+				<div style="height: inherit;width: 100%;" class="Inputhidden011">
+					<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.cld$</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="60px" class="td04b center title">分管领<br>导意见</td>
+			<td width="90%" height="60px" class="td05b data" colspan="9">
+				<div style="height: inherit;width: 100%;" class="Inputhidden011">
+					<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.fgld$</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="60px" class="td04b center title">主要领<br>导意见</td>
+			<td width="90%" height="60px" class="td05b data" colspan="9">
+				<div style="height: inherit;width: 100%;" class="Inputhidden011">
+					<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.zyld$</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="40px" class="td04b center title">本人<br>签名</td>
+			<td width="40%" height="40px" class="td05b data" colspan="4">
+				<input name="本人签名"
+				       value="$task.theCommonFormInfo.formJxwLeave.personalSignature$"
+			           style="width: 100%;height: 100%;" class="Inputhidden011"
+			           size="18">
+			</td>
+
+			<td width="10%" height="40px" class="td04b center title">申请<br>日期</td>
+			<td width="40%" height="40px" class="td05b data" colspan="4">
+				<input name="申请日期"
+				       value="$task.theCommonFormInfo.formJxwLeave.leaveApplyDate$"
+				       type="text"
+				       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+				       size="18">
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="60px" class="td04b center title">人教处<br>审核、<br>备案</td>
+			<td width="40%" height="60px" class="td05b data" colspan="4">
+				<div style="height: inherit;width: 100%;" class="Inputhidden011">
+					<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.rjcsh$</div>
+				</div>
+			</td>
+
+			<td width="10%" height="60px" class="td04b center title">党办或<br>行办<br>备案</td>
+			<td width="40%" height="60px" class="td05b data" colspan="4">
+				<div style="height: inherit;width: 100%;" class="Inputhidden011">
+					<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.dbba$</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%" height="40px" class="td04b center title" style="border-bottom: 1px solid black !important;">销假<br>说明</td>
+			<td width="90%" height="40px" class="td05b data" colspan="9" style="border-bottom: 1px solid black !important;">
+				<textarea name="销假说明"
+				          style="width: 100%;height: inherit;" class="Inputhidden011"
+				          size="18">
+					$task.theCommonFormInfo.formJxwLeave.terminateLeaveDesc$
+				</textarea>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>

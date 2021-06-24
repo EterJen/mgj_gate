@@ -1,0 +1,351 @@
+
+.sidebar {
+    background: #e91212;
+    background: linear-gradient(to top, #d52c2c, #e91212);
+}
+
+.sidebar:before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    display: inline-block;
+    position: absolute;
+    top: 1px;
+    left: 0
+}
+
+.sidebar li:before {
+    color: rgba(255, 255, 255, 0.6)
+}
+
+.sidebar li {
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    position: relative
+}
+
+.sidebar li:after {
+    content: "";
+    display: inline-block;
+    width: 97px;
+    height: 25px;
+    background: url(../spring-festival-img/li-bg-sf.png) no-repeat center;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.tpxw > div {
+    border-radius: 6px 30px 6px 30px;
+    background: url(../spring-festival-img/sf-list-bg.png) no-repeat center;
+    background-size: cover
+}
+
+.ldps li, .index-list ul li, .list-main li {
+    background: url(../spring-festival-img/li-sf.png) no-repeat 4px center;
+}
+
+.index-list li a, .list-main li a {
+    background: url(../spring-festival-img/li-sf-2.png) no-repeat 4px center;
+}
+
+.sidebar-sel, .sidebar li:hover {
+    background: url(../spring-festival-img/li-hover.png) no-repeat center;
+    background-size: cover
+}
+
+.index-list > div {
+    border-top: 3px solid #df1f1f;
+    position: relative;
+}
+
+.more {
+    background: url(../spring-festival-img/more-sf.png) no-repeat;
+}
+
+.index-list > div:hover {
+    border-top: 3px solid #df1f1f;
+}
+
+.index-list > div:hover .more {
+    background: url(../spring-festival-img/more-sf.png) no-repeat !important
+}
+
+.index-list li a:hover {
+    color: #df1f1f
+}
+
+.logo input {
+    border: 3px solid #a62323
+}
+
+.head {
+    background: url(../spring-festival-img/banner-sf.png) no-repeat top
+}
+
+.lxwm-list span {
+    color: #ae3737
+}
+
+.foot {
+    background: #d82828
+}
+
+.logo input {
+    color: #7d7d7d
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #7d7d7d;
+
+}
+
+.list-left li {
+    color: #cf6565
+}
+
+.list-left-tit1 {
+    background: #d82828
+}
+
+.list-left li:hover, .list-left .list-left-sel, .breadcrumb a:last-child {
+    color: #ae3737
+}
+
+.list-left .list-left-sel {
+    border-left: 6px solid #d82828
+}
+
+.list-left, .list-left ul {
+    background: #fff3f3
+}
+
+.list-bott ul li.sel a, .list-bott ul li a:hover {
+    background: #d82828;
+    border: 1px solid #d82828
+}
+
+.list-bott ul li a, .list-bott li span {
+    color: #ae3737
+}
+
+.logo {
+    background: url(../spring-festival-img/logo-sf.png) 0 14px no-repeat;
+}
+
+.smxh button {
+    background: url(../images/button-bg.png) no-repeat right center, url(../spring-festival-img/bg-1.png) repeat-y;
+    background-size: 100%;
+}
+
+.bssy button {
+    background: url(../images/button-bg.png) no-repeat right center, url(../spring-festival-img/bg-2.png) repeat-y;
+    background-size: 100%;
+}
+
+.jckz button {
+    background: url(../images/button-bg.png) no-repeat right center, url(../spring-festival-img/bg-3.png) repeat-y;
+    background-size: 100%;
+}
+
+.jbts button {
+    background: url(../images/button-bg.png) no-repeat right center, url(../spring-festival-img/bg-4.png) repeat-y;
+    background-size: 100%;
+}
+
+.smxh i {
+    background: #fff url(../spring-festival-img/rk-1.png) no-repeat center top 12px;
+}
+
+.bssy i {
+    background: #fff url(../spring-festival-img/rk-2.png) no-repeat center top 8px;
+}
+
+.jckz i {
+    background: #fff url(../spring-festival-img/rk-3.png) no-repeat center top 12px;
+}
+
+.jbts i {
+    background: #fff url(../spring-festival-img/rk-4.png) no-repeat center top 12px;
+}
+
+.rukou-button span {
+    text-shadow: 0px 6px 7px rgba(0, 0, 0, 0.2) !important
+}
+
+.logo div {
+    background: rgba(255, 255, 255, 0);
+}
+
+.logo input {
+    background: rgba(255, 255, 255, .8) url(../spring-festival-img/search-red.png) no-repeat center right 14px;
+}
+
+
+.bszn {
+    background: url(../spring-festival-img/bszn-red.png) no-repeat;
+}
+
+.zcfg {
+    background: url(../spring-festival-img/zcfg-red.png) no-repeat;
+}
+
+.zxsp {
+    background: url(../spring-festival-img/zxsp-red.png) no-repeat;
+}
+
+.smdt {
+    background: url(../spring-festival-img/smdt-red.png) no-repeat;
+}
+
+.xzfw {
+    background: url(../spring-festival-img/xzfw-red.png) no-repeat;
+}
+
+.yqlj {
+    background: url(../spring-festival-img/yqlj-red.png) no-repeat;
+}
+
+.lxwm {
+    background: url(../spring-festival-img/lxwm-red.png) no-repeat;
+}
+
+.tplj-content a {
+    background: #d82828
+}
+
+.mid-head {
+    display: none;
+    height: 44px;
+    width: 100%;
+    background: #d82828 url(../images/logo-mid-head.png) no-repeat;
+    background-size: auto 50px;
+    position: absolute;
+    top: -44px;
+    z-index: 10;
+}
+
+.sidebar-mid {
+    height: 2rem;
+    width: 2rem;
+    background: url(../spring-festival-img/mid-sidebar-red.png) no-repeat;
+    background-size: 100% auto;
+    position: absolute;
+    top: -10rem;
+    right: 1rem;
+    background-position: top;
+    z-index: 11;
+    display: none;
+}
+
+select {
+    width: 100%;
+    background: #f2f2f2;
+    background: #f2f2f2 url(../spring-festival-img/select-red.png) no-repeat center right 14px;
+    color: #292929;
+    border-radius: 4px;
+    padding-left: 14px;
+    box-sizing: border-box;
+    border: none;
+    margin-top: 20px;
+    font-size: 16px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    padding: 0 14px;
+    height: 47px;
+}
+
+.foot .blue-font {
+    color: #f0cf9f
+}
+
+@media screen and (min-width: 1401px)and (max-width: 1920px) {
+
+}
+
+@media screen and (max-width: 1400px)  and (min-width: 1026px) {
+
+}
+
+@media screen and (max-width: 1025px) {
+    .sidebar li:after {
+        content: none
+    }
+
+    .sidebar ul {
+        background: #d82828
+    }
+
+    .sidebar-sel, .sidebar li:hover {
+        background: #d82828
+    }
+
+    .head {
+        background: #fcf4e6 url(../spring-festival-img/head-bg-mid-sf.png) bottom no-repeat;
+        background-size: 100% auto;
+    }
+
+    .rukou-button {
+        width: 50% !important;
+        padding: 0 10px;
+        font-size: 14px
+    }
+
+    .rukou-button span {
+        font-size: 14px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        text-align: center
+    }
+
+    .rukou-button i {
+        display: none
+    }
+
+    .mid-head {
+        position: fixed;
+        top: 0;
+        z-index: 1;
+    }
+
+    .sidebar-mid {
+        display: block;
+        top: .8rem;
+        position: fixed;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+}
+
+@media screen and (max-width: 375px) {
+
+}
+
+@media screen and (max-width: 325px) {
+
+}
+
+@media screen and (max-width: 540px) {
+
+}
+
+@media screen and (max-width: 414px) {
+
+
+}
+
+@media screen and (max-width: 320px) {
+
+}
+
+
+@media screen and (min-width: 1441px) and (max-width: 1680px) {
+}
+
+@media screen and (min-width: 1681px) and (max-width: 1919px) {
+}

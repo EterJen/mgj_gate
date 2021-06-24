@@ -1,0 +1,233 @@
+<style>
+	.modal-dialog {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.modal-content {
+		/*overflow-y: scroll; */
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.modal-body {
+		/*overflow-y: scroll;*/
+		position: absolute;
+		top: 55px;
+		bottom: 65px;
+		width: 100%;
+	}
+
+	.modal-header .close {
+		margin-right: 15px;
+	}
+
+	.modal-footer {
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+	}
+	.viewModeUser{display: inline-block;color: #051b3b;margin: 10px 10px 0 10px;}
+	.ry_form .active{background: #fe8300 !important;}
+	.bta {
+		background: #e97066;
+		border-bottom: 2px solid #e97066;
+		width: 96px;
+		height: 27px;
+		line-height: 27px;
+		display: inline-block;
+		text-align: center;
+		border-radius: 3px;
+		font-size: 14px;
+		color: #fff !important;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		font-weight: bold;
+		text-decoration: none !important;
+		margin-left: 3px;
+	}
+	/*不可用的确定按钮*/
+	.disabled-button{
+		border-color: #D4D4D4 !important;
+		background-color: #D4D4D4 !important;
+		color: #fff;
+		cursor:not-allowed !important;
+	}
+</style>
+
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span >
+                      		   专家管理
+                          </span>
+					</div>
+
+					<div  class="right user-titleheading" style="width: 50%">
+						<a href="" class="bj" ng-click="fc.addBean('documentModal')" >新增</a>
+						<a href="" class="sc" ng-click="fc.batchDelete()" >删除</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+				<div class="table_shadow" style="overflow:auto; max-height: 70%">
+					<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+						<tr>
+							<td width="65px">名称:</td>
+							<td width="20%">
+								<input type="text" style="width: 100%"  ng-model="queryBean.displayname"  placeholder="请输入名称">
+							</td>
+							<td>
+								<a href="" class="bta" ng-click="searchGoods()">查找</a>
+							</td>
+						</tr>
+					</table>
+
+					<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+						<thead>
+						<tr>
+							<th width="50px"></th>
+							<th class="conllection-first-th" width="35px">
+								<input  type="checkbox" ng-click="checkAllClk()" ng-model="dataObject.selectStorageAll">
+							</th>
+
+							<th width="8%">姓名</th>
+							<th width="12%">库</th>
+							<th width="5%">性别</th>
+							<th width="8%">从事专业</th>
+							<th width="8%">技术职称</th>
+							<th width="15%">单位及职务</th>
+							<th width="12%">联系电话</th>
+							<th width="12%">办公地点</th>
+							<th width="12%">创建时间</th>
+							<th width="10%">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="bean in dataObject.beanList"  ng-click="editBean(bean,'documentModal')">
+							<td>{{(paginationConf.currentPage -1) * paginationConf.itemsPerPage + $index+1}}</td>
+							<td>
+								<input  type="checkbox" ng-click="goodsChecked(bean);$event.stopPropagation();" ng-model="bean.checked">
+							</td>
+							<td>{{bean.displayname}}</td>
+							<td>{{bean.expertstypeRef.typename}}</td>
+							<td>{{bean.sex}}</td>
+							<td>{{bean.major}}</td>
+							<td>{{bean.technical}}</td>
+							<td>{{bean.job}}</td>
+							<td>{{bean.phone}}</td>
+							<td>{{bean.address}}</td>
+							<td>{{bean.updatetime}}</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-danger " title="删除" ng-click="fc.deletBean(bean);$event.stopPropagation();">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="documentModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalDocument">专家新增/编辑</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="documentForm" name="documentForm">
+					<div class="form-group">
+						<label for="displayname" class="col-sm-2 control-label">姓名*</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="displayname" ng-model="newBean.displayname" maxlength="100" placeholder="请输入姓名" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="expertstype" class="col-sm-2 control-label">库*</label>
+						<div class="col-sm-10">
+							<select class="input-sm" style="width: 100%" id="expertstype" ng-model="newBean.expertstype"  ng-options="x.id as x.typename for x in dataObject.liberyBeanList">
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="template" class="col-sm-2 control-label">性别*</label>
+						<div class="col-sm-10">
+							<select class="input-sm" style="width: 100%" id="template" ng-model="newBean.sex" required>
+								<option value=""></option>
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="major" class="col-sm-2 control-label">从事专业*</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="major" ng-model="newBean.major" maxlength="100" placeholder="请输入从事专业" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="technical" class="col-sm-2 control-label">技术职称</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="technical" ng-model="newBean.technical" maxlength="100" placeholder="请输入技术职称名" >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="job" class="col-sm-2 control-label">单位及职务*</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="job" ng-model="newBean.job" maxlength="100" placeholder="请输入单位及职务" required>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<label for="phone" class="col-sm-2 control-label">联系电话*</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="phone" ng-model="newBean.phone" maxlength="100" placeholder="请输入联系电话" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address" class="col-sm-2 control-label">办公地点*</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="address" ng-model="newBean.address" maxlength="100" placeholder="请输入办公地点" required>
+						</div>
+					</div>
+
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<button type="button" ng-disabled="documentForm.$invalid" class="btn btn-sm btn-primary save" ng-click="documentForm.$invalid || fc.saveBean('documentModal')">保存</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+

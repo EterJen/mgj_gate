@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.jwt.AuthMapper">
+    
+    
+    <select id="findByUsername" resultMap="readResultMap" >
+    	select 
+			t.*
+		from
+			administrator  t
+		where
+			t.name=#{name} AND t.isdelete =0
+    </select>
+
+	<select id="findByName" resultType="com.gwideal.core.cms.l4.entity.Administrator">
+		select
+			t.*
+		from
+			administrator  t
+		where
+			t.DISPLAY=#{name} AND t.ISDELETE ='0'
+	</select>
+
+	<resultMap id="readResultMap" type="com.gwideal.core.cms.l4.entity.Administrator" autoMapping="true">
+		 <id property="id" column="id" />
+	</resultMap>
+	
+	
+  <!-- <select id="findByUsername" resultMap="readResultMap" >
+		select 
+			t.*,
+			r.role_code as role_code,
+			p.permission_code as permission_code,
+			d.id as department_id,
+			d.name as department_name,
+			d.parent_id as department_parent_id,
+			d.type as department_type
+		from 
+			gw_core_user t 
+			left join gw_core_user_role ur on t.id = ur.user_id 
+			left join gw_core_role r on ur.role_id = r.id 
+			left join gw_core_role_permission rp on r.id = rp.role_id
+			left join gw_core_permission p on rp.permission_id = p.id 
+			left join gw_core_department d on t.department_id = d.id 
+		where 
+			t.status = '1' and 
+			t.username=#{username}
+  </select>
+  <resultMap id="readResultMap" type="com.gwideal.core.t1.entity.basic.CoreUser" autoMapping="true">
+	 <id property="id" column="id" />
+	 <association property="departmentIdRef"  javaType="com.gwideal.core.t1.entity.basic.CoreDepartment" autoMapping="true" column="department_id" />
+	 <collection property="roleSet" ofType="java.lang.String" column="role_code" />
+	 <collection property="permissionSet" ofType="java.lang.String" column="permission_code" />
+  </resultMap> -->
+  
+</mapper>

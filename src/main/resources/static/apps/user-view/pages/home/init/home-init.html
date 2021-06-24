@@ -1,0 +1,302 @@
+<style>
+    .mgj-bay-window {
+        position: fixed !important;
+        z-index: 99999;
+        padding: 0 !important;
+        margin: 0 !important;
+        visibility: hidden;
+    }
+
+    .mgj-bay-window-main {
+        cursor: pointer;
+        padding: 52px 52px 2px 2px;
+    }
+
+    .bay-main-close {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        width: 50px;
+        height: 50px;
+        background: silver;
+        border-radius: 25px;
+        box-shadow: 2px 2px 5px 0px black;
+        cursor: pointer;
+    }
+
+    .bay-main-close:hover {
+        background: red;
+    }
+
+    .bay-main-close:before {
+        position: absolute;
+        content: '';
+        width: 30px;
+        height: 10px;
+        background: white;
+        transform: rotate(45deg);
+        top: 20px;
+        left: 10px;
+    }
+
+    .bay-main-close:after {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 10px;
+        background: white;
+        transform: rotate(-45deg);
+        top: 20px;
+        left: 10px;
+    }
+
+</style>
+<div id="mgj-bay-window" class="mgj-bay-window">
+    <div class="bay-main-close" ng-click="bayWindowClose($event)"></div>
+    <div class="mgj-bay-window-main">
+        <a raw-href="{{bean.bayWindow.link}}">
+            <img width="{{bean.bayWindow.imageWidth}}" height="bean.bayWindow.imageHeight" element-load="bayWindowInit()" gw-img-dyn="{{bean.bayWindow.imagePath}}">
+        </a>
+        <!--        <img style="width: 200px" src="../../common-assets/lib/jquery-plugin/bay-window/a1.png">-->
+    </div>
+</div>
+
+<div class="main clearfix">
+
+    <div class="main-bg clearfix">
+        <!-- Demo -->
+        <div class="owl-wrap">
+            <div id="owl-demo" class="owl-carousel">
+                <a ng-click="fc.articleView(x)" ng-repeat="x in bean.tpxwArticles" class="item">
+                    <img ng-last-rept="lastLoad($last,'owl-demo')" src="{{x.imagePath|mgjgatefileRead}}" alt="">
+                    <div class="heikuang">
+                        <span ng-bind="x.title"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Demo end -->
+        <div class="tpxw p-l-20">
+            <div>
+                <div class="index-tit">
+                    <a ng-click="fc.goState(fc.topBarMap.tzgg)">
+                        <i class="tzgg"></i>
+                        <span>通知公告</span>
+                    </a>
+                </div>
+                <!--tit end-->
+                <div class="ldps">
+                    <div class="clear-default">
+                        <ul class="list clear-default" >
+                            <li ng-click="fc.articleView(x)" ng-repeat="x in bean.tzggArticles">
+                                <a ng-bind="x.title"></a>
+                                <span ng-bind="x.publishTime|timeYmd"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--1-->
+                </div>
+            </div>
+        </div>
+        <!--图片新闻-->
+
+    </div>
+    <!--main-->
+
+</div>
+<div class="main main-gray clearfix">
+    <div class="main-bg">
+        <div class="index-list">
+            <div>
+                <a ng-click="fc.goState(fc.topBarMap.zcfg)" class="more"></a>
+                <div class="index-tit">
+                    <a ng-click="fc.goState(fc.topBarMap.zcfg)">
+                        <i class="zcfg"></i>
+                        <span>政策法规</span>
+                    </a>
+                </div>
+                <!--tit end-->
+                <ul class="clear-default">
+                    <li ng-click="fc.articleView(x)" ng-repeat="x in bean.zcfgArticles">
+                        <a ng-bind="x.title"></a>
+                        <span ng-bind="x.publishTime|timeYmd"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!--index-list end-->
+        <div class="index-list p-l-20">
+            <div>
+                <a ng-click="fc.goState(fc.topBarMap.bszn)" class="more"></a>
+                <div class="index-tit">
+                    <a ng-click="fc.goState(fc.topBarMap.bszn)">
+                        <i class="bszn"></i>
+                        <span>办事指南</span>
+                    </a>
+                </div>
+                <!--tit end-->
+                <ul class="clear-default">
+                    <li ng-click="fc.articleView(x)" ng-repeat="x in bean.bsznArticles">
+                        <a ng-bind="x.title"></a>
+                        <span ng-bind="x.publishTime|timeYmd"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--index-list end-->
+
+        <!--index-list end-->
+
+        <div class="index-list p-l-20">
+            <div>
+                <a ng-click="fc.goState(fc.topBarMap.xzfw)" class="more"></a>
+                <div class="index-tit">
+                    <a ng-click="fc.goState(fc.topBarMap.xzfw)">
+                        <i class="xzfw"></i>
+                        <span>下载服务</span>
+                    </a>
+                </div>
+                <!--tit end-->
+                <ul class="clear-default">
+                    <li ng-click="fc.articleView(x)" ng-repeat="x in bean.xzfwArticles">
+                        <a ng-bind="x.title"></a>
+                        <span ng-bind="x.publishTime|timeYmd"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="index-list  p-l-20 ">
+            <div>
+                <a ng-click="fc.goState(fc.topBarMap.smdt)" class="more"></a>
+                <div class="index-tit">
+                    <a ng-click="fc.goState(fc.topBarMap.smdt)">
+                        <i class="smdt"></i>
+                        <span>专题专栏</span>
+                    </a>
+                </div>
+                <!--tit end-->
+                <ul class="clear-default">
+                    <li ng-click="fc.articleView(x)" ng-repeat="x in bean.smdtArticles">
+                        <a ng-bind="x.title"></a>
+                        <span ng-bind="x.publishTime|timeYmd"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--index-list end-->
+        <div class="rukou">
+            <div>
+
+                <div class="rukou-button smxh" ng-click="fc.goState(fc.topBarMap.cyjd)">
+                    <button>
+                        <i class=""></i>
+                        <span>产业基地</span>
+                    </button>
+                </div>
+                <div class="rukou-button bssy" ng-click="fc.goState(fc.topBarMap.smxh)">
+                    <button>
+                        <i class="" style="top: 21px"></i>
+                        <span>商密协会</span>
+                    </button>
+                </div>
+
+
+                <div class="rukou-button jckz" ng-click="fc.goState(fc.topBarMap.cpml)">
+                    <button>
+                        <i class=""></i>
+                        <span>产品名录</span>
+                    </button>
+                </div>
+                <div class="rukou-button jbts" ng-click="fc.goState(fc.topBarMap.jsbz)">
+                    <button>
+                        <i class="" style="top: 21px"></i>
+                        <span>技术标准</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--index-list end-->
+
+    </div>
+</div>
+<div class="main clearfix">
+    <div class="main-bg clearfix">
+        <div class="index-zxsp">
+            <div>
+                <div class="index-tit">
+                    <a>
+                        <i class="zxsp"></i>
+                        <span>在线视频</span>
+                    </a>
+                </div>
+                <!--tit end-->
+                <div id="spxhlb" class="video owl-carousel">
+                    <a ng-click="fc.articleView(x)" ng-repeat="x in bean.spxwArticles" class="item">
+                        <img ng-last-rept="lastLoad($last,'spxhlb')" src="{{x.videoCoverPath|mgjgatefileRead}}" alt="">
+                        <div class="heikuang">
+                            <span ng-bind="x.title"></span>
+                        </div>
+                        <div class="bofang" style="cursor: pointer"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--index-list end-->
+        <div class="index-zxsp  p-l-20">
+            <div>
+                <div class="index-tit">
+                    <a>
+                        <i class="yqlj"></i>
+                        <span>友情链接</span>
+                    </a>
+                </div>
+                <!--tit end-->
+                <select ng-change="openlink(bean.activeZfbmLink)" ng-model="bean.activeZfbmLink" ng-options="x as x.name for x in bean.zfbmLinks"></select>
+                <select ng-change="openlink(bean.activeMmglbmLink)" ng-model="bean.activeMmglbmLink" ng-options="x as x.name for x in bean.mmglbmLinks"></select>
+                <select ng-change="openlink(bean.activeXgbmLink)" ng-model="bean.activeXgbmLink" ng-options="x as x.name for x in bean.xgbmLinks"></select>
+            </div>
+        </div>
+        <!--index-list end-->
+        <div class="index-zxsp  p-l-20">
+            <div>
+                <div class="index-tit">
+                    <i class="lxwm"></i>
+                    <a>
+                        <span>联系我们</span>
+                    </a>
+                </div>
+                <!--tit end-->
+                <ul class="lxwm-list " style="padding: 0">
+                    <li>
+                        <span>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</span>
+                        <span ng-bind="bean.contactInformation.address"></span>
+                    </li>
+                    <li>
+                        <span>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp编：</span>
+                        <span ng-bind="bean.contactInformation.postalCode"></span>
+                    </li>
+                    <li>
+                        <span>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp话：</span>
+                        <span ng-bind="bean.contactInformation.telephone"></span>
+                    </li>
+                    <li>
+                        <span>工作时间：</span>
+                        <span ng-bind="bean.contactInformation.workTime"></span>
+                    </li>
+
+                    <li>
+                        <span>传&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp真：</span>
+                        <span ng-bind="bean.contactInformation.fax"></span>
+                    </li>
+                    <li>
+                        <span>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp箱：</span>
+                        <span ng-bind="bean.contactInformation.email"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--index-list end-->
+    </div>
+</div>

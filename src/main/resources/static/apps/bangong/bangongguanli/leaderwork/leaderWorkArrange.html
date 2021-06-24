@@ -1,0 +1,318 @@
+<style>
+	.bmxx_tit a{width:96px;height:27px;line-height:27px;display: inline-block;text-align: center;border-radius:3px;font-size:14px;font-weight: bold;color:#fff;}
+    .bmxx_tit a.tj{background:#85a834; width: 72px;}
+    .bmxx_tit a.bj{background:#3986c8; width: 72px;}
+	.bmxx_tit a:hover{text-decoration: none;}
+	.bmxx_tit a img{margin:0 5px 3px 0;width: 13px;height: 13px;}
+	table.table-bordered tbody td{text-align: center; vertical-align: middle;}
+	table.table-bordered tbody td textarea{width: 100%;}
+	table.table-bordered tbody td label{font-weight: normal;}
+	table.table-bordered tbody td.left{text-align: left; font-weight: normal; margin-left: 10px;}
+    .alert-info{background-color:#85ABEE !important; padding:8px !important;}
+	table.table_zdy_2 tr td,th{cursor: default;}
+	table.table_zdy_2 tr td.editable{cursor: pointer;}
+	table.table_zdy_2 tr td div{text-align: left; cursor: default;}
+	table.table_zdy_2 tr td div.editable{text-decoration: underline;cursor: pointer;}
+</style>
+<script type="text/ng-template" id="nodes_renderer.html">
+	<div ng-class="{active: nodeId == node.id}" ui-tree-handle class="tree-node tree-node-content" ng-click="selectCandidate(node)" ng-dblclick="toggle(this)">
+		<a class="btn btn-xs angular-ui-tree-span" style="margin-right:0px" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+			<img src="../images/zd-anv-01.png" style="margin-left:2px" height="20px">
+		</a>
+		<a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0"></a>
+		<span class="angular-ui-tree-span" ng-if="node.name.length>9">{{node.name | limitTo : 9}}</span>
+		<span class="angular-ui-tree-span" ng-if="node.name.length<=9">{{node.name}}</span>
+		<a class="btn btn-xs pull-right" data-nodrag>
+			<span class="fa_icon"></span>
+		</a>
+	</div>
+	<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+		<li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+	</ol>
+</script>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="panel panel-default">
+            <div class="panel-heading" id="panel-heading" style="border-bottom: 1px solid transparent;background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+                <div class="bmxx_tit" id="depart_tit">
+                    <div class="left">
+                        <img src="images/bmxx_tit-01.png">
+                        <span ng-if="modeType == 'W'">两委领导安排</span>
+                        <span ng-if="modeType == 'X'">行政领导安排</span>
+                        <span ng-if="modeType == 'D'">党委领导安排</span>
+                    </div>
+
+                </div>
+            </div>
+	        <div class="bmxx_tit" id="bmxx_tit" style="width: 100%; margin-bottom: 0;padding-right: 15px;padding-left: 15px;
+	                                        text-align: center;clear: both;overflow: hidden;">
+		        <div class="right" style="width: 30%;float: right;text-align: right;">
+			        <a href="" class="tj" ng-click="openCreateArrangeDialog()"><img src="images/add.svg">新增</a>
+			        <a href="" class="tj" ng-click="agentAuth()">授权</a>
+			        <a href="" class="bj" ng-click="exportArrange()">导出</a>
+		        </div>
+		        <div style="width: 30%;float: left;"></div>
+		        <div style="margin:0 30%; position:relative;top: 0;padding-top: 3px;">
+			        <a href="" class="bj" ng-model="preWeek" ng-click="query(preWeek)">&lt;&lt;上周</a>
+			        <a href="" class="bj" ng-model="currentWeek" ng-click="query(currentWeek)">本周</a>
+			        <a href="" class="bj" ng-model="nextWeek" ng-click="query(nextWeek)">下周&gt;&gt;</a>
+		        </div>
+	        </div>
+	        <div class="panel-body fixedHeight" id="title" style="padding-right: 15px;">
+		        <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+			        <thead>
+			        <tr>
+				        <th width="10%"></th>
+				        <th width="15%" ng-repeat="date in dateList" ng-bind-html="date"></th>
+			        </tr>
+			        </thead>
+		        </table>
+	        </div>
+	        <div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;">
+	            <div class="table_shadow">
+		            <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+		                <tbody>
+		                    <tr ng-repeat="arrange in dataList" >
+			                    <td width="10%" class="editable" ng-click="showDetailArrangeDialog(arrange);$event.stopPropagation();">{{::arrange.name}}</td>
+			                    <td width="15%" ng-repeat="(k, v) in arrange.data track by $index" ng-class="{editable: arrange.editable}"
+			                        ng-click="arrange.editable && (v.length == 0 || v == null) && openCreateArrangeDialog(null,arrange.id,dateList[$index]);$event.stopPropagation()">
+				                    <div style="height: auto;overflow-y: auto;max-height: 100px;">
+					                    <div ng-class="{editable: arrange.editable}" ng-repeat="arr in v" ng-click="arrange.editable && openCreateArrangeDialog(arr, null, null);$event.stopPropagation()">
+						                    <p>{{::arr.actionTimeShow}}</p>
+						                    <p>{{::arr.title}}</p>
+						                    <p>{{::arr.address}}</p>
+					                    </div>
+				                    </div>
+			                    </td>
+		                    </tr>
+		                </tbody>
+	                </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="createArrangeDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">创建工作安排</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="leaderWorkArrangeForm" name="leaderWorkArrangeForm" role="form">
+					<table class="table table-bordered">
+						<tr>
+							<td width="15%">姓名</td>
+							<td width="30%">
+								<input type="hidden" class="form-control" id="userid" ng-model="queryBean.userid"/>
+								<input type="hidden" class="form-control" id="usercname" ng-model="queryBean.usercname"/>
+								<div class="form-group" style="margin: 0;">
+									<select class="form-control" ng-change="changeUser(user)" ng-model="user" ng-options="x as x.name for x in leaderList" required></select>
+								</div>
+							</td>
+							<td width="15%">部门</td>
+							<td width="30%">
+								{{deptcname}}
+								<input type="hidden" class="form-control" id="deptcname" ng-model="queryBean.deptcname"/>
+								<input type="hidden" class="form-control" id="deptid" ng-model="queryBean.deptid"/>
+							</td>
+						</tr>
+						<tr>
+							<td width="15%">活动名称</td>
+							<td width="30%">
+								<div class="form-group" style="margin: 0;">
+									<textarea ng-model="queryBean.title" rows="3" ng-maxlength="2048" required></textarea>
+								</div>
+							</td>
+							<td width="15%">活动地点</td>
+							<td width="30%">
+								<div class="form-group" style="margin: 0;">
+									<textarea ng-model="queryBean.address" rows="3" ng-maxlength="512"></textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="15%">活动概要</td>
+							<td colspan="3">
+								<div class="form-group" style="margin: 0;">
+									<textarea ng-model="queryBean.brief" rows="3" ng-maxlength="1024"></textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="15%">活动日期</td>
+							<td colspan="3">
+								<div class="form-group" style="margin: 0;">
+									<label for="startday">开始日期：</label>
+									<input type="text" id="startday" ng-model="queryBean.startday" required
+									       style="width: 20%;" ng-disabled="queryBean.parentactionid != null"/>
+									<span>--</span>
+									<label for="endday">结束日期(多天)：</label>
+									<input type="text" id="endday" ng-model="queryBean.endday" required
+									       style="width: 20%;" ng-disabled="queryBean.parentactionid != null"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="15%">活动时间</td>
+							<td colspan="3">
+								<div class="form-group" style="margin: 0;">
+									<label for="starttime">开始时间：</label>
+									<select id="starttime" ng-model="queryBean.startTimeHour" ng-options="h.val as h.label for h in starttimeHours" style="margin-right: 5px;width: 10%;"></select>
+									<span>时</span>
+									<select ng-model="queryBean.startTimeMinute" ng-options="m.val as m.label for m in minutes" style="margin: 0 10px;width: 10%;"></select>
+									<span>分</span>
+									<span>--</span>
+									<label for="endtime">结束时间：</label>
+									<select id="endtime" ng-model="queryBean.endTimeHour" ng-options="h.val as h.label for h in endtimeHours" style="margin-right: 5px;width: 10%;"></select>
+									<span>时</span>
+									<select ng-model="queryBean.endTimeMinute" ng-options="m.val as m.label for m in minutes" style="margin: 0 10px;width: 10%;"></select>
+									<span>分</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div ng-show="queryBean.id == null">
+									<button type="button" class="btn btn-sm btn-primary save" ng-disabled="!leaderWorkArrangeForm.$valid" ng-click="saveArrange('createArrangeDialog')">确定</button>
+									<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+								</div>
+								<div ng-show="queryBean.id != null">
+									<button type="button" class="btn btn-sm btn-success save" ng-click="openCreateArrangeDialog(null, userid, date)">创建新安排</button>
+									<button type="button" class="btn btn-sm btn-primary save" ng-click="updateArrange('createArrangeDialog')">保存</button>
+									<button type="button" class="btn btn-sm btn-danger save" ng-click="deleteArrange('createArrangeDialog')">删除</button>
+									<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4"></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="left">活动细目</td>
+						</tr>
+						<tr ng-show="actionItemList.length != 0" s>
+							<td colspan="4" class="left" ng-click="openCreateArrangeDialog(actionItemList[0])">全部活动</td>
+						</tr>
+						<tr ng-repeat="action in actionItemList" ng-if="$index>0">
+							<td colspan="4" class="left" ng-click="openCreateArrangeDialog(action)">{{::action.startday}}</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade " id="detailArrangeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document" style="width: 80%;margin: 20px auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">一周活动安排表</h4>
+            </div>
+            <div class="modal-body" style="padding-top: 0;" ng-click="print()" id="arrangeDetail">
+	            <div class="row">
+		            <div class="col-sm-12" style="text-align: center;font-size: 25px">
+			            {{username}}同志一周活动建议安排表
+		            </div>
+		            <div class="col-sm-12" style="text-align: center;font-size: 18px;">({{currentWeekStr}})</div>
+	            </div>
+	            <div class="row" style="height:80%;overflow-y: auto;margin: 0 10px">
+		            <table class="table table-striped table_zdy_2">
+			            <thead>
+			            <tr>
+				            <th style="width: 10%">日期</th>
+				            <th style="width: 30%">上午</th>
+				            <th style="width: 30%">下午</th>
+				            <th style="width: 30%">晚上</th>
+			            </tr>
+			            </thead>
+			            <tbody>
+			            <tr ng-repeat="arrange in leaderWorkArrangeOfWeek">
+				            <td ng-bind-html="arrange.date"></td>
+				            <td ng-bind-html="arrange.mor" style="text-align: left;"></td>
+				            <td ng-bind-html="arrange.aft" style="text-align: left;"></td>
+				            <td ng-bind-html="arrange.eve" style="text-align: left;"></td>
+			            </tr>
+			            <tr>
+				            <td colspan="4" style="text-align: left;">
+					            备注：
+				            </td>
+			            </tr>
+			            </tbody>
+		            </table>
+	            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="agentAuthDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					管理授权
+				</h4>
+			</div>
+			<div class="modal-body" style="height:600px">
+				<ul class="nav nav-tabs " style="margin:0 auto;">
+					<li class="active" style="margin-right: -1px;"><a href="">用户</a></li>
+				</ul>
+				<div class="row" style="height:100%">
+					<div class="col-md-6" style="height:100%;overflow:auto">
+						<div ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+							<ol ui-tree-nodes="" ng-model="data">
+								<li ng-repeat="node in treeData" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+							</ol>
+						</div>
+					</div>
+					<div class="col-md-6" style="height:100%;overflow:auto">
+						<div style="height:40%; overflow: hidden; margin-top: 5px">
+							<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;部门人员列表</div>
+							<div style="height:95%;overflow-y: auto;">
+								<div  class="ry_form"  ng-repeat="user in currDepartUserList track by $index" ng-click="selectUserCandidate(user)">
+									<div class="tit_2 clearfix" style="width:250px;cursor: pointer;">
+										<span class="l" style="width:100%">{{user.name}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="height:40%; margin-top: 5px">
+							<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;已选列表</div>
+							<div style="height:95%;overflow-y: auto;">
+								<div class="ry_form" style="" ng-repeat="agent in agentList track by $index" ng-click="removeFromSelected($index)">
+									<div class="tit_2 clearfix" style="width:250px;cursor: pointer;">
+										<span class="l" style="width:100%">{{agent.name}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="height:40%; margin-top: 5px">
+							<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;以下用户授权给您</div>
+							<div style="height:95%;overflow-y: auto;">
+								<div class="ry_form" style="" ng-repeat="leader in agentLeaderList track by $index">
+									<div class="tit_2 clearfix" style="width:250px;cursor: default;">
+										<span class="l" style="width:100%">{{leader.name}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="border: none;margin-top: 10px;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="saveAgent()">确定</button>
+			</div>
+		</div>
+	</div>
+</div>

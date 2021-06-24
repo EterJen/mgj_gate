@@ -1,0 +1,37 @@
+<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+	<thead>
+		<tr>
+			<th class="conllection-first-th"style="width:6% !important" >收文日期</th>
+			<th width="10%">沪经办理编号</th>
+			<th width="10%">文件字号</th>
+			<th width="45%">标题/案由</th>
+			<th width="8%">来文单位</th>
+			<th width="8%">代表/提案人</th>
+			<th width="6%">办理要求</th>
+			<th width="6%">当前处理人</th>
+		</tr>
+	</thead>
+	<!--ng-click="gotoDetail(proInst)"  -->
+	<tr ng-repeat="proInst in proInstList" ng-dblclick="gotoDetail(proInst)"  id="{{proInst.id}}" taskId="{{proInst.taskId}}" name="{{proInst.formDefId}}"
+		onclick="$(this).addClass('clickTr').siblings().removeClass('clickTr')">
+		<td id="pop{{proInst.id}}"><span>{{::proInst.createTime | limitTo : 10}}</span></td>
+		<td>{{::proInst.incomingDocDepart}}</td>
+		<td>
+			<!-- <span ng-if="proInst.formDefId=='workapproved'">工作报批</span>
+			<span ng-if="proInst.formDefId=='contractapproved'">合同报批</span>
+			<span ng-if="proInst.formDefId=='draftapproved'">委内文稿审核单</span> -->
+		</td>
+		<td style="text-align: left;">{{::proInst.title}}</td>
+		<td>{{::proInst.creatorName}}</td>
+		<td>
+			
+		</td>
+		<td>
+			
+		</td>
+		<td>
+			
+		</td>
+	</tr>
+</table>
+

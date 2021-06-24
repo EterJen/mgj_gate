@@ -1,0 +1,1180 @@
+<style>
+    .bm_cont .coop .tit {
+        border-bottom: 0px solid red !important;
+    }
+
+    .modal-dialog {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .ry_form span i {
+        background: none;
+    }
+
+    .modal-content {
+        /*overflow-y: scroll; */
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .modal-search {
+        /*overflow-y: scroll;*/
+        position: absolute;
+        top: 55px;
+        margin-top: -5px;
+        margin-bottom: 0;
+        height: 27px;
+        width: 100%;
+    }
+
+    .mbcss-s-f {
+        position: absolute;
+        top: 55px;
+        width: 100%;
+        bottom: 65px;
+    }
+
+    .mbcss-s-nf {
+        position: absolute;
+        top: 55px;
+        width: 100%;
+        bottom: 0px;
+    }
+
+    .mbcss-ns-f {
+        position: absolute;
+        top: 55px;
+        width: 100%;
+        bottom: 65px;
+    }
+
+    .mbcss-ns-nf {
+        position: absolute;
+        top: 55px;
+        width: 100%;
+        bottom: 0px;
+    }
+
+    .modal-header .close {
+        margin-right: 15px;
+    }
+
+    .modal-footer {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+    }
+
+    .outer-container {
+        position: relative;
+        /*overflow: hidden;*/
+        height: 40px;
+
+    }
+
+    .inner-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: -17px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .pic-list {
+        /*display:inline-block;*/
+        /*white-space: nowrap;*/
+        display: block;
+        overflow-x: auto;
+        width: 800px;
+        white-space: nowrap;
+    / / 处理块元素中的空白符和换行
+    }
+
+    .pic-list li {
+        /*width:80px;*/
+        /*height:80px;*/
+        /*margin:3px;*/
+        /*background:red;*/
+        list-style: none;
+        display: inline-block;
+    / / 使li对象显示为一行
+        /*margin-left: 15px;*/
+        /*width: 130px;*/
+        /*float:left; list-style:none;*/
+    }
+
+    hr {
+        border: 1px;
+        border-bottom: 1px solid #ccc;
+        margin-top: 1px;
+        margin-bottom: 2px;
+        background: #999;
+    }
+
+    .disabledA {
+        opacity: 0.2;
+    }
+</style>
+<!--chrome-->
+<script type="text/ng-template" id="nodes_renderer.html">
+	<div ng-class="{active: nodeId == node.id}" ui-tree-handle class="tree-node tree-node-content" ng-click="selectCandidate(node)" ng-dblclick="toggle(this)">
+		<a class="btn btn-xs angular-ui-tree-span" style="margin-right:0px" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+			<img src="../images/zd-anv-01.png" style="margin-left:2px" height="20px">
+		</a>
+		<a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0"></a>
+		<span class="angular-ui-tree-span" ng-if="node.name.length>9">{{node.name | limitTo : 9}}</span>
+		<span class="angular-ui-tree-span" ng-if="node.name.length<=9">{{node.name}}</span>
+		<a class="btn btn-xs pull-right" data-nodrag>
+			<span class="fa_icon"></span>
+		</a>
+	</div>
+	<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+		<li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+	</ol>
+</script>
+<div class="modal fade bs-example-modal-lg" id="viewHistoryDialog" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-mj" role="document" style=";width: 90%;margin: 20px auto;">
+        <div class="modal-content modal-content-mj" style=" height: 100%; /*padding: 6% 4% 1% 4%;*/">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                <!--<span  aria-hidden="true">&times;</span>-->
+                <!--</button>-->
+                <h6 class="modal-title modalText-title" style="display: inline-block">流程文号：{{::task.theCommonFormInfo.belongProInst.docFullName}}</h6>
+                <button aria-hidden="true" data-dismiss="modal" type="button" class="btn btn-sm btn-primary save" style="display: inline-block;float: right;margin-right: 0;padding-top: 2px;padding-bottom: 3px">关闭</button>
+            </div>
+            <div class="modal-body" style="padding-top: 0">
+                <div style="height:50%;overflow-y: auto;">
+                    <table class="table table-striped table_zdy_2">
+                        <thead>
+                            <tr>
+                                <th>阶段名称</th>
+                                <th>处理人</th>
+                                <th>实际处理人</th>
+                                <th>接收时间</th>
+                                <th>流转发送时间</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="hist in task.historyDetailList">
+                                <td>{{::hist.fromNodeName}}</td>
+                                <td>{{::hist.operatorName}}</td>
+                                <td>{{::hist.dealerName}}</td>
+                                <td>{{::hist.accetpTime}}</td>
+                                <td>{{::hist.operateTime}}</td>
+                                <td>{{::hist.taskHisShowStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="moveWorkflowDialog" tabindex="-1" role="dialog">
+    <div class="yjcl_cont">
+        <div class="yjcl_cont_tit">
+            <!--待做到流程配置中-->
+            <span ng-show="selectedOp.flowActionTips"><i></i>{{selectedOp.flowActionTips}}</span>
+            <span ng-show="!selectedOp.flowActionTips"><i></i>流转给其他同事进行处理</span>
+        </div>
+        <div class="yjcl_sidebar l">
+            <ul>
+                <li title="{{oper.name}}" ng-repeat="oper in availableOps" ng-class="oper.selectStatus" ng-click="showOperCandidates(oper)">
+                    <a><i></i>{{oper.name | limitTo: 6}}<em></em></a>
+                </li>
+            </ul>
+        </div>
+        <div class="yjcl_content l">
+            <div class="clearfix">
+                <div class="yjcl_content_left l">
+                    <div class="bm_cont">
+                        <div class="coop  clearfix">
+                            <div class="tit">
+                                <div class="tabtit">
+                                    <ul class="pic-list">
+                                        <!--<li ng-show="selectedOp.preConditionPass" ng-class="{tab_on: currCandidateKey==key}" ng-repeat="key in candidatMapKeyList" ng-click="changeCandidate(key)">{{participantTypeName[key]}}</li>-->
+                                        <li ng-show="selectedOp.preConditionPass" class="tab_on" ng-repeat="key in candidatMapKeyList"
+                                                ng-click="changeCandidate(key)">{{participantTypeName[key]}}</li>
+                                        <li ng-show="!selectedOp.preConditionPass" class="tab_on">流转条件不满足</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div style="overflow:auto;  padding-top:5px">
+                                <ul ng-if="selectedOp.preConditionPass">
+                                    <li ng-repeat="(key,value) in selectedOp.candidatMap">
+                                        <!--<h2 >{{candidatListMap[key]}}</h2>-->
+                                        <div ng-show="!value.expand" class="rymd_w" style="display: block;">
+                                            <ul class="rymd_cont" style="padding-bottom : 0;padding-top: 0">
+                                                <li ng-if="candit.parent" ng-repeat="candit in value" ng-click="showCandidateUserList(candit);$event.stopPropagation();" ng-class="{li_on: candit.expand}">
+                                                    <h2>{{candit.participantName}}</h2>
+                                                    <div ng-show="candit.expand" class="rymd_w" style="display: block;">
+                                                        <span ng-repeat="userInfo in candit.childrenParticipants" ng-click="moveUserToSelectedAssignee(userInfo);$event.stopPropagation();"><p>{{userInfo.name}}</p> </span>
+                                                    </div>
+                                                </li>
+                                                <li style=" background: none;padding-left: 0px;" ng-if="!candit.parent" ng-repeat="candit in value" ng-click="moveUserToSelectedAssignee(candit);$event.stopPropagation();">
+                                                    <h2 class="role">{{candit.participantName}}</h2>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <!--<ul ng-if="selectedOp.preConditionPass" class="rymd_cont">
+                                    <li   ng-repeat="(key,value) in selectedOp.candidatMap"  ng-click="candidateMapClick(value);$event.stopPropagation();" ng-class="{li_on: !value.expand}">
+                                        <h2 >{{candidatListMap[key]}}</h2>
+                                        <div ng-show="!value.expand" class="rymd_w" style="display: block;"  >
+                                            <ul class="rymd_cont" style="padding-bottom : 0">
+                                                <li  ng-if="candit.parent" ng-repeat="candit in value"  ng-click="showCandidateUserList(candit);$event.stopPropagation();" ng-class="{li_on: candit.expand}">
+                                                    <h2 >{{candit.participantName}}</h2>
+                                                    <div ng-show="candit.expand" class="rymd_w" style="display: block;"  >
+                                                        <span ng-repeat="userInfo in candit.childrenParticipants" ng-click="moveUserToSelectedAssignee(userInfo);$event.stopPropagation();"><p>{{userInfo.name}}</p></span>
+                                                    </div>
+                                                </li>
+                                                <li  style=" background: none;padding-left: 0px;" ng-if="!candit.parent" ng-repeat="candit in value"  ng-click="moveUserToSelectedAssignee(candit);$event.stopPropagation();" >
+                                                    <h2 class="role">{{candit.participantName}}</h2>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                </ul>-->
+                                <span ng-if="!selectedOp.preConditionPass" class="label label-default" style="color: red;font-size: 14px">{{selectedOp.preConditionFalseMessage}}</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="yjcl_content_right r">
+                    <div class="yxzry_cont" style="overflow-y: hidden" ng-if="selectedOp.optionAgent">
+                        <div style="overflow-y: auto;overflow-x: hidden">
+                            <div class="tit">代签意见</div>
+                            <textarea class="form-control" rows="3" placeholder="请在此处输入代签意见" ng-model="wf.nextTask.userOptin"></textarea>
+                        </div>
+                        <div style="height:40%; ">
+                            <div class="tit">已选列表</div>
+                            <div style="height: 80%; overflow-y: auto;overflow-x: hidden">
+                                <div class="ry_form" ng-click="removeFromSelected($index)" ng-repeat="selCandit in selectedCanditList track by $index">
+                                    <div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+                                        <span style="width:100%;padding-right: 20%;" class="l">{{selCandit.participantName}} <i style="color: #548ffb" class=" glyphicon glyphicon-ok"></i> </span>
+                                        <i class="r"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div ng-if="selectedOp.recomSelectedUsers.length>0" class="tit">推荐列表<a href=""  class="tj" style="margin-left: 5px" ng-click="allselectTJ()">(全选)</a></div>
+                        <div  ng-if="selectedOp.recomSelectedUsers.length>0" style="height: 23%; overflow-y: auto; margin-top:3px; overflow-x: hidden">
+                            <div class="ry_form" ng-click="moveUserToSelectedAssignee(userInfo)" ng-repeat="userInfo in selectedOp.recomSelectedUsers">
+                                <div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+                                    <span style="width:100%;padding-right: 20%;" class="l">{{userInfo.name}}  <!--<i class="glyphicon glyphicon-trash" style="top: 0.2rem"></i>--></span>
+                                    <i class="r"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yxzry_cont" style="overflow-y: hidden" ng-if="!selectedOp.optionAgent">
+                        <div class="tit">已选列表</div>
+                        <div ng-if="!checkSelectedOp(selectedOp)" style="height: 40%;overflow-y: auto; margin-top:3px; overflow-x: hidden">
+                            <div class="ry_form" ng-click="removeFromSelected($index)" ng-repeat="selCandit in selectedCanditList track by $index">
+                                <div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+                                    <span style="width:100%;padding-right: 20%;">{{selCandit.participantName}} <i style="color: #548ffb" class=" glyphicon glyphicon-ok"></i> </span>
+                                    <i class="r"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="checkSelectedOp(selectedOp)" style="height: 40%;overflow-y: auto; margin-top:3px; overflow-x: hidden">
+                            <div class="ry_form" ng-repeat="selCandit in selectedCanditList track by $index">
+                                <div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+                                    <span style="width:100%;padding-right: 20%;">{{selCandit.participantName}} <i style="color: #548ffb" class=" glyphicon glyphicon-ok"></i> </span>
+                                    <i class="r"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="selectedOp.recomSelectedUsers.length >= 1" class="tit">推荐列表<a href=""  class="tj" style="margin-left: 5px" ng-click="allselectTJ()">(全选)</a></div>
+                        <div style="height: 39%; overflow-y: auto; margin-top:3px; overflow-x: hidden">
+                            <div ng-if="selectedOp.recomSelectedUsers.length >= 1" class="ry_form" ng-click="moveUserToSelectedAssignee(userInfo)"
+                                    ng-repeat="userInfo in selectedOp.recomSelectedUsers">
+                                <div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+                                    <span style="width:100%;padding-right: 20%;" class="l">{{userInfo.name}}  <!--<i class="glyphicon glyphicon-trash" style="top: 0.2rem"></i>--></span>
+                                    <i class="r"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer mf" style="position: inherit">
+                        <button type="submit" class="btn btn-primary btn-enter btn-sm save" ng-click="fc.flowAction()" ng-disabled="selectedCanditList.length <= 0">确定</button>
+                        <button type="button" class="btn btn-default btn-close btn-sm cancel" ng-click="hideWorkflowDialog()">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="convertTypeDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="height: 400px;margin: auto">
+        <div class="modal-content">
+            <div class="modal-header">转换收文类型</div>
+            <div class="modal-body" style="font-size: 14px">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="showenDanwei" class="col-sm-2 control-label">来文字号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly ng-model="task.theCommonFormInfo.belongProInst.incomingDocNum" id="showenDanwei">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="showenDanwei" class="col-sm-2 control-label">原始收文编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly ng-model="task.theCommonFormInfo.belongProInst.docFullName" id="showenDanwei">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="showenDanwei" class="col-sm-2 control-label">转换为</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-change="fc.convertTypeRelate.newDocFullName = '';fc.convertTypeRelate.newDocFullNameDisEdit = true" ng-model="fc.convertTypeRelate.activeType"  ng-options='d as d.name for d in fc.convertTypeRelate.allShouWenFlow' required></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="showenDanwei" class="col-sm-2 control-label">新文号</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-blur="fc.convertTypeRelate.newDocFullNameCheck()"   ng-readonly ="fc.convertTypeRelate.newDocFullNameDisEdit" ng-model="fc.convertTypeRelate.newDocFullName">
+                                <span ng-click="fc.convertTypeRelate.inputNewDocFullName()" class="input-group-addon btn btn-sm btn-primary save"><i  class="glyphicon glyphicon-pencil">&nbsp;</i>采用自定义编号</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="showenDanwei" class="col-sm-2 control-label">处理人</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="text" readonly class="form-control"  ng-model="fc.convertTypeRelate.flowCreater.participantName">
+                                <span class="input-group-addon btn btn-sm btn-primary save"><i  class="glyphicon glyphicon-user">&nbsp;&nbsp;&nbsp;</i>修改处理人</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <button type="button" class="btn btn-sm btn-primary save" ng-click="fc.convertTypeFx()">确定</button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg"  id="OptionModal"  tabindex="-1" role="dialog" aria-labelledby="delAgentModalLb">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title modalText-title" id="OptionModalHead">{{fc.cuAct.name}}</h4>
+            </div>
+            <div class="modal-body" style="padding-top: 0px;padding-bottom: 10px;height:81%">
+                <form class="form-group form-horizontal" id="optionEditForm" style="margin-bottom: 0px;height: 100%" name="optionEditForm">
+                    <fieldset style="height: 65%;">
+                        <legend>
+                            <b class="modtext-blue">请填写您的 </b><font style="FONT-SIZE: 16px; FONT-FAMILY: 华文中宋;color: rgb(245, 0, 0);">{{activeOption.editTip}}</font>
+                        </legend>
+                        <div class="yjlu-inline">
+                            <div class="form-group" align="center" style="margin-bottom: 5px">
+                                <label class="col-sm-2 control-label">处理人:</label>
+                                <div class="col-sm-2">
+                                    <input type="text" readonly class="form-control" id="fawentitle" ng-model="activeOption.approverName" placeholder="请输入来文字号">
+                                </div>
+                                <label class="col-sm-2 control-label">处理时间:</label>
+                                <div class="col-sm-4">
+                                    <div ng-model="queryBean.createTimeS" ng-time class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="ufcreateTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                        <input class="form-control" ng-model="activeOption.approveTime" size="16" type="text" value="" readonly>
+                                        <input id="ufcreateTime" ng-model="activeOption.approveTime" ng-change="timeChga()" ng-hide="true" class="form-control" size="16" type="text" value="" readonly>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <label class="col-sm-1 control-label" ng-show="activeOption.otherNameCkShow">代签:</label>
+                                <div class="col-sm-1" style="top: 7px;" ng-show="activeOption.otherNameCkShow">
+                                    <input ng-change="optionShowNameChange()" type="checkbox" ng-model="activeOption.otherNameCK">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group yjlu-divmargin" style="height: 42%; overflow-y: hidden;margin-top: 3px;margin-bottom: 3px;"><!--ng-model="activeOption.opinion"-->
+                            <textarea  ng-disabled="!activeOption.editAble" type="text" class="form-control" id="opinionId"
+                                    data-ng-trim ='false' ng-set-textarea="activeOption.opinion"
+                                      rows="5" placeholder="请填写您的意见" required/>
+                        </div>
+                        <div style="font-size: 14px">
+                            <div style="height: 25px">
+                                <a href="" class="btn btn-primary btn-sm" style="font-size: 14px; padding-top: 0px;padding-bottom: 0px;margin-right:0;" ng-show="!optionEditForm.$invalid" ng-click=" savePersonFlowOption()">添加到</a>
+                                个人本阶段常用意见：
+                            </div>
+                            <div style="height:27%; margin-top: 3px; overflow-y: auto">
+                                <a ng-click="fc.personOptionUse(o)" ng-repeat=" o in task.wfPersonFlowOptions" style="font-size: 14px;font-weight:normal;color: black;background:#91c0e8;margin-right:5px; margin-bottom:5px;padding-top:5px;padding-right:2px;padding-bottom:5px;vertical-align: center;display: inline-block;" class="label ">{{o.opinion | cut:true:30:'...'}}<img ng-click="fc.delPersonOption(o);$event.stopPropagation();" style="margin-left: 5px;height: 14px" src="images/remove.svg"></a>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group" style="height:35%;overflow-y: auto;margin-right: 0;margin-left: 0;">
+                        <fieldset>
+                            <legend><b class="modtext-blue">{{activeOption.hisOpTip}}</b></legend>
+                            <div style="height:85%;">
+                                <table class="table table-striped  table_zdy_2">
+                                    <thead>
+                                        <tr>
+                                            <th width="15%">发表时间</th>
+                                            <th width="10%">意见人</th>
+                                            <th width="10%">阶段</th>
+                                            <th width="60%">意见内容</th>
+                                            <th width="5%">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="o in CUserOptionList" >
+                                            <td ng-click="activeOptionDblClick(o);">{{::o.approveTime | limitTo : 10}}</td>
+                                            <td ng-click="activeOptionDblClick(o);">{{::o.approverName}}</td>
+                                            <td ng-click="activeOptionDblClick(o);">{{::o.stepName}}</td>
+                                            <td ng-click="activeOptionDblClick(o);">{{::o.opinion}}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-xs" style="margin:0px;margin-top: 0px"   ng-click="deleteOption(o)">删除</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <a href="" class="btn btn-primary btn-sm save" style="margin-top: 0px" ng-disabled="optionEditForm.$invalid" ng-click="optionEditForm.$invalid || saveUserOption()">{{activeOption.okBtn}}</a>
+                <a href="" class="btn btn-default btn-sm cancel" style="margin-top: 0px" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="dicTypeChoseModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="width: 20%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalCreatDepartment">{{activeDicModal.title}}</h4>
+                <!--<div ng-if="activeDicModal.choseType == 'Multiple'">
+                    <input ng-model="$parent.docSearchKey" type="text" class="form-control" ng-keyup="enterKeyup($event)" placeholder="请输入关键字并按回车键进行快速查询"/>
+                </div>-->
+            </div>
+            <div class="modal-body "  style="    position: absolute;    overflow-y: auto;    top: 55px;    bottom: 65px;">
+                <div>
+                    <table class="table  table-striped  table_zdy_2">
+                        <thead>
+                            <tr>
+                                <th ng-if="activeDicModal.choseType == 'Exclusive'" style="width:20%"></th>
+                                <th ng-if="activeDicModal.choseType == 'Multiple'" style="width:20%">
+                                    <!--<input type="checkbox" ng-model="allCheck"/>-->
+                                </th>
+                                <th>{{activeDicModal.th1}}</th>
+                                <!-- <th ng-if="activeDicModal.dbColumn=='docType'">{{activeDicModal.type}}</th> -->
+                            </tr>
+                        </thead>
+                        <tbody ng-if="activeDicModal.choseType == 'Exclusive'">
+                            <tr ng-repeat="u in activeDicModal.dicTypeList" ng-click="dblClickRow(u);selectDocType(u)" ng-show="u.showAble">
+                                <td>
+                                    <input type="radio" ng-checked="u.checked"  value="{{u.name}}" ng-model="activeDicModal.checked"/>
+                                </td>
+                                <td>
+                                    <div >
+                                        {{u.name}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody ng-if="activeDicModal.choseType == 'Multiple'">
+                            <tr ng-repeat="u in activeDicModal.dicTypeList" ng-click="mClickRow(u);$event.stopPropagation();" ng-show="u.showAble">
+                                <td >
+                                    <input  type="checkbox" ng-click="mClickRowBtn(u);$event.stopPropagation();" ng-model="u.checked"/>
+                                </td>
+                                <td >
+                                    <div>
+                                        {{::u.name}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+             <div class="modal-footer" style="text-align:center;margin:0 auto;" ng-if="activeDicModal.addSearch">
+                <a href="" class="btn btn-primary btn-sm" ng-click="bindDicType()">确定</a>
+                <a href="" class="btn btn-default btn-sm" data-dismiss="modal">关闭</a>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="secretFormModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg modal-dialog-mj" role="document">
+        <div class="modal-content modal-content-mj" style="max-height: 100%; padding: 6% 4% 1% 4%;">
+            <div id="secretFormPrint">
+                <div class="mj-title" style="height: 25px;margin-top: 20px;">
+                    <div class="left tdMw-title">
+                        <span>{{secretConfirm.theCommonFormInfo.departName}}</span>
+                    </div>
+                    <div class="right tdMw-title">
+                        <label class="">填报日期:</label>
+                        <span>{{secretConfirm.draftDate
+							|date:'yyyy-MM-dd'}}</span>
+                    </div>
+                </div>
+                <table style="width: 100%" border="1" cellpadding="0" cellspacing="0" class="tblMW01 tdMw-title">
+                    <tr>
+                        <td>事项名称</td>
+                        <td colspan="3" class="">
+                            <textarea readonly="readonly" name="事项名称" rows="5" ng-model="secretConfirm.title" class="InputHidden01" id="事项名称" style="width: 100%; height: 100%; font-family: 仿宋_GB2312" onMouseOver="this.className='InputHidden01Hover'" onMouseOut="this.className='InputHidden01'"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" width="20%">拟定情况</td>
+                        <td width="15%" height="25px">密级</td>
+                        <td width="30%%">保密期限</td>
+                        <td width="35%">知悉范围</td>
+                    </tr>
+                    <tr>
+                        <td class="tdMw-span" height="45px">
+                            <select ng-model="secretConfirm.secretLevel" class="Inputhidden01"  onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" style="font-family: 楷体_GB2312" class="select-mj" ng-if="task.editRank">
+                                <option ng-repeat="mj in dicChoseModals.fwSecurityLevel.dicTypeList" value="{{mj.id}}">{{mj.name}}</option>
+                            </select>
+                            <span ng-if="!task.editRank">{{task.theCommonFormInfo.wfSecretConfirm.dicTypeRef.name}}</span>
+                        </td>
+                        <td class="input-text tdMw-span">
+                            <input ng-model="secretConfirm.secretLength" type="text" class="Inputhidden01" style="width: 100%; height: 100%; font-family: 仿宋_GB2312" size="150" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" ng-readonly="!task.editRank">
+                        </td>
+                        <td class="input-text tdMw-span">
+                            <input ng-model="secretConfirm.secretRange" type="text" class="Inputhidden01" style="width: 100%; height: 100%; font-family: 仿宋_GB2312" size="150" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" ng-readonly="!task.editRank">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>定&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密</div>
+                            <div>依据和理由</div>
+                        </td>
+                        <td colspan="3" height="300px" class="td-col03">
+                            <div class="td-div01">
+                                <textarea rows="2" ng-readonly="!secretConfirm.resonEditAble" ng-model="secretConfirm.reson" class="InputHidden01" style="width: 100%; height: 100%; font-family: 仿宋_GB2312" onMouseOver="this.className='InputHidden01Hover'" onMouseOut="this.className='InputHidden01'"></textarea>
+                            </div>
+                            <div class="td-div02 tdMw-title" >
+                                承办人：{{secretConfirm.resonPeopleName}}
+                            </div>
+                            <div class="td-div03 tdMw-title" >
+                                {{secretConfirm.resonTime |date:'yyyy 年 MM 月 dd 日'}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>处长意见</td>
+                        <td colspan="3" height="300px" class="td-col03">
+                            <div class="td-div01">
+                                <textarea rows="2" ng-model="secretConfirm.supervisor" ng-readonly="!secretConfirm.supervisorEditAble" class="InputHidden01" style="width: 100%; height: 100%; font-family: 仿宋_GB2312" onMouseOver="this.className='InputHidden01Hover'" onMouseOut="this.className='InputHidden01'"></textarea>
+                            </div>
+                            <div class="td-div02 tdMw-title" ng-if="secretConfirm.supervisorPeopleName!==null">
+                                处长：{{secretConfirm.supervisorPeopleName}}
+                            </div>
+                            <div class="td-div03 tdMw-title" ng-if="secretConfirm.supervisorTime!==null">
+                                {{secretConfirm.supervisorTime |date:'yyyy 年 MM 月 dd 日'}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>定&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密<br>责任人意见
+                        </td>
+                        <td colspan="3" height="300px" class="td-col03">
+                            <div class="td-div01">
+                                <textarea rows="2" ng-model="secretConfirm.authorizor" ng-readonly="!secretConfirm.authorizorEditAble" class="InputHidden01" style="width: 100%; height: 100%; font-family: 仿宋_GB2312" onMouseOver="this.className='InputHidden01Hover'" onMouseOut="this.className='InputHidden01'"></textarea>
+                            </div>
+                            <div class="td-div02 tdMw-title" ng-if="secretConfirm.authorizorPeopleName!==null">
+                                责任人：{{secretConfirm.authorizorPeopleName}}
+                            </div>
+                            <div class="td-div03 tdMw-title" ng-if="secretConfirm.authorizorTime!==null">
+                                {{secretConfirm.authorizorTime |date:'yyyy 年 MM 月 dd 日'}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="footer-btn">
+                <a href="" class="btn btn-primary" ng-disabled="fc.checkSecretForm()"  ng-click="fc.checkSecretForm() || saveSecretForm()">保存</a>
+                <a href="" class="btn btn-primary" ng-click="printSecretConfirm()">打印</a>
+                <a href="" class="btn btn-default" data-dismiss="modal">退出</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="meetingRoomSelectModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-mj" role="document" style=";width: 60%;margin: 20px auto;">
+		<div class="modal-content modal-content-mj" style=" height: 100%; /*padding: 6% 4% 1% 4%;*/">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">请选择会议室</h4>
+			</div>
+			<div class="modal-body" style="padding-top: 0">
+				<div style="height:80%;overflow-y: auto;">
+					<table class="table table-striped table_zdy_2">
+						<thead>
+						<tr>
+							<th width="5%"></th>
+							<th width="20%">会议室名称</th>
+							<th width="20%">地点</th>
+							<th width="10%">人数</th>
+							<th width="45%">设备</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="room in meetingRoomSelectList" ng-click="selectMeetingRoom(room)">
+							<td>
+								<input type="checkbox" name="chkbox" ng-model="room.checked" />
+							</td>
+							<td>{{::room.meetingroomName}}</td>
+							<td>{{::room.meetingroomAddress}}</td>
+							<td>{{::room.meetingroomCapacity}}</td>
+							<td>{{::room.meetingroomDevice}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<button type="button" class="btn btn-sm btn-primary save"
+				        ng-click="doSelectMeetingRoom('meetingRoomSelectModal')">确定</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="meetingRoomArrangeModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-mj" role="document" style=";width: 80%;margin: 20px auto;">
+		<div class="modal-content modal-content-mj" style=" height: 100%; /*padding: 6% 4% 1% 4%;*/">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">本周会议室使用汇总</h4>
+			</div>
+			<div class="modal-body" style="padding-top: 0">
+				<div style="margin: 2px auto; width: 100%;text-align: center;">
+					<button style="background-color: #3479b5; height: 27px;line-height: 27px;border: none;" ng-model="meetingDateQueryPre" ng-click="checkMeetingroomArrange(meetingDateQueryPre)">&lt;&lt;</button>
+					<input type="text" ng-model="meetingDateQueryStr" style="height: 27px;line-height: 27px;width: 250px;font-size: 14px;font-weight: normal;">
+					<button style="background-color: #3479b5; height: 27px;line-height: 27px;border: none;" ng-model="meetingDateQueryNext" ng-click="checkMeetingroomArrange(meetingDateQueryNext)">&gt;&gt;</button>
+				</div>
+				<div class="table_shadow" style="overflow-y:auto; max-height: 85%">
+
+					<table class="table table-striped table_zdy_2" style="min-width:100%;">
+						<thead>
+						<tr>
+							<th width="15%">会议室名称</th>
+							<th width="20%" ng-repeat="date in dateList" ng-bind-html="date"></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="room in meetingRoomArrangeList">
+							<td>{{::room.meetingRoomName}}</td>
+							<td ng-repeat="a in room.data" ng-bind-html="a" style="text-align: left;"></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer" style="text-align: center;border: none;">
+				<button type="button" class="btn btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="huiyiCandidateDialog" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width:700px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					选择参与者
+				</h4>
+			</div>
+			<div class="modal-body" style="height:600px">
+				<ul class="nav nav-tabs " style="margin:0 auto;" ng-if="type == 'obj'">
+					<li ng-class="{active: orgNavType=='Person'}" ng-click="selectTab('Person')"  style="margin-right: -1px;"><a href="">用户</a></li>
+					<!--<li ng-class="{active: orgNavType=='Department'}" ng-click="selectTab('Department')" style="margin-right: -1px;"><a href="">部门</a></li>-->
+				</ul>
+
+				<ul class="nav nav-tabs " style="margin:0 auto;" ng-if="type == 'leader'">
+					<li ng-class="{active: orgNavType=='Leader'}" ng-click="selectTab('Leader')"  style="margin-right: -1px;"><a href="">可选</a></li>
+					<!--<li ng-class="{active: orgNavType=='Department'}" ng-click="selectTab('Department')" style="margin-right: -1px;"><a href="">部门</a></li>-->
+				</ul>
+				<div class="row" style="height:100%">
+					<div class="col-md-6" style="height:100%;overflow:auto">
+						<div ui-tree="treeOptions" class="tree-root" id="tree-root" data-drag-delay="300">
+							<ol ui-tree-nodes="" ng-model="data">
+								<li ng-repeat="node in treeData" ui-tree-node>
+									<div ng-class="{active: nodeId == node.id}" ui-tree-handle class="tree-node tree-node-content" ng-click="selectCandidate(node)" ng-dblclick="toggle(this)">
+										<a class="btn btn-xs angular-ui-tree-span" style="margin-right:0px" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+											<img src="../images/zd-anv-01.png" style="margin-left:2px" height="20px">
+										</a>
+										<a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0"></a>
+										<span class="angular-ui-tree-span" ng-if="node.name.length>9">{{node.name | limitTo : 9}}</span>
+										<span class="angular-ui-tree-span" ng-if="node.name.length<=9">{{node.name}}</span>
+										<a class="btn btn-xs pull-right" data-nodrag>
+											<span class="fa_icon"></span>
+										</a>
+									</div>
+									<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+										<li ng-repeat="node in node.nodes" ui-tree-node>
+											<div ng-class="{active: nodeId == node.id}" ui-tree-handle class="tree-node tree-node-content" ng-click="selectCandidate(node)" ng-dblclick="toggle(this)">
+												<a class="btn btn-xs angular-ui-tree-span" style="margin-right:0px" data-nodrag ng-click="toggle(this)" ng-if="node.nodes !== null && node.nodes.length !== 0">
+													<img src="../images/zd-anv-01.png" style="margin-left:2px" height="20px">
+												</a>
+												<a class="btn btn-xs angular-ui-tree-span" ng-if="node.nodes === null || node.nodes.length === 0"></a>
+												<span class="angular-ui-tree-span" ng-if="node.name.length>9">{{node.name | limitTo : 9}}</span>
+												<span class="angular-ui-tree-span" ng-if="node.name.length<=9">{{node.name}}</span>
+												<a class="btn btn-xs pull-right" data-nodrag>
+													<span class="fa_icon"></span>
+												</a>
+											</div>
+										</li>
+									</ol>
+								</li>
+							</ol>
+						</div>
+					</div>
+					<div class="col-md-6" style="height:100%;overflow:auto">
+						<div style="height:50%; overflow: hidden; margin-top: 5px">
+							<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;部门人员列表</div>
+							<div style="height:95%;overflow-y: auto;">
+								<div  class="ry_form"  ng-repeat="user in currDepartUserList track by $index" ng-click="selectUserCandidate(user)">
+									<div class="tit_2 clearfix" style="width:200px">
+										<span class="l" style="width:100%">{{user.name}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="height:40%; margin-top: 5px">
+							<div class="alert alert-info" style="margin-bottom: 0px">&nbsp;已选列表</div>
+							<div style="height:85%;overflow-y: auto;overflow-x: hidden;">
+								<div class="ry_form" style="" ng-repeat="participant in huiyiCandidateMap[orgNavType] track by $index" ng-click="huiyiRemoveFromSelected($index)">
+									<div class="tit_2 clearfix" style="width:200px">
+										<span class="l" style="width:100%">{{participant.name}}</span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="border: none;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="saveHuiyiCandidate()">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="receiptYearsDialog" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-mj" role="document" style=";width: 50%;margin: 40px auto;height:400px">
+        <div class="modal-content modal-content-mj" style="">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">改变年份</h4>
+            </div>
+            <div class="modal-body" style="padding-top: 0">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="dpYear" class="col-sm-2 control-label">改变年份到：</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="task.theCommonFormInfo.docYear" id="dpYear">
+                                <option ng-repeat="i in fc.receiptYears" ng-selected="i==task.theCommonFormInfo.docYear">{{i}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center;border: none;">
+                <button type="button" class="btn btn-default cancel btn-sm" ng-click="fc.receiptYearSelect('receiptYears')">确定</button>
+                <button type="button" class="btn btn-default cancel btn-sm" style="margin-right:2px" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade bs-example-modal-lg" id="relateReceivModal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog modal-lg" style="width: 20%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="relateReceivModal1">请选择</h4>
+                <!--<div ng-if="activeDicModal.choseType == 'Multiple'">
+                    <input ng-model="$parent.docSearchKey" type="text" class="form-control" ng-keyup="enterKeyup($event)" placeholder="请输入关键字并按回车键进行快速查询"/>
+                </div>-->
+            </div>
+            <div class="modal-body "  style="    position: absolute;    overflow-y: auto;    top: 55px;    bottom: 65px;">
+                <div>
+                    <table class="table  table-striped  table_zdy_2">
+                        <thead>
+                        <tr>
+                            <th  style="width:20%">
+
+                            </th>
+                            <th>选项</th>
+                            <!-- <th ng-if="activeDicModal.dbColumn=='docType'">{{activeDicModal.type}}</th> -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-click="fc.chooseRelateReceiveDocId('长城电子收')">
+                            <td>
+                                <input type="radio" name="typeRadio" value="长城电子收" ng-model="activeDicModal.checked" />
+                            </td>
+                            <td >
+                                <div  style="font-size: 12px">
+                                    长城电子收
+                                </div>
+                            </td>
+                        </tr>
+                        <tr  ng-click="fc.chooseRelateReceiveDocId('长城电子督')">
+                            <td>
+                                <input type="radio" name="typeRadio"  value="长城电子督" ng-model="activeDicModal.checked"/>
+                            </td>
+                            <td>
+                                <div  style="font-size: 12px">
+                                    长城电子督
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-click="fc.chooseRelateReceiveDocId('信函')">
+                            <td>
+                                <input type="radio" name="typeRadio" value="信函" ng-model="activeDicModal.checked"/>
+                            </td>
+                            <td >
+                                <div  style="font-size: 12px">
+                                    信函
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade bs-example-modal-lg" id="openModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="width: 20%;height:500px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalCreatDepartment">请选择</h4>
+                <!--<div ng-if="activeDicModal.choseType == 'Multiple'">
+                    <input ng-model="$parent.docSearchKey" type="text" class="form-control" ng-keyup="enterKeyup($event)" placeholder="请输入关键字并按回车键进行快速查询"/>
+                </div>-->
+            </div>
+            <div class="modal-body "  style="    position: absolute;    overflow-y: auto;    top: 55px;    bottom: 65px;">
+                <div>
+                    <table class="table  table-striped  table_zdy_2">
+                        <thead>
+                            <tr>
+                                <th  style="width:20%">
+
+                                </th>
+                                <th>选项</th>
+                                <!-- <th ng-if="activeDicModal.dbColumn=='docType'">{{activeDicModal.type}}</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-click="fc.choose('是')">
+                              <td>
+                                    <input type="radio" name="otherTypeRadio"  value="是" ng-model="ifopen"/>
+                                </td>
+                                <td>
+                                    <div >
+                                                                                                                    是
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-click="fc.choose('否')">
+                                <td>
+                                    <input type="radio" name="otherTypeRadio"  value="否" ng-model="ifopen"/>
+                                </td>
+                                <td>
+                                    <div >
+                                                                                                                   否
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="yscgjshengpiType" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="width: 20%;height:500px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalCreatDepartment">请选择</h4>
+                <!--<div ng-if="activeDicModal.choseType == 'Multiple'">
+                    <input ng-model="$parent.docSearchKey" type="text" class="form-control" ng-keyup="enterKeyup($event)" placeholder="请输入关键字并按回车键进行快速查询"/>
+                </div>-->
+            </div>
+            <div class="modal-body "  style="    position: absolute;    overflow-y: auto;    top: 55px;    bottom: 65px;">
+                <div>
+                    <table class="table  table-striped  table_zdy_2">
+                        <thead>
+                        <tr>
+                            <th  style="width:20%">
+
+                            </th>
+                            <th>选项</th>
+                            <!-- <th ng-if="activeDicModal.dbColumn=='docType'">{{activeDicModal.type}}</th> -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-click="fc.chooseCategory('退休')">
+                            <td>
+                                <input type="radio" name="otherCategoryRadio"   value="退休" ng-model="docPrefix"/>
+                            </td>
+                            <td>
+                                <div  style="font-size: 12px">
+                                    退休
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-click="fc.chooseCategory('直属')">
+                            <td>
+                                <input type="radio" name="otherCategoryRadio"  value="直属" ng-model="docPrefix"/>
+                            </td>
+                            <td>
+                                <div  style="font-size: 12px">
+                                    直属
+                                </div>
+                            </td>
+                        </tr>
+                        <tr  ng-click="fc.chooseCategory('机关')">
+                            <td>
+                                <input type="radio" name="otherCategoryRadio"  value="机关" ng-model="docPrefix"/>
+                            </td>
+                            <td>
+                                <div style="font-size: 12px">
+                                    机关
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="categoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="width: 20%;height:500px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalCreatDepartment">请选择</h4>
+                <!--<div ng-if="activeDicModal.choseType == 'Multiple'">
+                    <input ng-model="$parent.docSearchKey" type="text" class="form-control" ng-keyup="enterKeyup($event)" placeholder="请输入关键字并按回车键进行快速查询"/>
+                </div>-->
+            </div>
+            <div class="modal-body "  style="    position: absolute;    overflow-y: auto;    top: 55px;    bottom: 65px;">
+                <div>
+                    <table class="table  table-striped  table_zdy_2">
+                        <thead>
+                            <tr>
+                                <th  style="width:20%">
+
+                                </th>
+                                <th>选项</th>
+                                <!-- <th ng-if="activeDicModal.dbColumn=='docType'">{{activeDicModal.type}}</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-click="fc.chooseCategory('委组')">
+                                <td>
+                                    <input type="radio" name="otherCategoryRadio"   value="委组" ng-model="docPrefix"/>
+                                </td>
+                                <td>
+                                    <div  style="font-size: 12px">
+                                   		   委组
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-click="fc.chooseCategory('委参')">
+                                <td>
+                                    <input type="radio" name="otherCategoryRadio"  value="委参" ng-model="docPrefix"/>
+                                </td>
+                                <td>
+                                    <div  style="font-size: 12px">
+                                                                                                                   委参
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr  ng-click="fc.chooseCategory('委跨')">
+                                <td>
+                                    <input type="radio" name="otherCategoryRadio"  value="委跨" ng-model="docPrefix"/>
+                                </td>
+                                <td>
+                                    <div style="font-size: 12px">
+                                                                                                                   委跨
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-click="fc.chooseCategory('归组')">
+                                <td>
+                                    <input type="radio" name="otherCategoryRadio"  value="归组" ng-model="docPrefix"/>
+                                </td>
+                                <td>
+                                    <div  style="font-size: 12px">
+                                                                                                                  归组
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-click="fc.chooseCategory('归参')">
+                                <td>
+                                    <input type="radio" name="otherCategoryRadio"  value="归参" ng-model="docPrefix"/>
+                                </td>
+                                <td>
+                                    <div  style="font-size: 12px">
+                                                                                                                   归参
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-click="fc.chooseCategory('归跨')">
+                                <td>
+                                    <input type="radio" name="otherCategoryRadio"  value="归跨" ng-model="docPrefix"/>
+                                </td>
+                                <td>
+                                    <div  style="font-size: 12px">
+                                                                                                                   归跨
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="MultipleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="width: 20%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalMultipleModal">请选择</h4>
+                <div >
+                    <input type="text" class="form-control"  ng-model="fc.searchDepartName.name" placeholder="请输入关键字查询"/>
+                </div>
+            </div>
+            <div class="modal-body "  style="    position: absolute;    overflow-y: auto;    top: 55px;    bottom: 65px;">
+                <div>
+                    <table class="table  table-striped  table_zdy_2">
+                        <thead>
+                        <tr>
+                            <th style="width:20%">
+
+                            </th>
+                            <th>选项</th>
+
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr ng-repeat="u in fc.departNoticeType[fc.currentDepartType].dicTypeList | filter: fc.searchDepartName" ng-click="mClickRow(u);$event.stopPropagation();">
+                            <td>
+                                <input type="checkbox" ng-click="$event.stopPropagation();" ng-model="u.checked" class="ng-pristine ng-untouched ng-valid ng-empty">
+                            </td>
+                            <td>
+                                <div>
+                                    {{u.name}}
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;margin:0 auto;">
+                <a href="" class="btn btn-primary btn-sm" ng-click="fc.bindDepartType()">确定</a>
+                <a href="" class="btn btn-default btn-sm" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="ExclusiveModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="width: 20%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalExclusive">请选择</h4>
+                <div >
+                    <input type="text" class="form-control"  ng-model="fc.searchDepartName.name" placeholder="请输入关键字查询"/>
+                </div>
+            </div>
+            <div class="modal-body "  style="    position: absolute;    overflow-y: auto;    top: 55px;    bottom: 65px;">
+                <div>
+                    <table class="table  table-striped  table_zdy_2">
+                        <thead>
+                        <tr>
+                            <th>选项</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="u in fc.departNoticeType[fc.currentDepartType].dicTypeList | filter: fc.searchDepartName" ng-click="fc.mClickRowBtnNotice(u);$event.stopPropagation();">
+                            <td>
+                                <div >
+                                    {{u.name}}
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

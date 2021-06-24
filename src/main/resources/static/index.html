@@ -1,0 +1,138 @@
+<html style="padding: 0;overflow-y: hidden">
+    <head>
+        <title>中共上海市委机要局</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="css/main.css">-->
+        <link rel="stylesheet" href="css/AdminLTE.min.css">
+        <!--<link rel="stylesheet" href="css/skin-blue.css">-->
+        <!--<link rel="stylesheet" href="css/datepicker3.css">-->
+        <!--<link rel="stylesheet" href="css/daterangepicker.css">-->
+        <link rel="stylesheet" href="css/app.css">
+        <!--<link rel="stylesheet" href="css/ng-sortable.min.css">-->
+        <!--<link rel="stylesheet" href="css/ng-sortable.style.min.css">-->
+        <link rel="stylesheet" href="js/angularjs-ui-tree/angular-ui-tree.min.css">
+        <link rel="stylesheet" href="js/sweetalert-master/sweetalert.css">
+        <link rel="stylesheet" href="css/layout.css">
+        <link rel="stylesheet" href="css/Reset.css">
+        <!--<link rel="stylesheet" href="css/processForm.css">-->
+        <!--<link rel="stylesheet" href="css/font-Awesome-master/css/font-awesome.min.css">-->
+        <link rel="stylesheet" href="css/s-layout.css">
+        <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+        <!-- Font Awesome -->
+        <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
+        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+        <!--<link rel="stylesheet" href="https://ajax.loli.net/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" media="screen">-->
+        <!--<script type='text/javascript' src='http://31.5.48.107:8080/cmsbackend/dwr/engine.js'> </script>
+        <script type='text/javascript' src='http://31.5.48.107:8080/cmsbackend/dwr/interface/Seal.js'> </script>
+        <script type="text/javascript" src='http://31.5.48.107:8080/cmsbackend/dwr/util.js'> </script>-->
+        <!--<script type="text/javascript">
+            function sgn() {
+                var sid = "" + dwr.util.getValue("asDocId");
+                var uid = "" + dwr.util.getValue("userId");
+                Seal._path = "http://31.5.48.107:8080/cmsbackend/dwr";
+                Seal.sign(uid, sid, "cnt", function (str) {
+                    if (str == "yes") {
+                        // document.location.reload(true);
+                        dwr.util.setAction("http://31.5.48.107:8080/cmsbackend/dwr");
+                    }
+                });
+            }
+        </script>-->
+        <script src="js/sweetalert-master/sweetalert.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+	    <script src="js/jquery.printarea.js"></script>
+        <script src="common-assets/extend/array-extend.js"></script>
+        <!--<script src="js/moment.min.js"></script>-->
+        <script src="js/bootstrap.min.js"></script>
+        <!--<script src="js/bootstrap-datepicker.js"></script>-->
+        <!--<script src="js/daterangepicker.js"></script>-->
+        <!--<script src="js/bootstrap-datepicker.zh-CN.js"></script>-->
+        <script src="js/angular.min.js"></script>
+        <script src="js/pagination.js"></script>
+        <script src="js/angular-ui-router.min.js"></script>
+        <script src="js/angular-sanitize.min.js"></script>
+        <script src="js/ocLazyLoad.min.js"></script>
+        <!--<script src="js/angular-animate.min.js"></script>-->
+        <!--<script src="js/ajaxfileupload.js"></script>-->
+        <script src="js/angularjs-ui-tree/angular-ui-tree.min.js"></script>
+        <script src="js/angular-cookie.min.js"></script>
+        <!--<script src="js/ng-sortable.min.js"></script>-->
+        <script src="js/jcs-auto-validate.min.js"></script>
+        <script src="js/ckeditor4.7/ckeditor.js"></script>
+        <script type="text/javascript">
+            var timestamp = '[(${appVersion})]';
+            var mgjmhReqHost = '[(${scheme})]' + "://" + '[(${reqHost})]';
+            // var timestamp = 202009231941;
+        </script>
+        <!-- 开发的时候用这个禁止缓存，生产系统时用js的版本号来来控制 -->
+        <script>
+            //	    	document.write("<script src='js/calulation.js?rnd="+timestamp+"'></s"+"cript>");
+            document.write("<script src='config.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='restful_config.js?rnd=" + timestamp + "'></s" + "cript>");
+            //	    	document.write("<script src='services/Storage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            // document.write("<script src='services/sessionStorage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            document.write("<script src='js/fileop/FileChunkUploadClent.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='services/SysUtils.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='services/NodeTreeTool.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='services/sessionStorageService.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='services/maxHeigtUtils.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='services/service.config.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='services/ngFilter.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='apps/login/login.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='apps/home/home.js?rnd=" + timestamp + "'></s" + "cript>");
+            //	    	document.write("<script src='apps/userManage/userManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //	    	document.write("<script src='apps/postManage/postManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //	    	document.write("<script src='apps/departManage/departManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //	    	document.write("<script src='apps/groupManage/groupManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //	    	document.write("<script src='apps/roleManage/roleManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //	    	document.write("<script src='apps/moduleAuthManage/moduleAuthManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //document.write("<script src='apps/workflow/workflow.js?rnd="+timestamp+"'></s"+"cript>") ;
+            // document.write("<script src='apps/workflow/doneListCtrl.js?rnd="+timestamp+"'></s"+"cript>") ;
+            // document.write("<script src='js/moment-with-locales.min.js?rnd="+timestamp+"'></s"+"cript>") ;
+            document.write("<script src='js/bootstrap-datetimepicker.min.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='js/moment.min.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='js/bootstrap-datetimepicker.zh-cn.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='js/zh-cn.js?rnd=" + timestamp + "'></s" + "cript>");
+            document.write("<script src='js/angularjs-dropdown-multiselect.js?rnd=" + timestamp + "'></s" + "cript>");
+            //	    	document.write("<script src='apps/auditInfo/auditInfoManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/dicManage/dicManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formEditGeneric.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jxw_fawen.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jxwshouwen.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jxwxinhan.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jxwdwshouwen.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jxwdwfawen.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/gfkgbfawen.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/hjxgffawen.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jywjj.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jywjy.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jywjb.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formTemplates/jywjg.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/formConfig.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/bangong/bangongguanli/fawenguanli/fawenManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/bangong/bangongguanli/shouwenguanli/shouwenManage.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/stateDefs.js?rnd="+timestamp+"'></s"+"cript>") ;
+            //            document.write("<script src='apps/workflow/redTemplate/redTemplate.js?rnd="+timestamp+"'></s"+"cript>") ;
+        </script>
+        <style>html {
+            padding: 12px
+        }</style>
+    </head>
+    <body ng-app="app" ng-class="{nomagin: !indexNoMagin}" style="overflow-y: hidden">
+        <div  class="body-inner">
+            <ui-view></ui-view>
+        </div>
+        <div class="flyover" style="z-index: 9999999">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+        </div>
+    </body>
+</html>

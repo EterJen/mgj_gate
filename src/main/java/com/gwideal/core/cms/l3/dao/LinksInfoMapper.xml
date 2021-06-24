@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.LinksInfoMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			T_LINKS_INFO t
+  		<where>
+		    ${dynamicConditions}
+			
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(titleLike)">
+				<bind name="title" value="'%' + titleLike + '%'"/>
+				and t.NAME like #{title}
+			</if>
+			order by t.addtime desc
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.LinksInfo" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+
+    <update id="batchDelete">
+		delete 
+		T_LINKS_INFO t
+		
+		<where>
+			<foreach collection="ids" item="id" separator="," open="t.id in (" close=")">#{id}</foreach>
+		</where>
+	</update>
+</mapper>

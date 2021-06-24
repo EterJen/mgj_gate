@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.TwolevelcolumnMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.*,
+  			(case when t.parentlev is not null then t.parentlev end ) parentid
+  		from 
+  			TWOLEVELCOLUMN t
+		<where>
+			${dynamicConditions}
+		</where>
+		order by t.ORDER_NUMBER
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.Twolevelcolumn" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+
+	<select id="selectMaxNo" resultType="decimal">
+		select
+		nvl(max(t.no),0) + 1
+		from
+		TWOLEVELCOLUMN t
+		<where>
+			t.isdelete=0 and t.parentlev is null
+		</where>
+	</select>
+
+
+</mapper>

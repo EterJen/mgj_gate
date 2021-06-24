@@ -1,0 +1,96 @@
+<style>
+    .black {
+        color: black;
+    }
+
+    #deptInfo p, #deptInfo span {
+        color: black;
+        text-align: justify;
+        text-justify: inter-ideograph;
+    }
+
+    .detail-atts {
+        display: inline-block;
+        height: 100%;
+        width: 30%;
+    }
+    .detail-left,.detail-right {
+        display: inline-block;
+        height: 100%;
+        width: 15%;
+
+    }
+    .detail-att-list{
+        cursor: pointer;
+        text-align: left;
+        font-size: 18px !important;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .detail-with-atts {
+        width: 70%;
+        padding: 0px;
+        /*padding: 0px 30px;*/
+        /*background: #fff;*/
+        background: rgb(63, 63, 63);
+        /*box-shadow: 0px 4px 6px #d5d2c5;*/
+        margin: 0 auto;
+        /*display: inline-block;*/
+    }
+    .detail-contain{
+        text-align: center;
+        display: block;
+    }
+    .has-att{
+        height: 90%;
+    }
+</style>
+<div class="detail-contain" style="text-align: center;width: 100%;height: 100% ;white-space: nowrap">
+<!--    <div class="detail-left"></div>-->
+    <div class="detail-with-atts  " ng-class="{'has-att': hasAtt}" id="fileOpen" ui-view="fileOpen"></div>
+    <div class="detail-with-atts"  ng-show="showFileList(fc.article)"   >
+        <a  class="list-group-item active" style="font-size: 18px">
+            附件列表
+        </a>
+        <li title="{{f.showName}}" ng-click="onlineOpen(f)" ng-repeat="f  in fc.article.simpleFiles" class="list-group-item detail-att-list">
+            <a ng-click="flieDownload(f);$event.stopPropagation();">
+                <span class="glyphicon glyphicon-download-alt"></span>
+            </a>
+            {{f.showName}}
+        </li>
+    </div>
+   <!-- <div  class="detail-right">
+        <div ng-show="showFileList(fc.article)" style="margin-top: 280px">
+            <a  class="list-group-item active" style="font-size: 18px">
+                附件列表
+            </a>
+            <li title="{{f.showName}}" ng-click="onlineOpen(f)" ng-repeat="f  in fc.article.simpleFiles" class="list-group-item detail-att-list">
+                <a ng-click="flieDownload(f);$event.stopPropagation();">
+                    <span class="glyphicon glyphicon-download-alt"></span>
+                </a>
+                {{f.showName}}
+            </li>
+        </div>
+
+        &lt;!&ndash;<table ng-show="showFileList(fc.article)" class="table table-striped  table_zdy_2 " style="margin-bottom: 0;">
+            <thead>
+            <tr>
+                <th width="100%">附件列表</th>
+&lt;!&ndash;                <th width="20%">操作</th>&ndash;&gt;
+            </tr>
+            </thead>
+            <tr ng-repeat="f  in fc.article.simpleFiles">
+                <td>
+                    <input class="detail-att-list" title="" ng-model="f.showName" style="padding: 0;margin: 0;width: 100%">
+                </td>
+&lt;!&ndash;                <td style="    vertical-align: inherit;">&ndash;&gt;
+&lt;!&ndash;                    <a class="btn btn-success btn-xs" ng-click="flieDownload(f)">下载</a>&ndash;&gt;
+&lt;!&ndash;                    <a class="btn btn-success btn-xs" ng-show="onlineOpenAble(f)" ng-click="onlineOpen(f)">打开</a>&ndash;&gt;
+&lt;!&ndash;                </td>&ndash;&gt;
+            </tr>
+        </table>&ndash;&gt;
+    </div>-->
+</div>
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.basic.l3.dao.CoreMpsModuleMapper">
+
+
+    <select id="list" resultMap="listResultMap">
+        select
+        t.*,
+        b.MPSMODULE_ID as mpsmoduleId,
+        b.elementtype as elementtype,
+        b.ELEMENTID as elementid,
+        (case when t.id=b.MPSMODULE_ID then 1 else 0 end ) as checked
+        from
+        MPSMODULE t
+        left join
+        (select m.* from mpsavailmodule m where m.ELEMENTID =#{id} and m.elementtype=#{initType} and m.flag='1')b
+        on t.id=b.MPSMODULE_ID
+        <!-- mpsavailmodule m on t.id=m.MPSMODULE_ID -->
+        <where>
+            t.FLAG='1'
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(showAble)">
+                AND t.SHOW_ABLE = #{showAble}
+            </if>
+            <if test="queryListType!=null and queryListType=='queryHavePermiss'">
+                and t.id=b.MPSMODULE_ID
+            </if>
+        </where>
+    </select>
+    <resultMap id="listResultMap" type="com.gwideal.core.basic.l4.entity.CoreMpsModule" autoMapping="true">
+        <id property="id" column="id"/>
+        <!-- <collection  property="mpsavailModule" column="m_id" ofType="com.gwideal.core.basic.l4.entity.CoreMpsavailModule" columnPrefix="m_">
+        <id property="id" column="m_id"/>
+        </collection > -->
+    </resultMap>
+    <delete id="deletePermiss">
+        delete from MPSAVAILMODULE where ELEMENTID=#{elementid} and ELEMENTTYPE=#{elementtype}
+        <if test="mpsmoduleId!=null">
+            and mpsmodule_id=#{mpsmoduleId}
+        </if>
+    </delete>
+    <insert id="insertPermiss">
+		insert into MPSAVAILMODULE (ELEMENTID,ELEMENTTYPE,MODULECODE,FLAG,MPSMODULE_ID) Values(#{elementid},#{elementtype},(select to_number(pkcode) from MPSMODULE where id=#{mpsmoduleId}),'1',#{mpsmoduleId})
+	</insert>
+
+    <select id="queryUserListByMpsmoduleId" resultMap="queryUserListByMpsmoduleIdResultMap">
+        select
+        t.elementid,t.elementtype,t.MPSMODULE_ID as id
+        from
+        MPSAVAILMODULE t
+        <where>
+            t.MPSMODULE_ID=#{id}
+        </where>
+    </select>
+    <resultMap id="queryUserListByMpsmoduleIdResultMap" type="com.gwideal.core.basic.l4.entity.CoreMpsModule" autoMapping="true">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="listtree" resultMap="listResulttreeMap">
+        select
+        t.*
+        from
+        MPSMODULE t
+        <where>
+            substr(t.PKCODE,#{pageNo},#{pageSize})=#{entityId}
+            <if test="initType!=null and initType=='eq'">
+                and substr(t.PKCODE,#{totalRows},8)=#{paging}
+            </if>
+            <if test="initType!=null and initType=='noeq'">
+                and substr(t.PKCODE,#{totalRows},8)!=#{paging}
+            </if>
+        </where>
+    </select>
+    <resultMap id="listResulttreeMap" type="com.gwideal.core.basic.l4.entity.CoreMpsModule" autoMapping="true">
+        <id property="id" column="id"/>
+    </resultMap>
+</mapper>

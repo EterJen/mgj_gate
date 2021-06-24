@@ -1,0 +1,4 @@
+alter table  WF_CURRENT_TASK_INFO add (FROM_NODE_ID  varchar2(10));
+COMMENT ON COLUMN WF_CURRENT_TASK_INFO.FROM_NODE_ID IS '任务发起节点';
+commit;
+

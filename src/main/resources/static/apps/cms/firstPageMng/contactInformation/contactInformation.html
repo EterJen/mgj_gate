@@ -1,0 +1,85 @@
+<div class="content-wrapper">
+    <section class="content mng-content">
+        <div class="panel  panel-default">
+            <div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+                <div class="bmxx_tit" id="depart_tit">
+                    <div class="left">
+                        <img src="images/bmxx_tit-01.png">
+                        <span>
+                      		   联系方式管理
+                          </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel-body mng-panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+
+                <div class="mng-panel-t0rc ">
+                    <div class="mng-panel-t1rc-t1">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form class=" form-horizontal"  >
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">地 址
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input class="input-sm form-control" ng-model="bean.address"></input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">EMAIL
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input class="input-sm form-control" ng-model="bean.email"></input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">电 话
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input class="input-sm form-control" ng-model="bean.telephone"></input>
+<!--                                            <textarea rows="6" class="input-sm form-control" ng-model="bean.telephone"></textarea>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">工作时间
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input class="input-sm form-control" ng-model="bean.workTime"></input>
+<!--                                            <textarea rows="6" class="input-sm form-control" ng-model="bean.telephone"></textarea>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">传 真
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input class="input-sm form-control" ng-model="bean.fax"></input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">邮 编
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input class="input-sm form-control" ng-model="bean.postalCode"></input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <button type="submit"  class="btn btn-sm btn-primary save" ng-click="updateBean()">保存</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-lg-6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

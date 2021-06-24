@@ -1,0 +1,317 @@
+<style>
+
+	/* .form-group {
+		margin-right: 0px;
+		margin-left: 0px;
+		margin-bottom:0px !important;
+	} */
+	.mr0{margin-right: 0px;}
+
+	.bmxx_tit .right a{
+		width: 72px;
+	}
+	.bmxx_tit .right a.bj {
+		background: #3986c8; /*border-bottom:2px solid #5880c9;*/
+	}
+	.bmxx_tit .right a.sc {
+		background: #e97066; /*border-bottom:2px solid #5880c9;*/
+	}
+
+	thead th {
+		text-align: center !important;
+	}
+
+</style>
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div class="panel-heading" id="panel-heading"
+			     style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span>流程监控</span>
+					</div>
+					<div class="right user-titleheading" style="width: 50%;">
+						<a href="" class="sc" ng-click="deleteProInst()"><img src="images/remove.svg">删除</a>
+						<a href="" class="bj" style="margin-left: 30px;"
+						   ng_click="showDetail('queryModal')"><img src="images/search.svg">搜索</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;">
+				<div class="table_shadow" style="overflow:auto; max-height: 70%">
+					<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+						<thead>
+						<tr>
+							<th width="5%">
+								<input type="checkbox" id="chkAll" ng-change="nodeTrClick(null,proInstListRoot,null,proInstList,$event)"
+								       ng-model="proInstListRoot.checked"/>
+							</th>
+							<th width="10%">流程类型</th>
+							<th style="white-space: pre-wrap" width="15%">文号</th>
+							<th style="white-space: pre-wrap" width="60%">流程名称</th>
+							<th width="13%">发起时间</th>
+							<th width="8%">当前处理人</th>
+							<th width="8%">当前阶段</th>
+						</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="proInst in proInstList" ng-click="doMonitor(proInst,null)">
+								<td>
+									<input id="{{proInst.id}}" type="checkbox" name="chkbox" ng-click="nodeTrClick(proInstListRoot,proInst,proInstList,null,$event);$event.stopPropagation()"
+									       ng-model="proInst.checked"/>
+								</td>
+								<td>{{::proInst.processDefVersion.processDefManage.name}}</td>
+								<td>{{::proInst.docFullName}}</td>
+								<td style="text-align: left;">{{::proInst.title}}</td>
+								<td>{{::proInst.createTime | limitTo : 16}}</td>
+								<td>{{::proInst.transactor}}</td>
+								<td>{{::proInst.handleState}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div class="modal fade " id="queryModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">公文查询</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="title" class="col-sm-2 control-label">流程标题</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="queryBean.title" id="title" placeholder="请输入流程标题">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="docFullName" class="col-sm-2 control-label">文号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="queryBean.docFullName" id="docFullName" placeholder="请输入文号">
+						</div>
+					</div>
+					<div class="form-group" align="center">
+						<label for="currGroupId"  class="col-sm-2 control-label">流程类别</label>
+						<div id="currGroupId" class="col-sm-4">
+							<select class="form-control" ng-change="changeProcessGroup(proGroup)" ng-model="proGroup"
+							        ng-options='x as x.formZhName for x in processDefList'>
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" ng-model="formDefId"
+							        ng-options="def.formDefId as def.name for def in processDefManages">
+							</select>
+						</div>
+					</div>
+					<div class="form-group" align="center">
+						<label class="col-sm-2 control-label">日期</label>
+						<div class="col-sm-4">
+							<input type="text" id="createTime" class="form-control" ng-model="queryBean.createTime"  readonly="readonly">
+						</div>
+						<label class="col-sm-1 control-label">—</label>
+						<div class="col-sm-4">
+							<input type="text" id="createTimeEnd" class="form-control" ng-model="queryBean.createTimeEnd" readonly="readonly" >
+						</div>
+						<label class="col-sm-1 media-middle text-center"></label>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer mf">
+				<button type="button" class="btn btn-sm btn-primary save" ng-click="queryProInstListChangeBean('queryModal')">确定</button>
+				<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="proMonitorDialog" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-mj" role="document" style="width: 80%;margin: 20px auto;">
+		<div class="modal-content modal-content-mj" style="height: 100%;">
+			<div class="modal-header">
+				<h6 class="modal-title modalText-title" style="display: inline-block">流程名称：{{proInstance.title}}</h6>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="padding-top: 0">
+
+
+				<div class="input-group col-xs-12" style="text-align: right; margin: 3px auto;">
+						<label for="processNodeId"  class="control-label" style="font-weight: normal;font-size: 14px;">阶段名称：</label>
+						<select id="processNodeId" class="form-control" ng-change="doMonitor(proInstance, processNodeId)" ng-model="processNodeId"
+						        ng-options='x.id as x.name for x in processNodes' style="display: inline-block;float: none;width: 15%;height: 32px;vertical-align: middle;">
+						</select>
+						<button class="btn btn-primary btn-sm" ng-click ='taskCirculation()' style="background: #5588F5; margin-right: 0px;margin-left: 20px;">流转任务</button>
+						<button class="btn btn-primary btn-sm" ng-click ='monitorTask("withdraw")' style="background: #5588F5; margin-right: 0px;margin-left: 20px;">撤回任务</button>
+						<button class="btn btn-primary btn-sm" ng-click ='monitorTask("recover")' style="background: #5588F5; margin-right: 0px;margin-left: 20px;">恢复任务</button>
+						<button class="btn btn-primary btn-sm" ng-click ='monitorTask("finish")' style="background: #5588F5; margin-right: 0px;margin-left: 20px;">办结任务</button>
+				</div>
+
+				<div class="table_shadow" style="max-height: 85%;overflow-y: auto;">
+					<table class="table table-striped table_zdy_2" style="min-width: 100%;">
+						<thead>
+						<tr>
+							<th width="5%"></th>
+							<th width="10%">阶段名称</th>
+							<th width="10%">发送人</th>
+							<th width="18%">发送时间</th>
+							<th width="10%">发送至</th>
+							<th width="10%">接收人</th>
+							<th width="18%">接收时间</th>
+							<th width="18%">完成时间</th>
+							<th width="6%">状态</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="hist in showDetailList" ng-click="gotoDetail(proInstance)">
+							<td ng-click="proinsCheckCurrent(hist, $event);$event.stopPropagation()">
+								<input id="{{hist.id}}" type="checkbox" name="chkbox"  ng-click="proinsCheckCurrent(hist)" ng-model="hist.checked"/>
+							</td>
+							<td>{{hist.nodeName}}</td>
+							<td>{{hist.senderName}}</td>
+							<td>{{hist.sendTime}}</td>
+							<td>{{hist.sendTo}}</td>
+							<td>{{hist.receiverName}}</td>
+							<td>{{hist.receiveTime}}</td>
+							<td>{{hist.finishTime}}</td>
+							<td>{{hist.state}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade " id="moveWorkflowDialog" tabindex="-1" role="dialog">
+	<div class="yjcl_cont">
+		<div class="yjcl_cont_tit">
+			<span ng-show="selectedOp.flowActionTips"><i></i>{{selectedOp.flowActionTips}}</span>
+			<span ng-show="!selectedOp.flowActionTips"><i></i>流转给其他同事进行处理</span>
+		</div>
+		<div class="yjcl_sidebar l">
+			<ul>
+				<li title="{{oper.name}}" ng-repeat="oper in availableOps" ng-class="oper.selectStatus" ng-click="showOperCandidates(oper)">
+					<a><i></i>{{oper.name | limitTo: 6}}<em></em></a>
+				</li>
+			</ul>
+		</div>
+		<div class="yjcl_content l">
+			<div class="clearfix">
+				<div class="yjcl_content_left l">
+					<div class="bm_cont">
+						<div class="coop  clearfix">
+							<div class="tit">
+								<div class="tabtit">
+									<ul class="pic-list">
+										<li ng-show="selectedOp.preConditionPass" class="tab_on" ng-repeat="key in candidatMapKeyList"
+										    ng-click="changeCandidate(key)">{{participantTypeName[key]}}</li>
+										<li ng-show="!selectedOp.preConditionPass" class="tab_on">流转条件不满足</li>
+									</ul>
+								</div>
+							</div>
+							<hr/>
+							<div style="overflow:auto;  padding-top:5px">
+								<ul ng-if="selectedOp.preConditionPass">
+									<li ng-repeat="(key,value) in selectedOp.candidatMap">
+										<div ng-show="!value.expand" class="rymd_w" style="display: block;">
+											<ul class="rymd_cont" style="padding-bottom : 0;padding-top: 0">
+												<li ng-if="candit.parent" ng-repeat="candit in value" ng-click="showCandidateUserList(candit);$event.stopPropagation();" ng-class="{li_on: candit.expand}">
+													<h2>{{candit.participantName}}</h2>
+													<div ng-show="candit.expand" class="rymd_w" style="display: block;">
+														<span ng-repeat="userInfo in candit.childrenParticipants" ng-click="moveUserToSelectedAssignee(userInfo);$event.stopPropagation();"><p>{{userInfo.name}}</p> </span>
+													</div>
+												</li>
+												<li style=" background: none;padding-left: 0px;" ng-if="!candit.parent" ng-repeat="candit in value" ng-click="moveUserToSelectedAssignee(candit);$event.stopPropagation();">
+													<h2 class="role">{{candit.participantName}}</h2>
+												</li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+								<span ng-if="!selectedOp.preConditionPass" class="label label-default" style="color: red;font-size: 14px">{{selectedOp.preConditionFalseMessage}}</span></label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="yjcl_content_right r">
+					<div class="yxzry_cont" style="overflow-y: hidden" ng-if="selectedOp.optionAgent">
+						<div style="overflow-y: auto;overflow-x: hidden">
+							<div class="tit">代签意见</div>
+							<textarea class="form-control" rows="3" placeholder="请在此处输入代签意见" ng-model="wf.nextTask.userOptin"></textarea>
+						</div>
+						<div style="height:40%; ">
+							<div class="tit">已选列表</div>
+							<div style="height: 80%; overflow-y: auto;overflow-x: hidden">
+								<div class="ry_form" ng-click="removeFromSelected($index)" ng-repeat="selCandit in selectedCanditList track by $index">
+									<div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+										<span style="width:100%;padding-right: 20%;" class="l">{{selCandit.participantName}} <i style="color: #548ffb" class=" glyphicon glyphicon-ok"></i> </span>
+										<i class="r"></i>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div ng-if="selectedOp.recomSelectedUsers.length>0" class="tit">推荐列表</div>
+						<div  ng-if="selectedOp.recomSelectedUsers.length>0" style="height: 39%; overflow-y: auto; margin-top:3px; overflow-x: hidden">
+							<div class="ry_form" ng-click="moveUserToSelectedAssignee(userInfo)" ng-repeat="userInfo in selectedOp.recomSelectedUsers">
+								<div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+									<span style="width:100%;padding-right: 20%;" class="l">{{userInfo.name}}  <!--<i class="glyphicon glyphicon-trash" style="top: 0.2rem"></i>--></span>
+									<i class="r"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="yxzry_cont" style="overflow-y: hidden" ng-if="!selectedOp.optionAgent">
+						<div class="tit">已选列表</div>
+						<div ng-if="!checkSelectedOp(selectedOp)" style="height: 40%;overflow-y: auto; margin-top:3px; overflow-x: hidden">
+							<div class="ry_form" ng-click="removeFromSelected($index)" ng-repeat="selCandit in selectedCanditList track by $index">
+								<div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+									<span style="width:100%;padding-right: 20%;">{{selCandit.participantName}} <i style="color: #548ffb" class=" glyphicon glyphicon-ok"></i> </span>
+									<i class="r"></i>
+								</div>
+							</div>
+						</div>
+						<div ng-if="checkSelectedOp(selectedOp)" style="height: 40%;overflow-y: auto; margin-top:3px; overflow-x: hidden">
+							<div class="ry_form" ng-repeat="selCandit in selectedCanditList track by $index">
+								<div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+									<span style="width:100%;padding-right: 20%;">{{selCandit.participantName}} <i style="color: #548ffb" class=" glyphicon glyphicon-ok"></i> </span>
+									<i class="r"></i>
+								</div>
+							</div>
+						</div>
+						<div ng-if="selectedOp.recomSelectedUsers.length >= 1" class="tit">推荐列表</div>
+						<div style="height: 39%; overflow-y: auto; margin-top:3px; overflow-x: hidden">
+							<div ng-if="selectedOp.recomSelectedUsers.length >= 1" class="ry_form" ng-click="moveUserToSelectedAssignee(userInfo)"
+							     ng-repeat="userInfo in selectedOp.recomSelectedUsers">
+								<div class="tit_2 clearfix" style="cursor: pointer;margin-right: 20px;width: 90%;text-align: center">
+									<span style="width:100%;padding-right: 20%;" class="l">{{userInfo.name}}  <!--<i class="glyphicon glyphicon-trash" style="top: 0.2rem"></i>--></span>
+									<i class="r"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer mf" style="position: inherit">
+						<button type="submit" class="btn btn-primary btn-enter btn-sm save" ng-click="changeWorkflow()" ng-disabled="selectedCanditList.length <= 0">确定</button>
+						<button type="button" class="btn btn-default btn-close btn-sm cancel" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

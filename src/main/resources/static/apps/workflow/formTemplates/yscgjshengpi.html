@@ -1,0 +1,488 @@
+<style>
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid silver
+    }
+
+    input[type = "checkbox"] {
+        margin: 0 auto !important;
+    }
+
+
+    .hideslb {
+        overflow-y: hidden;
+    }
+
+    #middelForm {
+        margin-top: 116px !important;
+    }
+
+    .showslb {
+        overflow-y: auto;
+    }
+
+    legend {
+        padding: .5em;
+        border: 0;
+        width: auto
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    .editable {
+        border: 1px solid green;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .tblGw01 .title {
+        font-size: 12px;
+        font-weight: bold;
+        color: black;
+        padding: 3px;
+        font-family: 仿宋_GB2312;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+    .tblGw01 .data {
+        font-size: 14px;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        border-bottom: none !important;
+        padding: 3px;
+    }
+    .ck-span{
+        margin-right: 4px;
+    }
+</style>
+<!--<div style="height: 863px">-->
+<div style="min-height: 888px">
+
+    <table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+
+        <tr>
+            <td align="center" class="td03" style=" width: 880px;padding-top: 20px;">
+                <p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-7px;">
+                    <font face="方正姚体" color="black">登记备案人员因私出国（境）报批单</font>
+                </p>
+            </td>
+        </tr>
+        <tr height="10">
+            <td></td>
+        </tr>
+    </table>
+    <table style="width:100%;border-collapse:separate !important"
+           border="0"
+           align="center"
+           cellpadding="0"
+           cellspacing="0"
+           class="tblGw01">
+
+        <tr height="30">
+            <td width="76"
+                class="td04b">人员类别
+            </td>
+            <td width="380px"
+                class="td05b" style="border-bottom: 0px">
+                <input name="人员类别" radio-click='fc.userType'  radio-click-val='inPost' class="vertical-middle {{fc.userType.cursorType}}"   type="checkbox" ng-model="fc.userType.inPost">
+                <span radio-click='fc.userType'  radio-click-val='inPost' class="ck-span {{fc.userType.cursorType}}">机关在职</span>
+
+                <input radio-click='fc.userType'  radio-click-val='directly' class="vertical-middle {{fc.userType.cursorType}}"   type="checkbox" ng-model="fc.userType.directly">
+                <span radio-click='fc.userType'  radio-click-val='directly' class="ck-span {{fc.userType.cursorType}}" >直属单位</span>
+
+                <input radio-click='fc.userType'  radio-click-val='retirement' class="vertical-middle {{fc.userType.cursorType}}"   type="checkbox" ng-model="fc.userType.retirement">
+                <span radio-click='fc.userType'  radio-click-val='retirement' class="ck-span {{fc.userType.cursorType}}">退离休</span>
+            </td>
+            <td width="90"
+                class="td04b"><font style="margin-top: 4px;display:inline-block; font-family: 仿宋_GB2312">长城电子</font><input
+                     style="width:33px;display: inline-block;float: right" type="text"
+                    class="Inputhidden01"
+                     readonly="readonly"
+                    value="{{task.theCommonFormInfo.docPrefix | limitTo:-2}}"></td>
+            <td
+                class="td04b">
+                （
+            </td>
+            <td width="40"
+                class="td04b">
+                <input name="年份" ng-model="task.theCommonFormInfo.docYear" number-check
+                       ng-dblclick="$event.currentTarget.readOnly || fc.dubDocFullName()"
+                       type="text"
+                       class="Inputhidden01"
+                       style="color:black;font-weight: normal;width: 100%;height: 100%;font-family: 仿宋_GB2312"
+                       onMouseOver="this.className='Inputhidden01Hover'"
+                       onMouseOut="this.className='Inputhidden01'"
+                       value=""
+                       size="3"
+                       maxlength="4">
+            </td>
+            <td
+                class="td04b">）
+            </td>
+
+            <td width="40"
+                class="td04b">
+                <input name="文号" ng-model="task.theCommonFormInfo.docNumber" number-check
+                       type="text"
+                       class="Inputhidden01 center"
+                       style="color:black;font-weight: normal;font-family: 仿宋_GB2312"
+                       onMouseOver="this.className='center Inputhidden01Hover'"
+                       onMouseOut="this.className='center Inputhidden01'"
+                       value=""
+                       maxlength="4">
+            </td>
+            <td
+                class="td04b">号
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%;border-collapse:separate !important"
+           border="0"
+           align="center"
+           cellpadding="0"
+           cellspacing="0"
+           class="tblGw01">
+
+        <tr height="30">
+            <td class="td04b" width="77px">申请人姓名</td>
+            <td class="td05b" width="130px">
+                <input name="申请人姓名" ng-model="task.theCommonFormInfo.formYscgjshengpi.applicant"
+                       type="text"
+                       class="Inputhidden01"
+                       style="font-family: 仿宋_GB2312"
+                       onMouseOver="this.className='Inputhidden01Hover'"
+                       onMouseOut="this.className='Inputhidden01'"
+                       value=""
+                       size="10"
+                >
+            </td>
+            <td class="td04b" width="173px"></td>
+            <td class="td04b" width="70px">单位/职务</td>
+            <td class="td05b" >
+                <input name="单位" ng-model="task.theCommonFormInfo.formYscgjshengpi.deptPost"
+                       type="text"
+                       class="Inputhidden01"
+                       style="font-family: 仿宋_GB2312"
+                       onMouseOver="this.className='Inputhidden01Hover'"
+                       onMouseOut="this.className='Inputhidden01'"
+                       value=""
+                       size="10"
+                >
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%;border-collapse:separate !important"
+           border="0"
+           align="center"
+           cellpadding="0"
+           cellspacing="0"
+           class="tblGw01">
+
+        <tr height="30">
+            <td width="40"
+                class="td04b">事由
+            </td>
+            <td width="345px"
+                class="td05b" style="border-bottom: 0px">
+                <input name="出国事由" radio-click='fc.yscgReason'  radio-click-val='travel' class="vertical-middle {{fc.yscgReason.cursorType}}"   type="checkbox" ng-model="fc.yscgReason.travel">
+                <span radio-click='fc.yscgReason'  radio-click-val='travel' class="ck-span {{fc.yscgReason.cursorType}}" >旅游</span>
+
+                <input radio-click='fc.yscgReason'  radio-click-val='visRelatives' class="vertical-middle {{fc.yscgReason.cursorType}}"   type="checkbox" ng-model="fc.yscgReason.visRelatives">
+                <span radio-click='fc.yscgReason'  radio-click-val='visRelatives' class="ck-span {{fc.yscgReason.cursorType}}" >探亲</span>
+
+                <input radio-click='fc.yscgReason'  radio-click-val='other' class="vertical-middle {{fc.yscgReason.cursorType}}"   type="checkbox" ng-model="fc.yscgReason.other">
+                <span radio-click='fc.yscgReason'  radio-click-val='other' class="ck-span {{fc.yscgReason.cursorType}}">其他</span>
+
+                <input ng-disabled="!fc.yscgReason.other || !fc.yscgReason.isAbleEdit" class="{{fc.yscgReason.cleanModelCursorType}}" ng-model="task.theCommonFormInfo.formYscgjshengpi.otherReason" style="border: 0;padding-top: 0;padding-left: 0;padding-right: 0;   border-bottom: 1px solid black;">
+            </td>
+            <td class="td04b" width="60px">目的地</td>
+            <td class="td05b" >
+                <input name="目的地" ng-model="task.theCommonFormInfo.formYscgjshengpi.destination"
+                       type="text"
+                       class="Inputhidden01"
+                       style="font-family: 仿宋_GB2312"
+                       onMouseOver="this.className='Inputhidden01Hover'"
+                       onMouseOut="this.className='Inputhidden01'"
+                       value=""
+                       size="10"
+                >
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%;border-collapse:separate !important"
+           border="0"
+           align="center"
+           cellpadding="0"
+           cellspacing="0"
+           class="tblGw01">
+
+        <tr height="30">
+            <td class="td04b" width="110px">出国（境）时间</td>
+            <td width="110px"
+                class="td05b">
+                <input
+                        id="startDate"
+                        data-link-field="startDateb"
+                        ng-model="task.theCommonFormInfo.formYscgjshengpi.startDate"
+                        ng-time
+                        style="width: 0;"
+                        data-link-format="yyyy-mm-dd"
+                        data-date-format="yyyy-mm-dd hh:ii:ss"
+                        type="text"
+                        name="出国开始日期"
+                        class="Inputhidden01 form_date"
+                >
+                <input
+                        focus-hiden="startDate"
+                        id="startDateb"
+                        value="{{task.theCommonFormInfo.formYscgjshengpi.startDate|limitTo:10}}"
+                        readonly="readonly"
+                        type="text"
+                        size="12"
+                        onMouseOver="this.className='Inputhidden01Hover'"
+                        onMouseOut="this.className='Inputhidden01'"
+                        class="Inputhidden01"
+                >
+            </td>
+            <td class="td04b" width="20px">至</td>
+            <td width="110px"
+                class="td05b">
+                <input
+                        id="endDate"
+                        data-link-field="endDateb"
+                        ng-model="task.theCommonFormInfo.formYscgjshengpi.endDate"
+                        ng-time
+                        style="width: 0;"
+                        data-link-format="yyyy-mm-dd"
+                        data-date-format="yyyy-mm-dd hh:ii:ss"
+                        type="text"
+                        name="出国结束日期"
+                        class="Inputhidden01 form_date"
+                >
+                <input
+                        focus-hiden="endDate"
+                        id="endDateb"
+                        value="{{task.theCommonFormInfo.formYscgjshengpi.endDate|limitTo:10}}"
+                        readonly="readonly"
+                        type="text"
+                        size="12"
+                        onMouseOver="this.className='Inputhidden01Hover'"
+                        onMouseOut="this.className='Inputhidden01'"
+                        class="Inputhidden01"
+                >
+            </td>
+            <td class="td04b" width="20px"></td>
+            <td class="td04b" width="95px">境外停留天数</td>
+            <td class="td05b" >
+                <input name="境外停留天数" ng-model="task.theCommonFormInfo.formYscgjshengpi.overseasStayDays"
+                       type="text"
+                       class="Inputhidden01"
+                       number-check
+                       style="font-family: 仿宋_GB2312"
+                       onMouseOver="this.className='Inputhidden01Hover'"
+                       onMouseOut="this.className='Inputhidden01'"
+                       value=""
+                       size="10"
+                >
+            </td>
+        </tr>
+        <tr height="20">
+            <td></td>
+        </tr>
+    </table>
+    <table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+        <tr>
+            <td colspan="2" valign="top" class="td04b">拟办意见：</td>
+        </tr>
+        <tr>
+            <td height="100px" colspan="2" valign="top" class="td04b">
+                <div style="height:100px;"
+                     class="Inputhidden01"
+                     auto-scroll-disable
+                     onMouseOver="this.className='Inputhidden01Hover'"
+                     onMouseOut="this.className='Inputhidden01'">
+                    <div class="user-option" ng-repeat="o in task.userOpinions.csyj">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0||o.agentFlag==2" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag == 1" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top" class="td04b">干部处意见：</td>
+        </tr>
+        <tr>
+            <td height="80" colspan="2" valign="top" class="td04b">
+                <div style="height:80px;"
+                     class="Inputhidden01"
+                     auto-scroll-disable
+                     onMouseOver="this.className='Inputhidden01Hover'"
+                     onMouseOut="this.className='Inputhidden01'">
+                    <div class="user-option" ng-repeat="o in task.userOpinions.gbcyj">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0||o.agentFlag==2" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag == 1" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top" class="td04b">委领导意见：</td>
+        </tr>
+        <tr>
+            <td height="250" colspan="2" valign="top" class="td04b">
+                <div style="height:250px;"
+                     class="Inputhidden01"
+                     auto-scroll-disable
+                     onMouseOver="this.className='Inputhidden01Hover'"
+                     onMouseOut="this.className='Inputhidden01'">
+                    <div class="user-option" ng-repeat="o in task.userOpinions.ldps">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0||o.agentFlag==2" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag == 1" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%;border-collapse:separate !important"
+           border="0"
+           align="center"
+           cellpadding="0"
+           cellspacing="0"
+           class="tblGw01">
+
+        <tr height="30">
+            <td width="100"
+                class="td04b">证件情况
+            </td>
+            <td
+                class="td05b" style="border-bottom: 0px">
+                <input name="证件情况" radio-click='fc.certificates'  radio-click-val='newCreate' class="vertical-middle {{fc.certificates.cursorType}}"   type="checkbox" ng-model="fc.certificates.newCreate">
+                <span radio-click='fc.certificates'  radio-click-val='newCreate' class="{{fc.certificates.cursorType}}" style="margin-right: 10px;">申请新办</span>
+
+                <input radio-click='fc.certificates'  radio-click-val='newReceive' class="vertical-middle {{fc.certificates.cursorType}}"   type="checkbox" ng-model="fc.certificates.newReceive">
+                <span radio-click='fc.certificates'  radio-click-val='newReceive' class="{{fc.certificates.cursorType}}" style="margin-right: 10px;">申请领用</span>
+
+                <input radio-click='fc.certificates'  radio-click-val='other' class="vertical-middle {{fc.certificates.cursorType}}"   type="checkbox" ng-model="fc.certificates.other">
+                <span radio-click='fc.certificates'  radio-click-val='other' class="{{fc.certificates.cursorType}}">其他</span>
+
+                <input ng-disabled="!fc.certificates.other || !fc.certificates.isAbleEdit" class="{{fc.certificates.cleanModelCursorType}}" ng-model="task.theCommonFormInfo.formYscgjshengpi.otherCertificates" style="min-width: 230px;border: 0;padding-top: 0;padding-left: 0;padding-right: 0;   border-bottom: 1px solid black;">
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%;border-collapse:separate !important"
+           border="0"
+           align="center"
+           cellpadding="0"
+           cellspacing="0"
+           class="tblGw01">
+
+        <tr height="30">
+            <td width="100"
+                class="td04b">证件类别
+            </td>
+            <td width="240"
+                class="td05b" style="border-bottom: 0px">
+                <input name="证件类别" radio-click='fc.certificateType'  radio-click-val='passport' class="vertical-middle {{fc.certificateType.cursorType}}"   type="checkbox" ng-model="fc.certificateType.passport">
+                <span radio-click='fc.certificateType'  radio-click-val='passport' class="{{fc.certificateType.cursorType}}" style="margin-right: 10px;">护照</span>
+
+                <input radio-click='fc.certificateType'  radio-click-val='HongKong' class="vertical-middle {{fc.certificateType.cursorType}}"   type="checkbox" ng-model="fc.certificateType.HongKong">
+                <span radio-click='fc.certificateType'  radio-click-val='HongKong' class="{{fc.certificateType.cursorType}}" style="margin-right: 10px;">港澳</span>
+
+                <input radio-click='fc.certificateType'  radio-click-val='Taiwan' class="vertical-middle {{fc.certificateType.cursorType}}"   type="checkbox" ng-model="fc.certificateType.Taiwan">
+                <span radio-click='fc.certificateType'  radio-click-val='Taiwan' class="{{fc.certificateType.cursorType}}">台湾</span>
+            </td>
+            <td class="td04b" width="63px">证件号码</td>
+            <td class="td05b" >
+                <input name="证件号码" ng-model="task.theCommonFormInfo.formYscgjshengpi.certificateNumber"
+                       type="text"
+                       class="Inputhidden01"
+                       style="font-family: 仿宋_GB2312"
+                       onMouseOver="this.className='Inputhidden01Hover'"
+                       onMouseOut="this.className='Inputhidden01'"
+                       value=""
+                       size="10"
+                >
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%;border-collapse:separate !important"
+           border="0"
+           align="center"
+           cellpadding="0"
+           cellspacing="0"
+           class="tblGw01">
+
+        <tr height="30">
+            <td class="td04b" width="100">证件领用时间</td>
+            <td width="170"
+                class="td05b">
+                <input
+                        id="receiveTime"
+                        data-link-field="receiveTimeb"
+                        ng-model="task.theCommonFormInfo.formYscgjshengpi.receiveTime"
+                        ng-time
+                        style="width: 0;"
+                        data-link-format="yyyy-mm-dd"
+                        data-date-format="yyyy-mm-dd hh:ii:ss"
+                        type="text"
+                        name="证件开始日期"
+                        class="Inputhidden01 form_date_tr"
+                >
+                <input
+                        focus-hiden="receiveTime"
+                        id="receiveTimeb"
+                        value="{{task.theCommonFormInfo.formYscgjshengpi.receiveTime|limitTo:10}}"
+                        readonly="readonly"
+                        type="text"
+                        size="12"
+                        onMouseOver="this.className='Inputhidden01Hover'"
+                        onMouseOut="this.className='Inputhidden01'"
+                        class="Inputhidden01"
+                >
+            </td>
+            <td width="70"></tdw>
+            <td class="td04b" width="91">证件归还时间</td>
+            <td
+                class="td05b">
+                <input
+                        id="returnTime"
+                        data-link-field="returnTimeb"
+                        ng-model="task.theCommonFormInfo.formYscgjshengpi.returnTime"
+                        ng-time
+                        style="width: 0;"
+                        data-link-format="yyyy-mm-dd"
+                        data-date-format="yyyy-mm-dd hh:ii:ss"
+                        type="text"
+                        name="证件结束日期"
+                        class="Inputhidden01 form_date_tr"
+                >
+                <input
+                        focus-hiden="returnTime"
+                        id="returnTimeb"
+                        value="{{task.theCommonFormInfo.formYscgjshengpi.returnTime|limitTo:10}}"
+                        readonly="readonly"
+                        type="text"
+                        size="12"
+                        onMouseOver="this.className='Inputhidden01Hover'"
+                        onMouseOut="this.className='Inputhidden01'"
+                        class="Inputhidden01"
+                >
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+        <tr>
+            <td class="td04b" width="40">备注：</td>
+        </tr>
+        <tr>
+            <td height="140" class="td05b" style="border-bottom: 0px">
+                <!--<textarea cols="40" class="Inputhidden011" id="textarea4" style=" resize:none; width: 100%;height:100%;" ng-model="task.theCommonFormInfo.formFawen.huiQian" onMouseOver="this.className='Inputhidden01Hover2'" onMouseOut="this.className='Inputhidden011'"></textarea>-->
+                <textarea name="备注" cols="40" class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" id="textarea4" style="line-height: 18px; resize:none; width: 100%;height:100%;" ng-model="task.theCommonFormInfo.formYscgjshengpi.remarks" ></textarea>
+            </td>
+        </tr>
+    </table>
+</div>

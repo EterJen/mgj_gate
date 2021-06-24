@@ -1,0 +1,90 @@
+<style>
+    .bta{
+        background: #3986c8;
+        border-bottom: 2px solid #5880c9;
+        width: 96px;
+        height: 27px;
+        line-height: 27px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #fff !important;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        text-decoration: none !important;
+        margin-left: 3px;
+    }
+</style>
+
+
+<div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+    <div class="bmxx_tit" id="depart_tit">
+        <div class="left"><img src="images/bmxx_tit-01.png">
+            <span >部门申领</span>
+        </div>
+
+        <div  class="right user-titleheading" style="width: 50%">
+            <a href="" class="bj"  ng-click="printCount('claimingStatistics')">打印</a>
+            <a href="" class="bj" ng-if="!dataObject.isFlwh" ng-click="cutoverTable('goodsManagement')">返回</a>
+        </div>
+    </div>
+</div>
+
+<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+    <div id="myTabContent" class="table_shadow"    style="overflow:auto; max-height: 70%">
+        <table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+            <tr>
+                <td width="65px">入库时间:</td>
+                <td width="15%">
+                    <input type="text" class="form-control"  placeholder="请输入起始日期" readonly="readonly" ng-model="queryBean.createTimeStart" data-date-format="yyyy-mm-dd 00:00:00" data-provide="datepicker">
+                    <!--<input type="text" style="width: 100%"  ng-model="queryBean.createTimeStart"  placeholder="请输入分类名称">-->
+                </td>
+                <td width="35px">至</td>
+                <td width="15%">
+                    <input type="text" class="form-control"  placeholder="请输入结束日期" readonly="readonly" ng-model="queryBean.createTimeEnd" data-date-format="yyyy-mm-dd 23:59:59" data-provide="datepicker">
+                    <!-- <input type="text" style="width: 100%"  ng-model="queryBean.createTimeEnd"  placeholder="请输入分类名称">-->
+                </td>
+                <td>
+                    <a href="" class="bta" ng-click="claimStatisticsCount()">统计</a>
+                </td>
+                <!--<td align="right">
+                    <span>入库金额总计（元）：{{dataObject.total}}</span>
+                </td>-->
+            </tr>
+        </table>
+
+        <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+            <thead>
+            <tr>
+                <!--<th class="" width="35px"></th>-->
+                <th width="10%">物品名称</th>
+                <th width="8%">单价</th>
+                <th width="10%">物品编号</th>
+                <th width="8%" ng-repeat="d in dataObject.departmentList">{{d.requiredDepartment}}</th>
+                <th width="10%">数目合计</th>
+                <th width="10%">金额合计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="goods in dataObject.goodsList" >
+                <td>{{goods.name}}</td>
+                <td>{{goods.unitPrice}}</td>
+                <td>{{goods.numbering}}</td>
+                <td ng-repeat="depart in dataObject.departmentList">
+                    {{goods.dbParams[depart.requiredDepartment]}}
+                </td>
+                <td>{{goods.quantity}}</td>
+                <td>{{goods.totalPrice}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--<div class="ceter_p" id="ceter_p" ng-show="!dataObject.isFlwh">
+        <div class="ceter_s">
+            <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+        </div>
+    </div>-->
+</div>

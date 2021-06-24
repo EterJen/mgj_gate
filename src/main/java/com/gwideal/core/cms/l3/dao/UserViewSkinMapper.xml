@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.UserViewSkinMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.*,
+			${@com.gwideal.core.common.CoreBaseEntity@getSelectColumns('COMON_DATE','cd.','cd_')}
+		from
+  			USER_VIEW_SKIN t
+			inner join  COMON_DATE cd on t.DAY = cd.O_DATE
+		<where>
+		    ${dynamicConditions}
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(day)">
+				AND t.DAY =  #{day}
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(startDay)">
+				AND t.DAY <![CDATA[>=]]> #{startDay}
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(endDay)">
+				AND t.DAY <![CDATA[<]]> #{endDay}
+			</if>
+		</where>
+		order by t.DAY asc
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.UserViewSkin" autoMapping="true">
+	     <id property="id" column="id" />
+		<collection property="comonDate" column="cd_id" ofType="com.gwideal.core.date.l4.entity.ComonDate"
+					columnPrefix="cd_"/>
+	</resultMap>
+
+    <delete id="deleteByDayScope">
+        delete from USER_VIEW_SKIN t
+		<where>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(startDay)">
+				AND t.DAY <![CDATA[>=]]> #{startDay}
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(endDay)">
+				AND t.DAY <![CDATA[<]]> #{endDay}
+			</if>
+		</where>
+    </delete>
+
+    <update id="updateByDayScope">
+		update USER_VIEW_SKIN t
+		set ${dynamicConditions}
+		<where>
+			${dynamicConditions}
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(startDay)">
+				AND t.DAY <![CDATA[>=]]> #{startDay}
+			</if>
+			<if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(endDay)">
+				AND t.DAY <![CDATA[<=]]> #{endDay}
+			</if>
+		</where>
+	</update>
+</mapper>

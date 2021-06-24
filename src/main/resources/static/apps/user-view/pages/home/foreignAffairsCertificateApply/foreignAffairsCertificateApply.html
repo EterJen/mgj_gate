@@ -1,0 +1,140 @@
+<div class="main clearfix  sh-bg">
+    <!--  <p class="breadcrumb">
+          <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+          >
+          <a ng-click="fc.goArticleList(fc.topBarMap[fc.activeTopBar])" ng-bind="fc.topBarMap[fc.activeTopBar].zh"></a>
+      </p>-->
+    <div class="main-bg clearfix m-t-20 p-0">
+        <div class="list-left-tit">
+            <div class="box-shadow-0">
+                <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+                <a ng-show="showzhflag">{{' > '}}{{showzh}}</a>
+                <a>> 申请</a>
+            </div>
+        </div>
+
+        <!--tit end-->
+
+        <div class="list-right m-l-0">
+            <div class="outer-div">
+                <table class="outer-div-table" border="1" cellpadding="1" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                进出口申请表单
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>进出口类型<span style="color: red;">*</span>：</td>
+                            <td>
+                                <select style="margin-bottom: 10px;" required="required" ng-model="bean.type">
+                                    <option value=""></option>
+                                    <option ng-value="type.id" ng-repeat="type in types">{{type.zhName}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>申请用户名<span style="color: red;">*</span>：</td>
+                            <td><input type="text"  ng-model="bean.applyName" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td>申请单位<span style="color: red;">*</span>：</td>
+                            <td><input type="text" ng-model="bean.applyDept" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td>企业类型<span style="color: red;">*</span>：</td>
+                            <td>
+                                <select style="margin-bottom: 10px;" required="required" ng-model="bean.enterpriseType">
+                                    <option value=""></option>
+                                    <option ng-value="type.id" ng-repeat="type in enterpriseType">{{type.zhName}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>法定代表人<span style="color: red;">*</span>：</td>
+                            <td><input type="text" ng-model="bean.legdaRepresentative" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td>资质证书编号<span style="color: red;">*</span>：</td>
+                            <td><input type="text"  ng-model="bean.qualificationCertificateNo" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td>联系方式：</td>
+                            <td><input type="text"  ng-model="bean.telPhone"/></td>
+                        </tr>
+                        <tr>
+                            <td>住址：</td>
+                            <td><input type="text"  ng-model="bean.address"/></td>
+                        </tr>
+                        <tr>
+                            <td>商品名称<span style="color: red;">*</span>：</td>
+                            <td><input type="text"  ng-model="bean.commodity" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td>商品数量<span style="color: red;">*</span>：</td>
+                            <td><input type="number"  ng-model="bean.number" required="required"/></td>
+                        </tr>
+                        <tr>
+                            <td>描述<span style="color: red;">*</span>：</td>
+                            <td><textarea rows="6" ng-model="bean.remark" required="required"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" ng-click="save()">保存</button>
+                                <button type="button" ng-click="fanhui()">取消</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--fenye end-->
+        </div>
+        <!--right end-->
+    </div>
+    <!--main-bg end-->
+</div>
+
+
+<style>
+    .outer-div{
+        padding: 5px;
+        width:80%;
+        margin:auto;
+    }
+    .outer-div-table{
+        width: 85%;
+        margin: auto;
+    }
+
+    .outer-div-table th{
+        height: 60px;
+        font-size: 18px;
+    }
+
+    .outer-div-table tr{
+        height: 50px;
+    }
+    .outer-div-table tr td:first-child{
+        width: 15%;
+        text-align: center;
+    }
+
+    .outer-div-table tr td:last-child{
+        text-align: center;
+        width: 65%;
+    }
+
+    .outer-div-table tr td input{
+        width: 90%;
+    }
+    textarea{
+        width: 90%;
+    }
+    button{
+        width: 10%;
+        background-color: burlywood;
+    }
+</style>

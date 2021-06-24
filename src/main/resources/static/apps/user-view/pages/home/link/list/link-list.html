@@ -1,0 +1,42 @@
+<div class="main clearfix  sh-bg">
+<!--    <p class="breadcrumb">
+        <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+        >
+        <a ng-click="fc.goState(fc.topBarMap[fc.activeTopBar])" ng-bind="fc.topBarMap[fc.activeTopBar].zh"></a>
+    </p>-->
+    <div class="main-bg clearfix m-t-20 p-0">
+
+        <!--left end-->
+        <div class="list-left-tit">
+            <div class="box-shadow-0">
+                <i class="{{fc.activeTopBar}}-blue"></i>
+                <a ng-click="fc.goState(fc.topBarMap.home)">首页</a>
+                >
+                <a ng-click="fc.goState(fc.topBarMap[fc.activeTopBar])" ng-bind="fc.topBarMap[fc.activeTopBar].zh"></a>
+<!--                {{fc.topBarMap[fc.activeTopBar].zh}}-->
+            </div>
+        </div>
+        <div class="list-right m-l-0">
+            <ul class="list-secondary clear-default">
+                <li  ng-repeat="x in beanList" ng-class="{'zhiding': (1 == x.ifSetTop)}">
+                    <a raw-href="{{x.url}}">
+                        <span style="display: inline" ng-bind-html="x.name"></span>
+                    </a>
+                    <span class="article-rq" ng-bind="x.addtime|timeYmd"></span>
+                </li>
+            </ul>
+            <div class="list-bott">
+                <div class="mng-pagelist">
+                    <div>
+                        <tm-pagination conf="paginationConf"></tm-pagination>
+                    </div>
+                    </diva>
+                </div>
+
+            </div>
+            <!--fenye end-->
+        </div>
+        <!--right end-->
+    </div>
+    <!--main-bg end-->
+</div>

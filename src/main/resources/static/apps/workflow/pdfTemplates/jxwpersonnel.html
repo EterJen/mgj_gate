@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        /*设定纸张大小*/
+        /* A4纸 */
+        /* @page{size:210mm*297mm} */
+        @page {
+            size: a4
+        }
+        fieldset {
+            padding: .35em .625em .75em;
+            margin: 0 2px;
+            border: 0.6px solid silver
+        }
+        legend {
+            padding: .5em;
+            border: 0;
+            width: auto
+        }
+
+        input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .GwTitleRedLargeBigSF {
+            font-size: 33px;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+            font-family: FZYaoti;
+            padding: 10px;
+        }
+
+        .user-option{
+            white-space:pre-wrap;
+            line-height: 18px;
+        }
+
+        .tblGw01 {
+            font-size: 12px;
+            border-collapse: collapse;
+        }
+
+        .tblGw01 .td02 {
+            font-size: 14px;
+            color: rgb(0, 0, 0);
+            border: 0.6px solid rgb(0, 0, 0);
+            padding: 3px;
+            text-align: center
+        }
+
+        input {
+            text-rendering: auto;
+            color: initial;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: start;
+            margin: 0em;
+            font: 400 13.3333px Arial;
+        }
+
+        .Inputhidden01 {
+            color: black;
+            font-size: 14px;
+            background-color: rgb(255, 255, 255);
+            font-family: FangSong_GB2312;
+            font-weight: bold !important;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            font-weight: bold;
+        }
+
+        .Inputhidden011 {
+            height: inherit;
+            color: black;
+            overflow-y: hidden;
+            font-size: 14px;
+            background-color: rgb(255, 255, 255);
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            font-weight: bold !important;
+            font-family: FangSong_GB2312;
+        }
+
+        .tblGw01 .td04b {
+            color:  rgb(0, 0, 0);
+            font-family: FangSong_GB2312;
+            font-weight: bold !important;
+            padding: 3px;
+        }
+
+        .tblGw01 .td05b {
+            font-size: 14px;
+            font-weight: bold;
+            color: 333;
+            border-bottom: 0.6px solid rgb(0, 0, 0);
+            padding: 3px;
+        }
+
+        tr td {
+            font-size: 14px ;
+            font-family: FangSong_GB2312;
+        }
+
+        .center {
+	        text-align: center;
+        }
+        .tblGw01 .title {
+	        font-size: 12px;
+	        font-weight: bold;
+	        color: black;
+	        padding: 3px;
+	        font-family: 仿宋_GB2312;
+	        border-top: 1px solid black;
+	        border-left: 1px solid black;
+	        border-right: 1px solid black;
+        }
+
+        .tblGw01 .data {
+	        font-size: 14px;
+	        border-top: 1px solid black;
+	        border-left: 1px solid black;
+	        border-right: 1px solid black;
+	        border-bottom: none !important;
+	        padding: 3px;
+        }
+    </style>
+</head>
+<body>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td align="center" class="td03" style=" width: 880px;">
+			<p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:3px;">
+				<font face="方正姚体" color="black">临时借（聘）用人员报备表</font>
+			</p>
+		</td>
+	</tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="40px" class="td04b" style="padding-left: 0;"><span class="mptd1">报批号:</span></td>
+		<td width="90%" class="">
+			<input name="报批号"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.approvedNum$"
+			       type="text"
+			       style="width: 100%;height: 100%;"
+			       class="Inputhidden01"
+			       size="28">
+		</td>
+	</tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="20%" class="td04b center title">临时借（聘）用<br/>用&nbsp;人&nbsp;处&nbsp;室</td>
+		<td width="30%" class="td05b data">
+			<input name="临时借（聘）用用人处室"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.temporaryHireDept$"
+			       type="text"
+			       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+			       size="18">
+		</td>
+
+		<td width="20%" class="td04b center title">空缺岗位<br/>名&nbsp;&nbsp;称</td>
+		<td width="30%" class="td05b data">
+			<input name="空缺岗位名称"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.vacantPostName$"
+			       type="text"
+			       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+			       size="18">
+		</td>
+	</tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="15%" height="60px" class="td04b center title">承担工作<br/>简要描述<br/>（岗位职责）</td>
+		<td width="85%" height="60px" class="td05b data">
+			<textarea name="承担工作简要描述（岗位职责）"
+			          style="width: 100%;height: inherit;" class="Inputhidden011"
+			          size="18">
+				$task.theCommonFormInfo.formJxwPersonnel.postResponsibilities$
+			</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" height="60px" class="td04b center title">岗位所需<br/>资格条件</td>
+		<td width="85%" height="60px" class="td05b data">
+			<textarea name="岗位所需资格条件"
+			          style="width: 100%;height: inherit;" class="Inputhidden011"
+			          size="18">
+				$task.theCommonFormInfo.formJxwPersonnel.postQualification$
+			</textarea>
+		</td>
+	</tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="30%" class="td04b center title">是否涉密岗位</td>
+		<td width="70%" class="td05b data">
+			<input $checked_secretPost.Yes$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">涉密</span>
+			<input $checked_secretPost.No$  type="checkbox">
+			<span style="cursor: pointer">不涉密</span>
+		</td>
+	</tr>
+	<tr>
+		<td width="30%" class="td04b center title">是否属于临时性岗位</td>
+		<td width="70%" class="td05b data">
+			<input $checked_temporaryPost.Yes$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">是</span>
+			<input $checked_temporaryPost.No$  type="checkbox">
+			<span style="cursor: pointer">否</span>
+		</td>
+	</tr>
+	<tr>
+		<td width="30%" class="td04b center title">临时借（聘）用起止日期</td>
+		<td width="70%" class="td05b data">
+			<input name="临时借（聘）用起始日期"
+			       id="temporaryHireStartDate"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.temporaryHireStartDate$"
+			       type="text"
+			       data-date-format="yyyy-mm-dd"
+			       data-provide="datepicker"
+			       style="width: 30%;height: 100%;" class="Inputhidden01 center"
+			       size="18">
+			<span width="40px" class="center">起</span>
+			<span width="40px" class="center">至</span>
+			<input name="临时借（聘）用终止日期"
+			       id="temporaryHireEndDate"
+			       data-date-format="yyyy-mm-dd"
+			       data-provide="datepicker"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.temporaryHireEndDate$"
+			       type="text"
+			       style="width: 30%;height: 100%;" class="Inputhidden01 center"
+			       size="18">
+			<span width="40px" class="center">止</span>
+		</td>
+	</tr>
+	<tr>
+		<td width="30%" class="td04b center title">拟临时借（聘）用</td>
+		<td width="70%" class="td05b data">
+			<input $checked_temporaryHireType.borrow$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">临时借用</span>
+			<input $checked_temporaryHireType.engage$ type="checkbox">
+			<span style="cursor: pointer">临时聘用</span>
+		</td>
+	</tr>
+	<tr>
+		<td width="30%" class="td04b center title">聘用类型</td>
+		<td width="70%" class="td05b data">
+			<input $checked_engageType.first$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">首聘</span>
+			<input $checked_engageType.once$  type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">续聘一次</span>
+			<input $checked_engageType.twice$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">续聘二次</span>
+			<input $checked_engageType.other$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">其他</span>
+		</td>
+	</tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="20%" rowspan="3" class="td04b center title">借聘（用）人员简要情况</td>
+		<td width="40px" class="td04b center title">姓名</td>
+		<td width="15%" class="td05b data">
+			<input name="姓名"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.hirePersonName$"
+			       type="text"
+			       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+			       size="18">
+		</td>
+		<td width="40px" class="td04b center title">性别</td>
+		<td width="15%" class="td05b data">
+			<input name="性别"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.hirePersonGender$"
+			       type="text"
+			       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+			       size="18">
+		</td>
+		<td width="40px" class="td04b center title">出生年月</td>
+		<td width="15%" class="td05b data">
+			<input name="出生年月"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.hirePersonBirth$"
+			       type="text"
+			       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+			       size="18">
+		</td>
+	</tr>
+	<tr>
+		<td width="40px" class="td04b center title">学历</td>
+		<td width="20%" class="td05b data" colspan="2">
+			<input name="学历"
+			       value="$task.theCommonFormInfo.formJxwPersonnel.hirePersonEducation$"
+			       type="text"
+			       style="width: 100%;height: 100%;" class="Inputhidden01 center"
+			       size="18">
+		</td>
+
+		<td width="15%" class="td04b center title">毕业院校及专业</td>
+		<td width="20%" class="td05b data" colspan="2">
+			<textarea name="毕业院校及专业"
+			          style="width: 100%;min-height: 40px;" class="Inputhidden011"
+			          size="18">
+				$task.theCommonFormInfo.formJxwPersonnel.hirePersonProfession$
+			</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" height="30px" class="td04b center title">借出单位或<br>退休单位名称</td>
+		<td width="20%" height="30px" class="td05b data" colspan="2">
+			<textarea name="借出单位或退休单位名称"
+			          style="width: 100%;height: 40px;min-height: 40px;" class="Inputhidden011"
+			          size="18">
+				$task.theCommonFormInfo.formJxwPersonnel.hirePersonDeptname$
+			</textarea>
+		</td>
+
+		<td width="15%" height="30px" class="td04b center title">职务或职称</td>
+		<td width="20%" height="30px" class="td05b data" colspan="2">
+			<textarea name="职务或职称"
+			          id="leaveEndDate"
+			          type="text"
+			          style="width: 100%;height: 40px;min-height: 40px;" class="Inputhidden011"
+			          size="18">
+				$task.theCommonFormInfo.formJxwPersonnel.hirePersonPosition$
+			</textarea>
+		</td>
+	</tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="20%" class="td04b center title">退休前身份</td>
+		<td width="40%" class="td05b data">
+			<input $checked_retireIdentity.servant$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">公务员</span>
+			<input  $checked_retireIdentity.institution$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">事业单位</span>
+			<input  $checked_retireIdentity.enterprise$ type="checkbox">
+			<span style="cursor: pointer">企业</span>
+		</td>
+		<td width="20%" class="td04b center title">是否为处级干部</td>
+		<td width="20%" class="td05b data">
+			<input  $checked_departmentalCadre.Yes$ type="checkbox">
+			<span style="cursor: pointer;margin-right: 10px;">是</span>
+			<input  $checked_departmentalCadre.No$ type="checkbox">
+			<span style="cursor: pointer">否</span>
+		</td>
+	</tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="5%" height="100px" class="td04b center title">借出单位意见</td>
+		<td width="15%" height="100px" class="td05b data" style="vertical-align: top;">
+			负责人<br/>签字：<br/>请见附件
+		</td>
+		<td width="5%" height="100px" class="td04b center title">用人处室意见</td>
+		<td width="15%" height="100px" class="td05b data">
+			负责人<br/>签字：
+			<div style="height: inherit;width: 100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.yrcs$</div>
+			</div>
+		</td>
+		<td width="5%" height="100px" class="td04b center title">干部处意见</td>
+		<td width="15%" height="100px" class="td05b data">
+			负责人<br/>签字：
+			<div style="height: inherit;width: 100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.gbc$</div>
+			</div>
+		</td>
+		<td width="5%" height="100px" class="td04b center title">人事教育处意见</td>
+		<td width="15%" height="100px" class="td05b data">
+			负责人<br/>签字：
+			<div style="height: inherit;width: 100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.rsjyc$</div>
+			</div>
+		</td>
+		<td width="5%" height="100px" class="td04b center title">党办/行办意见</td>
+		<td width="15%" height="100px" class="td05b data">
+			负责人<br/>签字：
+			<div style="height: inherit;width:100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.dbxb$</div>
+			</div>
+		</td>
+	</tr>
+</table>
+<table style="width:100%;" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="45%" class="td04b center title">用人处室分管委领导意见（签字）</td>
+		<td width="55%" class="td05b data">
+			<div style="height: inherit;width: 100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.yrcld$</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td width="45%" class="td04b center title">干部处分管委领导意见（签字）</td>
+		<td width="55%" class="td05b data">
+			<div style="height: inherit;width: 100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.gbcld$</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td width="45%" class="td04b center title">人事教育处分管委领导意见（签字）</td>
+		<td width="55%" class="td05b data">
+			<div style="height: inherit;width: 100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.rsjycld$</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td width="45%" class="td04b center title">党办/行办分管委领导（聘用）意见（签字）</td>
+		<td width="55%" class="td05b data">
+			<div style="height: inherit;width: 100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.dbxbld$</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td width="45%" class="td04b center title" style="border-bottom: 1px solid black">主要领导意见（签字）</td>
+		<td width="55%" class="td05b data" style="border-bottom: 1px solid black !important;">
+			<div style="height: inherit;width: 100%;" class="Inputhidden011">
+				<div class="user-option" style="font-family: KaiTi;font-weight:bold">$task.userOpinions.zyld$</div>
+			</div>
+		</td>
+	</tr>
+</table>
+
+
+</body>
+</html>
+

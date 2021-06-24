@@ -1,0 +1,53 @@
+<style>
+    .black{
+        color: black;
+    }
+
+</style>
+
+
+<div class="listmain clearfix">
+    <div class="mbx">
+        <a ui-sref="menu.coreHome({showNearlyTodo:false})">首页</a>
+        <a class="red" ng-click="fc.goContent(fc.twolevelcolumn.parentTwolevelcolumn.id)" ng-if="fc.twolevelcolumn.parentTwolevelcolumn!=null && fc.twolevelcolumn.parentTwolevelcolumn.id!=null"><span class="black">></span>{{fc.twolevelcolumn.parentTwolevelcolumn.name}}</a>
+        <a class="red" ng-click="fc.goContent(fc.twolevelcolumn.id)" ><span class="black">></span>{{fc.twolevelcolumn.name}}</a>
+    </div>
+    <input ng-model="queryBean.title" ng-keyup="enterKeyup($event)" placeholder="请输入您要搜索的标题,回车确认搜索。">
+    <div class="listcontent clearfix textcontent">
+        <ul>
+            <li ng-repeat="cms in fc.beanList"  >
+                <div> <a id="cms_a_{{cms.id}}" ng-click="common.goDetails(cms)">{{cms.title}}</a></div>
+
+                <img ng-click="common.goDetails(cms)" class="cursor-pointer" src="images/new.gif" ng-mouseleave="activeArticleBlur(cms)" ng-mouseover="activeArticleHover(cms)"  ng-show="fc.showNewImage(cms)" />
+                <p ng-click="common.goDetails(cms)" class="cursor-pointer" ng-mouseleave="activeArticleBlur(cms)" ng-mouseover="activeArticleHover(cms)" >{{cms.createtime|ngSubStr:0:10}}</p>
+            </li>
+
+        </ul>
+
+
+    </div><!--list-end-->
+
+
+    <div class="ceter_p" id="ceter_p">
+        <div class="ceter_s">
+            <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+        </div>
+    </div>
+
+    <!--<div class="list-bott">
+        <ul>
+            <li><a href="#"><</a></li>
+            <li class="bott-tabon"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">></a></li>
+
+
+        </ul>
+    </div>-->
+
+</div><!--main-end-->

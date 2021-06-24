@@ -1,0 +1,250 @@
+<style>
+	fieldset {
+		padding: .35em .625em .75em;
+		margin: 0 2px;
+		border: 1px solid silver
+	}
+
+	.hideslb {
+		overflow-y: hidden;
+	}
+
+	.showslb {
+		overflow-y: auto;
+	}
+
+	legend {
+		padding: .5em;
+		border: 0;
+		width: auto
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+	}
+
+	input[type="number"] {
+		-moz-appearance: textfield;
+	}
+
+</style>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td align="center" class="td03">
+			<p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-7px;">
+				<font color="black" face="方正姚体">上海市长城电子会议通知单</font>
+			</p>
+		</td>
+		<!--<td align="right" class="td03" style="display:block;">
+			<table width="120" border="0" cellpadding="0" cellspacing="0" class="tblGw01 tab-fontfamily">
+				<tr align="center">
+					<td width="70%" height="20" class="td02">紧急程度</td>
+					<td width="30%" height="20" class="td02">
+						<input name="紧急程度" readonly ng-click="$event.currentTarget.readOnly || choseDicType('emergenceLevel')" ng-model="task.theCommonFormInfo.emergenceLevel" type="text" id="emergenceLevel" class="Inputhidden01" style="color:black;font-weight: normal;width: 100%;font-family: 仿宋_GB2312" value=""  >
+					</td>
+				</tr>
+				<tr align="center">
+					<td class="td02">委内公开</td>
+					<td class="td02">
+						<input name="委内公开" ng-model="task.theCommonFormInfo.belongProInst.wngk" ng-click="$event.currentTarget.readOnly || choseDicType('wngk')"   type="text" class="Inputhidden01" style="color:black;font-weight: normal;width: 100%;height: 100%;font-family: 仿宋_GB2312"   readonly>
+					</td>
+				</tr>
+				<tr align="center">
+					<td class="td02">主动公开</td>
+					<td class="td02">
+						<input name="主动公开" ng-model="task.theCommonFormInfo.xxgk" ng-click="$event.currentTarget.readOnly || choseDicType('xxgk')"  type="text" class="Inputhidden01"  style="color:black;font-weight: normal;width: 100%;height: 100%;font-family: 仿宋_GB2312" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value="" readonly>
+					</td>
+				</tr>
+				<tr align="center">
+					<td class="td02">不予公开</td>
+					<td class="td02">
+						<input name="不予公开" ng-model="publicityLevelDetail.bygk" ng-click="$event.currentTarget.readOnly || publicityLevelClick('bygk')" type="text" class="Inputhidden01" id="不予公开" style="color:black;font-weight: normal;width: 100%;font-family: 仿宋_GB2312" value=""   readonly>
+					</td>
+				</tr>
+				<tr align="center">
+					<td class="td02">依申请公开</td>
+					<td class="td02">
+						<input name="依申请公开" ng-model="publicityLevelDetail.ysqgk" ng-click="$event.currentTarget.readOnly || publicityLevelClick('ysqgk')" type="text" class="Inputhidden01" style="color:black;font-weight: normal;width: 100%;font-family: 仿宋_GB2312" value=""   readonly>
+					</td>
+				</tr>
+			</table>
+		</td>-->
+	</tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td colspan="9" class="td04">&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td width="70" class="td04b">会议时间:</td>
+		<td width="200" class="td05b">
+			<input type="text"
+			       id="meetingStartTime"
+			       name="会议开始时间"
+			       class="Inputhidden01 formCtrlField"
+			       style="width: 100%;height: 100%;font-family: 仿宋_GB2312"
+			       focus-on="start"
+			       ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingStartTime"
+			       size="30"/>
+		</td>
+		<td width="40" class="td04b text-center">至</td>
+		<td width="200" class="td05b">
+			<input type="text"
+			       id="meetingEndTime"
+			       name="会议结束时间"
+			       class="Inputhidden01"
+			       style="width: 100%;height: 100%;font-family: 仿宋_GB2312"
+			       focus-on="end"
+			       ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingEndTime"
+			       size="30"/>
+		</td>
+	</tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="70" class="td04b">会议室:</td>
+		<td class="td05b">
+			<input type="hidden" ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingRoomId"/>
+			<input type="text"
+			       id="meetingroomId"
+			       name="会议室"
+                   ng-click="$event.currentTarget.readOnly || chooseMeetingRoom('meetingRoomSelectModal')"
+			       ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingRoomName"
+			       class="Inputhidden01"
+			       style="width: 100%;height: 100%;font-family: 仿宋_GB2312"
+			       size="150"/>
+		</td>
+		<td colspan="2">
+			<a href="" ng-click="$event.currentTarget.readOnly || checkMeetingroomArrange(null)" style="float: right;text-align: right; width: 100">查看会议室安排</a>
+		</td>
+	</tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="70" class="td04b">会议名称：</td>
+		<td width="480" class="td05b">
+			<input type="text"
+			       id="meetingName"
+			       name="会议名称"
+			       class="InputHidden01 "
+			       style="width: 100%;height: 100%;font-family: 仿宋_GB2312"
+			       ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingName"
+			       size="150"/>
+		</td>
+	</tr>
+	<tr>
+		<td width="70" class="td04b">出席对象：</td>
+		<td width="480" class="td05b">
+			<input type="text"
+			       id="attendObj"
+			       name="出席对象"
+			       ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingAttendObjName"
+			       ng-click="$event.currentTarget.readOnly || huiyiChooseCandidate('obj')"
+			       class="InputHidden01 "
+			       style="width: 100%;height: 100%;font-family: 仿宋_GB2312"
+			       size="150"/>
+		</td>
+	</tr>
+	<tr>
+		<td width="70" class="td04b">出席领导：</td>
+		<td width="480" class="td05b">
+			<input type="text"
+			       id="attendLeader"
+			       name="出席领导"
+			       ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingAttendLeaderName"
+			       ng-click="$event.currentTarget.readOnly || huiyiChooseCandidate('leader')"
+			       class="InputHidden01 "
+			       style="width: 100%;height: 100%;font-family: 仿宋_GB2312"
+			       size="150"/>
+		</td>
+	</tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td colspan="2" class="td04b">会议内容：</td>
+	</tr>
+	<tr>
+		<td height="150" colspan="6" valign="top">
+			<textarea id="会议内容"
+			          name="会议内容"
+			          class="InputHidden01"
+			          style="width: 100%;height: 100%;font-family: 仿宋_GB2312"
+			          ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingContent"
+			          onMouseOver="this.className='InputHidden01Hover'"
+			          onMouseOut="this.className='InputHidden01'">
+			</textarea>
+		</td>
+	</tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td colspan="2" class="td04b">会议纪要：</td>
+	</tr>
+	<tr>
+		<td height="150" colspan="6" valign="top">
+			<textarea id="会议纪要"
+			          name="会议纪要"
+			          class="InputHidden01"
+			          style="width: 100%;height: 100%;font-family: 仿宋_GB2312"
+			          ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingSummary"
+			          onMouseOver="this.className='InputHidden01Hover'"
+			          onMouseOut="this.className='InputHidden01'">
+			</textarea>
+		</td>
+	</tr>
+</table>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td colspan="2" class="td04b">意见汇总：</td>
+	</tr>
+	<tr>
+		<td height="150" colspan="6" valign="top">
+			<div style="height: inherit;color: black"     class="Inputhidden01" auto-scroll-disable
+			     onMouseOver="this.className='Inputhidden01Hover'"
+			     onMouseOut="this.className='Inputhidden01'">
+				<div class="user-option" ng-repeat="o in task.userOpinions.allOption">{{o.opinion}}<span style="display: inline-block"><span ng-if="o.agentFlag == 0" id="{{task.proInstId}}_{{currentUser.username}}"> {{o.approverName}} </span><span ng-if="o.agentFlag != 0" >    {{o.approverName}}    </span>{{o.approveTime| dateFilter}}</span></div>
+			</div>
+		</td>
+	</tr>
+</table>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+	<tr>
+		<td width="70" class="td04b">申请人:</td>
+		<td class="td05b">
+			<input type="text"
+			       id="applier"
+			       name="申请人"
+			       class="Inputhidden01"
+			       style="width: 80%;height: 100%;font-family: 仿宋_GB2312"
+			       ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingApplyPerson"
+			       onMouseOver="this.className='Inputhidden01Hover'"
+			       onMouseOut="this.className='Inputhidden01'"
+			       size="20"/>
+		</td>
+		<td width="70" class="td04b">申请部门:
+		</td>
+		<td class="td05b">
+			<input type="text"
+			       id="applyDept"
+			       name="申请部门"
+			       class="Inputhidden01"
+			       style="width: 80%;height: 100%;font-family: 仿宋_GB2312"
+			       ng-model="task.theCommonFormInfo.formJxwhuiyi.meetingApplyDept"
+			       onMouseOver="this.className='Inputhidden01Hover'"
+			       onMouseOut="this.className='Inputhidden01'"
+			       size="20"/>
+		</td>
+	</tr>
+</table>
+
+
+

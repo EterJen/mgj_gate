@@ -1,0 +1,164 @@
+<style>
+    .bmxx_tit .right a.tj{background:#85a834;/* border-bottom:2px solid #449c5c; */width: 72px;}
+    .bmxx_tit .right a.bj{background:#3986c8;/* border-bottom:2px solid #5880c9; */width: 72px;}
+</style>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="panel panel-default">
+            <div class="panel-heading" id="panel-heading" style="border-bottom: 1px solid transparent;background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+                <div class="bmxx_tit" id="depart_tit">
+                    <div class="left">
+                        <img src="images/bmxx_tit-01.png">
+                        <span>办理意见报批</span>
+                        <a href="" hidden class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;" id="directQuery"  ng_click="queryProInstList()"><img src="images/search.svg">搜索</a>
+                    </div>
+                    <div ng-show="!isleader" class="right user-titleheading" style="width: 70%">
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <div class="right user-titleheading">
+                                <div >
+                                    <a href="" style="margin-right: 20px" class="bj" ng-click="showDetail('shouwenDW')"><img src="images/search.svg">
+                                        搜索</a>
+                                    <a id="todoTasks" href="" ng-class="{selected: checkStatus('todoTasks'), unselected: !checkStatus('todoTasks')}"
+                                            ng-click="queryProInstAccepted('todoTasks')">在办</a>
+                                    <a id="hisTasks" href="" ng-class="{selected: checkStatus('hisTasks'), unselected: !checkStatus('hisTasks')}"
+                                            ng-click="queryProInstAccepted('hisTasks')">已办</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body" id="panel-body-table" style="padding-right: 15px;">
+                <div class="table_shadow" id="table_shadow" ng-include="formpath" style="overflow: auto; max-height: 90%;"></div>
+                <div class="ceter_p" id="ceter_p">
+                    <div class="ceter_s">
+                        <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade " id="shouwenDW" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">办理意见报批查询</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="showenDanwei" class="col-sm-2 control-label">来文处室</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="queryBean.incomingDocDepart" id="showenDanwei" placeholder="请输入来文处室">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="shouwenNumber" class="col-sm-2 control-label">报批号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="shouwenNumber" ng-model="queryBean.docFullName" placeholder="请输入收文编号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="laiwenNumber" class="col-sm-2 control-label">收文编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="queryBean.relatedReceiveDocId" id="laiwenNumber" placeholder="请输入提案编号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="shouwenNumber" class="col-sm-2 control-label">标题或报批号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="queryBean.titleDocFullName" id="docNameOrTitle" placeholder="请输入文号或标题">
+                        </div>
+                    </div>
+                    <div class="form-group" align="center">
+                        <label for="formDefId"  class="col-sm-2 control-label">报批分类</label>
+                        <div id="formDefId" class="col-sm-10">
+                            <select  class="form-control"   ng-model="queryBean.formDefIdsObjIdx" ng-change="selectFormDef()">
+                                <option value="{{f.idx}}"    ng-repeat="f in formDefIds">{{f.val}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="showenTitle" class="col-sm-2 control-label">文件标题</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="showenTitle" ng-model="queryBean.title" placeholder="请输入文件标题">
+                        </div>
+                    </div>-->
+                    <div class="form-group" align="center">
+                        <label  class="col-sm-2 control-label">来文时间段</label>
+                        <div  class="col-sm-5" >
+                            <div  ng-model="queryBean.createTimeS"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="ufcreateTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input   class="form-control" ng-model="queryBean.createTimeZh" size="16" type="text" value="" readonly>
+                                <input id="ufcreateTime"  ng-model="queryBean.createTime" ng-change="timeChga()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                        <!--<label style="text-align: center" class="col-sm-2 control-label">到</label>-->
+                        <div  class="col-sm-5" >
+                            <div  ng-model="queryBean.createTimeE"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="ufcreateTimeEnd" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input   class="form-control" ng-model="queryBean.createTimeEndZh" size="16" type="text" value="" readonly >
+                                <input id="ufcreateTimeEnd"  ng-model="queryBean.createTimeEnd" ng-change="timeChgb()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="form-group" align="center"  ng-show="activeTab == 'hisTasks'">
+                        <label for="isFinished"  class="col-sm-2 control-label">是否办结</label>
+                        <div id="isFinished" class="col-sm-10">
+                            <select  class="form-control"    ng-change="isFinishedChg()"  ng-model="queryBean.isFinished">
+                                <option value="{{f.key}}"  ng-selected="0==$index" ng-repeat="f in isFinisheds">{{f.val}}</option>
+                            </select>
+                        </div>
+                    </div>-->
+                    <div class="form-group" align="center" ng-show="queryBean.isFinished == 'Finished'">
+                        <label  class="col-sm-2 control-label">办结时间段</label>
+                        <div  class="col-sm-5" >
+                            <div  ng-model="queryBean.finishedDateS"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="uffinishedDate" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input   class="form-control" ng-model="queryBean.finishedDateZh" size="16" type="text" value="" readonly>
+                                <input id="uffinishedDate"  ng-model="queryBean.finishedDate" ng-change="timeChgc()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                        <!--<label style="text-align: center" class="col-sm-2 control-label">到</label>-->
+                        <div  class="col-sm-5" >
+                            <div  ng-model="queryBean.finishedDateE"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="uffinishedDateEnd" data-link-format="yyyy-mm-dd hh:ii:ss">
+                                <input   class="form-control" ng-model="queryBean.finishedDateEndZh" size="16" type="text" value="" readonly >
+                                <input id="uffinishedDateEnd"  ng-model="queryBean.finishedDateEnd" ng-change="timeChgd()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="shouwenNumber" class="col-sm-2 control-label">办理结果</label>
+                        <div class="col-sm-10">
+                            <select  class="form-control"   ng-model="queryBean.dbParams.bulletinRemark">
+                                <option value="{{f}}" ng-repeat="f in handdingResult">{{f}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bpzhuangtai" class="col-sm-2 control-label">状态</label>
+                        <div class="col-sm-10">
+                            <select class="input-sm form-control" id="bpzhuangtai" ng-model="queryBean.dbParams.handleState" ng-options="x.val as x.name for x in dicMod.bpzhuangtai">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <button type="button" class="btn btn-sm btn-primary save" data-dismiss="modal" ng-click="detailQurey()">确定</button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+

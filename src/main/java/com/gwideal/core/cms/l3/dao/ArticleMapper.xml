@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.ArticleMapper">
+    <update id="ddl">
+        ${sql}
+    </update>
+
+
+    <select id="list" resultMap="listResultMap">
+        select
+        t.*,tw.name as columnChinese
+        from
+        ARTICLE t
+        inner join  TWOLEVELCOLUMN tw on tw.id=t.DOC_CATEGORY_ID and tw.isdelete=0
+        <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(articleCategoryIds)">
+            <foreach collection="articleCategoryIds" item="item" separator="," open=" and tw.ID in (" close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        <where>
+            ${dynamicConditions}
+
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(titleLike)">
+                <bind name="titleB" value="'%' + titleLike + '%'"/>
+                and t.title like #{titleB}
+            </if>
+        </where>
+        order by t.SET_TOP_SORT desc, t.PUBLISH_TIME  desc
+    </select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.Article" autoMapping="true">
+        <id property="id" column="id"/>
+    </resultMap>
+
+</mapper>

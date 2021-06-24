@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.basic.l3.dao.DicModeMapper">
+
+
+    <select id="list" resultMap="listResultMap">
+        select
+        t.*
+        from
+        DIC_MODE t
+        <where>
+            ${dynamicConditions}
+        </where>
+    </select>
+    <resultMap id="listResultMap" type="com.gwideal.core.basic.l4.entity.DicMode" autoMapping="true">
+        <id property="id" column="id"/>
+        <collection property="dicTypes" column="dt_id" ofType="com.gwideal.core.basic.l4.entity.DicType" columnPrefix="dt"></collection>
+    </resultMap>
+
+    <select id="queryDicTypes" resultMap="DicTypeMap">
+        select
+        t.*
+        from
+        DIC_TYPE t
+        <where>
+            t.flag = '1'
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(dicModeId)">
+                AND t.DIC_MODE_id = #{dicModeId}
+            </if>
+        </where>
+        order BY CAST(t.ORDER_NUM AS DECIMAL)
+    </select>
+    <resultMap id="DicTypeMap" type="com.gwideal.core.basic.l4.entity.DicType" autoMapping="true">
+        <id property="id" column="id"/>
+        <!--<association property="wfDocTypeList" column="id" select="com.gwideal.core.workflow.l3.dao.WfDocTypeMapper.queryByDicTypeId" />-->
+    </resultMap>
+
+    <select id="dicTypeList" resultMap="DicTypeMap">
+        select
+        t.*
+        from
+        DIC_TYPE t
+        LEFT JOIN DIC_MODE m ON m.ID = t.DIC_MODE_ID
+        <where>
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(dicMode.dictype)">
+                AND m.dictype = #{dicMode.dictype}
+            </if>
+        </where>
+        order BY CAST(t.ORDER_NUM AS DECIMAL)
+    </select>
+
+    <select id="findDicMod" resultMap="listResultMap">
+        select
+        m.*,
+        ${@com.gwideal.core.common.CoreBaseEntity@getSelectColumns('dic_type','dt.','dt_')}
+        from
+        DIC_MODE m
+        LEFT JOIN DIC_TYPE dt ON dt.FLAG = '1' and m.ID = dt.dic_mode_id
+        <where>
+            m.flag = '1'
+            <if test="!@com.gwideal.core.basic.l3.dao.Ognl@isEmpty(dictype)">
+                AND m.dictype = #{dictype}
+            </if>
+        </where>
+        order BY CAST(dt.ORDER_NUM AS DECIMAL)
+    </select>
+
+
+</mapper>

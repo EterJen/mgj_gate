@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwideal.core.cms.l3.dao.WorkdayMapper">
+    
+  
+    <select id="list" resultMap="listResultMap" >
+  		select 
+  			t.* 
+  		from 
+  			WORKDAY t
+  		<where>
+		    ${dynamicConditions}
+		</where>
+	</select>
+    <resultMap id="listResultMap" type="com.gwideal.core.cms.l4.entity.Workday" autoMapping="true">
+	     <id property="id" column="id" />
+	</resultMap>
+  
+  <select id="getYearCount" resultType="Long">
+	 select count(id) from WorkDay where to_number(to_char(to_date(workdate),'yyyy'))=#{year}
+ 	</select>
+  
+  
+  <select id="getWorkDayList" resultMap="listResultMap" >
+		select * from WorkDay where to_char(workdate,'yyyyMMdd')=#{0}
+  </select>
+	
+  <select id="getWorkDayListByDate" resultMap="listResultMap" >
+		select * from WorkDay where  <![CDATA[ to_char(workdate,'yyyy-MM-dd')>=#{startdate} and  to_char(workdate,'yyyy-MM-dd')<=#{enddate} ]]> order by workdate
+  </select>
+	
+	
+	<select id="getWorkDayListBystartDate" resultMap="listResultMap" >
+		select * from WorkDay where  <![CDATA[ to_char(workdate,'yyyy-MM-dd')>=#{startdate}  ]]> order by workdate
+  </select>
+</mapper>

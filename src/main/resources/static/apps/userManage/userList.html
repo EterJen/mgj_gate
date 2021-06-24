@@ -1,0 +1,618 @@
+<style>
+    /*图片放大*/
+    .mask{
+        display: none;
+        z-index: 9999;
+    }
+    .mask-box{
+        position:absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        opacity: 0.5;
+        background: #000;
+    }
+    .big-pic-wrap{
+        position:fixed;
+        top:50%;
+        left:50%;
+        margin-left: -460px;
+        margin-top: -300px;
+        width:920px;
+        height:620px;
+        padding:10px;
+        z-index:9999;
+        background:#fff;
+    }
+    .bigPic{
+        width:900px;
+        height:600px;
+    }
+    /*关闭大图按钮*/
+    .close-pic{
+        position:absolute;
+        top:-5px;
+        right:-5px;
+        display:inline-block;
+        width: 35px;
+        height: 35px;
+        cursor:pointer;
+        border-radius:50% !important;
+        background: #393A3C;
+        text-align: center;
+        line-height: 40px;
+    }
+    .close-pic:hover{
+        background: #D43F27;
+    }
+    .close-pic>i{
+        font-size: 25px;
+        color:#fff;
+    }
+
+    /*table  居中覆盖*/
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    .div-zzmx{
+    	padding: 4px;
+    }
+    .bac-div{
+    	background: #f1f2f3;
+    	padding-top: 5px;
+    }
+   	.text-title{
+   		font-size: 14px;
+    	color: #2f4e87;
+    	font-weight: bold;
+    	color: #2f4e87;
+   	}
+</style>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="panel panel-default">
+            <div class="panel-heading" id="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+            	<div class="bmxx_tit" id="depart_tit">
+					  <div class="left"><img src="images/bmxx_tit-02.png">
+                          <span >
+                      		   人员管理
+                          </span>
+                      </div>
+					  <div class="right user-titleheading" style="width: 70%">
+                          <div class="form-group" style="margin-bottom: 0px;">
+                              <div class="input-group col-xs-12">
+                                  <div class="input-group-btn" style="right: -2px;" >
+                                      <select name="type" class="form-control" style="padding:0;font-size:14px;height: 27px;width: auto;" ng-model="selectUserType" ng-change="mixBtnChange(selectUserType,'ufoIdx')" ng-class="{true:'active'}[$index === 0]">
+                                          <option value="{{$index}}" ng-repeat="uf in userFlagOptions">{{uf.name}}</option>
+                                      </select>
+                                  </div>
+                                  <input type="text" style="height: 27px;right: -1px; text-align: left;font-weight: normal" class="form-control" ng-model="userNameLike" ng-keyup="enterKeyup($event,'pageAuto')" placeholder="请输入用户名或用户姓名"/>
+                                  <span class="input-group-btn">
+                                      <a href="" class="bj" style="border-top-left-radius:0;border-bottom-left-radius:0;"  ng_click="pageAuto()"><img src="images/search.svg">搜索</a>
+                                      <a href=""  class="tj" style="margin-left: 5px" ng-click="showDialog('userDetailDialog')"><img src="images/add.svg">新增用户</a>
+                                      <a href=""  class="bj" style="margin-left: 5px" ng-click="showDialog('copyRelationModal')" ><img src="images/edit.svg">复制授权</a>
+                                      <a href=""  class="sc" ng-click="clearRelation()" style="margin-left: 5px;margin-right: 0"><img src="images/remove.svg">清除授权</a>
+                                  </span>
+                              </div>
+                          </div>
+					  </div>
+					</div>
+                <!-- <div class="row">
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary " ng-click="showDialog('userDetailDialog')" style="margin-left:3px">新增用户</button>
+                                <button class="btn btn-primary " ng-click="showDialog('userSortDialog')" style="margin-left:3px">用户排序</button>
+                                <button class="btn btn-primary " ng-click="showDialog('copyRelationModal')" style="margin-left:3px">复制授权</button>
+                                <button class="btn btn-primary " ng-click="clearRelation()" style="margin-left:3px">清除授权</button>
+                            </span>
+                        </div>/input-group
+                    </div>/.col-lg-6
+
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="userNameLike" ng-keyup="enterKeyup($event,'pageAuto')" placeholder="请输入用户名或用户姓名"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-search" data-toggle="dropdown">
+                                    用户类型：{{userFlagOptions[ufoIndex].name}}
+                                    <span class="caret"></span>
+                                </button>
+                                  <ul class="dropdown-menu">
+                                <li ng-class="{true:'active'}[$index === 0]" ng-repeat="uf in userFlagOptions">
+                                    <a ng-click="mixBtnChange($index,'ufoIdx')">{{uf.name}}</a>
+                                </li>
+                            </ul>
+                            </span>
+                        </div>/input-group
+                    </div>/.col-lg-6
+                </div> -->
+            </div>
+
+            <div class="panel-body" id="panel-body-table" style="padding-right: 15px;">
+                <!-- <div class="zt-cont">
+                    <span><img><img src="images/j-1.png">急件</span>
+                    <span><img src="images/j-2.png">加急</span>
+                    <span><img src="images/j-3.png">急件</span>
+                    <a href="##">显示全部</a>
+                    <a href="##">未办提示</a>
+                </div> -->
+
+                <div class="table_shadow" style="overflow:auto; max-height: 85%" > <!-- style="overflow:auto; height: 60%" -->
+                    <table class="table table-striped  table_zdy_2" style="min-width:100%;">
+                        <thead>
+                        <tr>
+                            <th width="3%">
+                                <input type="checkbox" ng-change="nodeTrClick(null,allUsersRoot,null,userList,$event)" id="checkAll" ng-model="allUsersRoot.checked"/>
+                            </th>
+                            <th width="8%">姓名</th>
+                            <th width="8%">用户名</th>
+                            <th width="5%">性别</th>
+                            <th width="10%">登录时效</th>
+                            <th width="10%">登录模式</th>
+                            <th width="20%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in userList" >
+                            <td>
+                                <input type="checkbox" name="checkItem" ng-click="nodeTrClick(allUsersRoot,user,userList,null,$event);$event.stopPropagation();" ng-model="user.checked"/>
+                            </td>
+                            <td>{{::user.name}}</td>
+                            <td>{{::user.username}}</td>
+                            <!--<td>{{::user.gender}}</td>-->
+                            <td>{{::user.gender}}</td>
+                            <td>{{::user.timeout}}</td>
+                            <td>{{::user.usermodeChinese}}</td>
+                            <td align="center">
+                                <a ng-show="user.flag == 1" class="btn btn-primary btn-xs"  ng-click="edit(user);$event.stopPropagation();">编辑</a>
+
+                                <a ng-show="user.flag != 1 && user.flag != 9" class="btn btn-primary btn-xs"  ng-click="activeUser(user);$event.stopPropagation();">账号恢复</a>
+                                <a ng-show="user.flag == 1" class="btn btn-del btn-xs"  ng-click="delete(user);$event.stopPropagation();">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="ceter_p" id="ceter_p">
+                    <div class="ceter_s">
+                        <span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+                    </div>
+                 </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+<div class="modal fade bs-example-modal-lg" id="userDetailDialog" tabindex="-1" role="dialog" aria-labelledby="myModalCreatDepartment">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="hideDialog('userDetailDialog')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalCreatDepartment">用户基本信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="userEditForm" name="userEditForm" role="form">
+                    <!-- role="form" name="angularForm" id="angularForm" role="form" novalidate ng-submit="maxManagementBud()" -->
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label for="ufusername" class="col-sm-2 control-label">用户名*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" ng-pattern="/^[a-zA-Z_][a-zA-Z0-9_]{2,32}$/" ng-pattern-err-type="BadUsername" id="ufusername" name="ufusername" ng-model="selectedUser.username" username-unique="username" userId ="{{selectedUser.id}}" placeholder="请输入用户名（登录名）" required="required">
+                                    <!--  <span class="glyphicon glyphicon-ok form-control-feedback"
+                                            ng-show="userEditForm.username.$dirty && userEditForm.username.$valid"></span>-->
+                                    <!--<span  class="help-block has-error" ng-show="userEditForm.username.$error.unique && userEditForm.username.$valid">该用户名已存在，请使用其他用户名</span>-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ufname" class="col-sm-2 control-label">姓名*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="ufname"  id="ufname" ng-model="selectedUser.name" placeholder="请输入姓名" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ufpassword" class="col-sm-2 control-label">密码*</label>
+
+                                <div class="col-sm-10">
+                                    <!--<input id="ufpassword" name="ufpassword" class="form-control" ng-model="selectedUser.password" placeholder="请输入密码" ng-pattern="/^.*(?=.{10,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/" ng-pattern-err-type="BadPassword" type="password" required>-->
+                                    <input id="ufpassword" name="ufpassword" class="form-control" ng-model="selectedUser.password" placeholder="请输入密码"  minlength="4" maxlength="20" type="password" required>
+                                    <!--<div class="input-group" >
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                        <input id="password" class="form-control" placeholder="请输入密码" maxlength="20" type="password">
+                                    </div>-->
+                                </div>
+
+                                <!--<span style="color:red;display: none;" class="tips"></span>
+                                <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="ufrepassword" class="col-sm-2 control-label">确认密码*</label>
+
+                                <div class="col-sm-10">
+                                    <!--<input id="ufrepassword" name="ufrepassword" class="form-control" pwd-valid="ufpassword" ng-model="selectedUser.repassword" placeholder="请再次输入密码" minlength="10" maxlength="20" type="password" required>-->
+                                    <input id="ufrepassword" name="ufrepassword" class="form-control" pwd-valid="ufpassword" ng-model="selectedUser.repassword" placeholder="请再次输入密码" minlength="4" maxlength="20" type="password" required>
+                                    <!--<div class="input-group" >
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                        <input id="password" class="form-control" placeholder="请输入密码" maxlength="20" type="password">
+                                    </div>-->
+                                </div>
+
+                                <span style="color:red;display: none;" class="tips"></span>
+                                <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                                <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="ufmobilephone" class="col-sm-2 control-label">手机号</label>
+                                <div class="col-sm-10">
+                                    <!--<input type="text" class="form-control" name="phone" id="mobilephone" ng-pattern="/(^$)|^(((\+86)|(86))?1[34578]\d{9})$/" ng-model="selectedUser.mobilephone" placeholder="请输入手机号码" ng-pattern-err-type="BadPhoneNum">-->
+                                    <input type="text" class="form-control" name="ufmobilephone" id="ufmobilephone" ng-pattern="/^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/" ng-model="selectedUser.mobilephone" placeholder="请输入手机号码" ng-pattern-err-type="BadPhoneNum">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ufemail" class="col-sm-2 control-label">默认邮箱</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="ufemail" name="ufemail" ng-model="selectedUser.email" placeholder="请输入默认邮箱">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="uftimeout" class="col-sm-2 control-label">登录时效</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="uftimeout" ng-model="selectedUser.timeout" placeholder="请输入登录时效">
+                                        <span class="input-group-addon">分钟</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender" class="col-sm-2 control-label">性别*</label>
+                                <div class="col-sm-10">
+                                    <select id="gender" class="input-sm form-control" ng-model="selectedUser.gender" required>
+                                        <!--<option value="男">男</option>
+                                        <option value="女">女</option>-->
+                                        <option value="男">男</option>
+                                        <option value="女">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ufusermode" class="col-sm-2 control-label">登录模式*</label>
+                                <div class="col-sm-10">
+                                    <select id="ufusermode" class="input-sm form-control" ng-model="selectedUser.usermode" ng-options='x.id as x.name for x  in userModeOptions' required> </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4" ng-show="userEditForm.ufusername.$valid || isUpdateUifo">
+                            <div class="row">
+                                <div class="col-sm-12" align="center">用户头像</div>
+                                <div class="col-sm-12" align="center">
+                                    <!--enlarge-pic 备用放大方案-->
+                                    <img id="ufphotofilePath"  ng-src="{{selectedUser.photofilePath}}" class="img-rounded img-responsive idCardBack"  ng-click="showIMG(selectedUser.photofilePath)"  alt="请先上传图片">
+                                </div>
+                                <div class="col-sm-12">
+                                    <input type="file" ng-file-model="headPortrait">
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="button" ng-click="fileUpload('ok')">上传头像</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mf">
+                <!--<button type="reset" class="btn btn-danger cancel">重置</button>-->
+                <!--<a class="btn btn-primary" ng-click="hideDialog('userDetailDialog')">取消</a>-->
+                <!--<button type="submit" class="btn btn-primary">保存</button>-->
+                <button type="button" class="btn btn-default btn-close cancel" ng-click="hideDialog('userDetailDialog')">关闭</button>
+                <button type="submit" class="btn btn-primary btn-enter save" ng-click="saveUser()" ng-disabled="formValid(userEditForm)">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="mask" close-Pic>
+    <div class="mask-box"></div>
+    <div class="big-pic-wrap">
+        <img src="" alt="" class="bigPic" />
+        <span class="close-pic"><i class="fa fa-close"></i></span>
+    </div>
+</div>-->
+
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content">
+        <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)">
+
+			<img src="images/zd-anv-01.png">
+        </a>
+        <span class="angular-ui-tree-span">{{node.name}}</span>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+    </ol>
+    <ol ui-tree-nodes="" ng-model="node.posts" ng-class="{hidden: collapsed}">
+        <li ng-repeat="post in node.posts" ui-tree-node>
+            <div ui-tree-handle class="tree-node tree-node-content" ng-click="queryOrgNodeUsersByPid(post,$event)">
+                <span class="angular-ui-tree-span">{{post.name}}</span>
+            </div>
+        </li>
+    </ol>
+</script>
+<script type="text/ng-template" id="dept_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content" ng-click="queryOrgNodeUsersByPid(node,$event)">
+        <a class="btn btn-xs angular-ui-tree-span" data-nodrag ng-click="toggle(this)">
+
+			<img src="images/zd-anv-01.png">
+        </a>
+        <span class="angular-ui-tree-span">{{node.name}}</span>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'dept_renderer.html'"></li>
+    </ol>
+</script>
+
+<div class="modal fade" id="userOrg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered " role="document" style="width: 50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title text-title"><!-- {{selectedUser.name}} --> 组织机构明细</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <div class="row"> -->
+                    <div class="bac-div" style="max-height:70%;overflow-y:auto;">
+                        <div class="div-zzmx">
+                            <!-- <div class="col-md-12" style="background-color: #B18904;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;"> -->
+                                <!-- <div class="bmxx_tit" >
+							      <div class="left"><img src="images/bmxx_tit-02.png">所属部门</div>
+							  	</div> -->
+							  	<span class="text-title">所属部门</span>
+                                <table class="table table-striped  table_zdy_2">
+                                    <thead>
+                                    <tr>
+                                        <th>部门名称</th>
+                                        <th>部门简称</th>
+                                        <th>部门所在地</th>
+                                        <th>联系方式</th>
+                                        <th>部门负责人</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="dept in userOrg.userDepts">
+                                        <td>{{::dept.name}}</td>
+                                        <td>{{::dept.brief}}</td>
+                                        <td>{{::dept.location}}</td>
+                                        <td>{{::dept.contact}}</td>
+                                        <td>{{::dept.principal}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <!-- </div> -->
+                        </div>
+                        <div class="div-zzmx">
+                            <!-- <div class="col-md-12" style="background-color: #B18904;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;"> -->
+                                <!-- <h4>所属岗位</h4> -->
+                                <!-- <div class="bmxx_tit " >
+							      <div class="left"><img src="images/bmxx_tit-02.png">所属岗位</div>
+							  	</div> -->
+							  	<span class="text-title">所属岗位</span>
+                                <table class="table table-striped  table_zdy_2">
+                                    <thead>
+                                    <tr>
+                                        <th>岗位名称</th>
+                                        <th>所属部门</th>
+                                        <th>岗位描述</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="dept in userOrg.userPosts">
+                                        <td>{{::dept.name}}</td>
+                                        <td>{{::dept.dept.name}}</td>
+                                        <td>{{::dept.description}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <!-- </div> -->
+                        </div>
+                        <div class="div-zzmx">
+                            <!-- <div class="col-md-12" style="background-color: #B18904;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;"> -->
+                                <!-- <h4>所属角色</h4> -->
+                                <!-- <div class="bmxx_tit " >
+							      <div class="left"><img src="images/bmxx_tit-02.png">所属角色</div>
+							  	</div> -->
+							  	<span class="text-title">所属角色</span>
+                                <table class="table table-striped  table_zdy_2">
+                                    <thead>
+                                    <tr>
+                                        <th>角色名称</th>
+                                        <th>角色描述</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="dept in userOrg.userRoles">
+                                        <td>{{::dept.name}}</td>
+                                        <td>{{::dept.description}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <!-- </div> -->
+                        </div>
+                        <div class="div-zzmx">
+                            <!-- <div class="col-md-12" style="background-color: #B18904;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;"> -->
+                               <!--  <h4>所属组</h4> -->
+                                <!-- <div class="bmxx_tit " >
+							      <div class="left"><img src="images/bmxx_tit-02.png">所属组</div>
+							  	</div> -->
+							  	<span class="text-title">所属组</span>
+                                <table class="table table-striped  table_zdy_2">
+                                    <thead>
+                                    <tr>
+                                        <th>组名称</th>
+                                        <th>组负责人</th>
+                                        <th>联系方式</th>
+                                        <th>组描述</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="dept in userOrg.userGroups">
+                                        <td>{{::dept.name}}</td>
+                                        <td>{{::dept.principal}}</td>
+                                        <td>{{::dept.contact}}</td>
+                                        <td>{{::dept.describe}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--<editor-fold desc="权限复制模态框">-->
+<div class="modal fade bs-example-modal-lg" id="copyRelationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-lg" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <div class="modal-title text-title">将 {{copyRelationSrcUser.name}} 的授权复制给其他用户</div>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="max-height:75%;overflow-y:auto;"><!-- style="max-height:70%;overflow-y:auto;" -->
+                    <div class="col-md-5">
+                        <!-- <h4>组织机构</h4> -->
+                        <div class="">
+                            <!-- <div class="col-md-2">
+                                <ul class="nav nav-tabs nav-stacked">
+                                    <li ng-class="{active: orgNavType == 'dept'}">
+                                        <a ng-click="orgTreeNavChange('dept')">部门</a>
+                                    </li>
+                                    <li ng-class="{active: orgNavType == 'post'}">
+                                        <a ng-click="orgTreeNavChange('post')">岗位</a>
+                                    </li>
+                                    <li ng-class="{active: orgNavType == 'role'}">
+                                        <a ng-click="orgTreeNavChange('role')">角色</a>
+                                    </li>
+                                    <li ng-class="{active: orgNavType == 'group'}">
+                                        <a ng-click="orgTreeNavChange('group')">组</a>
+                                    </li>
+                                </ul>
+                            </div> -->
+									<form >
+	                                    <div class="form-group" >
+	                                        <input ng-model="treeSK" class="form-control" placeholder="请输入关键字" ng-blur="treeSK=''" type="text" ng-keyup="enterKeyup($event,'initNodes')"/>
+	                                    </div>
+                                    </form>
+                                    <div class="gdt_cont" style="max-height:65%;overflow-y:auto;">
+                                        <div ui-tree id="tree-root" data-drag-enabled="false" ng-show="orgNavType ==='post'">
+                                            <ol ui-tree-nodes="" ng-model="Nodes">
+                                                <li ng-repeat="node in Nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                            </ol>
+                                        </div>
+                                        <div ui-tree id="tree-dept" data-drag-enabled="false" ng-show="orgNavType !=='post'">
+                                            <ol ui-tree-nodes="" ng-model="Nodes">
+                                                <li ng-repeat="node in Nodes" ui-tree-node ng-include="'dept_renderer.html'"></li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                         </div> 
+                    </div>
+
+                    <div class="col-md-7 bac-div" >
+                    		
+                        <span class="text-title">可选用户</span>
+                        <!-- <div class="row" style=" max-height:35%;overflow-y:auto;"> -->
+                            <div class="" style="max-height:65%;overflow-y:auto;"><!-- background-color: #B18904; -->
+                                <table class="table table-striped  table_zdy_2">
+                                    <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>用户名</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="user in copyRelationDbUsers">
+                                        <td>{{::user.name}}</td>
+                                        <td>{{::user.username}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-xs save" ng-click="addUser(user)">新增</button>
+                                            <!--<a class="btn btn-xs " data-nodrag ng-click="addUser(user)">
+                                                <span class="fa fa-plus">新增</span>
+                                            </a>-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <!-- </div> -->
+                        <!-- <h4>已选用户</h4> -->
+                        <div class="" >
+                        	<span class="text-title">已选用户</span>
+                            <div class="" >
+                                <table class="table table-striped  table_zdy_2">
+                                    <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>用户名</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="user in copyRelationDstUsers">
+                                        <td>{{::user.name}}</td>
+                                        <td>{{::user.username}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-xs cancel" ng-click="minusUser(user)">删除</button>
+                                            <!--<a class="btn btn-xs " data-nodrag ng-click="minusUser(user)">
+                                                <span class="fa fa-minus">删除</span>
+                                            </a>-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--单行按钮 下拉 输入组-->
+                <!--
+                <div class="form-group">
+                   <div class="input-group " align="center">
+                        <button type="text" class="form-control" style="width: auto;" disabled>将</button>
+                        <div class="input-group-btn " style="width: auto;">
+                            <select class="form-control" style="width: auto;" ng-model="copyRelationSrcUser" ng-options='x.id as x.name for x  in userList'> </select>
+                        </div>
+                        <button type="text" class="form-control" style="width: auto;" disabled>的授权复制给</button>
+                        <div class="input-group-btn" style="width: auto;">
+                            <select class="form-control" style="width: auto;" ng-model="copyRelationDstUser" ng-options='x.id as x.name for x  in userList'> </select>
+                        </div>
+                </div>
+                    </div>-->
+                <!---->
+            </div>
+            <div class="modal-footer mf">
+                <button type="button" ng-click="copyRelation()" class="btn btn-sm btn-primary save">确定</button>
+                <button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div><!--</editor-fold>-->

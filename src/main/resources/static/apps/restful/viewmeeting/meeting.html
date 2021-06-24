@@ -1,0 +1,24 @@
+<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+	<thead>
+		<tr>
+			<th width="10%">收到日期</th>
+			<th width="20%">发出单位</th>
+			<th width="25%">会议时间</th>
+			<th width="15%">会议地点</th>
+			<th width="30%">会议内容</th>
+			<th width="10%">登录人</th>
+			<th width="10%">当前处理</th>
+			<th width="10%">出席对象</th>
+		</tr>
+	</thead>
+	<tr ng-repeat="proInst in meetingList" ng-click="gotoDetail(proInst)">
+		<td>{{::proInst.receiveDate | limitTo : 10}}</td>
+		<td>{{::proInst.issueUnit}}</td>
+		<td>{{::proInst.meetingTime | limitTo: 16}}{{::proInst.meetingWeekday}}</td>
+		<td>{{::proInst.meetingAddress}}</td>
+		<td style="text-align: left">{{::proInst.meetingContent}}</td>
+		<td>{{::proInst.meetingRegisterPerson}}</td>
+		<td>{{::proInst.currentDealer}}</td>
+		<td>{{::proInst.meetingAttend}}</td>
+	</tr>
+</table>

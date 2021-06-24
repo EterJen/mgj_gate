@@ -1,0 +1,181 @@
+<!--<div>
+	<a href="" class="btn btn-primary" ng-click="showDetailCount()">统计</a>
+</div>-->
+<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+	<thead>
+		<tr>
+			<th class="conllection-first-th"></th>
+			<th class="conllection-first-th">关注</th>
+			<th width="6%">发文日期</th>
+			<th style="white-space: pre-wrap" width="13%">文        号</th>
+			<th style="white-space: pre-wrap" width="60%">标                题</th>
+			<th width="6%">办结日期</th>
+			<th width="5%">状态</th>
+			<th width="4%" ng-show="hasArchiveRole">操作</th>
+		</tr>
+	</thead>
+	<tr ng-repeat="proInst in proInstList"
+		ng-click="gotoDetail(proInst)" ng-class="{current : pro.id == proInst.id}">
+		<td ng-click="cbClick(proInst,$event);$event.stopPropagation();"><input ng-model="proInst.cbChosed"
+				ng-change="cbClick(proInst,$event);$event.stopPropagation();"   type="checkbox"></td>
+		<td id="pop{{proInst.id}}"  ng-click="collectionPros($index);$event.stopPropagation();" title="点击关注"><span ng-class="{'glyphicon glyphicon-bookmark collection' : proInst.collection, 'glyphicon glyphicon-bookmark notCollection' : !proInst.collection}" ></span></td>
+		<td>{{::proInst.createTime | limitTo : 10}}<br>{{::proInst.createTime | limitTo : -8}}</td>
+		<td ng-bind-html="proInst.docFullName | highlight : docNameOrTitle.b"></td>
+		<td style="text-align: left;" ng-bind-html="proInst.title | highlight : docNameOrTitle.b"></td>
+		<td>{{::proInst.finishedDate}}</td>
+		<td>{{::proInst.handleState}}</td>
+		<td ng-show="hasArchiveRole">
+			<button ng-show="proInst.isFinished == 'Finished'" type="button" ng-click="doArchive(proInst);$event.stopPropagation();" class="btn btn-xs btn-primary">归档</button>
+		</td>
+	</tr>
+</table>
+
+
+<div class="modal fade " id="fawenModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">发文查询</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="fawenId" name="fawenId">
+			<div class="form-group">
+				<label for="shouwenNumber" class="col-sm-2 control-label">文号或标题</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="docNameOrTitle.b" id="docNameOrTitle" placeholder="请输入文号或标题">
+				</div>
+			</div>
+		  <div class="form-group">
+		    <label for="shouwenNumber" class="col-sm-2 control-label">发文号</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" ng-model="queryBean.docFullName" id="shouwenNumber" placeholder="请输入发文号">
+		    </div>
+		  <!--  <div class="col-sm-3">
+		      <input type="text" class="form-control" placeholder="请输入发文号">
+		    </div>
+		    <label class="col-sm-1 control-label">号</label>-->
+		  </div>
+		  <div class="form-group">
+		    <label for="fawentitle" class="col-sm-2 control-label">发文标题</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="fawentitle" ng-model="queryBean.title" placeholder="请输入来文字号">
+		    </div>
+		  </div>
+			<div class="form-group" align="center">
+				<label for="formDefId"  class="col-sm-2 control-label">发文分类</label>
+				<div id="formDefId" class="col-sm-10">
+					<select  class="form-control"   ng-model="queryBean.formDefId">
+						<option value="{{f.key}}" ng-selected="0==$index" ng-repeat="f in formDefIds">{{f.val}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" align="center">
+				<label  class="col-sm-2 control-label">发文时间段</label>
+				<div  class="col-sm-5" >
+					<div  ng-model="queryBean.createTimeS"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="ufcreateTime" data-link-format="yyyy-mm-dd hh:ii:ss">
+						<input   class="form-control" ng-model="queryBean.createTimeZh" size="16" type="text" value="" readonly>
+						<input id="ufcreateTime"  ng-model="queryBean.createTime" ng-change="timeChga()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+				<!--<label style="text-align: center" class="col-sm-2 control-label">到</label>-->
+				<div  class="col-sm-5" >
+					<div  ng-model="queryBean.createTimeE"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="ufcreateTimeEnd" data-link-format="yyyy-mm-dd hh:ii:ss">
+						<input   class="form-control" ng-model="queryBean.createTimeEndZh" size="16" type="text" value="" readonly >
+						<input id="ufcreateTimeEnd"  ng-model="queryBean.createTimeEnd" ng-change="timeChgb()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" align="center" >
+				<label for="isFinished"  class="col-sm-2 control-label">是否办结</label>
+				<div id="isFinished" class="col-sm-10">
+					<select  class="form-control"     ng-change="isFinishedChg()"  ng-model="queryBean.isFinished">
+						<option value="{{f.key}}"  ng-selected="0==$index" ng-repeat="f in isFinisheds">{{f.val}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" align="center" ng-show="queryBean.isFinished == 'Finished'">
+				<label  class="col-sm-2 control-label">办结时间段</label>
+				<div  class="col-sm-5" >
+					<div  ng-model="queryBean.finishedDateS"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="uffinishedDate" data-link-format="yyyy-mm-dd hh:ii:ss">
+						<input   class="form-control" ng-model="queryBean.finishedDateZh" size="16" type="text" value="" readonly>
+						<input id="uffinishedDate"  ng-model="queryBean.finishedDate" ng-change="timeChgc()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+				<!--<label style="text-align: center" class="col-sm-2 control-label">到</label>-->
+				<div  class="col-sm-5" >
+					<div  ng-model="queryBean.finishedDateE"  ng-time class="input-group date form_datetime " data-date="" data-date-format="yyyy年mm月dd日 hh:ii:ss" data-link-field="uffinishedDateEnd" data-link-format="yyyy-mm-dd hh:ii:ss">
+						<input   class="form-control" ng-model="queryBean.finishedDateEndZh" size="16" type="text" value="" readonly >
+						<input id="uffinishedDateEnd"  ng-model="queryBean.finishedDateEnd" ng-change="timeChgd()" ng-hide="true"  class="form-control" size="16" type="text" value="" readonly>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+			</div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <div class="checkbox">
+		        <label>
+		          <input ng-model="queryBean.relatedReceiveDocId" type="checkbox"> 必须有收文号
+		        </label>
+		      </div>
+		    </div>
+		  </div>
+		</form>
+      </div>
+	  <div class="modal-footer mf">
+		<button type="button" class="btn btn-sm btn-primary save" ng-click="queryProInstListChangeBean('fawenDW')">确定</button>
+		<button type="button" class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+	  </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade bs-example-modal-lg" id="fawenPrintModal" tabindex="-1" role="dialog" aria-labelledby="mySmallCountModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content" ng-click="printSecretConfirm()">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myCountSituationModalLabel">[{{countformDefIdsObj[orgNavType].situation}}]</h4>
+			</div>
+			<div class="modal-body" id="printTable">
+				<table class="table table-striped  table_zdy_2" style="min-width: 100%;">
+					<thead>
+					<tr>
+						<th width="10%">序号</th>
+						<th width="15%">发文文号</th>
+						<th width="10%">文件标题</th>
+						<th width="10%">签发人</th>
+						<th width="10%">签发日期</th>
+						<th width="10%">主送部门</th>
+					</tr>
+					</thead>
+					<tr ng-repeat="pinstance in countformDefIdsObj.proInstPrintList">
+						<td>{{$index+1}}</td>
+						<td>{{pinstance.docFullName}}</td>
+						<td>{{pinstance.title}}</td>
+						<td >{{pinstance.dbParams.opinion.approverName}}</td>
+						<td >{{pinstance.dbParams.opinion.approveTime | date:'yyyy-MM-dd'}}</td>
+						<td>{{pinstance.theCommonFormInfo[initDetaiTable(pinstance)].sendToMain}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer mf">
+				<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span ><tm-pagination-a conf="paginationPrintConf"></tm-pagination-a></span>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

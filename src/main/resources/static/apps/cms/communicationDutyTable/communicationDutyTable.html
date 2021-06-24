@@ -1,0 +1,290 @@
+<style>
+	.modal-dialog {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.modal-content {
+		/*overflow-y: scroll; */
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.modal-body {
+		/*overflow-y: scroll;*/
+		position: absolute;
+		top: 55px;
+		bottom: 65px;
+		width: 100%;
+	}
+
+	.modal-header .close {
+		margin-right: 15px;
+	}
+
+	.modal-footer {
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+	}
+	.viewModeUser{display: inline-block;color: #051b3b;margin: 10px 10px 0 10px;}
+	.ry_form .active{background: #fe8300 !important;}
+	.bta {
+		background: #e97066;
+		border-bottom: 2px solid #e97066;
+		width: 96px;
+		height: 27px;
+		line-height: 27px;
+		display: inline-block;
+		text-align: center;
+		border-radius: 3px;
+		font-size: 14px;
+		color: #fff !important;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		font-weight: bold;
+		text-decoration: none !important;
+		margin-left: 3px;
+	}
+	/*不可用的确定按钮*/
+	.disabled-button{
+		border-color: #D4D4D4 !important;
+		background-color: #D4D4D4 !important;
+		color: #fff;
+		cursor:not-allowed !important;
+	}
+	.selectedUser{
+		margin-top: 10px;
+		text-align: center;
+		font-size: 18px;
+		font-weight: bold;
+		color: #e97066;
+	}
+	.red-col{
+		/* background: #e9714e !important;
+		color: white !important; */
+		font-weight:bold;color:red;font-style:italic;
+	}
+	.red3-col{
+		
+		font-weight:bold;color:red;font-style:italic;
+	}
+	.red4-col{
+		
+		font-weight:bold;color:red;font-style:italic;
+	}
+	
+</style>
+
+
+<div class="content-wrapper">
+	<section class="content">
+		<div class="panel panel-default" id="currentTaskContent">
+			<div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+				<div class="bmxx_tit" id="depart_tit">
+					<div class="left"><img src="images/bmxx_tit-01.png">
+						<span >
+                      		   通讯报务处值班表
+                          </span>
+					</div>
+
+					<div  class="right user-titleheading" style="width: 50%">
+						<a href="" class="bj" ng-click="fc.getLastMonth()" >上月</a>
+						<a href="" class="bj" ng-click="fc.getNextMonth()" >下月</a>
+						<a href="" class="bj" ng-click="fc.exportMonth()" >导出</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+				<div class="table_shadow" style="overflow:auto; max-height: 98%">
+					<!--<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+						<tr>
+							<td width="65px">名称:</td>
+							<td width="20%">
+								<input type="text" style="width: 100%"  ng-model="queryBean.name"  placeholder="请输入名称">
+							</td>
+							<td>
+								<a href="" class="bta" ng-click="searchGoods()">查找</a>
+							</td>
+						</tr>
+					</table>-->
+
+					<table class="table table-striped  table_zdy_2" style="min-width:100%;">
+						<thead>
+						<tr>
+							<!--<th width="20px"></th>
+							<th class="conllection-first-th" width="35px">
+								<input  type="checkbox" ng-click="checkAllClk()" ng-model="dataObject.selectStorageAll">
+							</th>-->
+
+							<th width="20%">日期</th>
+							<th width="10%">星期</th>
+							<th width="10%">通讯</th>
+							<th width="20%">操作</th>
+							<th width="10%">办报</th>
+							<th width="20%">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="bean in dataObject.beanList"    >
+							<td>{{bean.datelong}}</td>
+							<td ng-class="{'red-col':bean.holiday=='1','red3-col':bean.holiday=='3','red4-col':bean.holiday=='4'}" >{{bean.weekName}}</td>
+							<td>{{bean.user2}}</td>
+							<td>
+
+								<button type="button" class="btn btn-sm btn-primary " title="设置" ng-click="editBean(bean,'userList2',2);$event.stopPropagation();">
+									<span  class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-sm btn-danger " title="删除" ng-click="fc.deletBean(bean,'2');$event.stopPropagation();">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
+								<button type="button"  class="btn btn-sm btn-primary " title="手动修改人员" ng-click="editBean(bean,'manualUserList2',2);$event.stopPropagation();">
+									<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+								</button>
+
+							</td>
+							<td>{{bean.user3}}</td>
+							<td>
+
+								<button type="button" class="btn btn-sm btn-primary " title="设置"  ng-click="editBean(bean,'userList3',3);$event.stopPropagation();">
+									<span  class="glyphicon glyphicon-user"  aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-sm btn-danger " title="删除" ng-click="fc.deletBean(bean,'3');$event.stopPropagation();">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
+								<button type="button"  class="btn btn-sm btn-primary " title="手动修改人员" ng-click="editBean(bean,'manualUserList3',3);$event.stopPropagation();">
+									<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+								</button>
+
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<!--<div class="ceter_p" id="ceter_p">
+					<div class="ceter_s">
+						<span  class=""><tm-pagination conf="paginationConf"></tm-pagination></span>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</section>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="userList2" tabindex="-1" role="dialog" aria-labelledby="myModalCreatDepartment">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content"   style="height: 176px;
+    margin: auto;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" style="font-size: 14px;" id="myModalCreatDepartment">请选择值班人姓名(系统根据选择人员所在队列自动更新排班表)</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group col-xs-12">
+						<select  class="input-sm form-control"  ng-model="fc.currentSelectDuty.user2"  ng-options='x.name as x.name for x in fc.userList' required>
+                         
+                         </select>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer mf">
+				<button class="btn btn-sm btn-primary save" ng-click="saveUserInDuty('userList2',2)">确定</button>
+				<button class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="userList3" tabindex="-1" role="dialog" aria-labelledby="myModalCreatDepartment">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content"   style="height: 176px;
+    margin: auto;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" style="font-size: 14px;" id="myModalCreatDepartment">请选择值班人姓名(系统根据选择人员所在队列自动更新排班表)</h4>
+			</div>
+			
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group col-xs-12">
+						<select  class="input-sm form-control"  ng-model="fc.currentSelectDuty.user3"  ng-options='x.name as x.name for x in fc.userList' required>
+                         
+                         </select>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer mf">
+				<button class="btn btn-sm btn-primary save" ng-click="saveUserInDuty('userList3',3)">确定</button>
+				<button class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="manualUserList2" tabindex="-1" role="dialog" aria-labelledby="myModalCreatDepartment">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content"   style="height: 176px;
+    margin: auto;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" style="font-size: 14px;" id="myModalCreatDepartment">请输入值班人姓名(修改当前人员信息)</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group col-xs-12">
+                          <input type="text" class="form-control" ng-model="fc.currentSelectDuty.user2" maxlength="10" placeholder="请输入姓名" />
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer mf">
+				<button class="btn btn-sm btn-primary save" ng-click="updateUserInDuty('manualUserList2',2)">确定</button>
+				<button class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="manualUserList3" tabindex="-1" role="dialog" aria-labelledby="myModalCreatDepartment">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content"   style="height: 176px;
+    margin: auto;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" style="font-size: 14px;" id="myModalCreatDepartment">请输入值班人姓名(修改当前人员信息)</h4>
+			</div>
+			
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group col-xs-12">
+						
+                         <input type="text" class="form-control" ng-model="fc.currentSelectDuty.user3" maxlength="10" placeholder="请输入姓名" />
+                         
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer mf">
+				<button class="btn btn-sm btn-primary save" ng-click="updateUserInDuty('manualUserList3',3)">确定</button>
+				<button class="btn btn-sm btn-default cancel" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

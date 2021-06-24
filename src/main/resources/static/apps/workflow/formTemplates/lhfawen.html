@@ -1,0 +1,99 @@
+<style>
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid silver
+    }
+
+    .hideslb {
+        overflow-y: hidden;
+    }
+
+    .showslb {
+        overflow-y: auto;
+    }
+
+    legend {
+        padding: .5em;
+        border: 0;
+        width: auto
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+</style>
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td align="center" class="td03" style="height: 134px">
+            <p class="GwTitleRedLargeBigSF" align="center" style="display:inline;letter-spacing:-7px;">
+                <font face="方正姚体">联合发文单</font>
+            </p>
+        </td>
+    </tr>
+</table>
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="10%" class="td04">登录:
+        </td>
+        <td width="43%" class="td05">
+            <input name="登录" ng-model="task.theCommonFormInfo.belongProInst.denluPerson"  type="text"
+                   class="Inputhidden01" onMouseOver="this.className='Inputhidden01Hover'" onMouseOut="this.className='Inputhidden01'" value=""
+                   size="28" style=";width: 100%">
+        </td>
+        <td width="13%" class="td04">登录日期:
+        </td>
+        <td width="38%" class="td05">
+            <input id="denluTime" data-link-field="denluTimeb" ng-model="task.theCommonFormInfo.belongProInst.denluTime" ng-time style="width: 0;"
+                   name="登录日期" data-link-format="yyyy-mm-dd" data-date-format="yyyy-mm-dd hh:ii:ss" type="text" class="Inputhidden01 form_date_tr">
+            <input  focus-hiden="denluTime" id="denluTimeb" value="{{task.theCommonFormInfo.belongProInst.denluTime|limitTo:10}}"
+                   type="text" size="12" onMouseOver="this.className='Inputhidden01Hover'"
+                   onMouseOut="this.className='Inputhidden01'" class="Inputhidden01">
+        </td>
+    </tr>
+</table>
+
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td width="65" class="td04">发文字号:
+        </td>
+        <td width="515" class="td05">
+            <input name="发文字号"  ng-model="task.theCommonFormInfo.belongProInst.docFullName" type="text" class="Inputhidden01" style="width: 100%;height: 100%;" size="150"  >
+        </td>
+    </tr>
+</table>
+
+
+<table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td colspan="2" class="td04">标 题：
+        </td>
+    </tr>
+    <tr>
+        <td height="60" valign="top" class="td05">
+            <textarea name="标题" ng-model="task.theCommonFormInfo.belongProInst.title" class="InputHidden01 "  style="resize:none; width: 100%;height: 100%;"></textarea>
+        </td>
+    </tr>
+</table>
+<table style="width:100%; height: 613px"  border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+
+

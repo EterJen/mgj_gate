@@ -1,0 +1,189 @@
+<div class="content-wrapper">
+    <section class="content mng-content">
+        <div class="panel  panel-default">
+            <div id="panel-heading" class="panel-heading" style="background-color: white;margin-right: 15px;margin-left: 15px;padding-top: 15px;">
+                <div class="bmxx_tit" id="depart_tit">
+                    <div class="left">
+                        <img src="images/bmxx_tit-01.png">
+                        <span>
+                      		   友情链接管理
+                          </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel-body mng-panel-body fixedHeight" id="panel-body-table" style="padding-right: 15px;/*height: 100%*/">
+                <div class="mng-panel-t1c gdt_cont fixedHeight " style="padding-right: 0; padding-left: 0;">
+                    <div ui-tree id="tree-root" data-drag-enabled="false" class="tree-root">
+                        <ol ui-tree-nodes="" ng-model="dataObject.dicTypeList">
+                            <li ng-repeat="mode in dataObject.dicTypeList" ui-tree-node ng-include="'modes_renderer.html'"></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="mng-panel-t0rc ">
+                    <div class="mng-panel-t1rc-t1">
+                        <table style="width:100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblGw01">
+                            <tr>
+
+                                <td width="65px">类型:</td>
+                                <td width="160px">
+                                    <select class="input-sm" ng-change="firstPageQuery()" style="width: 100%" ng-model="queryBean.category" ng-options="x.val as x.zh for x in linkTypes"></select>
+                                </td>
+                                <td width="15px"></td>
+                                <td width="65px">名称:</td>
+                                <td width="15%">
+                                    <input type="text" style="width: 100%" ng-model="queryBean.titleLike" placeholder="按名称模糊搜索">
+                                </td>
+
+                                <td>
+                                    <button style="margin-left: 10px" href="" class=" btnn-sm" ng-click="firstPageQuery()">查询</button>
+                                    <button href="" class=" btnn-sm" ng-click="addBean()">新增</button>
+                                    <button href="" class=" btnn-sm" ng-click="changeSort()">调整排序</button>
+                                    <button href="" class=" btnn-sm" ng-disabled="!batchDelAble" ng-click="!batchDelAble || batchDel()">删除选中</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mng-panel-01rc-t2  ">
+                        <table class="table table-striped table_shadow  table_zdy_2" style="min-width:100%;">
+                            <thead>
+                            <tr>
+                                <th class="conllection-first-th" width="35px">
+                                    <input  type="checkbox" ng-click="beanListCkAll()" ng-model="beanListCk">
+                                </th>
+                                <th width="12%">友情链接类别</th>
+                                <th>名称</th>
+                                <th width="45%">地址</th>
+                                <th width="10%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="bean in beanList">
+                                <td>
+                                    <input  type="checkbox" ng-click="checkOne(bean)" ng-model="bean.ngChecked">
+                                </td>
+                                <td style="text-align: left">
+                                    {{ableLinkTypesMap[bean.category]}}
+                                </td>
+                                <td style="text-align: left">{{::bean.name}}</td>
+
+                                <td  style="text-align: left">{{::bean.link}}</td>
+                                <td style="text-align: center">
+                                    <button type="button" class="btn btn-sm btn-danger " title="删除" ng-click="deletBean(bean);$event.stopPropagation();">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary " ng-click="updateBean(bean)" title="编辑">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="mng-pagelist">
+                            <div>
+                                <tm-pagination conf="paginationConf"></tm-pagination>
+                            </div>
+                            </diva>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="modal middlemodal fade bs-example-modal-lg" id="updateSortModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" >{{addOrUpdateBean.modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class=" form-horizontal"  >
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">友情链接类别
+                        </label>
+                        <div class="col-sm-10">
+                            <select class="input-sm" ng-change="updateSortQuery()" style="width: 100%" ng-model="updateSortQueryBean.category" ng-options="x.val as x.zh for x in ableLinkTypes"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">当前排序
+                        </label>
+                        <div class="col-sm-10">
+                            <table class="table table-striped table_shadow  table_zdy_2" style="min-width:100%;">
+                                <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <th width="10%">排序值</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="bean in updateSortList">
+                                    <td style="text-align: left">{{bean.name}}</td>
+                                    <td style="text-align: left">
+                                        <select class="input-sm" ng-change="newSortChange(bean)"  style="width: 100%" ng-model="bean.newSortNumber" ng-options="x as x for x in updateSortIdxs"></select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="submit"  class="btn btn-sm btn-primary save" ng-click="updateBatch()">确定</button>
+                <button type="button" class="btn btn-default btn-close cancel" data-dismiss="modal" aria-label="Close">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal middlemodal fade bs-example-modal-lg" id="addOrUpdateModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalDocument">{{addOrUpdateBean.modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class=" form-horizontal" id="addOrUpdateForm" name="addOrUpdateForm">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">友情链接类别
+                            <font color="red">*</font>
+                        </label>
+                        <div class="col-sm-10">
+                            <select class="input-sm"  style="width: 100%" ng-model="addOrUpdateBean.category" ng-options="x.val as x.zh for x in ableLinkTypes"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">名称
+                            <font color="red">*</font>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="addOrUpdateBean.name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地址
+                            <font color="red">*</font>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="addOrUpdateBean.link" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="submit" ng-disabled="addOrUpdateForm.$invalid" class="btn btn-sm btn-primary save" ng-click="addOrUpdateForm.$invalid || addBeanCommit()">确定</button>
+                <button type="button" class="btn btn-default btn-close cancel" data-dismiss="modal" aria-label="Close">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
